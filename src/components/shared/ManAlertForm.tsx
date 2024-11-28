@@ -51,7 +51,7 @@ export default function Filling() {
 
     reset();
 
-    window.location.href = `/Man/Alert/${formData.id
+    window.location.href = `/Man/vn/Alert/${formData.id
       .replace(/[/\s]/g, '-')
       .toUpperCase()}`;
 

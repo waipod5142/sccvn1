@@ -217,7 +217,7 @@ const Filling: React.FC<FillingProps> = ({
                       choices={
                         bu === 'vn'
                           ? choices
-                          : bu === 'th'
+                          : bu === 'lbm'
                           ? choicesTH
                           : bu === 'cmic'
                           ? choicesCMIC

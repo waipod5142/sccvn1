@@ -229,6 +229,10 @@ export const machineTitles: { [key: string]: string } = {
   //LK
   lkheavy: 'Heavy Vehicle',
   lkforklift: 'Forklift',
+  //LBM
+  lbmforklift: 'Forklift',
+  lbmfrontend: 'Frontend Loader',
+  lbmextinguisher: 'Fire Extinguisher',
 };
 
 export const dailyEquipment = [

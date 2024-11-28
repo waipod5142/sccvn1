@@ -82,8 +82,12 @@ const Home: React.FC = () => {
             <td className="border border-gray-300 p-2">cableTr_all</td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">backup</td>
-            <td className="border border-gray-300 p-2"></td>
+            <td className="border border-gray-300 p-2 text-rose-500">
+              new by Plant Function
+            </td>
+            <td className="border border-gray-300 p-2 text-rose-500">
+              foamTr_all
+            </td>
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2" rowSpan={5}>
@@ -108,17 +112,23 @@ const Home: React.FC = () => {
             <td className="border border-gray-300 p-2">cctvTr_get</td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">backup</td>
-            <td className="border border-gray-300 p-2"></td>
+            <td className="border border-gray-300 p-2 text-rose-500">
+              new by Subdivision
+            </td>
+            <td className="border border-gray-300 p-2 text-rose-500">
+              foamTr_get
+            </td>
           </tr>
           <tr className="border border-gray-300">
             <td className="bg-rose-200 border border-gray-300 p-2" rowSpan={8}>
               All transaction to view Map and Graph
             </td>
-            <td className="border border-gray-300 p-2">
+            <td className="border border-gray-300 p-2 text-rose-500">
               daily/monthly/quaterly
             </td>
-            <td className="border border-gray-300 p-2">vehicle_all</td>
+            <td className="border border-gray-300 p-2 text-rose-500">
+              vehicle_all
+            </td>
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">backup</td>

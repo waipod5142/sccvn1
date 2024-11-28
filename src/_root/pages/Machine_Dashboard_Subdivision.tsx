@@ -95,26 +95,28 @@ const VehicleInspectionPage: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // const res = await axios.get(
+        //   `${http}${
+        //     period === 'daily'
+        //       ? 'cableTr_one' //by Owner
+        //       : period === 'monthly'
+        //       ? 'cctvTr_all' //by Area
+        //       : period === 'quarterly'
+        //       ? 'cctvTr_one' //by Department
+        //       : period === 'annually'
+        //       ? 'cctvTr_get' //by Department
+        //       : period === 'toolbox'
+        //       ? 'man_dash'
+        //       : period === 'pra'
+        //       ? 'man_all'
+        //       : period === 'alert'
+        //       ? 'cableTr_all'
+        //       : period
+        //   }`,
         const res = await axios.get(
-          `${http}${
-            period === 'daily'
-              ? 'cableTr_one' //by Owner
-              : period === 'monthly'
-              ? 'cctvTr_all' //by Area
-              : period === 'quarterly'
-              ? 'cctvTr_one' //by Department
-              : period === 'annually'
-              ? 'cctvTr_get' //by Department
-              : period === 'toolbox'
-              ? 'man_dash'
-              : period === 'pra'
-              ? 'man_all'
-              : period === 'alert'
-              ? 'cableTr_all'
-              : period
-          }`,
-          // const res = await axios.get(
           //   `https://rxizbgpox9.execute-api.ap-southeast-1.amazonaws.com/machine_dashboard_subdivision`,
+          `${http}foamTr_get`,
+
           {
             params: {
               bu,
@@ -351,7 +353,9 @@ const VehicleInspectionPage: React.FC = () => {
       <header className="text-center m-4">
         <h1 className="text-4xl font-bold flex">
           <img
-            src={`/assets/icons/${bu}.svg`}
+            src={`/assets/icons/${
+              bu && ['lbm', 'rmx', 'iagg', 'srb', 'ieco'].includes(bu) && 'th'
+            }.svg`}
             className="mr-2 md:w-10 md:h-10 w-16 h-16"
             alt="flag"
           />

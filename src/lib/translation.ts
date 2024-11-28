@@ -1,6 +1,6 @@
 export const inspector: { [key: string]: string } = {
   vn: 'Người kiểm tra',
-  th: 'ผู้ตรวจสอบ',
+  lbm: 'ผู้ตรวจสอบ',
   cmic: 'អ្នកត្រួតពិនិត្យ',
   lk: 'පරික්ෂකයා',
   bd: 'পরিদর্শক',
@@ -8,7 +8,7 @@ export const inspector: { [key: string]: string } = {
 
 export const howto: { [key: string]: string } = {
   vn: 'Cách kiểm tra',
-  th: 'วิธีตรวจสอบ',
+  lbm: 'วิธีตรวจสอบ',
   cmic: 'វិធីសាស្រ្តពិនិត្យ',
   lk: 'පරික්ෂා කිරීමේ ක්‍රමය',
   bd: 'পরীক্ষার পদ্ধতি',
@@ -16,7 +16,7 @@ export const howto: { [key: string]: string } = {
 
 export const accept: { [key: string]: string } = {
   vn: 'Tiêu chuẩn chấp nhận',
-  th: 'เกณฑ์การยอมรับ',
+  lbm: 'เกณฑ์การยอมรับ',
   cmic: 'លក្ខណៈសម្បត្តិនៃការទទួលយក',
   lk: 'පිළිගැනීම් ප්‍රමිතිය',
   bd: 'গৃহীত মানদণ্ড',
@@ -24,7 +24,7 @@ export const accept: { [key: string]: string } = {
 
 export const remarkr: { [key: string]: string } = {
   vn: 'Ghi chú cho câu hỏi này',
-  th: 'หมายเหตุสำหรับคำถามนี้',
+  lbm: 'หมายเหตุสำหรับคำถามนี้',
   cmic: 'ចំណាំសម្រាប់សំណួរនេះ',
   lk: 'මෙම ප්‍රශ්නය සඳහා සටහන',
   bd: 'এই প্রশ্নটির জন্য মন্তব্য',
@@ -32,7 +32,7 @@ export const remarkr: { [key: string]: string } = {
 
 export const remark: { [key: string]: string } = {
   vn: 'Ghi chú (Tùy chọn)',
-  th: 'หมายเหตุ (ไม่บังคับ)',
+  lbm: 'หมายเหตุ (ไม่บังคับ)',
   cmic: 'ចំណាំ (ជាជម្រើស)',
   lk: 'සටහන (විකල්ප)',
   bd: 'মন্তব্য (ঐচ্ছিক)',
@@ -40,7 +40,7 @@ export const remark: { [key: string]: string } = {
 
 export const picture: { [key: string]: string } = {
   vn: 'Đính kèm hình ảnh (Tùy chọn)',
-  th: 'แนบรูปภาพ (ไม่บังคับ)',
+  lbm: 'แนบรูปภาพ (ไม่บังคับ)',
   cmic: 'ភ្ជាប់រូបភាព (ជាជម្រើស)',
   lk: 'පින්තූරයක් අමුණන්න (විකල්ප)',
   bd: 'ছবি সংযুক্ত করুন (ঐচ্ছিক)',
@@ -48,7 +48,7 @@ export const picture: { [key: string]: string } = {
 
 export const submit: { [key: string]: string } = {
   vn: 'Gửi đi',
-  th: 'ส่ง',
+  lbm: 'ส่ง',
   cmic: 'ដាក់ស្នើ',
   lk: 'යවන්න',
   bd: 'জমা দিন',

@@ -26,15 +26,7 @@ const NavLinks: React.FC<NavLinksProps> = ({ open, setOpen }) => {
             >
               <img
                 src={`/assets/icons/${
-                  [
-                    'RMX',
-                    'IAGG',
-                    'IECO',
-                    'SRB',
-                    'CWT',
-                    'Mortar',
-                    'ISUB',
-                  ].includes(link.name)
+                  ['RMX', 'IAGG', 'IECO', 'SRB', 'LBM'].includes(link.name)
                     ? 'th'
                     : link.name.toLowerCase()
                 }.svg`}

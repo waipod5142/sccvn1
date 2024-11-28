@@ -40,7 +40,7 @@ export const links = [
         sublink: [
           { name: 'Summary', link: '/DashboardTotal/lk' },
           { name: 'Daily', link: '/Dashboard_Subdivision/lk/daily' },
-          // { name: 'Monthly', link: '/Dashboard_Subdivision/vn/monthly' },
+          { name: 'Monthly', link: '/Dashboard_Subdivision/lk/monthly' },
           // { name: 'Quarterly', link: '/Dashboard_Subdivision/vn/quarterly' },
           // { name: 'Annually', link: '/Dashboard_Subdivision/vn/annually' },
         ],
@@ -168,7 +168,7 @@ export const links = [
     ],
   },
   {
-    name: 'CWT',
+    name: 'LBM',
     submenu: true,
     sublinks: [
       {
@@ -182,9 +182,9 @@ export const links = [
       {
         Head: 'Machine',
         sublink: [
-          // { name: 'Summary', link: '/DashboardTotal/bd' },
-          // { name: 'Daily', link: '/Dashboard_Subdivision//daily' },
-          // { name: 'Monthly', link: '/Dashboard_Subdivision/vn/monthly' },
+          { name: 'Summary', link: '/DashboardTotal/lbm' },
+          { name: 'Daily', link: '/Dashboard_Subdivision/lbm/daily' },
+          { name: 'Monthly', link: '/Dashboard_Subdivision/lbm/monthly' },
           // { name: 'Quarterly', link: '/Dashboard_Subdivision/vn/quarterly' },
           // { name: 'Annually', link: '/Dashboard_Subdivision/vn/annually' },
         ],

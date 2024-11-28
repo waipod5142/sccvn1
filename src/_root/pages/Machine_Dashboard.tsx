@@ -78,27 +78,27 @@ const VehicleInspectionPage: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // const res = await axios.get(
+        //   `${http}${
+        //     period === 'daily'
+        //       ? 'vehicle_dash'
+        //       : period === 'monthly'
+        //       ? 'extinguisher_dash'
+        //       : period === 'quarterly'
+        //       ? 'equipment_dash'
+        //       : period === 'annually'
+        //       ? 'mobileTr_all'
+        //       : period === 'toolbox'
+        //       ? 'man_dash'
+        //       : period === 'pra'
+        //       ? 'man_all'
+        //       : period === 'alert'
+        //       ? 'cableTr_all'
+        //       : period
+        //   }`,
         const res = await axios.get(
-          `${http}${
-            period === 'daily'
-              ? 'vehicle_dash'
-              : period === 'monthly'
-              ? 'extinguisher_dash'
-              : period === 'quarterly'
-              ? 'equipment_dash'
-              : period === 'annually'
-              ? 'mobileTr_all'
-              : period === 'toolbox'
-              ? 'man_dash'
-              : period === 'pra'
-              ? 'man_all'
-              : period === 'alert'
-              ? 'cableTr_all'
-              : period
-          }`,
-          //this have problem
-          // const res = await axios.get(
           //   `https://y3rpqkb3x2.execute-api.ap-southeast-1.amazonaws.com/machine_dashboard`,
+          `${http}foamTr_all`,
           {
             params: {
               bu,
@@ -187,8 +187,6 @@ const VehicleInspectionPage: React.FC = () => {
       console.error('Error fetching vehicle details:', error);
     }
   };
-
-  console.log(vehicleData);
 
   // OpenDefecte
   const calculateOpenDefected = () => {
@@ -329,7 +327,9 @@ const VehicleInspectionPage: React.FC = () => {
       <header className="text-center m-4">
         <h1 className="text-4xl font-bold flex">
           <img
-            src={`/assets/icons/${bu}.svg`}
+            src={`/assets/icons/${
+              bu && ['lbm', 'rmx', 'iagg', 'srb', 'ieco'].includes(bu) && 'th'
+            }.svg`}
             className="mr-2 md:w-10 md:h-10 w-16 h-16"
             alt="flag"
           />
