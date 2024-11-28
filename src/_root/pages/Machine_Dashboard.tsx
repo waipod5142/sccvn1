@@ -78,27 +78,24 @@ const VehicleInspectionPage: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const res = await axios.get(
-        //   `${http}${
-        //     period === 'daily'
-        //       ? 'vehicle_dash'
-        //       : period === 'monthly'
-        //       ? 'extinguisher_dash'
-        //       : period === 'quarterly'
-        //       ? 'equipment_dash'
-        //       : period === 'annually'
-        //       ? 'mobileTr_all'
-        //       : period === 'toolbox'
-        //       ? 'man_dash'
-        //       : period === 'pra'
-        //       ? 'man_all'
-        //       : period === 'alert'
-        //       ? 'cableTr_all'
-        //       : period
-        //   }`,
         const res = await axios.get(
-          //   `https://y3rpqkb3x2.execute-api.ap-southeast-1.amazonaws.com/machine_dashboard`,
-          `${http}foamTr_all`,
+          `${http}${
+            period === 'daily'
+              ? 'foamTr_all'
+              : period === 'monthly'
+              ? 'foamTr_all'
+              : period === 'quarterly'
+              ? 'foamTr_all'
+              : period === 'annually'
+              ? 'foamTr_all'
+              : period === 'toolbox'
+              ? 'man_dash'
+              : period === 'pra'
+              ? 'man_all'
+              : period === 'alert'
+              ? 'cableTr_all'
+              : period
+          }`,
           {
             params: {
               bu,

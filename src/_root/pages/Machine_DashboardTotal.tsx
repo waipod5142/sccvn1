@@ -355,8 +355,22 @@ const DataTable: React.FC = () => {
 
   return (
     <div className="p-8">
+      <header className="text-center m-4">
+        <h1 className="text-4xl font-bold flex">
+          <img
+            src={`/assets/icons/${
+              bu && ['lbm', 'rmx', 'iagg', 'srb', 'ieco'].includes(bu)
+                ? 'th'
+                : bu
+            }.svg`}
+            className="mr-2 md:w-10 md:h-10 w-16 h-16"
+            alt="flag"
+          />
+          {bu?.toUpperCase()}
+        </h1>
+      </header>
       <h1 className="text-2xl font-bold mb-6 text-gray-900">
-        Combined Data Table (daily, monthly, quarterly, annually)
+        Combined daily, monthly, quarterly, annually
       </h1>
       {renderTable('daily', data.daily)}
       {renderTable('monthly', data.monthly)}

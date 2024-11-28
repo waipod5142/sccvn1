@@ -57,6 +57,8 @@ export const loadQuestions = async (
       return import('@/lib/dataLKheavy');
     case 'lk_Forklift':
       return import('@/lib/dataLKforklift');
+    case 'lk_Extinguisher':
+      return import('@/lib/dataLKextinguisher');
     case 'bd_Bulk':
       return import('@/lib/dataBDbulk');
     case 'lbm_Extinguisher':
