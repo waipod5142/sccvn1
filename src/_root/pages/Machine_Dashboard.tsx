@@ -328,7 +328,9 @@ const VehicleInspectionPage: React.FC = () => {
         <h1 className="text-4xl font-bold flex">
           <img
             src={`/assets/icons/${
-              bu && ['lbm', 'rmx', 'iagg', 'srb', 'ieco'].includes(bu) && 'th'
+              bu && ['lbm', 'rmx', 'iagg', 'srb', 'ieco'].includes(bu)
+                ? 'th'
+                : bu
             }.svg`}
             className="mr-2 md:w-10 md:h-10 w-16 h-16"
             alt="flag"

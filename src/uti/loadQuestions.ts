@@ -61,6 +61,10 @@ export const loadQuestions = async (
       return import('@/lib/dataBDbulk');
     case 'lbm_Extinguisher':
       return import('@/lib/dataLBMextinguisher');
+    case 'lbm_Forklift':
+      return import('@/lib/dataLBMforklift');
+    case 'lbm_Frontend':
+      return import('@/lib/dataLBMfrontend');
     default:
       throw new Error('Unknown machine type');
   }
