@@ -29,17 +29,6 @@ export const questions = [
   },
 ];
 
-export const headerFields = [
-  { field: 'id', label: 'ID' },
-  { field: 'department', label: 'Department' },
-  { field: 'type', label: 'Type' },
-  { field: 'site', label: 'Site' },
-  { field: 'personIncharge', label: 'Person In Charge' },
-  { field: 'manufacturingDate', label: 'Manufacturing Date' },
-  { field: 'remark', label: 'Remark' },
-  { field: 'email', label: 'E-Mail' },
-];
-
 export const detailFields = [
   { field: 'id', label: 'ID' },
   { field: 'date', label: 'Ngày Date' },

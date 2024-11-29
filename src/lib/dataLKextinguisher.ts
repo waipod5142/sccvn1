@@ -62,47 +62,6 @@ export const questions = [
   },
 ];
 
-export const headerFields = [
-  { field: 'id', label: 'උපකරණ අංකය' },
-  { field: 'site', label: 'ස්ථානය' },
-  { field: 'kind', label: 'උසසීමේ වර්ගය Kind of Lifting' },
-  { field: 'area', label: 'ප්‍රදේශය Area' },
-  { field: 'swl', label: 'ආරක්ෂිත වැඩබලන බර (SWL) (ටොන්)' },
-  { field: 'operateBy', label: 'ක්‍රියා කරන අය' },
-  {
-    field: 'latestInspection',
-    label: 'අවසන් පරීක්ෂාව Latest Inspection 3rd Party',
-  },
-  {
-    field: 'nextInspection',
-    label: 'ඊළඟ පරීක්ෂාව next Inspection 3rd Party',
-  },
-  {
-    field: 'installDiameter',
-    label: 'සවිකරන කේබල් විෂ්කම්භය Cable diameter installing (mm)',
-  },
-  {
-    field: 'actualDiameter',
-    label: 'ව්‍යාපෘතික කේබල් විෂ්කම්භය Cable diameter actual measure (mm)',
-  },
-  { field: 'tolerance', label: 'ඉවසීම Tolerance (mm)' },
-  { field: 'result', label: 'ප්‍රතිඵලය Result' },
-  {
-    field: 'internalInspector',
-    label: 'අභ්‍යන්තර පරීක්ෂකයා Internal Inspector',
-  },
-  { field: 'remarks', label: 'සටහන Remarks' },
-  { field: 'owner', label: 'අයිතිකරු Owner' },
-  { field: 'no', label: 'අංකය No' },
-  { field: 'etype', label: 'උපකරණ වර්ගය Equipment Type' },
-  { field: 'esite', label: 'උපකරණ ස්ථානය Equipment Site' },
-  { field: 'place', label: 'ස්ථානය Place' },
-  { field: 'location', label: 'පිහිටුම Location' },
-  { field: 'type', label: 'වර්ගය Type' },
-  { field: 'cableDiameter', label: 'කේබල් විෂ්කම්භය Cable Diameter' },
-  { field: 'email', label: 'වගකීම භාරකරු Responsible person' },
-];
-
 export const detailFields = [
   { field: 'id', label: 'ID' },
   { field: 'date', label: 'දිනය Date' },

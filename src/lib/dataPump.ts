@@ -32,47 +32,6 @@ export const questions = [
   },
 ];
 
-export const headerFields = [
-  { field: 'id', label: 'Mã số thiết bị' },
-  { field: 'site', label: 'Site' },
-  { field: 'kind', label: 'Loại máy nâng Kind of Lifting' },
-  { field: 'area', label: 'Khu vực Area' },
-  { field: 'swl', label: 'Tải trọng LV an toàn (SWL) (Ton)' },
-  { field: 'operateBy', label: 'Operate By' },
-  {
-    field: 'latestInspection',
-    label: 'Ngày kiểm định gần nhất Latest Inspection 3rd Party',
-  },
-  {
-    field: 'nextInspection',
-    label: 'Ngày kiểm định lần tới next Inspection 3rd Party',
-  },
-  {
-    field: 'installDiameter',
-    label: 'Đường kính cáp tiêu chuẩn Cable diameter installing (mm)',
-  },
-  {
-    field: 'actualDiameter',
-    label: 'Đường kính cáp đo thực tế Cable diameter actual measure (mm)',
-  },
-  { field: 'tolerance', label: 'Độ sai lệch Tolerance (mm)' },
-  { field: 'result', label: 'Kết quả Result' },
-  {
-    field: 'internalInspector',
-    label: 'Người kiểm tra nội bộ Internal Inspector',
-  },
-  { field: 'remarks', label: 'Ghi chú Remarks' },
-  { field: 'owner', label: 'Chủ sở hữu Owner' },
-  { field: 'no', label: 'Số No' },
-  { field: 'etype', label: 'Loại thiết bị Equipment Type' },
-  { field: 'esite', label: 'Trang web Equipment Site' },
-  { field: 'place', label: 'Địa điểm Place' },
-  { field: 'location', label: 'Vị trí Location' },
-  { field: 'type', label: 'Loại Type' },
-  { field: 'cableDiameter', label: 'Đường kính cáp Cable Diameter' },
-  { field: 'email', label: 'Responsible person' },
-];
-
 export const detailFields = [
   { field: 'id', label: 'ID' },
   { field: 'date', label: 'Ngày Date' },

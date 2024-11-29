@@ -134,24 +134,6 @@ export const questions = [
   },
 ];
 
-export const headerFields = [
-  { field: 'id', label: 'ID' },
-  { field: 'type', label: 'Type' },
-  { field: 'responsibility', label: 'Responsible By' },
-  { field: 'registerDate', label: 'RegistrationDate' },
-  { field: 'bu', label: 'BU' },
-  { field: 'brand', label: 'Brand' },
-  { field: 'capacity', label: 'Capacity' },
-  { field: 'engineNo', label: 'Engine No' },
-  { field: 'status', label: 'Status' },
-  { field: 'no', label: 'No' },
-  { field: 'model', label: 'Model' },
-  { field: 'holder', label: 'Holder' },
-  { field: 'horsepower', label: 'Hose Power' },
-  { field: 'expDate', label: 'Expire Date' },
-  { field: 'sub_bu', label: 'Sub BU' },
-];
-
 export const detailFields = [
   { field: 'inspector', label: 'পরিদর্শক - Inspector' },
   { field: 'date', label: 'তারিখঃ - Date' },

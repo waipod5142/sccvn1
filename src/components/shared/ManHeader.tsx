@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Man } from '@/lib/typeMan';
 import { QRCodeSVG } from 'qrcode.react';
-import { loadQuestions } from '@/uti/loadQuestionsMan';
+import { loadHeader } from '@/uti/loadHeaderMan';
 import { Link } from 'react-router-dom';
 
 interface HeaderComponentProps {
@@ -21,15 +21,30 @@ const Header = ({ bu, data, man }: HeaderComponentProps) => {
   useEffect(() => {
     const fetchHeaderFields = async () => {
       try {
-        const { headerFields } = await loadQuestions(bu, man);
-        setHeaderFields(headerFields);
+        let adjustedBu = bu; // Default to the original `bu`
+
+        // Check if `bu` is one of 'srb', 'lbm', or 'rmx' and set it to 'th'
+        if (
+          bu === 'srb' ||
+          bu === 'lbm' ||
+          bu === 'rmx' ||
+          bu === 'iagg' ||
+          bu === 'ieco'
+        ) {
+          adjustedBu = 'th';
+        }
+
+        if (adjustedBu) {
+          const fields = await loadHeader(adjustedBu); // Fetch header fields dynamically
+          setHeaderFields(fields);
+        }
       } catch (error) {
         console.error('Error loading header fields:', error);
       }
     };
 
     fetchHeaderFields();
-  }, [bu, man]);
+  }, [bu]);
 
   if (!data) {
     return <div />;
