@@ -11,11 +11,10 @@ import DashboardAlert from '@/_root/pages/Man_DashboardAlert';
 import MachineAuth from '@/_root/pages/Machine';
 import MachineNew from '@/_root/pages/MachineNew';
 import Visitor from '@/_auth/forms/Visitor';
-import ManDashboard from '@/components/dashboard/ManDashboard';
+// import ManDashboard from '@/components/dashboard/ManDashboard';
 import Man from './_auth/forms/Man';
 import ManMain from '@/components/shared/ManMain';
 import AlertForm from '@/components/shared/ManAlertForm';
-import EquipmentMain from '@/components/shared/EquipmentMain';
 import Test from '@/components/dashboard/TestCopy';
 import './globals.css';
 
@@ -31,13 +30,12 @@ const App = () => {
           //For SCCLK and others
           {/* <Route path="/:machine/:id" element={<Machine />} />
           <Route path="/Machine/:bu/:machine/:id" element={<MachineNew />} /> */}
-          <Route path="/ManDashboard" element={<ManDashboard />} />
+          {/* <Route path="/ManDashboard" element={<ManDashboard />} /> */}
           <Route path="/Man/:man/:id" element={<Man />} />
           <Route path="/Man/:bu/:man/:id" element={<Man />} />
           <Route path="/AlertForm/:alertNo" element={<AlertForm />} />
           //Main page
           <Route path="/Man" element={<ManMain />} />
-          <Route path="/EquipmentMain" element={<EquipmentMain />} />
           <Route path="/Test" element={<Test />} />
         </Route>
 
