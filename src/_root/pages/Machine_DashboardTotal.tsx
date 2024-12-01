@@ -134,7 +134,10 @@ const DataTable: React.FC = () => {
                     return (
                       <td
                         key={site}
-                        className="border border-gray-300 px-4 py-2 text-center"
+                        className={`border border-gray-300 px-4 py-2 text-center ${
+                          (siteData ? siteData.count : 0) === 0 &&
+                          'text-slate-300'
+                        }`}
                       >
                         {siteData ? siteData.count : 0}
                       </td>
@@ -152,7 +155,10 @@ const DataTable: React.FC = () => {
               {siteNames.map((site) => (
                 <td
                   key={site}
-                  className="border border-gray-300 px-4 py-2 text-center"
+                  className={`border border-gray-300 px-4 py-2 text-center ${
+                    (siteTotals[site.toLowerCase()] || 0) === 0 &&
+                    'text-slate-300'
+                  }`}
                 >
                   {siteTotals[site.toLowerCase()] || 0}
                 </td>
@@ -253,7 +259,9 @@ const DataTable: React.FC = () => {
               {sites.map((site) => (
                 <td
                   key={site}
-                  className="border border-gray-300 px-4 py-2 text-center"
+                  className={`border border-gray-300 px-4 py-2 text-center ${
+                    summary[site].daily === 0 && 'text-slate-300'
+                  }`}
                 >
                   {summary[site].daily}
                 </td>
@@ -276,7 +284,9 @@ const DataTable: React.FC = () => {
               {sites.map((site) => (
                 <td
                   key={site}
-                  className="border border-gray-300 px-4 py-2 text-center"
+                  className={`border border-gray-300 px-4 py-2 text-center ${
+                    summary[site].monthly === 0 && 'text-slate-300'
+                  }`}
                 >
                   {summary[site].monthly}
                 </td>
@@ -299,7 +309,9 @@ const DataTable: React.FC = () => {
               {sites.map((site) => (
                 <td
                   key={site}
-                  className="border border-gray-300 px-4 py-2 text-center"
+                  className={`border border-gray-300 px-4 py-2 text-center ${
+                    summary[site].quarterly === 0 && 'text-slate-300'
+                  }`}
                 >
                   {summary[site].quarterly}
                 </td>
@@ -322,7 +334,9 @@ const DataTable: React.FC = () => {
               {sites.map((site) => (
                 <td
                   key={site}
-                  className="border border-gray-300 px-4 py-2 text-center"
+                  className={`border border-gray-300 px-4 py-2 text-center ${
+                    summary[site].annually === 0 && 'text-slate-300'
+                  }`}
                 >
                   {summary[site].annually}
                 </td>
@@ -338,7 +352,9 @@ const DataTable: React.FC = () => {
               {sites.map((site) => (
                 <td
                   key={site}
-                  className="border border-gray-300 px-4 py-2 text-center"
+                  className={`border border-gray-300 px-4 py-2 text-center ${
+                    summary[site].total === 0 && 'text-slate-300'
+                  }`}
                 >
                   {summary[site].total}
                 </td>

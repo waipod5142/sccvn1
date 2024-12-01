@@ -331,7 +331,7 @@ const VehicleInspectionPage: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center pt-4">
       <QRCodeSVG
-        value={`https://saf37y.com/Dashboard/${bu}/${period}`}
+        value={`https://saf37y.com/Dashboard_Subdivision/${bu}/${period}`}
         size={75}
         bgColor="#ffffff"
         fgColor="#000000"
@@ -392,28 +392,32 @@ const VehicleInspectionPage: React.FC = () => {
           <p className="text-sm text-gray-500 mt-2">
             Last Inspection: {lastInspection}
           </p>
-          {period && ['daily', 'monthly', 'quarterly'].includes(period) && (
-            <h3 className="text-lg font-semibold mt-4">
-              Defected{' '}
-              <span
-                className={`${totalDefected !== 0 && 'text-rose-500 text-xl'}`}
-              >
-                {totalDefected}
-              </span>{' '}
-              / {totalVehicles}
-            </h3>
-          )}
-          {period && ['daily', 'monthly', 'quarterly'].includes(period) && (
-            <div className="flex items-center mt-2">
-              <div className="w-full bg-gray-200 rounded-full h-4 mr-4">
-                <div
-                  className="bg-rose-500 h-4 rounded-full"
-                  style={{ width: `${percentageDefected}%` }}
-                ></div>
+          {period &&
+            ['daily', 'monthly', 'quarterly', 'annually'].includes(period) && (
+              <h3 className="text-lg font-semibold mt-4">
+                Defected{' '}
+                <span
+                  className={`${
+                    totalDefected !== 0 && 'text-rose-500 text-xl'
+                  }`}
+                >
+                  {totalDefected}
+                </span>{' '}
+                / {totalVehicles}
+              </h3>
+            )}
+          {period &&
+            ['daily', 'monthly', 'quarterly', 'annually'].includes(period) && (
+              <div className="flex items-center mt-2">
+                <div className="w-full bg-gray-200 rounded-full h-4 mr-4">
+                  <div
+                    className="bg-rose-500 h-4 rounded-full"
+                    style={{ width: `${percentageDefected}%` }}
+                  ></div>
+                </div>
+                <span className="text-lg">{percentageDefected}%</span>
               </div>
-              <span className="text-lg">{percentageDefected}%</span>
-            </div>
-          )}
+            )}
         </div>
       </div>
       {/* Implementing toggle between two Links with ChevronDown and ChevronUp */}
@@ -540,7 +544,9 @@ const VehicleInspectionPage: React.FC = () => {
                       : 'n/a'}
                   </p>
                   {period &&
-                    ['daily', 'monthly', 'quarterly'].includes(period) && (
+                    ['daily', 'monthly', 'quarterly', 'annually'].includes(
+                      period
+                    ) && (
                       <p className="mt-2 text-lg text-white">
                         Defected:{' '}
                         <span
@@ -555,7 +561,9 @@ const VehicleInspectionPage: React.FC = () => {
                       </p>
                     )}
                   {period &&
-                    ['daily', 'monthly', 'quarterly'].includes(period) && (
+                    ['daily', 'monthly', 'quarterly', 'annually'].includes(
+                      period
+                    ) && (
                       <div className="flex items-center mt-2">
                         <div className="w-full bg-gray-200 rounded-full h-4 mr-4">
                           <div
@@ -665,9 +673,12 @@ const VehicleInspectionPage: React.FC = () => {
                             : 'n/a'}
                         </p>
                         {period &&
-                          ['daily', 'monthly', 'quarterly'].includes(
-                            period
-                          ) && (
+                          [
+                            'daily',
+                            'monthly',
+                            'quarterly',
+                            'annually',
+                          ].includes(period) && (
                             <p className="mt-2 text-lg">
                               Defected{' '}
                               <span
@@ -682,9 +693,12 @@ const VehicleInspectionPage: React.FC = () => {
                             </p>
                           )}
                         {period &&
-                          ['daily', 'monthly', 'quarterly'].includes(
-                            period
-                          ) && (
+                          [
+                            'daily',
+                            'monthly',
+                            'quarterly',
+                            'annually',
+                          ].includes(period) && (
                             <div className="flex items-center mt-2">
                               <div className="w-full bg-gray-200 rounded-full h-4 mr-4">
                                 <div
@@ -786,7 +800,9 @@ const VehicleInspectionPage: React.FC = () => {
                   | Total: {selectedInspection.totalVehicles}
                 </p>
                 {period &&
-                  ['daily', 'monthly', 'quarterly'].includes(period) && (
+                  ['daily', 'monthly', 'quarterly', 'annually'].includes(
+                    period
+                  ) && (
                     <p className="text-lg mb-4">
                       <span
                         className={`${
@@ -804,7 +820,9 @@ const VehicleInspectionPage: React.FC = () => {
                   )}
                 <hr />
                 {period &&
-                  ['daily', 'monthly', 'quarterly'].includes(period) && (
+                  ['daily', 'monthly', 'quarterly', 'annually'].includes(
+                    period
+                  ) && (
                     <p className="text-lg my-4">
                       <span
                         className={`${

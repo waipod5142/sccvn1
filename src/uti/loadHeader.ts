@@ -160,20 +160,17 @@ export const loadHeader = async (bu: string | undefined | null) => {
     case 'th':
       headerFields = [
         { field: 'id', label: 'ID' },
-        { field: 'type', label: 'Type' },
-        { field: 'responsibility', label: 'Responsible By' },
-        { field: 'registerDate', label: 'RegistrationDate' },
-        { field: 'bu', label: 'BU' },
-        { field: 'brand', label: 'Brand' },
-        { field: 'capacity', label: 'Capacity' },
-        { field: 'engineNo', label: 'Engine No' },
+        { field: 'country', label: 'Country' },
+        { field: 'details', label: 'Details' },
+        { field: 'department', label: 'Department' },
+        { field: 'kind', label: 'Kind' },
+        { field: 'remark', label: 'Remark' },
         { field: 'status', label: 'Status' },
-        { field: 'no', label: 'No' },
-        { field: 'model', label: 'Model' },
+        { field: 'type', label: 'Type' },
+        { field: 'area', label: 'Area' },
+        { field: 'site', label: 'Site' },
         { field: 'holder', label: 'Holder' },
-        { field: 'horsepower', label: 'Hose Power' },
-        { field: 'expDate', label: 'Expire Date' },
-        { field: 'sub_bu', label: 'Sub BU' },
+        { field: 'bu', label: 'BU' },
       ];
       break;
 

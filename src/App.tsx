@@ -7,6 +7,7 @@ import Admin from '@/components/shared/b';
 import Machine_Dashboard from '@/_root/pages/Machine_Dashboard';
 import Machine_Dashboard_Subdivision from '@/_root/pages/Machine_Dashboard_Subdivision';
 import DashboardTotal from '@/_root/pages/Machine_DashboardTotal';
+import DashboardDefect from '@/_root/pages/Machine_DashboardDefect';
 import DashboardAlert from '@/_root/pages/Man_DashboardAlert';
 import MachineAuth from '@/_root/pages/Machine';
 import MachineNew from '@/_root/pages/MachineNew';
@@ -52,6 +53,7 @@ const App = () => {
           />
           <Route path="/DashboardAlert/:bu" element={<DashboardAlert />} />
           <Route path="/DashboardTotal/:bu" element={<DashboardTotal />} />
+          <Route path="/DashboardDefect/:bu" element={<DashboardDefect />} />
           <Route path="/:machine/:id" element={<MachineAuth />} />
           <Route path="/Machine/:bu/:machine/:id" element={<MachineNew />} />
         </Route>

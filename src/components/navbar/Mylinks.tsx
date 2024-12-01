@@ -14,7 +14,8 @@ export const links = [
       {
         Head: 'Machine',
         sublink: [
-          { name: 'Summary', link: '/DashboardTotal/vn' },
+          { name: 'All Machine', link: '/DashboardTotal/vn' },
+          { name: 'Defect', link: '/DashboardDefect/vn' },
           { name: 'Daily', link: '/Dashboard_Subdivision/vn/daily' },
           { name: 'Monthly', link: '/Dashboard_Subdivision/vn/monthly' },
           { name: 'Quarterly', link: '/Dashboard_Subdivision/vn/quarterly' },
@@ -38,7 +39,8 @@ export const links = [
       {
         Head: 'Machine',
         sublink: [
-          { name: 'Summary', link: '/DashboardTotal/lk' },
+          { name: 'All Machine', link: '/DashboardTotal/lk' },
+          { name: 'Defect', link: '/DashboardDefect/lk' },
           { name: 'Daily', link: '/Dashboard_Subdivision/lk/daily' },
           { name: 'Monthly', link: '/Dashboard_Subdivision/lk/monthly' },
           { name: 'Quarterly', link: '/Dashboard_Subdivision/lk/quarterly' },
@@ -62,7 +64,8 @@ export const links = [
       {
         Head: 'Machine',
         sublink: [
-          { name: 'Summary', link: '/DashboardTotal/bd' },
+          { name: 'All Machine', link: '/DashboardTotal/bd' },
+          { name: 'Defect', link: '/DashboardDefect/bd' },
           { name: 'Daily', link: '/Dashboard_Subdivision/bd/daily' },
           { name: 'Monthly', link: '/Dashboard_Subdivision/bd/monthly' },
           { name: 'Quarterly', link: '/Dashboard_Subdivision/bd/quarterly' },
@@ -86,7 +89,8 @@ export const links = [
       {
         Head: 'Machine',
         sublink: [
-          { name: 'Summary', link: '/DashboardTotal/cmic' },
+          { name: 'All Machine', link: '/DashboardTotal/cmic' },
+          { name: 'Defect', link: '/DashboardDefect/cmic' },
           { name: 'Daily', link: '/Dashboard_Subdivision/cmic/daily' },
           { name: 'Monthly', link: '/Dashboard_Subdivision/cmic/monthly' },
           { name: 'Quarterly', link: '/Dashboard_Subdivision/cmic/quarterly' },
@@ -110,7 +114,8 @@ export const links = [
       {
         Head: 'Machine',
         sublink: [
-          { name: 'Summary', link: '/DashboardTotal/srb' },
+          { name: 'All Machine', link: '/DashboardTotal/srb' },
+          { name: 'Defect', link: '/DashboardDefect/srb' },
           { name: 'Daily', link: '/Dashboard_Subdivision/srb/daily' },
           { name: 'Monthly', link: '/Dashboard_Subdivision/srb/monthly' },
           { name: 'Quarterly', link: '/Dashboard_Subdivision/srb/quarterly' },
@@ -134,7 +139,8 @@ export const links = [
       {
         Head: 'Machine',
         sublink: [
-          { name: 'Summary', link: '/DashboardTotal/lbm' },
+          { name: 'All Machine', link: '/DashboardTotal/lbm' },
+          { name: 'Defect', link: '/DashboardDefect/lbm' },
           { name: 'Daily', link: '/Dashboard_Subdivision/lbm/daily' },
           { name: 'Monthly', link: '/Dashboard_Subdivision/lbm/monthly' },
           { name: 'Quarterly', link: '/Dashboard_Subdivision/lbm/quarterly' },
@@ -158,7 +164,8 @@ export const links = [
       {
         Head: 'Machine',
         sublink: [
-          { name: 'Summary', link: '/DashboardTotal/rmx' },
+          { name: 'All Machine', link: '/DashboardTotal/rmx' },
+          { name: 'Defect', link: '/DashboardDefect/rmx' },
           { name: 'Daily', link: '/Dashboard_Subdivision/rmx/daily' },
           { name: 'Monthly', link: '/Dashboard_Subdivision/rmx/monthly' },
           { name: 'Quarterly', link: '/Dashboard_Subdivision/rmx/quarterly' },
@@ -182,7 +189,8 @@ export const links = [
       {
         Head: 'Machine',
         sublink: [
-          { name: 'Summary', link: '/DashboardTotal/iagg' },
+          { name: 'All Machine', link: '/DashboardTotal/iagg' },
+          { name: 'Defect', link: '/DashboardDefect/iagg' },
           { name: 'Daily', link: '/Dashboard_Subdivision/iagg/daily' },
           { name: 'Monthly', link: '/Dashboard_Subdivision/iagg/monthly' },
           { name: 'Quarterly', link: '/Dashboard_Subdivision/iagg/quarterly' },
@@ -206,7 +214,8 @@ export const links = [
       {
         Head: 'Machine',
         sublink: [
-          { name: 'Summary', link: '/DashboardTotal/ieco' },
+          { name: 'All Machine', link: '/DashboardTotal/ieco' },
+          { name: 'Defect', link: '/DashboardDefect/ieco' },
           { name: 'Daily', link: '/Dashboard_Subdivision/ieco/daily' },
           { name: 'Monthly', link: '/Dashboard_Subdivision/ieco/monthly' },
           { name: 'Quarterly', link: '/Dashboard_Subdivision/ieco/quarterly' },
