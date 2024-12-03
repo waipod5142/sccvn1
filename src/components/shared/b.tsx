@@ -123,10 +123,10 @@ const Home: React.FC = () => {
             <td className="bg-rose-200 border border-gray-300 p-2" rowSpan={8}>
               All transaction to view Map and Graph
             </td>
-            <td className="border border-gray-300 p-2 text-rose-500">
+            <td className="border border-gray-300 p-2 text-blue-500">
               daily/monthly/quaterly
             </td>
-            <td className="border border-gray-300 p-2 text-rose-500">
+            <td className="border border-gray-300 p-2 text-blue-500">
               vehicle_all
             </td>
           </tr>
@@ -174,15 +174,21 @@ const Home: React.FC = () => {
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">GET</td>
-            <td className="border border-gray-300 p-2">vehicleTr_one</td>
+            <td className="border border-gray-300 p-2 text-blue-500">
+              vehicleTr_one
+            </td>
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">POST</td>
-            <td className="border border-gray-300 p-2">rescueTr_post</td>
+            <td className="border border-gray-300 p-2 text-blue-500">
+              rescueTr_post
+            </td>
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">DELETE</td>
-            <td className="border border-gray-300 p-2">rescueTr_delete</td>
+            <td className="border border-gray-300 p-2 text-blue-500">
+              rescueTr_delete
+            </td>
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">backup</td>
@@ -193,7 +199,9 @@ const Home: React.FC = () => {
             <td className="border border-gray-300 p-2" rowSpan={5}>
               Total Machinery
             </td>
-            <td className="border border-gray-300 p-2">get</td>
+            <td className="border border-gray-300 p-2">
+              get (change when add new BU only)
+            </td>
             <td className="border border-gray-300 p-2">alertTr_one</td>
           </tr>
           <tr className="border border-gray-300">

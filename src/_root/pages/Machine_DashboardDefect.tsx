@@ -247,14 +247,7 @@ const VehicleInspectionPage: React.FC = () => {
     };
   };
 
-  const {
-    totalInspected,
-    totalDefected,
-    totalVehicles,
-    percentageInspected,
-    percentageDefected,
-    lastInspection,
-  } = calculateTotals();
+  const { totalDefected } = calculateTotals();
 
   const isVideoUrl = (url: string) => {
     // Extract the filename from the URL
@@ -500,7 +493,7 @@ const VehicleInspectionPage: React.FC = () => {
                           }}
                         ></div>
                       </div>
-                      <span className="text-lg text-white">
+                      <span className="text-lg">
                         {typeData.totalVehicles > 0
                           ? (
                               (typeData.defectVehicles /
