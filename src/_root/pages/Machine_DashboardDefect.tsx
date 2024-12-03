@@ -299,35 +299,6 @@ const VehicleInspectionPage: React.FC = () => {
       {/* Display the total inspected / total assets and percentage at Header */}
       <div className="max-w-xs mx-auto p-6 bg-white rounded-lg shadow-md border-2 border-rose-500">
         <div className="text-center">
-          {/* <h3 className="text-lg font-semibold">
-            Inspected{' '}
-            <span className="text-green-500 font-bold">
-              {totalInspected !== undefined ? totalInspected : 'N/A'}
-            </span>{' '}
-            / {totalVehicles}
-          </h3> */}
-          {/* <div className="flex items-center mt-2">
-            <div className="w-full bg-gray-200 rounded-full h-4 mr-4">
-              <div
-                className="bg-green-500 h-4 rounded-full"
-                style={{ width: `${percentageInspected}%` }}
-              ></div>
-            </div>
-            <span className="text-lg">{percentageInspected}%</span>
-          </div> */}
-
-          {/* <p className="text-sm text-gray-500 mt-2">
-            Last Inspection:{' '}
-            {new Date(lastInspection).toDateString() ===
-            new Date().toDateString()
-              ? ''
-              : `${Math.round(
-                  timeDifferenceInDays(new Date(lastInspection))
-                )} days ago on `}
-            {new Date(lastInspection).toLocaleString('en-GB', {
-              hour12: false,
-            })}
-          </p> */}
           {
             <h3 className="text-lg font-semibold mt-4">
               Defected:{' '}
@@ -338,26 +309,14 @@ const VehicleInspectionPage: React.FC = () => {
               </span>{' '}
             </h3>
           }
-          {/* {
-            <div className="flex items-center mt-2">
-              <div className="w-full bg-gray-200 rounded-full h-4 mr-4">
-                <div
-                  className="bg-rose-500 h-4 rounded-full"
-                  style={{ width: `${percentageDefected}%` }}
-                ></div>
-              </div>
-              <span className="text-lg">{percentageDefected}%</span>
-            </div>
-          } */}
         </div>
       </div>
       {/* Group by Site */}
       {loading && (
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center items-center">
           <Loading />
         </div>
       )}
-
       {Object.entries(
         inspections.reduce<Record<string, Record<string, AggregatedTypeData>>>(
           (acc, inspection) => {

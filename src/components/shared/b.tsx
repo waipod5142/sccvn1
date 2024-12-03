@@ -205,27 +205,15 @@ const Home: React.FC = () => {
             <td className="border border-gray-300 p-2">alertTr_one</td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">get one</td>
-            <td className="border border-gray-300 p-2">
-              <a
-                href="https://ap-southeast-1.aws.data.mongodb-api.com/app/sccvn-zzlewmt/endpoint/sccvn/valveTr_one?id=HONC-FE-FWV-HS-01"
-                target="_blank"
-                className="text-blue-600 hover:text-blue-800"
-              >
-                https://ap-southeast-1.aws.data.mongodb-api.com/app/sccvn-zzlewmt/endpoint/sccvn/valveTr_one?id=HONC-FE-FWV-HS-01
-              </a>
+            <td className="border border-gray-300 p-2">Defect summary</td>
+            <td className="border border-gray-300 p-2 text-rose-500">
+              foamTr_one
             </td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">get all</td>
-            <td className="border border-gray-300 p-2">
-              <a
-                href="https://ap-southeast-1.aws.data.mongodb-api.com/app/sccvn-zzlewmt/endpoint/sccvn/valveTr_all"
-                target="_blank"
-                className="text-blue-600 hover:text-blue-800"
-              >
-                https://ap-southeast-1.aws.data.mongodb-api.com/app/sccvn-zzlewmt/endpoint/sccvn/valveTr_all
-              </a>
+            <td className="border border-gray-300 p-2">Overdue summary</td>
+            <td className="border border-gray-300 p-2 text-rose-500">
+              foamTr_alert
             </td>
           </tr>
           <tr className="border border-gray-300">
