@@ -80,6 +80,7 @@ const VehicleInspectionPage: React.FC = () => {
   const [showAllTransactions, setShowAllTransactions] = useState<{
     [key: string]: boolean;
   }>({});
+  const [loading, setLoading] = useState(true);
   const { bu } = useParams();
 
   useEffect(() => {
@@ -93,6 +94,8 @@ const VehicleInspectionPage: React.FC = () => {
         setInspections(res.data);
       } catch (error) {
         console.error('Error fetching vehicle inspection data:', error);
+      } finally {
+        setLoading(false); // Set loading to false after data is fetched
       }
     };
 
@@ -349,6 +352,12 @@ const VehicleInspectionPage: React.FC = () => {
         </div>
       </div>
       {/* Group by Site */}
+      {loading && (
+        <div className="flex justify-center items-center h-screen">
+          <Loading />
+        </div>
+      )}
+
       {Object.entries(
         inspections.reduce<Record<string, Record<string, AggregatedTypeData>>>(
           (acc, inspection) => {

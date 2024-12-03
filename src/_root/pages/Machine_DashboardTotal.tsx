@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { http } from '@/lib/http';
-import Loading from '@/components/shared/Loader'; // Assuming this is a spinner component
+import Loading from '@/components/shared/Loader';
 import { machineTitles } from '@/lib/typeMachine';
 
 // Define interfaces for site and row data

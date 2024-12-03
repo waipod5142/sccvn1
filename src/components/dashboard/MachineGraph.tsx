@@ -10,10 +10,13 @@ import {
   Title,
   Tooltip,
   Legend,
+  BarController, // Add BarController here
+  LineController, // Register LineController
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { Chart } from 'react-chartjs-2';
 
+// Register necessary controllers and elements
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -23,6 +26,8 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
+  BarController, // Register BarController
+  LineController, // Register LineController
   ChartDataLabels
 );
 
@@ -90,9 +95,9 @@ const MachineGraph = ({ dataTr }: MachineProps) => {
       labels,
       datasets: [
         {
-          label: 'Submission', //Green
+          label: 'Submission', // Green
           data: submissionData,
-          type: 'bar',
+          type: 'bar', // Bar chart for submission
           backgroundColor: (context) => {
             return labels[context.dataIndex] === today
               ? 'rgba(88, 245, 39, 0.5)'
@@ -106,19 +111,17 @@ const MachineGraph = ({ dataTr }: MachineProps) => {
           yAxisID: 'y',
         },
         {
-          label: '% Defect', //Red
+          label: '% Defect', // Red
           data: defectData,
-          type: 'bar', // Changed from 'line' to 'bar'
-          backgroundColor: (context) => {
+          type: 'line', // Line chart for defect percentage
+          borderColor: (context) => {
             return labels[context.dataIndex] === today
-              ? 'rgba(255, 99, 132, 0.8)'
-              : 'rgba(255, 99, 132, 0.5)';
-          },
-          hoverBackgroundColor: (context) => {
-            return labels[context.dataIndex] === today
-              ? 'rgba(255, 99, 132, 1)'
+              ? 'rgba(255, 99, 132, 1)' // Red line for defects
               : 'rgba(255, 99, 132, 0.7)';
           },
+          fill: false, // Don't fill the area under the line
+          pointBackgroundColor: 'rgba(255, 99, 132, 1)', // Red points for defect percentage
+          tension: 0.4, // Smooth the line curve
           yAxisID: 'y1',
         },
       ],
@@ -126,8 +129,6 @@ const MachineGraph = ({ dataTr }: MachineProps) => {
   };
 
   const chartData = calculateData();
-
-  // Chart processing logic stays the same
 
   const options: ChartOptions<'bar' | 'line'> = {
     plugins: {
