@@ -53,6 +53,8 @@ export const loadQuestions = async (
       return import('@/lib/dataElectric');
     case 'vn_Electrical':
       return import('@/lib/dataElectrical');
+    case 'vn_Slope':
+      return import('@/lib/dataVNslope');
     case 'lk_Heavy':
       return import('@/lib/dataLKheavy');
     case 'lk_Forklift':
