@@ -124,8 +124,14 @@ const DataTable: React.FC = () => {
               const rowTotal = row.totalByType; // Already calculated per row
               return (
                 <tr key={rowIndex} className="even:bg-gray-100">
-                  <td className="border border-gray-300 px-4 py-2 font-bold">
-                    {machineTitles[row._id] || row._id}
+                  <td className="flex justify-between border border-gray-300 px-4 py-2 font-bold">
+                    {machineTitles[bu + row._id] || row._id}
+                    <img
+                      src={`/assets/icons/${row._id}.svg`}
+                      alt="image"
+                      width={40}
+                      height={40}
+                    />
                   </td>
                   {siteNames.map((site) => {
                     const siteData = row.sites.find(
@@ -138,6 +144,7 @@ const DataTable: React.FC = () => {
                           (siteData ? siteData.count : 0) === 0 &&
                           'text-slate-300'
                         }`}
+                        onClick={() => console.log(row._id, site.toLowerCase())}
                       >
                         {siteData ? siteData.count : 0}
                       </td>

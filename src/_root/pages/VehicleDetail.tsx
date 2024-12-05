@@ -81,7 +81,13 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
           <div key={index} className="p-2 border-b border-gray-300">
             <p className="text-slate-400">
               Date:{' '}
-              <strong className="text-slate-900">
+              <strong
+                className={`text-slate-900 ${
+                  new Date(tran.date).toDateString() ===
+                    new Date().toDateString() &&
+                  'bg-green-500 text-white rounded-sm p-1 w-fit'
+                }`}
+              >
                 {new Date(tran.date).toDateString() ===
                 new Date().toDateString()
                   ? ''
