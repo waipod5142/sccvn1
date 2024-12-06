@@ -3,6 +3,7 @@ import axios from 'axios';
 import { http } from '@/lib/http';
 import timeDifferenceInDays from '@/uti/dayDiff';
 import Loading from '@/components/shared/Loader'; // Assuming this is a spinner component
+import { useParams } from 'react-router-dom';
 
 interface AlertData {
   _id: {
@@ -19,18 +20,17 @@ interface AlertData {
 const App: React.FC = () => {
   const [dataTr, setDataTr] = useState<AlertData[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const { bu } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${http}fanTr_all`, {
-          headers: {
-            'Content-Type': 'application/json',
+        const res = await axios.get(`${http}harnessTr_all`, {
+          params: {
+            bu,
           },
         });
-        if (res.status === 200 && res.data) {
-          setDataTr(res.data);
-        }
+        setDataTr(res.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -39,7 +39,7 @@ const App: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [bu]);
 
   // Loading state
   if (loading) {

@@ -198,7 +198,9 @@ export const machineTitles: { [key: string]: string } = {
   vnCctv: 'Hướng dẫn kiểm tra hệ thống camera giám sát / Plant CCTV',
   vnEquipment: 'Hướng dẫn kiểm tra thiết bị di động / Portable Equipment',
   vnSocket: 'Hướng dẫn kiểm tra trung tâm ổ cắm / Socket Center',
+  vnElectric: 'Hướng dẫn kiểm tra văn phòng điện / Electrical Office',
   vnElectrical: 'Hướng dẫn kiểm tra văn phòng điện / Electrical Office',
+  vnSlope: 'Hướng dẫn kiểm tra đường, dốc, thùng / Road, Slope, Hopper',
 
   vnlifting: 'Lifting Equipment',
   vnforklift: 'Forklift',
@@ -223,6 +225,8 @@ export const machineTitles: { [key: string]: string } = {
   vnrescue: 'Gangway, Rescue Boat',
   vnsocket: 'Socket Center',
   vnelectric: 'Electrical Office',
+  vnelectrical: 'Electrical Office',
+  vnslope: 'Road, Slope, Hopper',
   //LK
   //LK
   lkheavy: 'Heavy Vehicle',

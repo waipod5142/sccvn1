@@ -34,7 +34,7 @@ const Navbar = () => {
         {/* link items */}
         <ul
           className={`md:flex md:items-center md:pb-0 pb-8 absolute md:static bg-slate-50 md:z-auto z-[-1] left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in ${
-            open ? 'top-12' : 'top-[-890px]'
+            open ? 'top-12' : 'top-[-990px]'
           }`}
         >
           <NavLinks open={open} setOpen={setOpen} />
