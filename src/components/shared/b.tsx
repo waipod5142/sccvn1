@@ -33,7 +33,7 @@ const Home: React.FC = () => {
             <td className="border border-gray-300 p-2">lifting_sheet_post</td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">get all</td>
+            <td className="border border-gray-300 p-2">backup</td>
             <td className="border border-gray-300 p-2"></td>
           </tr>
           <tr className="border border-gray-300">
@@ -54,71 +54,72 @@ const Home: React.FC = () => {
             <td className="border border-gray-300 p-2" rowSpan={8}>
               Dashboard by Plant
             </td>
-            <td className="border border-gray-300 p-2">Machine-daily</td>
+            <td className="border border-gray-300 p-2"></td>
             <td className="border border-gray-300 p-2">vehicle_dash</td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">Machine-monthly</td>
+            <td className="border border-gray-300 p-2"></td>
             <td className="border border-gray-300 p-2">extinguisher_dash</td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">Machine-quarterly</td>
+            <td className="border border-gray-300 p-2"></td>
             <td className="border border-gray-300 p-2">equipment_dash</td>
           </tr>
-          <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">Machine-annually</td>
-            <td className="border border-gray-300 p-2">mobileTr_all</td>
-          </tr>
-          <tr className="bg-slate-100 border border-gray-300">
-            <td className="border border-gray-300 p-2">Man-toolbox</td>
-            <td className="border border-gray-300 p-2">man_dash</td>
-          </tr>
-          <tr className="bg-slate-100 border border-gray-300">
-            <td className="border border-gray-300 p-2">Man-pra</td>
-            <td className="border border-gray-300 p-2">man_all</td>
-          </tr>
-          <tr className="bg-slate-100 border border-gray-300">
-            <td className="border border-gray-300 p-2">Man-alert</td>
-            <td className="border border-gray-300 p-2">cableTr_all</td>
-          </tr>
+
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2 text-rose-500">
-              new by Plant Function
+              by Plant
             </td>
             <td className="border border-gray-300 p-2 text-rose-500">
               foamTr_all
             </td>
           </tr>
           <tr className="border border-gray-300">
+            <td className="border border-gray-300 p-2">
+              toolbox (3 below same as above)
+            </td>
+            <td className="border border-gray-300 p-2">man_dash</td>
+          </tr>
+          <tr className="border border-gray-300">
+            <td className="border border-gray-300 p-2">pra</td>
+            <td className="border border-gray-300 p-2">man_all</td>
+          </tr>
+          <tr className="border border-gray-300">
+            <td className="border border-gray-300 p-2">alert</td>
+            <td className="border border-gray-300 p-2">cableTr_all</td>
+          </tr>
+          <tr className="border border-gray-300">
+            <td className="border border-gray-300 p-2">alert Graph</td>
+            <td className="border border-gray-300 p-2">harnessTr_all</td>
+          </tr>
+          <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2" rowSpan={5}>
-              Dashboard by Plant <br />
-              <hr />
-              <br />
               daily-owner <br /> monthly-area <br /> quarterly-department
             </td>
-            <td className="border border-gray-300 p-2">daily</td>
-            <td className="border border-gray-300 p-2">cableTr_one</td>
-          </tr>
-          <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">monthly</td>
-            <td className="border border-gray-300 p-2">cctvTr_all</td>
-          </tr>
-          <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">quarterly</td>
-            <td className="border border-gray-300 p-2">cctvTr_one</td>
-          </tr>
-          <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">annually</td>
-            <td className="border border-gray-300 p-2">cctvTr_get</td>
-          </tr>
-          <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2 text-rose-500">
-              new by Subdivision
+              by Subdivision
             </td>
             <td className="border border-gray-300 p-2 text-rose-500">
               foamTr_get
             </td>
           </tr>
+          <tr className="border border-gray-300">
+            <td className="border border-gray-300 p-2"></td>
+            <td className="border border-gray-300 p-2">cableTr_one</td>
+          </tr>
+          <tr className="border border-gray-300">
+            <td className="border border-gray-300 p-2"></td>
+            <td className="border border-gray-300 p-2">cctvTr_all</td>
+          </tr>
+          <tr className="border border-gray-300">
+            <td className="border border-gray-300 p-2"></td>
+            <td className="border border-gray-300 p-2">cctvTr_one</td>
+          </tr>
+          <tr className="border border-gray-300">
+            <td className="border border-gray-300 p-2"></td>
+            <td className="border border-gray-300 p-2">cctvTr_get</td>
+          </tr>
+
           <tr className="border border-gray-300">
             <td className="bg-rose-200 border border-gray-300 p-2" rowSpan={8}>
               All transaction to view Map and Graph
@@ -131,15 +132,9 @@ const Home: React.FC = () => {
             </td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">backup</td>
-            <td className="border border-gray-300 p-2"></td>
-          </tr>
-          <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">backup</td>
-            <td className="border border-gray-300 p-2"></td>
-          </tr>
-          <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">toolbox</td>
+            <td className="border border-gray-300 p-2">
+              toolbox (3 below same as above)
+            </td>
             <td className="border border-gray-300 p-2">extinguisher_all</td>
           </tr>
           <tr className="border border-gray-300">
@@ -149,6 +144,14 @@ const Home: React.FC = () => {
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">alert</td>
             <td className="border border-gray-300 p-2">alertTr_get</td>
+          </tr>
+          <tr className="border border-gray-300">
+            <td className="border border-gray-300 p-2">backup</td>
+            <td className="border border-gray-300 p-2"></td>
+          </tr>
+          <tr className="border border-gray-300">
+            <td className="border border-gray-300 p-2">backup</td>
+            <td className="border border-gray-300 p-2"></td>
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">backup</td>

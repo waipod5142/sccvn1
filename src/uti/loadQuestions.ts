@@ -55,24 +55,43 @@ export const loadQuestions = async (
       return import('@/lib/dataElectrical');
     case 'vn_Slope':
       return import('@/lib/dataVNslope');
+    //LK
     case 'lk_Heavy':
       return import('@/lib/dataLKheavy');
     case 'lk_Forklift':
       return import('@/lib/dataLKforklift');
     case 'lk_Extinguisher':
       return import('@/lib/dataLKextinguisher');
+    //BD
     case 'bd_Bulk':
       return import('@/lib/dataBDbulk');
-    case 'lbm_Extinguisher':
-      return import('@/lib/dataLBMextinguisher');
-    case 'lbm_Forklift':
-      return import('@/lib/dataLBMforklift');
-    case 'lbm_Frontend':
-      return import('@/lib/dataLBMfrontend');
-    case 'lbm_Car':
-      return import('@/lib/dataLBMcar');
-    case 'lbm_Truck':
-      return import('@/lib/dataLBMtruck');
+    //CMIC
+    case 'cmic_Bulk':
+      return import('@/lib/dataCMICbulk');
+    case 'cmic_Loader':
+      return import('@/lib/dataCMICloader');
+    case 'cmic_Forklift':
+      return import('@/lib/dataCMICforklift');
+    case 'cmic_Crane':
+      return import('@/lib/dataCMICcrane');
+    case 'cmic_Extinguisher':
+      return import('@/lib/dataCMICextinguisher');
+    case 'cmic_Hydrant':
+      return import('@/lib/dataCMIChydrant');
+    //TH
+    case 'th_Extinguisher':
+      return import('@/lib/dataTHextinguisher');
+    case 'th_Forklift':
+      return import('@/lib/dataTHforklift');
+    case 'th_Frontend':
+      return import('@/lib/dataTHfrontend');
+    case 'th_Car':
+      return import('@/lib/dataTHcar');
+    case 'th_Truck':
+      return import('@/lib/dataTHtruck');
+    //SRB
+    case 'srb_Truck':
+      return import('@/lib/dataSRBtruck');
     default:
       throw new Error('Unknown machine type');
   }

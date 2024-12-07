@@ -12,11 +12,11 @@ import {
   quarterlyEquipment,
 } from '@/lib/typeMachine';
 import {
-  choices,
-  choicesLK,
-  choicesCMIC,
-  choicesTH,
-  choicesBD,
+  vn,
+  lk,
+  bd,
+  cmic,
+  th,
   inspector,
   howto,
   accept,
@@ -78,7 +78,11 @@ const Filling: React.FC<FillingProps> = ({
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const { questions } = await loadQuestions(bu, machine);
+        //SRB truck is not the same form as TH
+        const { questions } = await loadQuestions(
+          ['lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu,
+          machine
+        );
         setQuestions(questions);
       } catch (error) {
         console.error('Error loading questions:', error);
@@ -87,6 +91,28 @@ const Filling: React.FC<FillingProps> = ({
 
     fetchQuestions();
   }, [bu, machine]);
+
+  const imageMappings: Record<string, string> = {
+    lub: 'https://www.svgrepo.com/show/352304/oil-can.svg',
+    radiator: 'https://www.svgrepo.com/show/3713/radiator.svg',
+    fluid: 'https://www.svgrepo.com/show/47071/windshield-washer.svg',
+    battery:
+      'https://www.svgrepo.com/show/503211/battery-large-reset-outline.svg',
+    headLight: 'https://www.svgrepo.com/show/3486/light-spot.svg',
+    signalLight: 'https://www.svgrepo.com/show/198271/car-lights.svg',
+    brakeLight: 'https://www.svgrepo.com/show/499977/brake-system-failure.svg',
+    horn: 'https://www.svgrepo.com/show/79997/air-horn.svg',
+    wiper: 'https://www.svgrepo.com/show/124724/winshield-wiper.svg',
+    windshield: 'https://www.svgrepo.com/show/218825/frost-windshield.svg',
+    belt: 'https://www.svgrepo.com/show/77539/seat-belt.svg',
+    dashboard: 'https://www.svgrepo.com/show/501525/dashboard.svg',
+    wheel: 'https://www.svgrepo.com/show/525597/wheel-angle.svg',
+    brakeSys: 'https://www.svgrepo.com/show/337690/brake-pads.svg',
+    hose: 'https://www.svgrepo.com/show/95208/hose.svg',
+    equipment: 'https://www.svgrepo.com/show/362055/cone.svg',
+    extinguisher: 'https://www.svgrepo.com/show/405386/fire-extinguisher.svg',
+    ppe: 'https://www.svgrepo.com/show/288933/helmet.svg',
+  };
 
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
     window.scrollTo(0, 0);
@@ -156,7 +182,10 @@ const Filling: React.FC<FillingProps> = ({
         <div className="text-center relative">
           <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-slate-200 via-slate-500 to-slate-200 transform -translate-y-1/2 z-0"></div>
           <h1 className="text-lg bg-white text-slate-900 relative z-10 py-2 px-4 rounded-lg inline">
-            {machineTitles[bu + machine] || null}
+            {machineTitles[
+              (['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu) +
+                machine
+            ] || null}
           </h1>
         </div>
         <form
@@ -165,7 +194,10 @@ const Filling: React.FC<FillingProps> = ({
         >
           <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
             <div className="text-2xl text-slate-900 px-4">
-              {inspector[bu] || null} Inspector
+              {inspector[
+                ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu
+              ] || null}
+              : Inspector
             </div>
             <input
               {...register('inspector', {
@@ -203,11 +235,29 @@ const Filling: React.FC<FillingProps> = ({
                   <div className="text-2xl text-slate-900">
                     {question.id}. {question.question}
                   </div>
+                  {bu === 'cmic' && imageMappings[question.name] && (
+                    <img
+                      src={imageMappings[question.name]}
+                      alt={question.name}
+                      width={60}
+                      height={60}
+                    />
+                  )}
                   <p className="text-sm text-left text-slate-400 dark:text-gray-300">
-                    {howto[bu] || null}: {question.howto}
+                    {howto[
+                      ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu)
+                        ? 'th'
+                        : bu
+                    ] || null}
+                    : {question.howto}
                   </p>
                   <p className="text-sm text-left text-slate-400 dark:text-gray-300">
-                    {accept[bu] || null}: {question.accept}
+                    {accept[
+                      ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu)
+                        ? 'th'
+                        : bu
+                    ] || null}
+                    : {question.accept}
                   </p>
                   <div className="py-2">
                     <RadioButtonGroup
@@ -216,14 +266,16 @@ const Filling: React.FC<FillingProps> = ({
                       handleRadioChange={handleRadioChange}
                       choices={
                         bu === 'vn'
-                          ? choices
-                          : bu === 'lbm'
-                          ? choicesTH
-                          : bu === 'cmic'
-                          ? choicesCMIC
+                          ? vn
+                          : bu === 'bd'
+                          ? bd
                           : bu === 'lk'
-                          ? choicesLK
-                          : choicesBD
+                          ? lk
+                          : bu === 'cmic'
+                          ? cmic
+                          : ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu)
+                          ? th
+                          : []
                       }
                     />
                   </div>
@@ -232,7 +284,13 @@ const Filling: React.FC<FillingProps> = ({
                       <input
                         {...register(question.name + 'R', { required: true })}
                         type="text"
-                        placeholder={remarkr[bu]}
+                        placeholder={
+                          remarkr[
+                            ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu)
+                              ? 'th'
+                              : bu
+                          ] || undefined
+                        }
                         className="p-2 rounded"
                       />
                       <label
@@ -269,7 +327,10 @@ const Filling: React.FC<FillingProps> = ({
           </div>
           <div className="py-2 rounded-lg bg-purple-100 w-full">
             <div className="text-2xl text-slate-900 px-4">
-              {picture[bu] || null} Attach Image (Optional)
+              {picture[
+                ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu
+              ] || undefined}{' '}
+              Attach Image (Optional)
             </div>
             <label className="flex items-center bg-blue-500 text-white px-3 py-2 rounded-md shadow-xl cursor-pointer mt-4 ml-2 max-w-fit">
               <Camera className="mr-2" size={24} />
@@ -291,7 +352,10 @@ const Filling: React.FC<FillingProps> = ({
           </div>
           <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
             <div className="text-2xl text-slate-900 px-4">
-              {remark[bu] || null} Remark (Optional)
+              {remark[
+                ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu
+              ] || undefined}{' '}
+              Remark (Optional)
             </div>
             <input
               {...register('remark')}
@@ -310,7 +374,10 @@ const Filling: React.FC<FillingProps> = ({
             className="bg-purple-500 text-white shadow-xl hover:shadow-2xl hover:bg-purple-700 rounded-full py-2 disabled:bg-gray-500 w-auto"
           >
             {isSubmitting && <Loader />}
-            {submit[bu] || null} / Submit
+            {submit[
+              ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu
+            ] || undefined}{' '}
+            / Submit
           </button>
         </form>
       </section>
