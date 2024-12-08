@@ -248,7 +248,7 @@ const VehicleInspectionPage: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center pt-4">
       <QRCodeSVG
-        value={`https://saf37y.com/DashboardOverdue/${bu}`}
+        value={`https://www.saf37y.com/DashboardOverdue/${bu}`}
         size={75}
         bgColor="#ffffff"
         fgColor="#000000"

@@ -6,6 +6,7 @@ import SigninForm from '@/_auth/forms/SigninForm';
 import Admin from '@/components/shared/b';
 import Machine_Dashboard from '@/_root/pages/Machine_Dashboard';
 import Machine_Dashboard_Subdivision from '@/_root/pages/Machine_Dashboard_Subdivision';
+import DashboardTotalAll from '@/_root/pages/Machine_DashboardTotalAll';
 import DashboardTotal from '@/_root/pages/Machine_DashboardTotal';
 import DashboardDefect from '@/_root/pages/Machine_DashboardDefect';
 import DashboardOverdue from '@/_root/pages/Machine_DashboardOverdue';
@@ -44,6 +45,7 @@ const App = () => {
         {/* private routes */}
         <Route element={<RootLayout />}>
           <Route index element={<Home />} />
+          <Route path="/DashboardTotalAll" element={<DashboardTotalAll />} />
           <Route
             path="/Dashboard_Subdivision/:bu/:period"
             element={<Machine_Dashboard_Subdivision />}

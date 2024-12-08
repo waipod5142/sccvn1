@@ -113,7 +113,7 @@ const Header = ({ bu, data, man }: HeaderComponentProps) => {
         />
         <br />
         <QRCodeSVG
-          value={`https://saf37y.com/Man/${bu}/${man}/${data.id}`}
+          value={`https://www.saf37y.com/Man/${bu}/${man}/${data.id}`}
           size={75}
           bgColor={'#ffffff'}
           fgColor={'#000000'}

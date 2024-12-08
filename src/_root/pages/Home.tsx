@@ -69,7 +69,7 @@ const RootLayout = () => {
       <Navbar />
       <div className="flex justify-center my-4 pt-14">
         <QRCodeSVG
-          value={`https://saf37y.com/`}
+          value={`https://www.saf37y.com/`}
           size={75}
           bgColor={'#ffffff'}
           fgColor={'#000000'}

@@ -238,4 +238,14 @@ export const links = [
       },
     ],
   },
+  {
+    name: 'Regional',
+    submenu: true,
+    sublinks: [
+      {
+        Head: 'All',
+        sublink: [{ name: 'Machine', link: '/DashboardTotalAll' }],
+      },
+    ],
+  },
 ];

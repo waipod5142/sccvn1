@@ -108,7 +108,7 @@ const SafetyInductionPage: React.FC = () => {
     <div className="min-h-screen flex flex-col justify-center items-center pt-4">
       {/* QR Code */}
       <QRCodeSVG
-        value={`https://saf37y.com/Induction/${site}`}
+        value={`https://www.saf37y.com/Induction/${site}`}
         size={75}
         bgColor={'#ffffff'}
         fgColor={'#000000'}

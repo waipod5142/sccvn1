@@ -229,13 +229,27 @@ export const machineTitles: { [key: string]: string } = {
   vnslope: 'Road, Slope, Hopper',
   //CMIC
   cmicBulk: 'ការត្រួតពិនិត្យរថយន្តមុនពេលប្រើប្រាស់ប្រចាំថ្ងៃ',
+  cmicbulk: 'Bulk Truck',
   cmicLoader: 'ការត្រួតពិនិត្យរថយន្តមុនពេលប្រើប្រាស់ប្រចាំថ្ងៃ',
+  cmicloader: 'Frontend Loader',
   cmicForklift: 'ការត្រួតពិនិត្យរថយន្តមុនពេលប្រើប្រាស់ប្រចាំថ្ងៃ',
+  cmicforklift: 'Forklift',
+  cmicDump: 'ការត្រួតពិនិត្យរថយន្តមុនពេលប្រើប្រាស់ប្រចាំថ្ងៃ',
+  cmicdump: 'Dump Truck',
+  cmicExcavator: 'ការត្រួតពិនិត្យរថយន្តមុនពេលប្រើប្រាស់ប្រចាំថ្ងៃ',
+  cmicexcavator: 'Excavator',
   cmicCrane: 'ការត្រួតពិនិត្យឧបករណ៍ជើងយកឬក្រេនមុនពេលប្រើប្រាស់ប្រចាំថ្ងៃ',
+  cmiccrane: 'Crane',
   cmicExtinguisher:
     'ការត្រួតពិនិត្យបំពង់ពន្លត់អគ្គីភ័យមុនពេលប្រើប្រាស់ប្រចាំថ្ងៃ',
+  cmicextinguisher: 'Fire Extinguisher',
   cmicHydrant:
     'ការត្រួតពិនិត្យប្រព័ន្ធទឹកបាញ់អគ្គីភ័យមុនពេលប្រើប្រាស់ប្រចាំថ្ងៃ',
+  cmichydrant: 'Fire Hydrant',
+  //BD
+  bdBulk: 'Bulk Truck inspection form',
+  bdbulk: 'Bulk Truck',
+
   //LK
   lkheavy: 'Heavy Vehicle',
   lkforklift: 'Forklift',
@@ -244,10 +258,11 @@ export const machineTitles: { [key: string]: string } = {
   thTruck: 'แบบตรวจเช็ครถบรรทุกก่อนใช้งานประจำวัน',
   thCar: 'แบบตรวจเช็ครถเล็กก่อนใช้งานประจำวัน',
   thtruck: 'Truck',
-  thcar: 'Small Car',
+  thcar: 'Car',
   thforklift: 'Forklift',
   thfrontend: 'Frontend Loader',
   thextinguisher: 'Fire Extinguisher',
+  thmotorbike: 'Motor Bike',
 };
 
 export const dailyEquipment = [

@@ -31,7 +31,8 @@ const NavLinks: React.FC<NavLinksProps> = ({ open, setOpen }) => {
                     : link.name.toLowerCase()
                 }.svg`}
                 className={`mr-1 md:w-6 md:h-6 w-8 h-8 ${
-                  link.name === 'Safety Induction' && 'hidden'
+                  ['Safety Induction', 'Regional'].includes(link.name) &&
+                  'hidden'
                 }`}
                 alt="flag"
               />

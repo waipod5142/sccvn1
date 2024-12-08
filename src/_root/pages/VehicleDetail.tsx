@@ -129,7 +129,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
                 ) : (
                   <img
                     src={tran.url}
-                    alt="Transaction"
+                    alt="show image"
                     onClick={() => handleShowImage(tran.url)}
                   />
                 )}

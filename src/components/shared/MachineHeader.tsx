@@ -127,7 +127,7 @@ const Header = ({ bu, data, machine }: HeaderComponentProps) => {
         />
         <br />
         <QRCodeSVG
-          value={`https://saf37y.com/Machine/${bu}/${machine}/${data.id}`}
+          value={`https://www.saf37y.com/Machine/${bu}/${machine}/${data.id}`}
           size={75}
           bgColor={'#ffffff'}
           fgColor={'#000000'}
