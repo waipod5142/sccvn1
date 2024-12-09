@@ -108,8 +108,12 @@ const Home: React.FC = () => {
             <td className="border border-gray-300 p-2">cableTr_one</td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2"></td>
-            <td className="border border-gray-300 p-2">cctvTr_all</td>
+            <td className="border border-gray-300 p-2">
+              New query for Total by bu
+            </td>
+            <td className="border border-gray-300 p-2 text-rose-500">
+              cctvTr_all
+            </td>
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2"></td>
