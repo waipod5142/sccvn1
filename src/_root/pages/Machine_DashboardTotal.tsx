@@ -237,18 +237,11 @@ const DataTable: React.FC = () => {
   }
 
   const getBackgroundColor = (percentage: number): string => {
-    if (percentage === 0) return 'rgb(255, 0, 0)'; // Red
-    if (percentage === 100) return 'rgb(0, 255, 0)'; // Green
+    if (percentage >= 0 && percentage <= 33) return 'rgb(237, 0, 0)'; // Red
+    if (percentage > 33 && percentage <= 66) return 'rgb(255, 200, 0)'; // Yellow
+    if (percentage > 66 && percentage <= 100) return 'rgb(0, 150, 0)'; // Green
 
-    // Interpolate between red (255, 0, 0) and yellow (255, 255, 0) for 0% to 50%
-    if (percentage <= 50) {
-      const green = Math.floor((percentage / 50) * 255);
-      return `rgb(255, ${green}, 0)`; // Transition from red to yellow
-    }
-
-    // Interpolate between yellow (255, 255, 0) and green (0, 255, 0) for 50% to 100%
-    const red = Math.floor(((100 - percentage) / 50) * 255);
-    return `rgb(${red}, 255, 0)`; // Transition from yellow to green
+    return ''; // Fallback (if needed)
   };
 
   const renderTable = (period: string, rows: RowData[]) => {
@@ -260,7 +253,7 @@ const DataTable: React.FC = () => {
       <div key={period} className="mb-8">
         <h2 className="text-xl font-bold mb-4">
           {period.toUpperCase()}{' '}
-          <span
+          {/* <span
             className="ml-4 text-rose-500 font-bold text-xl p-1 rounded bg-rose-100"
             style={{
               border: '2px solid #FF0000', // Red border
@@ -271,7 +264,7 @@ const DataTable: React.FC = () => {
           </span>
           <span className="ml-4 text-gray-500">
             Inspected / Total Machines ( % )
-          </span>
+          </span> */}
         </h2>
         <table className="w-full border-collapse border text-left">
           <thead>
@@ -316,7 +309,12 @@ const DataTable: React.FC = () => {
                     return (
                       <td
                         key={site}
-                        className="border px-4 py-2 text-center font-bold cursor-pointer"
+                        className={`border rounded-md px-4 py-2 text-center font-bold cursor-pointer ${
+                          siteData &&
+                          siteData.inspectedVehicles ===
+                            siteData.totalVehicles &&
+                          'opacity-20'
+                        }`}
                         style={{
                           backgroundColor: siteData
                             ? getBackgroundColor(
@@ -327,7 +325,7 @@ const DataTable: React.FC = () => {
                                   : 0
                               )
                             : 'transparent',
-                          color: siteData ? 'blue' : '#d3d3d3', // Ensure text is readable in light gray
+                          color: siteData ? 'white' : '#d3d3d3', // Ensure text is readable in light gray
                         }}
                         onClick={() =>
                           handleCardClick(
@@ -339,7 +337,7 @@ const DataTable: React.FC = () => {
                         {/* Highlight defect count if defectVehicles > 0 */}
                         {siteData && siteData.defectVehicles > 0 ? (
                           <span
-                            className="text-rose-500 font-bold text-xl p-1 rounded bg-rose-100"
+                            className="text-rose-500 font-bold text-xl p-1 rounded bg-rose-100 mr-2"
                             style={{
                               border: '2px solid #FF0000', // Red border
                               boxShadow: '0 0 10px rgba(255, 0, 0, 0.6)', // Glowing effect
@@ -350,8 +348,9 @@ const DataTable: React.FC = () => {
                         ) : (
                           <span>{''}</span> // Render blank if no defects
                         )}
+
                         {/* Conditionally render <hr /> only if defectVehicles > 0 */}
-                        {siteData && siteData.defectVehicles > 0 && <hr />}
+                        {/* {siteData && siteData.defectVehicles > 0 && <hr />} */}
                         {/* Conditionally render inspected/total/percentage only if totalVehicles > 0 */}
                         {siteData && siteData.totalVehicles > 0 ? (
                           <>
@@ -448,7 +447,9 @@ const DataTable: React.FC = () => {
                   {sites.map((site) => (
                     <td
                       key={site}
-                      className="border px-4 py-2 text-center font-bold"
+                      className={`border px-4 py-2 text-center font-bold ${
+                        summary[site]?.[period] || (0 === 0 && 'text-gray-300')
+                      }`}
                     >
                       {summary[site]?.[period] || 0}
                     </td>

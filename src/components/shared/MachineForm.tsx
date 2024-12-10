@@ -80,7 +80,7 @@ const Filling: React.FC<FillingProps> = ({
       try {
         //SRB truck is not the same form as TH
         const { questions } = await loadQuestions(
-          ['lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu,
+          ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu,
           machine
         );
         setQuestions(questions);

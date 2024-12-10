@@ -51,7 +51,13 @@ const Detail = ({ bu, dataTr, machine }: Machine) => {
   useEffect(() => {
     const fetchDetailFields = async () => {
       try {
-        const { detailFields } = await loadQuestions(bu, machine);
+        const buValue = bu || ''; // Default to an empty string if bu is undefined
+        const { detailFields } = await loadQuestions(
+          ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(buValue)
+            ? 'th'
+            : buValue,
+          machine
+        );
         setDetailFields(detailFields);
       } catch (error) {
         console.error('Error loading detail fields:', error);
