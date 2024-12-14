@@ -36,7 +36,12 @@ const Header = ({ bu, data, machine }: HeaderComponentProps) => {
 
         if (adjustedBu) {
           const fields = await loadHeader(adjustedBu); // Fetch header fields dynamically
-          setHeaderFields(fields);
+          setHeaderFields(
+            fields.filter(
+              (field, index, self) =>
+                self.findIndex((f) => f.field === field.field) === index
+            ) // Remove duplicate fields by their `field` key
+          );
         }
       } catch (error) {
         console.error('Error loading header fields:', error);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
+import { useParams, Link } from 'react-router-dom';
 import { http } from '@/lib/http';
 import Loading from '@/components/shared/Loader';
 import {
@@ -18,31 +18,44 @@ import ModalMapAll from '@/uti/ModalMapAll';
 import ModalImage from '@/uti/ModalImage';
 import ModalGraph from '@/uti/ModalGraph';
 
-// Define interfaces for site and row data
-interface SiteData {
-  site: string;
-  count: number;
-}
-
+// Interfaces for data
 interface RowData {
-  _id: string;
-  sites: SiteData[];
-  totalByType: number;
+  _id: {
+    type: string;
+    site: string;
+  };
+  totalVehicles: number;
+  inspectedVehicles: number;
+  defectVehicles: number;
+  lastInspectionDate: string;
 }
 
-interface Data {
+interface PeriodData {
   daily: RowData[];
   monthly: RowData[];
   quarterly: RowData[];
   annually: RowData[];
 }
 
+interface Inspection {
+  _id: {
+    site: string;
+    type: string;
+  };
+  totalVehicles: number;
+  inspectedVehicles: number;
+  defectVehicles: number;
+  lastInspectionDate: string;
+}
+
 const DataTable: React.FC = () => {
-  const [data, setData] = useState<Data | null>(null);
+  const [data, setData] = useState<PeriodData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [siteNames, setSiteNames] = useState<string[]>([]); // Dynamically generated site names
+  const [sites, setSites] = useState<string[]>([]); // Dynamically fetched sites
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [selectedSite, setSelectedSite] = useState<string | null>(null);
+  const [selectedInspection, setSelectedInspection] =
+    useState<Inspection | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [vehicleData, setVehicleData] = useState<VehicleData[]>([]);
   const [formVisible, setFormVisible] = useState(false);
@@ -70,25 +83,25 @@ const DataTable: React.FC = () => {
   }>({});
   const { bu } = useParams();
 
-  // Fetch data from the API
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${http}alertTr_one`, {
-          params: {
-            bu,
-          },
+        const response = await axios.get(`${http}cctvTr_all`, {
+          params: { bu },
         });
-        setData(res.data);
-        const sites = extractUniqueSites(res.data); // Extract unique site names dynamically
-        setSiteNames(sites);
+        setData(response.data);
+
+        // Explicitly cast Object.values to an array of RowData[]
+        const allSites = (Object.values(response.data) as RowData[][]).flatMap(
+          (rows) => rows.map((row) => row._id.site)
+        );
+        setSites(Array.from(new Set(allSites)).sort()); // Remove duplicates and sort
       } catch (error) {
-        console.error('Error fetching vehicle inspection data:', error);
+        console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
     };
-
     fetchData();
   }, [bu]);
 
@@ -96,13 +109,30 @@ const DataTable: React.FC = () => {
   const handleCardClick = async (type: string, site: string) => {
     setSelectedType(type);
     setSelectedSite(site);
-    // Prepare the inspection data for modal display
-    // setSelectedInspection({ selectedType: type, selectedSite: site } || null);
 
-    setModalOpen(true); // Open the modal
+    let inspectionData: Inspection | null = null;
+
+    // Iterate through all periods to find the relevant inspection
+    if (data) {
+      for (const period of ['daily', 'monthly', 'quarterly', 'annually']) {
+        const periodData = data[period as keyof PeriodData];
+        const match = periodData.find(
+          (inspection) =>
+            inspection._id.site.toLowerCase() === site.toLowerCase() &&
+            inspection._id.type.toLowerCase() === type.toLowerCase()
+        );
+        if (match) {
+          inspectionData = match;
+          break; // Exit the loop once a match is found
+        }
+      }
+    }
+
+    setSelectedInspection(inspectionData || null); // Store the inspection data for modal display
+    setModalOpen(true);
 
     try {
-      // Send the first three required parameters, with the rest as blank values
+      // Fetch additional details for the selected type and site
       const res = await axios.get(`${http}vehicle_all`, {
         params: {
           bu,
@@ -193,23 +223,6 @@ const DataTable: React.FC = () => {
     return videoExtensions.some((ext) => fileName.toLowerCase().endsWith(ext)); // Check the file extension
   };
 
-  // Helper function to extract unique site names from all data arrays
-  const extractUniqueSites = (data: Data): string[] => {
-    const siteSet = new Set<string>();
-
-    // Iterate through daily, monthly, and quarterly data to gather unique site names
-    ['daily', 'monthly', 'quarterly', 'annually'].forEach((period) => {
-      data[period as keyof Data].forEach((row) => {
-        row.sites.forEach((siteData: SiteData) => {
-          // Use SiteData as a type here
-          siteSet.add(siteData.site.toUpperCase());
-        });
-      });
-    });
-
-    return Array.from(siteSet); // Convert Set back to Array
-  };
-
   // Loading state
   if (loading) {
     return (
@@ -219,100 +232,145 @@ const DataTable: React.FC = () => {
     );
   }
 
-  // If no data available
   if (!data) {
-    return <p>No data available.</p>;
+    return <p className="text-rose-500">No data available</p>;
   }
 
-  const renderTable = (tableName: string, tableData: RowData[]) => {
-    const siteTotals: { [site: string]: number } = {}; // To accumulate site totals
-    let grandTotal = 0; // To accumulate overall total
+  const getBackgroundColor = (percentage: number): string => {
+    if (percentage >= 0 && percentage <= 33) return 'rgb(237, 0, 0)'; // Red
+    if (percentage > 33 && percentage <= 66) return 'rgb(255, 200, 0)'; // Yellow
+    if (percentage > 66 && percentage <= 100) return 'rgb(0, 150, 0)'; // Green
 
-    // Compute site-wise totals and grand total
-    tableData.forEach((row) => {
-      row.sites.forEach((site) => {
-        siteTotals[site.site] = (siteTotals[site.site] || 0) + site.count;
-        grandTotal += site.count;
-      });
-    });
+    return ''; // Fallback (if needed)
+  };
+
+  const renderTable = (period: string, rows: RowData[]) => {
+    if (!rows || rows.length === 0) return null; // Handle empty or undefined rows
+    const types = [...new Set(rows.map((row) => row._id.type))];
+    const grandTotal = rows.reduce((sum, row) => sum + row.totalVehicles, 0);
 
     return (
-      <div className="mb-8">
-        <h2 className="text-xl font-bold mb-2 text-gray-800">
-          {tableName.toUpperCase()}
-        </h2>
-        <table className="min-w-full table-auto border-collapse border">
+      <div key={period} className="mb-8">
+        <h2 className="text-xl font-bold mb-4">{period.toUpperCase()} </h2>
+        <table className="w-full border-collapse border text-left">
           <thead>
             <tr className="bg-gray-200">
-              <th className="border px-4 py-2 text-left">Type</th>
-              {siteNames.map((site) => (
-                <th key={site} className="border px-4 py-2 text-left">
-                  {site}
+              <th className="border px-4 py-2">Type</th>
+              {sites.map((site) => (
+                <th key={site} className="border px-4 py-2 text-center">
+                  {site.toUpperCase()}
                 </th>
               ))}
-              <th className="border px-4 py-2 text-left bg-rose-50">Total</th>
+              <th className="border px-4 py-2 text-center bg-rose-50">Total</th>
             </tr>
           </thead>
           <tbody>
-            {tableData.map((row, rowIndex) => {
-              const rowTotal = row.totalByType; // Already calculated per row
+            {types.map((type) => {
+              const typeTotal = rows
+                .filter((row) => row._id.type === type)
+                .reduce((sum, row) => sum + row.totalVehicles, 0);
+
               return (
-                <tr key={rowIndex} className="even:bg-gray-100">
+                <tr key={type} className="even:bg-gray-100">
                   <td className="flex justify-between border px-4 py-2 font-bold">
                     {machineTitles[
                       bu
                         ? ['srb', 'lbm', 'rmx', 'iagg', 'ieco'].includes(bu)
-                          ? 'th' + row._id
-                          : bu + row._id
+                          ? 'th' + type
+                          : bu + type
                         : ''
-                    ] || row._id}
+                    ] || type}
 
                     <img
-                      src={`/assets/icons/${row._id}.svg`}
+                      src={`/assets/icons/${type}.svg`}
                       alt="image"
                       width={40}
                       height={40}
                     />
                   </td>
-                  {siteNames.map((site) => {
-                    const siteData = row.sites.find(
-                      (s) => s.site.toUpperCase() === site
+                  {sites.map((site) => {
+                    const siteData = rows.find(
+                      (row) => row._id.site === site && row._id.type === type
                     );
                     return (
                       <td
                         key={site}
-                        className={`border px-4 py-2 text-center text-blue-500 font-bold cursor-pointer ${
-                          (siteData ? siteData.count : 0) === 0 &&
-                          'text-slate-300'
+                        className={`border rounded-md px-4 py-2 text-center font-bold cursor-pointer ${
+                          siteData &&
+                          siteData.inspectedVehicles ===
+                            siteData.totalVehicles &&
+                          'opacity-20'
                         }`}
+                        style={{
+                          backgroundColor: siteData
+                            ? getBackgroundColor(
+                                siteData.totalVehicles > 0
+                                  ? (siteData.inspectedVehicles /
+                                      siteData.totalVehicles) *
+                                      100
+                                  : 0
+                              )
+                            : 'transparent',
+                          color: siteData ? 'white' : '#d3d3d3', // Ensure text is readable in light gray
+                        }}
                         onClick={() =>
-                          handleCardClick(row._id, site.toLowerCase())
+                          handleCardClick(
+                            type.toLowerCase(),
+                            site.toLowerCase()
+                          )
                         }
                       >
-                        {siteData ? siteData.count : 0}
+                        {/* Inspected / total machineries */}
+
+                        {siteData && siteData.totalVehicles > 0 ? (
+                          <>
+                            {siteData.inspectedVehicles} /{' '}
+                            {siteData.totalVehicles} (
+                            {(
+                              (siteData.inspectedVehicles /
+                                siteData.totalVehicles) *
+                              100
+                            ).toFixed(0)}
+                            %)
+                          </>
+                        ) : (
+                          '0'
+                        )}
+                        {/* Highlight defect count if defectVehicles > 0 */}
+                        {siteData && siteData.defectVehicles > 0 ? (
+                          <span
+                            className="text-rose-500 font-bold text-xl p-1 rounded bg-rose-100 ml-2"
+                            style={{
+                              border: '2px solid #FF0000', // Red border
+                              boxShadow: '0 0 10px rgba(255, 0, 0, 0.6)', // Glowing effect
+                            }}
+                          >
+                            {siteData.defectVehicles}
+                          </span>
+                        ) : (
+                          <span>{''}</span> // Render blank if no defects
+                        )}
                       </td>
                     );
                   })}
                   <td className="border px-4 py-2 text-center bg-rose-50 font-bold">
-                    {rowTotal}
+                    {typeTotal}
                   </td>
                 </tr>
               );
             })}
-            {/* Total row */}
             <tr className="bg-rose-50 font-bold">
               <td className="border px-4 py-2">Total</td>
-              {siteNames.map((site) => (
-                <td
-                  key={site}
-                  className={`border px-4 py-2 text-center ${
-                    (siteTotals[site.toLowerCase()] || 0) === 0 &&
-                    'text-slate-300'
-                  }`}
-                >
-                  {siteTotals[site.toLowerCase()] || 0}
-                </td>
-              ))}
+              {sites.map((site) => {
+                const siteTotal = rows
+                  .filter((row) => row._id.site === site)
+                  .reduce((sum, row) => sum + row.totalVehicles, 0);
+                return (
+                  <td key={site} className="border px-4 py-2 text-center">
+                    {siteTotal}
+                  </td>
+                );
+              })}
               <td className="border px-4 py-2 text-center">{grandTotal}</td>
             </tr>
           </tbody>
@@ -322,184 +380,83 @@ const DataTable: React.FC = () => {
   };
 
   const renderSummary = () => {
-    const summary: {
-      [key: string]: {
-        daily: number;
-        monthly: number;
-        quarterly: number;
-        annually: number;
-        total: number;
-      };
-    } = {};
-
+    const summary: { [site: string]: { [period: string]: number } } = {};
     let grandTotal = 0;
-    let grandDailyTotal = 0;
-    let grandMonthlyTotal = 0;
-    let grandQuarterlyTotal = 0;
-    let grandAnnuallyTotal = 0;
 
-    // Calculate total sums by site for daily, monthly, quarterly and accumulate the grand totals
-    ['daily', 'monthly', 'quarterly', 'annually'].forEach((period) => {
-      const table = data[period as keyof Data];
-      table.forEach((row: RowData) => {
-        row.sites.forEach((siteData: SiteData) => {
-          if (!summary[siteData.site]) {
-            summary[siteData.site] = {
-              daily: 0,
-              monthly: 0,
-              quarterly: 0,
-              annually: 0,
-              total: 0,
-            };
-          }
-
-          summary[siteData.site][
-            period as 'daily' | 'monthly' | 'quarterly' | 'annually'
-          ] += siteData.count;
-          summary[siteData.site].total += siteData.count;
-
-          if (period === 'daily') grandDailyTotal += siteData.count;
-          if (period === 'monthly') grandMonthlyTotal += siteData.count;
-          if (period === 'quarterly') grandQuarterlyTotal += siteData.count;
-          if (period === 'annually') grandAnnuallyTotal += siteData.count;
-
-          grandTotal += siteData.count;
-        });
+    // Iterate over all periods
+    Object.keys(data!).forEach((period) => {
+      data![period as keyof PeriodData].forEach((row) => {
+        const site = row._id.site;
+        if (!summary[site]) {
+          summary[site] = { daily: 0, monthly: 0, quarterly: 0, annually: 0 };
+        }
+        summary[site][period] += row.totalVehicles;
+        grandTotal += row.totalVehicles;
       });
     });
 
-    // Convert the summary object into an array of site names
-    const sites = Object.keys(summary);
-
     return (
       <div className="mt-8">
-        <h2 className="text-xl font-bold mb-2 text-gray-800">Summary</h2>
-        <table className="min-w-full table-auto border-collapse border border-gray-400">
+        <h2 className="text-xl font-bold mb-4">Summary</h2>
+        <table className="w-full border-collapse border text-left">
           <thead>
             <tr className="bg-gray-200">
-              <th className="border px-4 py-2 text-left">Period</th>
+              <th className="border px-4 py-2">Period</th>
               {sites.map((site) => (
-                <th key={site} className="border px-4 py-2 text-left">
+                <th key={site} className="border px-4 py-2 text-center">
                   {site.toUpperCase()}
                 </th>
               ))}
-              <th className="border px-4 py-2 text-left bg-rose-200">Total</th>
+              <th className="border px-4 py-2 text-center bg-rose-200">
+                Total
+              </th>
             </tr>
           </thead>
           <tbody>
-            {/* Render Daily */}
-            <tr className="even:bg-gray-100">
-              <td className="border px-4 py-2">
-                <Link
-                  to={`/Dashboard/${bu}/daily`}
-                  className="flex items-center text-blue-500 font-bold"
-                >
-                  Daily
-                </Link>
-              </td>
-              {sites.map((site) => (
-                <td
-                  key={site}
-                  className={`border px-4 py-2 text-center ${
-                    summary[site].daily === 0 && 'text-slate-300'
-                  }`}
-                >
-                  {summary[site].daily}
-                </td>
-              ))}
-              <td className="border px-4 py-2 text-center bg-rose-200 font-bold">
-                {grandDailyTotal}
-              </td>
-            </tr>
-
-            {/* Render Monthly */}
-            <tr className="even:bg-gray-100">
-              <td className="border px-4 py-2">
-                <Link
-                  to={`/Dashboard/${bu}/monthly`}
-                  className="flex items-center text-blue-500 font-bold"
-                >
-                  Monthly
-                </Link>
-              </td>
-              {sites.map((site) => (
-                <td
-                  key={site}
-                  className={`border px-4 py-2 text-center ${
-                    summary[site].monthly === 0 && 'text-slate-300'
-                  }`}
-                >
-                  {summary[site].monthly}
-                </td>
-              ))}
-              <td className="border px-4 py-2 text-center bg-rose-200 font-bold">
-                {grandMonthlyTotal}
-              </td>
-            </tr>
-
-            {/* Render Quarterly */}
-            <tr className="even:bg-gray-100">
-              <td className="border px-4 py-2">
-                <Link
-                  to={`/Dashboard/${bu}/quarterly`}
-                  className="flex items-center text-blue-500 font-bold"
-                >
-                  Quarterly
-                </Link>
-              </td>
-              {sites.map((site) => (
-                <td
-                  key={site}
-                  className={`border px-4 py-2 text-center ${
-                    summary[site].quarterly === 0 && 'text-slate-300'
-                  }`}
-                >
-                  {summary[site].quarterly}
-                </td>
-              ))}
-              <td className="border px-4 py-2 text-center bg-rose-200 font-bold">
-                {grandQuarterlyTotal}
-              </td>
-            </tr>
-
-            {/* Render Annually */}
-            <tr className="even:bg-gray-100">
-              <td className="border px-4 py-2">
-                <Link
-                  to={`/Dashboard/${bu}/annually`}
-                  className="flex items-center text-blue-500 font-bold"
-                >
-                  Annually
-                </Link>
-              </td>
-              {sites.map((site) => (
-                <td
-                  key={site}
-                  className={`border px-4 py-2 text-center ${
-                    summary[site].annually === 0 && 'text-slate-300'
-                  }`}
-                >
-                  {summary[site].annually}
-                </td>
-              ))}
-              <td className="border px-4 py-2 text-center bg-rose-200 font-bold">
-                {grandAnnuallyTotal}
-              </td>
-            </tr>
-
-            {/* Render Total */}
+            {['daily', 'monthly', 'quarterly', 'annually'].map((period) => {
+              const periodTotal = Object.keys(summary).reduce(
+                (sum, site) => sum + (summary[site][period] || 0),
+                0
+              );
+              return (
+                <tr key={period} className="even:bg-gray-100">
+                  <td className="border px-4 py-2 font-bold">
+                    <Link
+                      to={`/Dashboard/${bu}/${period}`}
+                      className="flex items-center text-blue-500 font-bold"
+                    >
+                      {period.charAt(0).toUpperCase() + period.slice(1)}
+                    </Link>
+                  </td>
+                  {sites.map((site) => (
+                    <td
+                      key={site}
+                      className={`border px-4 py-2 text-center font-bold ${
+                        summary[site]?.[period] || (0 === 0 && 'text-gray-300')
+                      }`}
+                    >
+                      {summary[site]?.[period] || 0}
+                    </td>
+                  ))}
+                  <td className="border px-4 py-2 text-center bg-rose-200 font-bold">
+                    {periodTotal}
+                  </td>
+                </tr>
+              );
+            })}
             <tr className="bg-rose-200 font-bold">
               <td className="border px-4 py-2">Total</td>
-              {sites.map((site) => (
-                <td
-                  key={site}
-                  className={`border px-4 py-2 text-center ${
-                    summary[site].total === 0 && 'text-slate-300'
-                  }`}
-                >
-                  {summary[site].total}
-                </td>
-              ))}
+              {sites.map((site) => {
+                const siteTotal = Object.values(summary[site] || {}).reduce(
+                  (sum, value) => sum + value,
+                  0
+                );
+                return (
+                  <td key={site} className="border px-4 py-2 text-center">
+                    {siteTotal}
+                  </td>
+                );
+              })}
               <td className="border px-4 py-2 text-center">{grandTotal}</td>
             </tr>
           </tbody>
@@ -509,30 +466,72 @@ const DataTable: React.FC = () => {
   };
 
   return (
-    <div className="p-8">
-      <header className="text-center m-4">
-        <h1 className="text-4xl font-bold flex">
+    <div className="p-8 overflow-auto">
+      <header className="text-center mb-8">
+        <h1 className="text-3xl font-bold flex items-center justify-center">
           <img
             src={`/assets/icons/${
               bu && ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu)
                 ? 'th'
                 : bu
             }.svg`}
+            alt="Flag"
             className="mr-2 md:w-10 md:h-10 w-16 h-16"
-            alt="flag"
           />
-          {bu?.toUpperCase()}
+          {bu?.toUpperCase()} - Combined daily, monthly, quarterly, annually
         </h1>
       </header>
-      <h1 className="text-2xl font-bold mb-6 text-gray-900">
-        Combined daily, monthly, quarterly, annually
-      </h1>
-      {renderTable('daily', data.daily)}
-      {renderTable('monthly', data.monthly)}
-      {renderTable('quarterly', data.quarterly)}
-      {renderTable('annually', data.annually)}
+      {/* Add legend here */}
+      <h2 className="text-xl font-bold mb-4">
+        <span className="ml-4 text-gray-500">
+          Inspected / Total Machines ( % )
+        </span>
+        <span
+          className="ml-4 text-rose-500 font-bold text-xl p-1 rounded bg-rose-100"
+          style={{
+            border: '2px solid #FF0000', // Red border
+            boxShadow: '0 0 10px rgba(255, 0, 0, 0.6)', // Glowing effect
+          }}
+        >
+          Defect
+        </span>
+      </h2>
+      <div className="flex items-center mb-4">
+        <div className="flex items-center mr-4">
+          <span
+            className="w-4 h-4 inline-block mr-2 rounded"
+            style={{ backgroundColor: 'rgb(237, 0, 0)' }}
+          ></span>
+          <span>0–33%</span>
+        </div>
+        <div className="flex items-center mr-4">
+          <span
+            className="w-4 h-4 inline-block mr-2 rounded"
+            style={{ backgroundColor: 'rgb(255, 200, 0)' }}
+          ></span>
+          <span>34–66%</span>
+        </div>
+        <div className="flex items-center mr-4">
+          <span
+            className="w-4 h-4 inline-block mr-2 rounded"
+            style={{ backgroundColor: 'rgb(0, 150, 0)' }}
+          ></span>
+          <span>67–99%</span>
+        </div>
+        <div className="flex items-center">
+          <span
+            className="w-4 h-4 inline-block mr-2 rounded opacity-20"
+            style={{ backgroundColor: 'rgb(0, 150, 0)' }}
+          ></span>
+          <span>100%</span>
+        </div>
+      </div>
+      {['daily', 'monthly', 'quarterly', 'annually'].map((period) =>
+        renderTable(period, data[period as keyof PeriodData])
+      )}
       {renderSummary()}
       {/* Modal for showing vehicle details */}
+      {/* Check if `selectedInspection` is null before accessing its properties */}
       <Modal
         isOpen={modalOpen}
         onClose={handleCloseModal}
@@ -578,23 +577,43 @@ const DataTable: React.FC = () => {
                 />
               </button>
             </div>
-            {/* Head of Total and Inspected Vehicles for the selected site and type */}
-            <div className="pt-2">
-              <hr />
-              {
-                <p className="text-lg my-4">
+            {/* Check if `selectedInspection` is not null */}
+            {selectedInspection ? (
+              <div className="pt-2">
+                <p className="text-lg">
+                  <span className="text-green-500 text-xl">
+                    Inspected: {selectedInspection.inspectedVehicles}
+                  </span>{' '}
+                  | Total: {selectedInspection.totalVehicles}
+                </p>
+                <p className="text-lg mb-4">
                   <span
                     className={`${
-                      openDefected !== 0 && 'text-rose-500 text-xl'
+                      selectedInspection.defectVehicles !== 0 &&
+                      'text-rose-500 text-xl'
                     }`}
                   >
-                    Open Defected:{' '}
-                    {openDefected !== undefined ? openDefected : 'N/A'}
+                    Defected: {selectedInspection.defectVehicles}
                   </span>{' '}
-                  | Total: {totalVehicles}
+                  | Total: {selectedInspection.totalVehicles}
                 </p>
-              }
-            </div>
+                <hr />
+                {
+                  <p className="text-lg my-4">
+                    <span
+                      className={`${
+                        openDefected !== 0 && 'text-rose-500 text-xl'
+                      }`}
+                    >
+                      Open Defected: {openDefected}
+                    </span>{' '}
+                    | Total: {totalVehicles}
+                  </p>
+                }
+              </div>
+            ) : (
+              <p className="text-rose-500">No inspection data available</p>
+            )}
             {/* Modal display Total and Inspected Vehicles for the selected site and type */}
             <ModalContent
               vehicleData={vehicleData}
@@ -609,7 +628,6 @@ const DataTable: React.FC = () => {
           </>
         }
       />
-
       {formVisible && selectedVehicle && (
         <ModalForm
           bu={bu}

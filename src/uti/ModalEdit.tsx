@@ -5,10 +5,16 @@ import { FilteredMachineItem } from '@/lib/typeMachine';
 interface FormProps {
   item: FilteredMachineItem | null | undefined;
   machine: string | null | undefined;
+  bu: string | null | undefined;
   setFormEditVisible: (visible: boolean) => void;
 }
 
-const Modal: React.FC<FormProps> = ({ item, machine, setFormEditVisible }) => {
+const Modal: React.FC<FormProps> = ({
+  item,
+  machine,
+  bu,
+  setFormEditVisible,
+}) => {
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.currentTarget === e.target) {
       setFormEditVisible(false);
@@ -30,7 +36,7 @@ const Modal: React.FC<FormProps> = ({ item, machine, setFormEditVisible }) => {
           transition: { type: 'spring', stiffness: 100, damping: 10 },
         }}
       >
-        <MachineEdit item={item} machine={machine} />
+        <MachineEdit item={item} machine={machine} bu={bu} />
       </motion.div>
     </motion.div>
   );

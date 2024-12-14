@@ -198,8 +198,10 @@ const Home: React.FC = () => {
             </td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">backup</td>
-            <td className="border border-gray-300 p-2"></td>
+            <td className="border border-gray-300 p-2">PUT</td>
+            <td className="border border-gray-300 p-2 text-blue-500">
+              vehicleTr_put
+            </td>
           </tr>
 
           <tr className="border border-gray-300">

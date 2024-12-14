@@ -129,23 +129,12 @@ const VehicleInspectionPage: React.FC = () => {
     fetchData();
   }, [period, bu]);
 
-  const getBackgroundColor = (period: string | undefined) => {
-    switch (period) {
-      case 'daily':
-        return 'bg-blue-100';
-      case 'monthly':
-        return 'bg-green-100';
-      case 'quarterly':
-        return 'bg-yellow-100';
-      case 'toolbox':
-        return 'bg-purple-100';
-      case 'pra':
-        return 'bg-orange-100';
-      case 'alert':
-        return 'bg-pink-100';
-      default:
-        return 'bg-white';
-    }
+  const getBackgroundColor = (percentage: number): string => {
+    if (percentage >= 0 && percentage <= 33) return 'rgb(237, 0, 0)'; // Red
+    if (percentage > 33 && percentage <= 66) return 'rgb(255, 200, 0)'; // Yellow
+    if (percentage > 66 && percentage <= 100) return 'rgb(0, 150, 0)'; // Green
+
+    return ''; // Fallback (if needed)
   };
 
   // Function to open modal and fetch detailed data
@@ -374,7 +363,7 @@ const VehicleInspectionPage: React.FC = () => {
         <div className="text-center">
           <h3 className="text-lg font-semibold">
             Inspected{' '}
-            <span className="text-green-500 font-bold">
+            <span className="font-bold">
               {totalInspected !== undefined ? totalInspected : 'N/A'}
             </span>{' '}
             / {totalVehicles}
@@ -422,13 +411,44 @@ const VehicleInspectionPage: React.FC = () => {
       </div>
       {/* Implementing toggle between two Links with ChevronDown and ChevronUp */}
       {period && (
-        <div className="flex items-center justify-end cursor-pointer text-blue-500 mt-2">
+        <div className="flex items-center justify-end cursor-pointer text-blue-500 mt-4">
           <Link to={`/Dashboard/${bu}/${period}`} className="flex items-center">
             <ChevronUp size={24} className="mr-2" />
             <span>Show by Plant</span>
           </Link>
         </div>
       )}
+      {/* Legend color */}
+      <div className="flex items-center m-4">
+        <div className="flex items-center mr-4">
+          <span
+            className="w-4 h-4 inline-block mr-2 rounded"
+            style={{ backgroundColor: 'rgb(237, 0, 0)' }}
+          ></span>
+          <span>0–33%</span>
+        </div>
+        <div className="flex items-center mr-4">
+          <span
+            className="w-4 h-4 inline-block mr-2 rounded"
+            style={{ backgroundColor: 'rgb(255, 200, 0)' }}
+          ></span>
+          <span>34–66%</span>
+        </div>
+        <div className="flex items-center mr-4">
+          <span
+            className="w-4 h-4 inline-block mr-2 rounded"
+            style={{ backgroundColor: 'rgb(0, 150, 0)' }}
+          ></span>
+          <span>67–99%</span>
+        </div>
+        <div className="flex items-center">
+          <span
+            className="w-4 h-4 inline-block mr-2 rounded opacity-20"
+            style={{ backgroundColor: 'rgb(0, 150, 0)' }}
+          ></span>
+          <span>100%</span>
+        </div>
+      </div>
       {/* Group by Site */}
       {Object.entries(
         inspections.reduce<Record<string, Record<string, AggregatedTypeData>>>(
@@ -504,7 +524,7 @@ const VehicleInspectionPage: React.FC = () => {
                   />
                   <p className="text-white">
                     Inspected:{' '}
-                    <span className="text-green-500 font-bold">
+                    <span className="font-bold">
                       {typeData.inspectedVehicles}
                     </span>{' '}
                     / {typeData.totalVehicles}
@@ -596,15 +616,25 @@ const VehicleInspectionPage: React.FC = () => {
                   {typeData.details.map((inspection, index) => (
                     <div
                       key={`${inspection._id.site}-${inspection._id.type}-${index}`}
-                      className={`rounded-lg shadow-lg p-4 cursor-pointer flex flex-col justify-between h-full ${getBackgroundColor(
-                        period
-                      )} ${
+                      className={`rounded-lg shadow-lg p-4 cursor-pointer flex flex-col justify-between h-full ${
                         inspection.inspectedVehicles ===
                           inspection.totalVehicles && 'opacity-40'
                       } ${
                         inspection.defectVehicles > 0 &&
-                        'border-2 border-rose-500'
+                        'border-4 border-rose-500 animate-smallBounce'
                       }`}
+                      style={{
+                        backgroundColor: inspection
+                          ? getBackgroundColor(
+                              inspection.totalVehicles > 0
+                                ? (inspection.inspectedVehicles /
+                                    inspection.totalVehicles) *
+                                    100
+                                : 0
+                            )
+                          : 'transparent',
+                        color: inspection ? 'white' : '#d3d3d3', // Ensure text is readable in light gray
+                      }}
                       onClick={() =>
                         handleCardClick(
                           inspection._id.type,
@@ -634,7 +664,7 @@ const VehicleInspectionPage: React.FC = () => {
                       <div className="mt-4">
                         <p className="mt-2 text-lg">
                           Inspected{' '}
-                          <span className="text-green-500 font-bold">
+                          <span className="font-bold">
                             {inspection.inspectedVehicles}
                           </span>{' '}
                           / {inspection.totalVehicles}
@@ -664,7 +694,7 @@ const VehicleInspectionPage: React.FC = () => {
                               : 'N/A'}
                           </span>
                         </div>
-                        <p className="text-sm text-gray-500 mt-2">
+                        <p className="text-sm mt-2">
                           Last Inspection:{' '}
                           {inspection.lastInspectionDate
                             ? new Date(
@@ -683,8 +713,7 @@ const VehicleInspectionPage: React.FC = () => {
                               Defected{' '}
                               <span
                                 className={`${
-                                  inspection.defectVehicles !== 0 &&
-                                  'text-rose-500 font-bold'
+                                  inspection.defectVehicles !== 0 && 'font-bold'
                                 }`}
                               >
                                 {inspection.defectVehicles}
@@ -791,7 +820,7 @@ const VehicleInspectionPage: React.FC = () => {
             {selectedInspection && (
               <div className="pt-2">
                 <p className="text-lg">
-                  <span className="text-green-500 text-xl">
+                  <span className="text-bold">
                     Inspected:{' '}
                     {selectedInspection.inspectedVehicles !== undefined
                       ? selectedInspection.inspectedVehicles

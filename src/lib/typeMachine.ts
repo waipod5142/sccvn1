@@ -201,6 +201,7 @@ export const machineTitles: { [key: string]: string } = {
   vnElectric: 'Hướng dẫn kiểm tra văn phòng điện / Electrical Office',
   vnElectrical: 'Hướng dẫn kiểm tra văn phòng điện / Electrical Office',
   vnSlope: 'Hướng dẫn kiểm tra đường, dốc, thùng / Road, Slope, Hopper',
+  vnStock: 'Hướng dẫn kiểm tra bãi tập kết / Stockpiles',
 
   vnlifting: 'Lifting Equipment',
   vnforklift: 'Forklift',
@@ -227,6 +228,7 @@ export const machineTitles: { [key: string]: string } = {
   vnelectric: 'Electrical Office',
   vnelectrical: 'Electrical Office',
   vnslope: 'Road, Slope, Hopper',
+  vnstock: 'Stockpiles',
   //CMIC
   cmicBulk: 'ការត្រួតពិនិត្យរថយន្តមុនពេលប្រើប្រាស់ប្រចាំថ្ងៃ',
   cmicbulk: 'Bulk Truck',

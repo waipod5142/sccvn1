@@ -161,6 +161,7 @@ const Detail = ({ bu, dataTr, machine }: Machine) => {
   }
 
   const displayedData = showAll ? dataTr : dataTr.slice(0, 1);
+
   return (
     <div className={`px-2 sm:px-10 pb-2`}>
       {dataTr && (
@@ -401,6 +402,7 @@ const Detail = ({ bu, dataTr, machine }: Machine) => {
         <ModalEdit
           item={selectedEdit}
           machine={machine}
+          bu={bu}
           setFormEditVisible={setFormEditVisible}
         />
       )}

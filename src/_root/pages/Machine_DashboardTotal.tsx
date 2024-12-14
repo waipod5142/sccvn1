@@ -233,7 +233,7 @@ const DataTable: React.FC = () => {
   }
 
   if (!data) {
-    return <p>No data available</p>;
+    return <p className="text-rose-500">No data available</p>;
   }
 
   const getBackgroundColor = (percentage: number): string => {
@@ -251,21 +251,7 @@ const DataTable: React.FC = () => {
 
     return (
       <div key={period} className="mb-8">
-        <h2 className="text-xl font-bold mb-4">
-          {period.toUpperCase()}{' '}
-          {/* <span
-            className="ml-4 text-rose-500 font-bold text-xl p-1 rounded bg-rose-100"
-            style={{
-              border: '2px solid #FF0000', // Red border
-              boxShadow: '0 0 10px rgba(255, 0, 0, 0.6)', // Glowing effect
-            }}
-          >
-            Defect
-          </span>
-          <span className="ml-4 text-gray-500">
-            Inspected / Total Machines ( % )
-          </span> */}
-        </h2>
+        <h2 className="text-xl font-bold mb-4">{period.toUpperCase()} </h2>
         <table className="w-full border-collapse border text-left">
           <thead>
             <tr className="bg-gray-200">
@@ -314,7 +300,16 @@ const DataTable: React.FC = () => {
                           siteData.inspectedVehicles ===
                             siteData.totalVehicles &&
                           'opacity-20'
-                        }`}
+                        }
+                          
+                        ${
+                          siteData &&
+                          siteData.defectVehicles > 0 &&
+                          'animate-smallBounce'
+                        }
+                        
+                        
+                        `}
                         style={{
                           backgroundColor: siteData
                             ? getBackgroundColor(
@@ -334,24 +329,7 @@ const DataTable: React.FC = () => {
                           )
                         }
                       >
-                        {/* Highlight defect count if defectVehicles > 0 */}
-                        {siteData && siteData.defectVehicles > 0 ? (
-                          <span
-                            className="text-rose-500 font-bold text-xl p-1 rounded bg-rose-100 mr-2"
-                            style={{
-                              border: '2px solid #FF0000', // Red border
-                              boxShadow: '0 0 10px rgba(255, 0, 0, 0.6)', // Glowing effect
-                            }}
-                          >
-                            {siteData.defectVehicles}
-                          </span>
-                        ) : (
-                          <span>{''}</span> // Render blank if no defects
-                        )}
-
-                        {/* Conditionally render <hr /> only if defectVehicles > 0 */}
-                        {/* {siteData && siteData.defectVehicles > 0 && <hr />} */}
-                        {/* Conditionally render inspected/total/percentage only if totalVehicles > 0 */}
+                        {/* Inspected / total machineries */}
                         {siteData && siteData.totalVehicles > 0 ? (
                           <>
                             {siteData.inspectedVehicles} /{' '}
@@ -365,6 +343,20 @@ const DataTable: React.FC = () => {
                           </>
                         ) : (
                           '0'
+                        )}
+                        {/* Highlight defect count if defectVehicles > 0 */}
+                        {siteData && siteData.defectVehicles > 0 ? (
+                          <span
+                            className="text-rose-500 font-bold text-xl p-1 rounded bg-rose-100 ml-2"
+                            style={{
+                              border: '2px solid #FF0000', // Red border
+                              boxShadow: '0 0 10px rgba(255, 0, 0, 0.6)', // Glowing effect
+                            }}
+                          >
+                            {siteData.defectVehicles}
+                          </span>
+                        ) : (
+                          <span>{''}</span> // Render blank if no defects
                         )}
                       </td>
                     );
@@ -497,6 +489,51 @@ const DataTable: React.FC = () => {
           {bu?.toUpperCase()} - Combined daily, monthly, quarterly, annually
         </h1>
       </header>
+      {/* Add legend here */}
+      <h2 className="text-xl font-bold mb-4">
+        <span className="ml-4 text-gray-500">
+          Inspected / Total Machines ( % )
+        </span>
+        <span
+          className="ml-4 text-rose-500 font-bold text-xl p-1 rounded bg-rose-100"
+          style={{
+            border: '2px solid #FF0000', // Red border
+            boxShadow: '0 0 10px rgba(255, 0, 0, 0.6)', // Glowing effect
+          }}
+        >
+          Defect
+        </span>
+      </h2>
+      <div className="flex items-center mb-4">
+        <div className="flex items-center mr-4">
+          <span
+            className="w-4 h-4 inline-block mr-2 rounded"
+            style={{ backgroundColor: 'rgb(237, 0, 0)' }}
+          ></span>
+          <span>0–33%</span>
+        </div>
+        <div className="flex items-center mr-4">
+          <span
+            className="w-4 h-4 inline-block mr-2 rounded"
+            style={{ backgroundColor: 'rgb(255, 200, 0)' }}
+          ></span>
+          <span>34–66%</span>
+        </div>
+        <div className="flex items-center mr-4">
+          <span
+            className="w-4 h-4 inline-block mr-2 rounded"
+            style={{ backgroundColor: 'rgb(0, 150, 0)' }}
+          ></span>
+          <span>67–99%</span>
+        </div>
+        <div className="flex items-center">
+          <span
+            className="w-4 h-4 inline-block mr-2 rounded opacity-20"
+            style={{ backgroundColor: 'rgb(0, 150, 0)' }}
+          ></span>
+          <span>100%</span>
+        </div>
+      </div>
       {['daily', 'monthly', 'quarterly', 'annually'].map((period) =>
         renderTable(period, data[period as keyof PeriodData])
       )}
@@ -583,7 +620,7 @@ const DataTable: React.FC = () => {
                 }
               </div>
             ) : (
-              <p>No inspection data available</p>
+              <p className="text-rose-500">No inspection data available</p>
             )}
             {/* Modal display Total and Inspected Vehicles for the selected site and type */}
             <ModalContent

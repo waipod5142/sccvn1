@@ -6,6 +6,14 @@ export const inspector: { [key: string]: string } = {
   bd: 'পরিদর্শক',
 };
 
+export const responder: { [key: string]: string } = {
+  vn: 'Người thực hiện biện pháp khắc phục',
+  th: 'ผู้ดำเนินการแก้ไข',
+  cmic: 'អ្នកដំណើរការកែសម្រួល',
+  lk: 'ප්‍රතිසංස්කරණ ක්‍රියාදාමය සිදු කරන පුද්ගලයා',
+  bd: 'ত্রুটি সংশোধনের জন্য দায়ী ব্যক্তি',
+};
+
 export const howto: { [key: string]: string } = {
   vn: 'Cách kiểm tra',
   th: 'วิธีตรวจสอบ',
@@ -28,6 +36,14 @@ export const remarkr: { [key: string]: string } = {
   cmic: 'ចំណាំសម្រាប់សំណួរនេះ',
   lk: 'මෙම ප්‍රශ්නය සඳහා සටහන',
   bd: 'এই প্রশ্নটির জন্য মন্তব্য',
+};
+
+export const remarka: { [key: string]: string } = {
+  vn: 'Biện pháp để khắc phục thiếu sót',
+  th: 'มาตราการในการแก้ไขข้อบกพร่อง',
+  cmic: 'វិធានការដើម្បីកែសម្រួលបំណងខ្វះខាត',
+  lk: 'කණගාටු සහ ගැටළු සකසන ක්‍රියාමාර්ග',
+  bd: 'ত্রুটি সংশোধনের জন্য ব্যবস্থা',
 };
 
 export const remark: { [key: string]: string } = {
