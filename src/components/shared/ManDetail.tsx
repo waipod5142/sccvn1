@@ -69,9 +69,7 @@ const Detail = ({ bu, dataTr, man }: Man) => {
       });
 
       const res = await axios.delete(
-        `${http}${
-          man && man.toLowerCase()
-        }Tr_delete?id=${id}&type=${man?.toLocaleLowerCase()}&bu=${bu}`,
+        `${http}rescueTr_delete?id=${id}&type=${man?.toLocaleLowerCase()}&bu=${bu}`,
         {
           headers: {
             'Content-type': 'application/json',

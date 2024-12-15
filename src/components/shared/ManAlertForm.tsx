@@ -5,13 +5,15 @@ import Loader from './Loader';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import useGeoLocation from '@/uti/useGeoLocation';
+import { submit } from '@/lib/translation';
 
 interface FillingProps {
+  bu?: string;
   alertNo?: string;
 }
 
 export default function Filling() {
-  const { alertNo }: FillingProps = useParams();
+  const { bu, alertNo }: FillingProps = useParams();
 
   const {
     register,
@@ -27,14 +29,16 @@ export default function Filling() {
     window.scrollTo(0, 0);
     const updatedData = {
       ...formData,
+      bu,
       id: formData.id.replace(/[/\s]/g, '-'),
+      type: 'alert',
       alertNo,
       lat: location.coordinates.lat,
       lng: location.coordinates.lng,
     };
 
     try {
-      const res = await axios.post(`${http}alertTr_post`, updatedData, {
+      const res = await axios.post(`${http}rescueTr_post`, updatedData, {
         headers: {
           'Content-type': 'application/json',
         },
@@ -208,7 +212,7 @@ export default function Filling() {
             className="bg-purple-500 text-white shadow-xl hover:shadow-2xl hover:bg-purple-700 rounded-full py-2 disabled:bg-gray-500 w-auto"
           >
             {isSubmitting && <Loader />}
-            Gửi đi / Submit
+            {(bu && submit[bu]) || null} / Submit
           </button>
         </form>
       </section>

@@ -11,6 +11,7 @@ import DashboardTotal from '@/_root/pages/Machine_DashboardTotal';
 import DashboardDefect from '@/_root/pages/Machine_DashboardDefect';
 import DashboardOverdue from '@/_root/pages/Machine_DashboardOverdue';
 import DashboardAlert from '@/_root/pages/Man_DashboardAlert';
+import DashboardBoot from '@/_root/pages/Man_DashboardBoot';
 import MachineAuth from '@/_root/pages/Machine';
 import MachineNew from '@/_root/pages/MachineNew';
 import Visitor from '@/_auth/forms/Visitor';
@@ -18,6 +19,7 @@ import Visitor from '@/_auth/forms/Visitor';
 import Man from './_auth/forms/Man';
 import ManMain from '@/components/shared/ManMain';
 import AlertForm from '@/components/shared/ManAlertForm';
+import BootForm from '@/components/shared/ManBootForm';
 import Test from '@/components/dashboard/TestCopy';
 import './globals.css';
 
@@ -36,7 +38,8 @@ const App = () => {
           {/* <Route path="/ManDashboard" element={<ManDashboard />} /> */}
           <Route path="/Man/:man/:id" element={<Man />} />
           <Route path="/Man/:bu/:man/:id" element={<Man />} />
-          <Route path="/AlertForm/:alertNo" element={<AlertForm />} />
+          <Route path="Man/:bu/AlertForm/:alertNo" element={<AlertForm />} />
+          <Route path="/Man/:bu/BootForm/:area" element={<BootForm />} />
           //Main page
           <Route path="/Man" element={<ManMain />} />
           <Route path="/Test" element={<Test />} />
@@ -55,6 +58,7 @@ const App = () => {
             element={<Machine_Dashboard />}
           />
           <Route path="/DashboardAlert/:bu" element={<DashboardAlert />} />
+          <Route path="/DashboardBoot/:bu" element={<DashboardBoot />} />
           <Route path="/DashboardTotal/:bu" element={<DashboardTotal />} />
           <Route path="/DashboardDefect/:bu" element={<DashboardDefect />} />
           <Route path="/DashboardOverdue/:bu" element={<DashboardOverdue />} />

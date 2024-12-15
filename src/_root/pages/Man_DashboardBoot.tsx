@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 
 interface AlertData {
   _id: {
-    alertNo: string;
+    area: string;
     site?: string;
     type: string;
   };
@@ -25,7 +25,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${http}harnessTr_all`, {
+        const res = await axios.get(`${http}harnessTr_one`, {
           params: {
             bu,
           },
@@ -50,28 +50,28 @@ const App: React.FC = () => {
     );
   }
 
-  // Grouping by site, then by alertNo, then by type, excluding 'N/A' sites and undefined types
+  // Grouping by site, then by area, then by type, excluding 'N/A' sites and undefined types
   const groupedData = dataTr
     .filter((alert) => alert._id.site && alert._id.type) // Exclude 'N/A' sites and undefined types
     .reduce((acc, alert) => {
       const site = alert._id.site!;
-      const alertNo = alert._id.alertNo;
+      const area = alert._id.area;
       const type = alert._id.type;
 
       // Ensure the site exists
       if (!acc[site]) {
         acc[site] = {};
       }
-      // Ensure the alertNo exists
-      if (!acc[site][alertNo]) {
-        acc[site][alertNo] = {};
+      // Ensure the area exists
+      if (!acc[site][area]) {
+        acc[site][area] = {};
       }
       // Ensure the type exists
-      if (!acc[site][alertNo][type]) {
-        acc[site][alertNo][type] = [];
+      if (!acc[site][area][type]) {
+        acc[site][area][type] = [];
       }
 
-      acc[site][alertNo][type].push(alert);
+      acc[site][area][type].push(alert);
       return acc;
     }, {} as Record<string, Record<string, Record<string, AlertData[]>>>);
 
@@ -89,7 +89,7 @@ const App: React.FC = () => {
           <thead>
             <tr>
               <th className="py-2 px-4 border">Site</th>
-              <th className="py-2 px-4 border">Alert No</th>
+              <th className="py-2 px-4 border">Area</th>
               {uniqueTypes.map((type) => (
                 <th key={type} className="py-2 px-4 border">
                   {type.toUpperCase()}
@@ -109,8 +109,8 @@ const App: React.FC = () => {
                 return (
                   <React.Fragment key={site}>
                     {Object.entries(alertsByAlertNo).map(
-                      ([alertNo, alertsByType], index) => (
-                        <tr key={alertNo} className={bgColor}>
+                      ([area, alertsByType], index) => (
+                        <tr key={area} className={bgColor}>
                           {/* Render the site only for the first row of each group */}
                           {index === 0 && (
                             <td
@@ -118,7 +118,7 @@ const App: React.FC = () => {
                               className="py-2 px-4 border text-blue-600 hover:text-blue-800 cursor-pointer hover:bg-blue-200 transition duration-300 ease-in-out"
                               onClick={() => {
                                 window.open(
-                                  `https://ap-southeast-1.aws.data.mongodb-api.com/app/sccvn-zzlewmt/endpoint/sccvn/alertTr_one?bu=${bu}&site=${site}&type=alert`,
+                                  `https://ap-southeast-1.aws.data.mongodb-api.com/app/sccvn-zzlewmt/endpoint/sccvn/alertTr_one?bu=${bu}&site=${site}&type=boot`,
                                   '_blank'
                                 );
                               }}
@@ -126,7 +126,7 @@ const App: React.FC = () => {
                               {site.toLocaleUpperCase()}
                             </td>
                           )}
-                          <td className="py-2 px-4 border">{alertNo}</td>
+                          <td className="py-2 px-4 border">{area}</td>
                           {uniqueTypes.map((type) => {
                             const alerts = alertsByType[type] || [];
                             const totalUniqueCount = alerts.reduce(

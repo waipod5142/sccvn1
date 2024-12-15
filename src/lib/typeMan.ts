@@ -1,9 +1,10 @@
 import { Data as Toolbox, Item as ToolboxItem } from '@/lib/typeToolbox';
 import { Data as Alert, Item as AlertItem } from '@/lib/typeAlert';
+import { Data as Boot, Item as BootItem } from '@/lib/typeAlert';
 import { Data as Pra, Item as PraItem } from '@/lib/typePra';
 
-export type Man = Toolbox | Alert | Pra;
-export type ManItem = ToolboxItem | AlertItem | PraItem;
+export type Man = Toolbox | Alert | Boot | Pra;
+export type ManItem = ToolboxItem | AlertItem | BootItem | PraItem;
 
 export type DetailTypes = 'Toolbox' | 'Alert' | 'Pra' | 'Induction';
 
@@ -17,13 +18,15 @@ export interface ManProps {
 }
 
 export const manItemLabels: { [key: string]: string } = {
-  vnPra: 'Đánh giá rủi ro cá nhân/ Personal Risk Assessment',
+  vnPra: 'Đánh giá rủi ro cá nhân / Personal Risk Assessment',
   vnAlert: 'Cảnh báo an toàn / Safety Alert',
+  vnBoot: 'Kiểm tra hiện trường / Boot on the ground',
   vnToolbox: 'Thảo luận an toàn / Toolbox Talk',
 };
 
 export const manActivities = [
   { id: 'Alert' },
+  { id: 'Boot' },
   { id: 'Toolbox' },
   { id: 'Pra' },
 ];

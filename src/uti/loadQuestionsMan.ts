@@ -11,8 +11,8 @@ export const loadQuestions = async (
       return import('@/lib/dataAlert');
     case 'vn_Pra':
       return import('@/lib/dataPra');
-    case 'vn_Induction':
-      return import('@/lib/dataInduction');
+    case 'vn_Boot':
+      return import('@/lib/dataBoot');
     default:
       throw new Error('Unknown man type');
   }

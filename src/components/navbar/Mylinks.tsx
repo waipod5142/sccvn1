@@ -9,6 +9,7 @@ export const links = [
           { name: 'Toolbox', link: '/Dashboard/vn/toolbox' },
           { name: 'PRA', link: '/Dashboard/vn/pra' },
           { name: 'Safety Alert', link: '/DashboardAlert/vn' },
+          { name: 'Boot on the ground', link: '/DashboardBoot/vn' },
         ],
       },
       {

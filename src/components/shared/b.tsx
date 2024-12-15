@@ -19,7 +19,7 @@ const Home: React.FC = () => {
         </thead>
         <tbody>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2" rowSpan={136}>
+            <td className="border border-gray-300 p-2" rowSpan={137}>
               All Countries
             </td>
             <td className="bg-rose-200 border border-gray-300 p-2" rowSpan={5}>
@@ -51,7 +51,7 @@ const Home: React.FC = () => {
             <td className="border border-gray-300 p-2"></td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2" rowSpan={8}>
+            <td className="border border-gray-300 p-2" rowSpan={9}>
               Dashboard by Plant
             </td>
             <td className="border border-gray-300 p-2"></td>
@@ -89,8 +89,12 @@ const Home: React.FC = () => {
             <td className="border border-gray-300 p-2">cableTr_all</td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">alert Graph</td>
+            <td className="border border-gray-300 p-2">alert Chart</td>
             <td className="border border-gray-300 p-2">harnessTr_all</td>
+          </tr>
+          <tr className="border border-gray-300">
+            <td className="border border-gray-300 p-2">boot Chart</td>
+            <td className="border border-gray-300 p-2">harnessTr_one</td>
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2" rowSpan={5}>
@@ -154,17 +158,15 @@ const Home: React.FC = () => {
             <td className="border border-gray-300 p-2"></td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">backup</td>
-            <td className="border border-gray-300 p-2"></td>
+            <td className="border border-gray-300 p-2">alertTr to Excel</td>
+            <td className="border border-gray-300 p-2 text-blue-500">
+              alertTr_one
+            </td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">backup</td>
-            <td className="border border-gray-300 p-2">
-              <a
-                href=""
-                target="_blank"
-                className="text-blue-600 hover:text-blue-800"
-              ></a>
+            <td className="border border-gray-300 p-2">vn_boot to Excel</td>
+            <td className="border border-gray-300 p-2 text-blue-500">
+              alertTr_one
             </td>
           </tr>
           <tr className="border border-gray-300">
@@ -208,10 +210,8 @@ const Home: React.FC = () => {
             <td className="border border-gray-300 p-2" rowSpan={5}>
               Total Machinery
             </td>
-            <td className="border border-gray-300 p-2">
-              get (change when add new BU only)
-            </td>
-            <td className="border border-gray-300 p-2">alertTr_one</td>
+            <td className="border border-gray-300 p-2"></td>
+            <td className="border border-gray-300 p-2"></td>
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">Defect summary</td>
