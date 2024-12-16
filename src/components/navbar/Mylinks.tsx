@@ -10,6 +10,7 @@ export const links = [
           { name: 'PRA', link: '/Dashboard/vn/pra' },
           { name: 'Safety Alert', link: '/DashboardAlert/vn' },
           { name: 'Boot on the ground', link: '/DashboardBoot/vn' },
+          { name: 'Risk Assessment', link: '/DashboardRa/vn' },
         ],
       },
       {

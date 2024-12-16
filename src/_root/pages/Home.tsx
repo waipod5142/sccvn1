@@ -54,7 +54,7 @@ const RootLayout = () => {
       console.log(error);
     }
     reset();
-    window.location.href = `/Man/${formData.id}/Toolbox/${formData.id
+    window.location.href = `/Man/${formData.bu}/Toolbox/${formData.id
       .replace(/[/\s]/g, '-')
       .toUpperCase()}`;
   };

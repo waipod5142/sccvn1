@@ -259,6 +259,8 @@ export const machineTitles: { [key: string]: string } = {
   //TH
   thTruck: 'แบบตรวจเช็ครถบรรทุกก่อนใช้งานประจำวัน',
   thCar: 'แบบตรวจเช็ครถเล็กก่อนใช้งานประจำวัน',
+  thMixer: 'แบบตรวจเช็ครถก่อนใช้งานประจำวัน',
+  thmixer: 'Mixer',
   thtruck: 'Truck',
   thcar: 'Car',
   thforklift: 'Forklift',

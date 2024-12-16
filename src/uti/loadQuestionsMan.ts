@@ -12,7 +12,9 @@ export const loadQuestions = async (
     case 'vn_Pra':
       return import('@/lib/dataPra');
     case 'vn_Boot':
-      return import('@/lib/dataBoot');
+      return import('@/lib/dataVNboot');
+    case 'vn_Ra':
+      return import('@/lib/dataVNra');
     default:
       throw new Error('Unknown man type');
   }

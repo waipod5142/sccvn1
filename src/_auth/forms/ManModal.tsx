@@ -111,6 +111,12 @@ const Main = ({ bu, man, id }: Item) => {
               <option value={`/Man/${bu}/Alert/${id}`}>
                 {manItemLabels.vnAlert}
               </option>
+              <option value={`/Man/${bu}/Boot/${id}`}>
+                {manItemLabels.vnBoot}
+              </option>
+              <option value={`/Man/${bu}/Ra/${id}`}>
+                {manItemLabels.vnRa}
+              </option>
               <option value={`/Man/${bu}/Pra/${id}`}>
                 {manItemLabels.vnPra}
               </option>

@@ -109,6 +109,9 @@ const Main = () => {
               <option value={`/Man/${bu}/Boot/${id}`}>
                 {manItemLabels.vnBoot}
               </option>
+              <option value={`/Man/${bu}/Ra/${id}`}>
+                {manItemLabels.vnRa}
+              </option>
               <option value={`/Man/${bu}/Pra/${id}`}>
                 {manItemLabels.vnPra}
               </option>

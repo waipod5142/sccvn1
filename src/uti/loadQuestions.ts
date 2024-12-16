@@ -93,6 +93,8 @@ export const loadQuestions = async (
       return import('@/lib/dataTHtruck');
     case 'th_Motorbike':
       return import('@/lib/dataTHmotorbike');
+    case 'th_Mixer':
+      return import('@/lib/dataTHmixer');
     //SRB
     case 'srb_Truck':
       return import('@/lib/dataSRBtruck');
