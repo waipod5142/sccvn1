@@ -31,7 +31,7 @@ export default function Filling() {
       ...formData,
       bu,
       id: formData.id.replace(/[/\s]/g, '-'),
-      type: 'alert',
+      type: 'toolbox',
       alertNo,
       lat: location.coordinates.lat,
       lng: location.coordinates.lng,

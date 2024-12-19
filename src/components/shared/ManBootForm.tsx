@@ -74,7 +74,12 @@ export default function Filling() {
 
     localStorage.setItem(
       'inseeId',
-      JSON.stringify([{ id: formData.id.replace(/[/\s]/g, '-').toUpperCase() }])
+      JSON.stringify([
+        {
+          id: formData.id.replace(/[/\s]/g, '-').toUpperCase(),
+          bu: formData.bu,
+        },
+      ])
     );
   };
 

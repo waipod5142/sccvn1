@@ -6,7 +6,8 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import useStorage from '@/hooks/useStorage';
 import useGeoLocation from '@/uti/useGeoLocation';
-import { remark, picture, submit } from '@/lib/translation';
+import { loadQuestions } from '@/uti/loadQuestionsMan';
+import { howto, accept, remark, picture, submit } from '@/lib/translation';
 import { Camera } from 'lucide-react';
 
 interface FillingProps {
@@ -14,8 +15,17 @@ interface FillingProps {
   area?: string;
 }
 
+type QuestionType = {
+  id: number;
+  name: string;
+  question: string;
+  howto: string;
+  accept: string;
+};
+
 export default function Filling() {
   const { bu, area }: FillingProps = useParams();
+  const man = 'Ra';
   const {
     register,
     handleSubmit,
@@ -23,6 +33,7 @@ export default function Filling() {
     reset,
   } = useForm();
 
+  const [questions, setQuestions] = useState<QuestionType[]>([]);
   const { startUpload, progress, url } = useStorage();
   const [isUploading, setIsUploading] = useState<boolean>(false);
   const [uploadURL, setUploadURL] = useState<string | null>(null);
@@ -35,6 +46,20 @@ export default function Filling() {
       setIsUploading(false);
     }
   }, [url]);
+
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        //SRB truck is not the same form as TH
+        const { questions } = await loadQuestions(bu, man);
+        setQuestions(questions);
+      } catch (error) {
+        console.error('Error loading questions:', error);
+      }
+    };
+
+    fetchQuestions();
+  }, [bu, man]);
 
   const onSubmit = async (formData: FieldValues) => {
     // Merge the form data with the existing data
@@ -74,7 +99,12 @@ export default function Filling() {
 
     localStorage.setItem(
       'inseeId',
-      JSON.stringify([{ id: formData.id.replace(/[/\s]/g, '-').toUpperCase() }])
+      JSON.stringify([
+        {
+          id: formData.id.replace(/[/\s]/g, '-').toUpperCase(),
+          bu: formData.bu,
+        },
+      ])
     );
   };
 
@@ -91,7 +121,7 @@ export default function Filling() {
       setFileSelected(false);
     }
   };
-
+  console.log(questions);
   return (
     location.loaded &&
     !location.error && (
@@ -122,86 +152,38 @@ export default function Filling() {
               <p className="text-red-500">{`${errors.id?.message}`}</p>
             )}
           </div>
-          <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
-            <div className="text-2xl text-slate-900 px-4">1. Observee</div>
-            <input
-              {...register('observee', {
-                required: 'Observee',
-              })}
-              type="text"
-              placeholder="Observee"
-              className="mx-4 px-4 py-2 rounded w-72 md:w-80"
-            />
-            {errors.observee && (
-              <p className="text-red-500">{`${errors.observee?.message}`}</p>
-            )}
-          </div>
-          <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
-            <div className="text-2xl text-slate-900 px-4">
-              2. Comment on safe behavior
-            </div>
-            <input
-              {...register('safe', {
-                required: 'Comment on safe behavior',
-              })}
-              type="text"
-              placeholder="Comment on safe behavior"
-              className="mx-4 px-4 py-2 rounded w-72 md:w-80"
-            />
-            {errors.safe && (
-              <p className="text-red-500">{`${errors.safe?.message}`}</p>
-            )}
-          </div>
-          <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
-            <div className="text-2xl text-slate-900 px-4">
-              3. Discuss unsafe act (express concern / ask to explore)
-            </div>
-            <input
-              {...register('unsafe', {
-                required:
-                  'Discuss unsafe act (express concern / ask to explore)',
-              })}
-              type="text"
-              placeholder="Safer ways to do the job"
-              className="mx-4 px-4 py-2 rounded w-72 md:w-80"
-            />
-            {errors.unsafe && (
-              <p className="text-red-500">{`${errors.unsafe?.message}`}</p>
-            )}
-          </div>
-          <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
-            <div className="text-2xl text-slate-900 px-4">
-              4. Discuss other safety issues
-            </div>
-            <input
-              {...register('other', {
-                required: 'Discuss other safety issues',
-              })}
-              type="text"
-              placeholder="Discuss other safety issues"
-              className="mx-4 px-4 py-2 rounded w-72 md:w-80"
-            />
-            {errors.other && (
-              <p className="text-red-500">{`${errors.other?.message}`}</p>
-            )}
-          </div>
-          <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
-            <div className="text-2xl text-slate-900 px-4">
-              5. Get agreement to work safely
-            </div>
-            <input
-              {...register('agree', {
-                required: 'Get agreement to work safely',
-              })}
-              type="text"
-              placeholder="Get agreement to work safely"
-              className="mx-4 px-4 py-2 rounded w-72 md:w-80"
-            />
-            {errors.agree && (
-              <p className="text-red-500">{`${errors.agree?.message}`}</p>
-            )}
-          </div>
 
+          <div className="py-0 w-full">
+            {questions.map((question, index: number) => (
+              <div key={index} className="bg-purple-100 py-2 my-2 rounded-md">
+                <div className="p-4">
+                  <div className="text-2xl text-slate-900">
+                    {question.id}. {question.question}
+                  </div>
+                  <p className="text-sm text-left text-slate-400 dark:text-gray-300">
+                    {(bu && howto[bu]) || null}: {question.howto}
+                  </p>
+                  <p className="text-sm text-left text-slate-400 dark:text-gray-300">
+                    {(bu && accept[bu]) || null}: {question.accept}
+                  </p>
+
+                  <input
+                    {...register(question.name, {
+                      required: question.name,
+                    })}
+                    type="text"
+                    placeholder={question.question}
+                    className="mx-4 px-4 py-2 rounded w-72 md:w-80"
+                  />
+                  {errors[question.name] && (
+                    <p className="text-red-500">{`${
+                      errors[question.name]?.message
+                    }`}</p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
           <div className="py-2 rounded-lg bg-purple-100 w-full">
             <div className="text-2xl text-slate-900 px-4">
               {(bu && picture[bu]) || null} Attach Image (Optional)

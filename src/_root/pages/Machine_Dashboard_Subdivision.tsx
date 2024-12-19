@@ -571,8 +571,7 @@ const VehicleInspectionPage: React.FC = () => {
                         Defected:{' '}
                         <span
                           className={`${
-                            typeData.defectVehicles !== 0 &&
-                            'text-rose-500 font-bold'
+                            typeData.defectVehicles !== 0 && 'font-bold'
                           }`}
                         >
                           {typeData.defectVehicles}

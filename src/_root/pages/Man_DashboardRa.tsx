@@ -83,9 +83,10 @@ const App: React.FC = () => {
   );
 
   return (
-    <div className="p-6 bg-gray-100">
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white">
+    <div className="p-6">
+      <h1 className="pb-4 text-4xl font-bold">{`Risk Assessment`}</h1>
+      <div className="overflow-x-auto bg-gray-100">
+        <table className="min-w-full">
           <thead>
             <tr>
               <th className="py-2 px-4 border">Site</th>
@@ -118,7 +119,7 @@ const App: React.FC = () => {
                               className="py-2 px-4 border text-blue-600 hover:text-blue-800 cursor-pointer hover:bg-blue-200 transition duration-300 ease-in-out"
                               onClick={() => {
                                 window.open(
-                                  `https://ap-southeast-1.aws.data.mongodb-api.com/app/sccvn-zzlewmt/endpoint/sccvn/alertTr_one?bu=${bu}&site=${site}&type=boot`,
+                                  `https://ap-southeast-1.aws.data.mongodb-api.com/app/sccvn-zzlewmt/endpoint/sccvn/alertTr_one?bu=${bu}&site=${site}&type=ra`,
                                   '_blank'
                                 );
                               }}

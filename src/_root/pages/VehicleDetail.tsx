@@ -123,7 +123,11 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
               </button>
             )}
             {tran.url && (
-              <figure>
+              <figure
+                className={`w-full md:w-1/2 md:h-1/2 lg:w-1/4 lg:h-1/4 cursor-pointer mt-2 ml-2 ${
+                  /P$/.test(tran.url) && 'border-4 border-rose-500'
+                } ${/F$/.test(tran.url) && 'border-4 border-green-500'}`}
+              >
                 {isVideoUrl(tran.url) ? (
                   <video controls src={tran.url} />
                 ) : (

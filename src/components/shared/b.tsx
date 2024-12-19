@@ -19,7 +19,7 @@ const Home: React.FC = () => {
         </thead>
         <tbody>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2" rowSpan={137}>
+            <td className="border border-gray-300 p-2" rowSpan={138}>
               All Countries
             </td>
             <td className="bg-rose-200 border border-gray-300 p-2" rowSpan={5}>
@@ -51,7 +51,7 @@ const Home: React.FC = () => {
             <td className="border border-gray-300 p-2"></td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2" rowSpan={9}>
+            <td className="border border-gray-300 p-2" rowSpan={10}>
               Dashboard by Plant
             </td>
             <td className="border border-gray-300 p-2"></td>
@@ -95,6 +95,12 @@ const Home: React.FC = () => {
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">boot Chart</td>
             <td className="border border-gray-300 p-2">harnessTr_one</td>
+          </tr>
+          <tr className="border border-gray-300">
+            <td className="border border-gray-300 p-2">
+              risk assessment Chart
+            </td>
+            <td className="border border-gray-300 p-2">harnessTr_get</td>
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2" rowSpan={5}>

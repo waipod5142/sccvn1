@@ -211,7 +211,7 @@ const Detail = ({ bu, dataTr, machine }: Machine) => {
                 className={`flex justify-end ${
                   timeDifferenceInMinutes(new Date(item.date)) > 5 ||
                   item.date === 'Invalid Date'
-                    ? 'hidden' //hidden
+                    ? 'null' //hidden
                     : null
                 }`}
               >

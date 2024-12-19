@@ -83,8 +83,9 @@ const App: React.FC = () => {
   );
 
   return (
-    <div className="p-6 bg-gray-100">
-      <div className="overflow-x-auto">
+    <div className="p-6">
+      <h1 className="pb-4 text-4xl font-bold">{`Boot on the ground`}</h1>
+      <div className="overflow-x-auto gb-gray-100">
         <table className="min-w-full bg-white">
           <thead>
             <tr>
