@@ -9,6 +9,7 @@ import useGeoLocation from '@/uti/useGeoLocation';
 import { loadQuestions } from '@/uti/loadQuestionsMan';
 import { howto, accept, remark, picture, submit } from '@/lib/translation';
 import { Camera } from 'lucide-react';
+import { QRCodeSVG } from 'qrcode.react';
 
 interface FillingProps {
   bu?: string;
@@ -125,11 +126,62 @@ export default function Filling() {
   return (
     location.loaded &&
     !location.error && (
-      <section id="questions" className="md:px-4 pb-4 pt-10 w-80 md:w-full">
+      <section id="questions" className="md:px-4 pb-4 pt-10 w-full">
+        <div className="px-4 sm:px-10 grid grid-cols-4">
+          <div className="col-span-3 my-4">
+            <li key={area} className="text-slate-400">
+              <strong
+                className={`${'bg-slate-600 text-white text-2xl rounded-md p-2 mt-20'}`}
+              >
+                {area?.toLocaleUpperCase()}
+              </strong>
+            </li>
+          </div>
+          <div className="col-span-1 my-4 flex flex-col items-center justify-center">
+            <img
+              src={`/assets/icons/${man && man.toLowerCase()}.svg`}
+              className="animate-pulse"
+              alt={man}
+              width={
+                man &&
+                (man.toLowerCase() === 'toolbox' ||
+                man.toLowerCase() === 'vehicle'
+                  ? 100
+                  : 80)
+              }
+              height={
+                man &&
+                (man.toLowerCase() === 'toolbox' ||
+                man.toLowerCase() === 'vehicle'
+                  ? 100
+                  : 80)
+              }
+              // className="pt-2"
+            />
+            <br />
+            <QRCodeSVG
+              value={`https://www.saf37y.com/Man/${bu}/${man}Form/${area}`}
+              size={75}
+              bgColor={'#ffffff'}
+              fgColor={'#000000'}
+              level={'L'}
+              includeMargin={false}
+              imageSettings={{
+                src: 'https://companieslogo.com/img/orig/SCCC.BK-b25d0caf.png',
+                x: undefined,
+                y: undefined,
+                height: 10,
+                width: 10,
+                excavate: true,
+              }}
+            />
+          </div>
+        </div>
+
         <div className="text-center relative">
           <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-slate-200 via-slate-500 to-slate-200 transform -translate-y-1/2 z-0"></div>
           <h1 className="text-lg bg-white text-slate-900 relative z-10 py-2 px-4 rounded-lg inline">
-            Thực hiện kiểm tra an toàn khu vực làm việc trước khi vào/ ra
+            Danh sách kiểm tra đánh giá / RISK ASSESSMENT REVIEW CHECK LIST
           </h1>
         </div>
         <form

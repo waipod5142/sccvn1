@@ -81,6 +81,16 @@ const SafetyInductionPage: React.FC = () => {
             type: 'video', // Explicitly set the type to 'video'
           },
         ]
+      : site === 'HO'
+      ? [
+          {
+            id: 1,
+            title: 'Head Office Safety Induction Video',
+            description: 'Click to view Video',
+            url: 'https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FHO%2019_5_2023%20-%20voice%20over_mp4.mp4?alt=media&token=edce6721-5e14-4bdf-bcf5-8f9e8fda1cf0',
+            type: 'video', // Explicitly set the type to 'video'
+          },
+        ]
       : [];
 
   // Function to handle card click

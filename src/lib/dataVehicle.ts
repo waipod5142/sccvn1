@@ -83,6 +83,11 @@ export const detailFields = [
   { field: 'date', label: 'Ngày Date' },
   { field: 'email', label: 'Responsible person' },
   { field: 'inspector', label: 'Người kiểm tra Inspector' },
+  {
+    field: 'certificate',
+    label:
+      'Chứng nhận kiểm định/đăng kiểm còn hiệu lực đến ngày. Inspection/register certificate valid to',
+  },
   { field: 'responder', label: 'Responder' },
   { field: 'structure', label: '1. Cấu trúc *' },
   { field: 'structureR', label: '' },

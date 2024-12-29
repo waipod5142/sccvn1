@@ -21,8 +21,8 @@ export interface ManProps {
 export const manItemLabels: { [key: string]: string } = {
   vnPra: 'Đánh giá rủi ro cá nhân / Personal Risk Assessment',
   vnAlert: 'Cảnh báo an toàn / Safety Alert',
-  vnBoot: 'Kiểm tra hiện trường / Boot on the ground',
-  vnRa: 'Đánh giá rủi ro / Risk Assessment',
+  vnBoot: 'Danh sách kiểm tra hạng mục An toàn / BOOT ON THE GROUND CHECK LIST',
+  vnRa: 'Danh sách kiểm tra đánh giá / Risk Assessmen Checklist',
   vnToolbox: 'Thảo luận an toàn / Toolbox Talk',
 };
 

@@ -20,7 +20,9 @@ import Visitor from '@/_auth/forms/Visitor';
 import Man from './_auth/forms/Man';
 import ManMain from '@/components/shared/ManMain';
 import AlertForm from '@/components/shared/ManAlertForm';
-import BootForm from '@/components/shared/ManBootForm';
+
+// change this for header
+import ManForm from '@/_auth/forms/ManForm';
 import RaForm from '@/components/shared/ManRaForm';
 import Test from '@/components/dashboard/TestCopy';
 import './globals.css';
@@ -34,15 +36,17 @@ const App = () => {
           <Route path="/b" element={<Admin />} />
           <Route path="/sign-in" element={<SigninForm />} />
           <Route path="/Induction/:site" element={<Visitor />} />
+          <Route path="/Induction/:bu/:site" element={<Visitor />} />
           //For SCCLK and others
           {/* <Route path="/:machine/:id" element={<Machine />} />
           <Route path="/Machine/:bu/:machine/:id" element={<MachineNew />} /> */}
           {/* <Route path="/ManDashboard" element={<ManDashboard />} /> */}
           <Route path="/Man/:man/:id" element={<Man />} />
+          {/* Make this inactive */}
           <Route path="/Man/:bu/:man/:id" element={<Man />} />
           <Route path="/AlertForm/:alertNo" element={<AlertForm />} />
           <Route path="Man/:bu/AlertForm/:alertNo" element={<AlertForm />} />
-          <Route path="/Man/:bu/BootForm/:area" element={<BootForm />} />
+          <Route path="/ManForm/:bu/:man/:id" element={<ManForm />} />
           <Route path="/Man/:bu/RaForm/:area" element={<RaForm />} />
           //Main page
           <Route path="/Man" element={<ManMain />} />
@@ -52,6 +56,7 @@ const App = () => {
         {/* private routes */}
         <Route element={<RootLayout />}>
           <Route index element={<Home />} />
+          {/* show all countries graph */}
           <Route path="/DashboardTotalAll" element={<DashboardTotalAll />} />
           <Route
             path="/Dashboard_Subdivision/:bu/:period"

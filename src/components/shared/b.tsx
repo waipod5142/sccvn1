@@ -1149,42 +1149,22 @@ const Home: React.FC = () => {
 
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2" rowSpan={5}>
-              PRA (Personal Risk Assessment)
+              Table
             </td>
-            <td className="border border-gray-300 p-2">get</td>
-            <td className="border border-gray-300 p-2">
-              <a
-                href="https://ap-southeast-1.aws.data.mongodb-api.com/app/sccvn-zzlewmt/endpoint/sccvn/praTr_get"
-                target="_blank"
-                className="text-blue-600 hover:text-blue-800"
-              >
-                https://ap-southeast-1.aws.data.mongodb-api.com/app/sccvn-zzlewmt/endpoint/sccvn/praTr_get
-              </a>
+            <td className="border border-gray-300 p-2 text-blue-500">blue</td>
+            <td className="border border-gray-300 p-2 text-blue-500">
+              master and transaction tables
             </td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">get one</td>
-            <td className="border border-gray-300 p-2">
-              <a
-                href="https://ap-southeast-1.aws.data.mongodb-api.com/app/sccvn-zzlewmt/endpoint/sccvn/praTr_one?id=20002562"
-                target="_blank"
-                className="text-blue-600 hover:text-blue-800"
-              >
-                https://ap-southeast-1.aws.data.mongodb-api.com/app/sccvn-zzlewmt/endpoint/sccvn/praTr_one?id=20002562
-              </a>
+            <td className="border border-gray-300 p-2 text-rose-500">red</td>
+            <td className="border border-gray-300 p-2 text-rose-500">
+              period and transaction tables in that period
             </td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">get all</td>
-            <td className="border border-gray-300 p-2">
-              <a
-                href="https://ap-southeast-1.aws.data.mongodb-api.com/app/sccvn-zzlewmt/endpoint/sccvn/praTr_all"
-                target="_blank"
-                className="text-blue-600 hover:text-blue-800"
-              >
-                https://ap-southeast-1.aws.data.mongodb-api.com/app/sccvn-zzlewmt/endpoint/sccvn/praTr_all
-              </a>
-            </td>
+            <td className="border border-gray-300 p-2">backup</td>
+            <td className="border border-gray-300 p-2"></td>
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">backup</td>

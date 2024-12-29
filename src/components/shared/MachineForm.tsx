@@ -227,6 +227,26 @@ const Filling: React.FC<FillingProps> = ({
               )}
             </div>
           )}
+          {['Lifting', 'Vehicle', 'Mobile'].includes(machine) && (
+            <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
+              <div className="text-2xl text-slate-900 px-4">
+                Chứng nhận kiểm định/đăng kiểm còn hiệu lực đến ngày.
+                Inspection/register certificate valid to
+              </div>
+              <input
+                {...register('certificate', {
+                  required:
+                    'Chứng nhận kiểm định/đăng kiểm còn hiệu lực đến ngày. Inspection/register certificate valid to',
+                })}
+                type="text"
+                placeholder="Chứng nhận kiểm định/đăng kiểm còn hiệu lực đến ngày. Inspection/register certificate valid to"
+                className="mx-4 px-4 py-2 rounded"
+              />
+              {errors.certificate && (
+                <p className="text-red-500">{`${errors.certificate?.message}`}</p>
+              )}
+            </div>
+          )}
 
           <div className="py-0 w-full">
             {questions.map((question, index: number) => (

@@ -236,6 +236,7 @@ export const links = [
           { name: 'HONC', link: '/Induction/HONC' },
           { name: 'THIV', link: '/Induction/THIV' },
           { name: 'CATL', link: '/Induction/CATL' },
+          { name: 'HO', link: '/Induction/vn/HO' },
         ],
       },
     ],
