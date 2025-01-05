@@ -1,3 +1,11 @@
+export const saf37y: { [key: string]: string } = {
+  vn: 'URL hoặc mã QR này sẽ hết hạn vào ngày 12 tháng 3 năm 2025. Vui lòng liên hệ quản trị viên để cấp mã QR mới. Thời gian còn lại',
+  th: 'URL หรือ QR code นี้จะหมดอายุในวันที่ 12 มีนาคม 2025 กรุณาติดต่อผู้ดูแลระบบเพื่อออก QR code ใหม่ เหลือเวลาอีก',
+  cmic: 'URL ឬ QR code នេះនឹងផុតកំណត់នៅថ្ងៃទី 12 ខែមីនា ឆ្នាំ 2025 សូមទាក់ទងអ្នកគ្រប់គ្រងប្រព័ន្ធដើម្បីបញ្ចេញ QR code ថ្មី។ មានរយៈពេលនៅសល់',
+  lk: 'මෙම URL හෝ QR කේතය 2025 මාර්තු 12 වන දිනට පෙර කල් ඉකුත් වේ. නව QR කේතයක් නිකුත් කිරීමට පරිපාලකවරයෙකු අමතන්න. ඉතිරි කාලය',
+  bd: 'এই URL বা QR কোডটি ১২ মার্চ ২০২৫ তারিখে মেয়াদোত্তীর্ণ হবে। নতুন QR কোড ইস্যু করার জন্য প্রশাসকের সাথে যোগাযোগ করুন। অবশিষ্ট সময়',
+};
+
 export const inspector: { [key: string]: string } = {
   vn: 'Người kiểm tra',
   th: 'ผู้ตรวจสอบ',
@@ -91,7 +99,7 @@ export const lk: ChoiceType[] = [
 export const cmic: ChoiceType[] = [
   { value: 'Pass', text: 'ប្រក្រតី', colorClass: 'bg-green-500' },
   { value: 'NotPass', text: 'មិនប្រក្រតី', colorClass: 'bg-rose-500' },
-  { value: 'N/A', text: 'មិនអាចប្រើបាន', colorClass: 'bg-yellow-500' },
+  { value: 'N/A', text: 'មិនពាក់ព័ន្ធ', colorClass: 'bg-yellow-500' },
 ];
 
 export const th: ChoiceType[] = [

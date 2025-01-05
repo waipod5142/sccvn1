@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Man } from '@/lib/typeMan';
 import { QRCodeSVG } from 'qrcode.react';
 import { loadHeader } from '@/uti/loadHeaderMan';
-import { Link } from 'react-router-dom';
 
 interface HeaderComponentProps {
   bu: string | undefined;
@@ -54,12 +53,14 @@ const Header = ({ bu, data, man }: HeaderComponentProps) => {
     const value = data[field as keyof Man];
     if (field === 'id') {
       return (
-        <Link
-          to={`/Man/${bu}/Toolbox/${data.id}`}
-          className="text-white underline"
+        <span
+          className="text-white underline cursor-pointer"
+          onClick={() =>
+            (window.location.href = `/Man/${bu}/Toolbox/${data.id}`)
+          }
         >
           {value as string}
-        </Link>
+        </span>
       );
     }
     if (Array.isArray(value)) {
@@ -67,7 +68,6 @@ const Header = ({ bu, data, man }: HeaderComponentProps) => {
     }
     return value as string;
   };
-
   return (
     <div className="px-4 sm:px-10 grid grid-cols-4">
       <div className="col-span-3 my-4">

@@ -90,17 +90,17 @@ const Home: React.FC = () => {
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">alert Chart</td>
-            <td className="border border-gray-300 p-2">harnessTr_all</td>
+            <td className="border border-gray-300 p-2"></td>
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">boot Chart</td>
-            <td className="border border-gray-300 p-2">harnessTr_one</td>
+            <td className="border border-gray-300 p-2"></td>
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">
               risk assessment Chart
             </td>
-            <td className="border border-gray-300 p-2">harnessTr_get</td>
+            <td className="border border-gray-300 p-2"></td>
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2" rowSpan={5}>
@@ -119,19 +119,21 @@ const Home: React.FC = () => {
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">
-              New query for Total by bu
+              Total Machinery Green, Yellow, Red
             </td>
             <td className="border border-gray-300 p-2 text-rose-500">
               cctvTr_all
             </td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2"></td>
-            <td className="border border-gray-300 p-2">cctvTr_one</td>
+            <td className="border border-gray-300 p-2">By Owner</td>
+            <td className="border border-gray-300 p-2 text-rose-500">
+              cctvTr_get
+            </td>
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2"></td>
-            <td className="border border-gray-300 p-2">cctvTr_get</td>
+            <td className="border border-gray-300 p-2">cctvTr_one</td>
           </tr>
 
           <tr className="border border-gray-300">
@@ -216,8 +218,12 @@ const Home: React.FC = () => {
             <td className="border border-gray-300 p-2" rowSpan={5}>
               Total Machinery
             </td>
-            <td className="border border-gray-300 p-2"></td>
-            <td className="border border-gray-300 p-2"></td>
+            <td className="border border-gray-300 p-2">
+              Activity (Boot, Ra, Alert) drill down
+            </td>
+            <td className="border border-gray-300 p-2 text-blue-500">
+              harnessTr_get
+            </td>
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">Defect summary</td>
@@ -232,18 +238,16 @@ const Home: React.FC = () => {
             </td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">backup</td>
-            <td className="border border-gray-300 p-2">
-              <a
-                href=""
-                target="_blank"
-                className="text-blue-600 hover:text-blue-800"
-              ></a>
+            <td className="border border-gray-300 p-2">Activity (Boot, Ra)</td>
+            <td className="border border-gray-300 p-2 text-blue-500">
+              harnessTr_one
             </td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">backup</td>
-            <td className="border border-gray-300 p-2"></td>
+            <td className="border border-gray-300 p-2">Activity (Alert)</td>
+            <td className="border border-gray-300 p-2 text-blue-500">
+              harnessTr_all
+            </td>
           </tr>
 
           <tr className="border border-gray-300">

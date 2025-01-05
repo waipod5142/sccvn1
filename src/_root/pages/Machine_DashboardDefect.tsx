@@ -131,20 +131,16 @@ const VehicleInspectionPage: React.FC = () => {
     setModalOpen(true);
 
     try {
-      const res = await axios.get(
-        `${http}vehicle_all`,
-        // `https://lrwviz5p3a.execute-api.ap-southeast-1.amazonaws.com/vehicle_all`,
-        {
-          params: {
-            bu,
-            type,
-            site,
-            owner,
-            area,
-            department,
-          },
-        }
-      );
+      const res = await axios.get(`${http}vehicle_all`, {
+        params: {
+          bu,
+          type,
+          site,
+          owner,
+          area,
+          department,
+        },
+      });
 
       setVehicleData(res.data);
     } catch (error) {
@@ -196,6 +192,7 @@ const VehicleInspectionPage: React.FC = () => {
         id: tran.id,
         inspector: tran.inspector,
         date: tran.date,
+        url: tran.url,
       });
       setFormVisibleMap(true);
     } else {
@@ -618,7 +615,7 @@ const VehicleInspectionPage: React.FC = () => {
             <h2 className="text-2xl font-semibold mb-4">
               Details for{' '}
               {(bu && machineTitles[bu + selectedType || '']) || selectedType}{' '}
-              for {selectedOwner?.toUpperCase()}
+              {selectedOwner?.toUpperCase()}
               {selectedArea?.toUpperCase()}
               {selectedDepartment?.toUpperCase()} at{' '}
               {selectedSite?.toUpperCase()}
@@ -715,7 +712,7 @@ const VehicleInspectionPage: React.FC = () => {
           </>
         }
       />
-      ;{/* Machine modal */}
+      {/* Machine modal */}
       {formVisible && selectedVehicle && (
         <ModalForm
           bu={bu}
@@ -743,6 +740,7 @@ const VehicleInspectionPage: React.FC = () => {
             id={selectedItem.id}
             inspector={selectedItem.inspector}
             date={selectedItem.date}
+            url={selectedItem.url}
             setFormVisibleMap={setFormVisibleMap}
           />
         )}

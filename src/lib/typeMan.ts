@@ -4,8 +4,8 @@ import { Data as Boot, Item as BootItem } from '@/lib/typeAlert';
 import { Data as Ra, Item as RaItem } from '@/lib/typeAlert';
 import { Data as Pra, Item as PraItem } from '@/lib/typePra';
 
-export type Man = Toolbox | Alert | Boot | Ra | Pra;
-export type ManItem = ToolboxItem | AlertItem | BootItem | RaItem | PraItem;
+export type Man = Toolbox | Pra | Alert | Boot | Ra;
+export type ManItem = ToolboxItem | PraItem | AlertItem | BootItem | RaItem;
 
 export type DetailTypes = 'Toolbox' | 'Alert' | 'Pra' | 'Induction';
 
@@ -35,17 +35,17 @@ export const manActivities = [
 ];
 
 // Constances
-export const owners = [
-  'All owners',
-  'BMJC',
-  'Contractor',
-  'ECO',
-  'Hoàng Thạnh',
-  'INSEE',
-  'Quoc Vinh',
-  'Thai Duong',
-  'Thanh Hà',
-  'Thống Nhất',
-  'Van An',
-  'Viet Long',
-];
+// export const owners = [
+//   'All owners',
+//   'BMJC',
+//   'Contractor',
+//   'ECO',
+//   'Hoàng Thạnh',
+//   'INSEE',
+//   'Quoc Vinh',
+//   'Thai Duong',
+//   'Thanh Hà',
+//   'Thống Nhất',
+//   'Van An',
+//   'Viet Long',
+// ];

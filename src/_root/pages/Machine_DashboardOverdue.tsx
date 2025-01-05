@@ -174,6 +174,7 @@ const VehicleInspectionPage: React.FC = () => {
         id: tran.id,
         inspector: tran.inspector,
         date: tran.date,
+        url: tran.url,
       });
       setFormVisibleMap(true);
     } else {
@@ -521,6 +522,7 @@ const VehicleInspectionPage: React.FC = () => {
             id={selectedItem.id}
             inspector={selectedItem.inspector}
             date={selectedItem.date}
+            url={selectedItem.url}
             setFormVisibleMap={setFormVisibleMap}
           />
         )}

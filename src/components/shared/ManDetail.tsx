@@ -95,6 +95,7 @@ const Detail = ({ bu, dataTr, man }: Man) => {
     id: '',
     inspector: '',
     date: '',
+    url: '',
   });
 
   const handleShowMap = (item: ManItem) => {
@@ -105,6 +106,7 @@ const Detail = ({ bu, dataTr, man }: Man) => {
         id: item.id,
         inspector: item.id,
         date: item.date,
+        url: item.url,
       });
       setFormVisibleMap(true);
     } else {
@@ -170,7 +172,7 @@ const Detail = ({ bu, dataTr, man }: Man) => {
                 className={`flex justify-end ${
                   timeDifferenceInMinutes(new Date(item.date)) > 5 ||
                   item.date === 'Invalid Date'
-                    ? 'hidden'
+                    ? 'hidden' //hidden
                     : null
                 }`}
               >
@@ -313,6 +315,7 @@ const Detail = ({ bu, dataTr, man }: Man) => {
             id={selectedItem.id}
             inspector={selectedItem.inspector}
             date={selectedItem.date}
+            url={selectedItem.url}
             setFormVisibleMap={setFormVisibleMap}
           />
         )}

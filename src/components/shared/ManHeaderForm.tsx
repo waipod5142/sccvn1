@@ -56,7 +56,13 @@ const Header = ({ bu, data, man }: HeaderComponentProps) => {
   }
 
   const capitalizeFirstLetter = (string: string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    if (!string) return string; // Handle empty or undefined strings
+    let result = string.charAt(0).toUpperCase() + string.slice(1);
+
+    // Replace "form" at the end with "Form"
+    result = result.replace(/form$/i, 'Form');
+
+    return result;
   };
 
   const renderFieldValue = (field: string) => {
@@ -66,7 +72,7 @@ const Header = ({ bu, data, man }: HeaderComponentProps) => {
       const capitalizedType = capitalizeFirstLetter(typeValue);
       return (
         <Link
-          to={`/Machine/${bu}/${capitalizedType}/${data.id}`}
+          to={`/ManForm/${bu}/${capitalizedType}/${data.id}`}
           className="text-white underline"
         >
           {value as string}

@@ -1,7 +1,7 @@
 export interface Data {
   _id: string;
   id: string;
-  fullname: string;
+  name: string;
   position: string;
   department: string;
   site: string;
@@ -17,6 +17,8 @@ export interface Item {
   _id: string;
   id: string;
   date: string;
+  alertNo?: string;
+  area?: string;
   location: string;
   taskDescription: string;
   hazards: string;

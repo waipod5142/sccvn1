@@ -3,7 +3,7 @@ import axios from 'axios';
 import { http } from '@/lib/http';
 import { useParams } from 'react-router-dom';
 import ManHeaderForm from '@/components/shared/ManHeaderForm';
-import MachineForm from '@/components/shared/ManBootForm';
+import ManForm from '@/components/shared/ManBoot_RaForm';
 import { Machine } from '@/lib/typeMachine';
 
 const getDetail = async (
@@ -68,7 +68,7 @@ const Main = () => {
         <>
           {data && <ManHeaderForm bu={bu} data={data} man={man} />}
           <br />
-          <MachineForm
+          <ManForm
             bu={bu}
             man={man?.replace('Form', '').toLowerCase()}
             id={id}

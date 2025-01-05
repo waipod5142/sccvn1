@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { http } from '@/lib/http';
 import Loading from '@/components/shared/Loader';
 import {
@@ -9,14 +9,15 @@ import {
   MapItem,
   machineTitles,
 } from '@/lib/typeMachine';
-import Modal from './Modal';
-import ModalContent from './ModalContent';
+import Modal from '@/_root/pages/Modal';
+import ModalContent from '@/_root/pages/ModalContent';
 import ModalForm from '@/uti/ModalForm';
 import ModalFormMan from '@/uti/ModalFormMan';
 import ModalMap from '@/uti/ModalMap';
 import ModalMapAll from '@/uti/ModalMapAll';
 import ModalImage from '@/uti/ModalImage';
 import ModalGraph from '@/uti/ModalGraph';
+import { QRCodeSVG } from 'qrcode.react';
 
 // Interfaces for data
 interface RowData {
@@ -81,13 +82,13 @@ const DataTable: React.FC = () => {
   const [showAllTransactions, setShowAllTransactions] = useState<{
     [key: string]: boolean;
   }>({});
-  const { bu } = useParams();
+  const { bu, owner } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${http}cctvTr_all`, {
-          params: { bu },
+          params: { bu, owner },
         });
         setData(response.data);
 
@@ -103,7 +104,7 @@ const DataTable: React.FC = () => {
       }
     };
     fetchData();
-  }, [bu]);
+  }, [bu, owner]);
 
   // Function to open modal and fetch detailed data
   const handleCardClick = async (type: string, site: string) => {
@@ -138,6 +139,7 @@ const DataTable: React.FC = () => {
           bu,
           type,
           site,
+          owner,
         },
       });
 
@@ -253,7 +255,7 @@ const DataTable: React.FC = () => {
 
     return (
       <div key={period} className="mb-8 overflow-x-auto">
-        <h2 className="text-xl font-bold mb-4">{period.toUpperCase()}</h2>
+        <h2 className="text-xl font-bold mb-2">{period.toUpperCase()}</h2>
         <table className="min-w-full border-collapse border text-left">
           <thead className="bg-gray-200">
             <tr>
@@ -393,7 +395,7 @@ const DataTable: React.FC = () => {
 
     return (
       <div className="mt-8">
-        <h2 className="text-xl font-bold mb-4">Summary</h2>
+        <h2 className="text-xl font-bold mb-2">Summary</h2>
         <table className="w-full border-collapse border text-left">
           <thead>
             <tr className="bg-gray-200">
@@ -417,12 +419,7 @@ const DataTable: React.FC = () => {
               return (
                 <tr key={period} className="even:bg-gray-100">
                   <td className="border px-4 py-2 font-bold">
-                    <Link
-                      to={`/Dashboard/${bu}/${period}`}
-                      className="flex items-center text-blue-500 font-bold"
-                    >
-                      {period.charAt(0).toUpperCase() + period.slice(1)}
-                    </Link>
+                    {period.charAt(0).toUpperCase() + period.slice(1)}
                   </td>
                   {sites.map((site) => (
                     <td
@@ -474,54 +471,85 @@ const DataTable: React.FC = () => {
             alt="Flag"
             className="mr-2 md:w-10 md:h-10 w-16 h-16"
           />
-          {bu?.toUpperCase()} - Combined daily, monthly, quarterly, annually
+          {bu?.toUpperCase()} - Machinery Own by {owner}
         </h1>
       </header>
+
       {/* Add legend here */}
-      <h2 className="text-xl font-bold mb-4">
-        <span className="ml-4 text-gray-500">
-          Inspected / Total Machines ( % )
-        </span>
-        <span
-          className="ml-4 text-rose-500 font-bold text-xl p-1 rounded bg-rose-100"
-          style={{
-            border: '2px solid #FF0000', // Red border
-            boxShadow: '0 0 10px rgba(255, 0, 0, 0.6)', // Glowing effect
-          }}
-        >
-          Defect
-        </span>
-      </h2>
-      <div className="flex items-center mb-4">
-        <div className="flex items-center mr-4">
-          <span
-            className="w-4 h-4 inline-block mr-2 rounded"
-            style={{ backgroundColor: 'rgb(237, 0, 0)' }}
-          ></span>
-          <span>0–33%</span>
+      <div className="px-4 sm:px-10 grid grid-cols-4">
+        <div className="col-span-3 my-4">
+          <h2 className="text-xl font-bold mb-4">
+            <span className="md:ml-4 text-gray-500">
+              Inspected / Total Machines ( % )
+            </span>
+            <span
+              className="ml-4 text-rose-500 font-bold text-base p-1 rounded bg-rose-100"
+              style={{
+                border: '2px solid #FF0000', // Red border
+                boxShadow: '0 0 10px rgba(255, 0, 0, 0.6)', // Glowing effect
+              }}
+            >
+              Defect
+            </span>
+          </h2>
+          <div className="flex items-center mr-4">
+            <span
+              className="w-4 h-4 inline-block mr-2 rounded"
+              style={{ backgroundColor: 'rgb(237, 0, 0)' }}
+            ></span>
+            <span>0–33%</span>
+          </div>
+          <div className="flex items-center mr-4">
+            <span
+              className="w-4 h-4 inline-block mr-2 rounded"
+              style={{ backgroundColor: 'rgb(255, 200, 0)' }}
+            ></span>
+            <span>34–66%</span>
+          </div>
+          <div className="flex items-center mr-4">
+            <span
+              className="w-4 h-4 inline-block mr-2 rounded"
+              style={{ backgroundColor: 'rgb(0, 150, 0)' }}
+            ></span>
+            <span>67–99%</span>
+          </div>
+          <div className="flex items-center">
+            <span
+              className="w-4 h-4 inline-block mr-2 rounded opacity-20"
+              style={{ backgroundColor: 'rgb(0, 150, 0)' }}
+            ></span>
+            <span>100%</span>
+          </div>
         </div>
-        <div className="flex items-center mr-4">
-          <span
-            className="w-4 h-4 inline-block mr-2 rounded"
-            style={{ backgroundColor: 'rgb(255, 200, 0)' }}
-          ></span>
-          <span>34–66%</span>
-        </div>
-        <div className="flex items-center mr-4">
-          <span
-            className="w-4 h-4 inline-block mr-2 rounded"
-            style={{ backgroundColor: 'rgb(0, 150, 0)' }}
-          ></span>
-          <span>67–99%</span>
-        </div>
-        <div className="flex items-center">
-          <span
-            className="w-4 h-4 inline-block mr-2 rounded opacity-20"
-            style={{ backgroundColor: 'rgb(0, 150, 0)' }}
-          ></span>
-          <span>100%</span>
+
+        <div className="col-span-1 my-4 flex flex-col items-center justify-center">
+          {/* <img
+            src={`/assets/icons/${owner && owner.toLowerCase()}.svg`}
+            className="animate-pulse"
+            alt={owner}
+            width={100}
+            height={100}
+          />
+          <br /> */}
+          <QRCodeSVG
+            value={`https://www.saf37y.com/MachineOwner/${bu}/${owner}`}
+            size={75}
+            bgColor={'#ffffff'}
+            fgColor={'#000000'}
+            level={'L'}
+            includeMargin={false}
+            imageSettings={{
+              src: 'https://companieslogo.com/img/orig/SCCC.BK-b25d0caf.png',
+              x: undefined,
+              y: undefined,
+              height: 10,
+              width: 10,
+              excavate: true,
+            }}
+          />
         </div>
       </div>
+
       {['daily', 'monthly', 'quarterly', 'annually'].map((period) =>
         renderTable(period, data[period as keyof PeriodData])
       )}
@@ -534,7 +562,7 @@ const DataTable: React.FC = () => {
         content={
           <>
             <h2 className="text-2xl font-semibold mb-4">
-              Details for{' '}
+              Details for {owner}{' '}
               {machineTitles[(bu ?? '') + (selectedType ?? '')] ||
                 selectedType ||
                 'n/a'}{' '}

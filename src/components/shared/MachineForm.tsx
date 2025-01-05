@@ -26,6 +26,7 @@ import {
   submit,
 } from '@/lib/translation';
 import RadioButtonGroup from '@/uti/RadioButtonGroup';
+import { questionsWeek } from '@/lib/dataTHmixer';
 import { Camera } from 'lucide-react';
 
 interface FillingProps {
@@ -64,6 +65,8 @@ const Filling: React.FC<FillingProps> = ({
   } = useForm<FormData>();
 
   const [questions, setQuestions] = useState<QuestionType[]>([]);
+  const [isWeekly, setIsWeekly] = useState(false); // NEW STATE TO TRACK TOGGLE
+
   const { startUpload, progress } = useStorage();
   const location = useGeoLocation();
 
@@ -78,7 +81,7 @@ const Filling: React.FC<FillingProps> = ({
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        //SRB truck is not the same form as TH
+        // Load daily questions based on BU and machine
         const { questions } = await loadQuestions(
           ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu,
           machine
@@ -112,6 +115,16 @@ const Filling: React.FC<FillingProps> = ({
     equipment: 'https://www.svgrepo.com/show/362055/cone.svg',
     extinguisher: 'https://www.svgrepo.com/show/405386/fire-extinguisher.svg',
     ppe: 'https://www.svgrepo.com/show/288933/helmet.svg',
+    gauge: 'https://www.svgrepo.com/show/219809/gauge-meter.svg',
+    tip: 'https://www.svgrepo.com/show/410463/ring.svg',
+    handle: 'https://www.svgrepo.com/show/477180/fire-extinguisher-2.svg',
+    nozzle:
+      'https://www.svgrepo.com/show/32481/hose-watering-tool-for-gardening.svg',
+    label: 'https://www.svgrepo.com/show/144954/fire-extinguisher.svg',
+    layout: 'https://www.svgrepo.com/show/396477/fire-extinguisher.svg',
+    sign: 'https://www.svgrepo.com/show/485182/tag.svg',
+    location: 'https://www.svgrepo.com/show/312183/fire-extinguisher.svg',
+    badge: 'https://www.svgrepo.com/show/509517/fire-extinguisher.svg',
   };
 
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
@@ -175,6 +188,14 @@ const Filling: React.FC<FillingProps> = ({
     }
   };
 
+  // NEW FUNCTION TO TOGGLE BETWEEN DAILY AND WEEKLY QUESTIONS
+  const handleToggleQuestions = () => {
+    setIsWeekly((prev) => !prev);
+  };
+
+  // Determine which set of questions to display
+  const currentQuestions = isWeekly ? questionsWeek : questions;
+
   return (
     location.loaded &&
     !location.error && (
@@ -188,6 +209,28 @@ const Filling: React.FC<FillingProps> = ({
             ] || null}
           </h1>
         </div>
+
+        {/* For RMX */}
+        {machine === 'Mixer' && (
+          <button
+            onClick={handleToggleQuestions}
+            className={`${
+              isWeekly ? 'bg-slate-500' : 'bg-blue-500'
+            } text-white px-4 py-2 rounded-md shadow-lg mt-4`}
+          >
+            {isWeekly
+              ? 'ไป...แบบตรวจเช็ครถโม่ก่อนใช้งานประจำวัน'
+              : 'ไป...แบบตรวจเช็ครถโม่ก่อนใช้งานประจำสัปดาห์'}
+          </button>
+        )}
+
+        {machine === 'Mixer' && (
+          <div className="p-4 text-sm text-left text-slate-400">
+            <p>เอกสารเลขที่ FM-SCCO-OHSE-036</p>
+            <p>* หยุดรถทันที และดำเนินการแก้ไขตามสถานที่ที่ผู้ขนส่งกำหนด</p>
+            <p>** หยุดรถทันที และแก้ไขเบื้องต้นภายในหน่วยผลิต</p>
+          </div>
+        )}
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col gap-y-2 md:px-4"
@@ -201,7 +244,7 @@ const Filling: React.FC<FillingProps> = ({
             </div>
             <input
               {...register('inspector', {
-                required: 'Inspector',
+                required: 'Inspector is required',
               })}
               type="text"
               placeholder="Inspector"
@@ -216,7 +259,7 @@ const Filling: React.FC<FillingProps> = ({
               <div className="text-2xl text-slate-900 px-4">Tag number</div>
               <input
                 {...register('tag', {
-                  required: 'Tag number',
+                  required: 'Tag number is required',
                 })}
                 type="text"
                 placeholder="Tag number"
@@ -227,29 +270,31 @@ const Filling: React.FC<FillingProps> = ({
               )}
             </div>
           )}
-          {['Lifting', 'Vehicle', 'Mobile'].includes(machine) && (
-            <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
-              <div className="text-2xl text-slate-900 px-4">
-                Chứng nhận kiểm định/đăng kiểm còn hiệu lực đến ngày.
-                Inspection/register certificate valid to
+          {/* For Vietnam */}
+          {['Lifting', 'Vehicle', 'Mobile'].includes(machine) &&
+            bu === 'vn' && (
+              <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
+                <div className="text-2xl text-slate-900 px-4">
+                  Chứng nhận kiểm định/đăng kiểm còn hiệu lực đến ngày.
+                  Inspection/register certificate valid to
+                </div>
+                <input
+                  {...register('certificate', {
+                    required:
+                      'Chứng nhận kiểm định/đăng kiểm còn hiệu lựcถึง ngày. Inspection/register certificate valid to',
+                  })}
+                  type="text"
+                  placeholder="Chứng nhận kiểm định/đăng kiểm còn hiệu lực đến ngày. Inspection/register certificate valid to"
+                  className="mx-4 px-4 py-2 rounded"
+                />
+                {errors.certificate && (
+                  <p className="text-red-500">{`${errors.certificate?.message}`}</p>
+                )}
               </div>
-              <input
-                {...register('certificate', {
-                  required:
-                    'Chứng nhận kiểm định/đăng kiểm còn hiệu lực đến ngày. Inspection/register certificate valid to',
-                })}
-                type="text"
-                placeholder="Chứng nhận kiểm định/đăng kiểm còn hiệu lực đến ngày. Inspection/register certificate valid to"
-                className="mx-4 px-4 py-2 rounded"
-              />
-              {errors.certificate && (
-                <p className="text-red-500">{`${errors.certificate?.message}`}</p>
-              )}
-            </div>
-          )}
+            )}
 
           <div className="py-0 w-full">
-            {questions.map((question, index: number) => (
+            {currentQuestions.map((question, index: number) => (
               <div key={index} className="bg-purple-100 py-2 my-2 rounded-md">
                 <div className="p-4">
                   <div className="text-2xl text-slate-900">
@@ -309,13 +354,15 @@ const Filling: React.FC<FillingProps> = ({
                             ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu)
                               ? 'th'
                               : bu
-                          ] || undefined
+                          ] || 'Please provide a remark'
                         }
                         className="p-2 rounded"
                       />
                       <label
                         className={`flex items-center ${
-                          fileUrls === null ? 'bg-slate-500' : 'bg-rose-500'
+                          fileUrls[question.name + 'P'] === null
+                            ? 'bg-slate-500'
+                            : 'bg-rose-500'
                         } text-white px-3 py-2 rounded-md shadow-xl cursor-pointer mt-4 ml-2 max-w-fit`}
                       >
                         <Camera className="mr-2" size={24} />
@@ -324,8 +371,8 @@ const Filling: React.FC<FillingProps> = ({
                           {...register(question.name + 'P', { required: true })}
                           type="file"
                           placeholder="url of image"
-                          // className="pl-2 py-2 rounded"
                           onChange={(e) => handleFileChange(e, question.name)}
+                          className="hidden" // Hide the actual input
                         />
                       </label>
                       {isUploading && Boolean(progress) && (
@@ -374,7 +421,7 @@ const Filling: React.FC<FillingProps> = ({
             <div className="text-2xl text-slate-900 px-4">
               {remark[
                 ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu
-              ] || undefined}{' '}
+              ] || 'Remark'}{' '}
               Remark (Optional)
             </div>
             <input
@@ -396,8 +443,7 @@ const Filling: React.FC<FillingProps> = ({
             {isSubmitting && <Loader />}
             {submit[
               ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu
-            ] || undefined}{' '}
-            / Submit
+            ] || 'Submit'}
           </button>
         </form>
       </section>

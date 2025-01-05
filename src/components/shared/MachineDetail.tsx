@@ -116,6 +116,7 @@ const Detail = ({ bu, dataTr, machine }: Machine) => {
     id: '',
     inspector: '',
     date: '',
+    url: '',
   });
 
   const handleShowMap = (item: MachineItem) => {
@@ -126,6 +127,7 @@ const Detail = ({ bu, dataTr, machine }: Machine) => {
         id: item.id,
         inspector: item.inspector,
         date: item.date,
+        url: item.url,
       });
       setFormVisibleMap(true);
     } else {
@@ -211,7 +213,7 @@ const Detail = ({ bu, dataTr, machine }: Machine) => {
                 className={`flex justify-end ${
                   timeDifferenceInMinutes(new Date(item.date)) > 5 ||
                   item.date === 'Invalid Date'
-                    ? 'hidden' //hidden
+                    ? 'null' //hidden
                     : null
                 }`}
               >
@@ -392,6 +394,7 @@ const Detail = ({ bu, dataTr, machine }: Machine) => {
             id={selectedItem.id}
             inspector={selectedItem.inspector}
             date={selectedItem.date}
+            url={selectedItem.url}
             setFormVisibleMap={setFormVisibleMap}
           />
         )}

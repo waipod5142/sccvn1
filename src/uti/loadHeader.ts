@@ -31,6 +31,7 @@ export const loadHeader = async (bu: string | undefined | null) => {
         { field: 'site', label: 'ස්ථානය' },
         { field: 'kind', label: 'උසසීමේ වර්ගය Kind of Lifting' },
         { field: 'area', label: 'ප්‍රදේශය Area' },
+        { field: 'owner', label: 'Owner' },
         { field: 'swl', label: 'ආරක්ෂිත වැඩබලන බර (SWL) (ටොන්)' },
         { field: 'operateBy', label: 'ක්‍රියා කරන අය' },
         {
@@ -71,45 +72,45 @@ export const loadHeader = async (bu: string | undefined | null) => {
 
     case 'bd':
       headerFields = [
-        { field: 'id', label: 'උපකරණ අංකය' },
-        { field: 'site', label: 'ස්ථානය' },
-        { field: 'kind', label: 'උසසීමේ වර්ගය Kind of Lifting' },
-        { field: 'area', label: 'ප්‍රදේශය Area' },
-        { field: 'swl', label: 'ආරක්ෂිත වැඩබලන බර (SWL) (ටොන්)' },
-        { field: 'operateBy', label: 'ක්‍රියා කරන අය' },
+        { field: 'id', label: 'যন্ত্রপাতি নম্বর' }, // Equipment ID
+        { field: 'site', label: 'সাইট' }, // Site
+        { field: 'kind', label: 'উত্তোলন প্রকার' }, // Kind of Lifting
+        { field: 'area', label: 'এলাকা' }, // Area
+        { field: 'owner', label: 'মালিক' }, // Owner
+        { field: 'swl', label: 'নিরাপদ কাজের ওজন (SWL) (টন)' }, // Safe Working Load (SWL) (Ton)
+        { field: 'operateBy', label: 'পরিচালিত ব্যক্তি' }, // Operated By
         {
           field: 'latestInspection',
-          label: 'අවසන් පරීක්ෂාව Latest Inspection 3rd Party',
-        },
+          label: 'সর্বশেষ পরিদর্শন (তৃতীয় পক্ষ)',
+        }, // Latest Inspection (3rd Party)
         {
           field: 'nextInspection',
-          label: 'ඊළඟ පරීක්ෂාව next Inspection 3rd Party',
-        },
+          label: 'পরবর্তী পরিদর্শন (তৃতীয় পক্ষ)',
+        }, // Next Inspection (3rd Party)
         {
           field: 'installDiameter',
-          label: 'සවිකරන කේබල් විෂ්කම්භය Cable diameter installing (mm)',
+          label: 'ইনস্টল করা কেবলের ব্যাস (মিমি)', // Cable Diameter Installing (mm)
         },
         {
           field: 'actualDiameter',
-          label:
-            'ව්‍යාපෘතික කේබල් විෂ්කම්භය Cable diameter actual measure (mm)',
+          label: 'পরিমাপিত কেবলের আসল ব্যাস (মিমি)', // Cable Diameter Actual Measure (mm)
         },
-        { field: 'tolerance', label: 'ඉවසීම Tolerance (mm)' },
-        { field: 'result', label: 'ප්‍රතිඵලය Result' },
+        { field: 'tolerance', label: 'সহনশীলতা (মিমি)' }, // Tolerance (mm)
+        { field: 'result', label: 'ফলাফল' }, // Result
         {
           field: 'internalInspector',
-          label: 'අභ්‍යන්තර පරීක්ෂකයා Internal Inspector',
+          label: 'অভ্যন্তরীণ পরিদর্শক', // Internal Inspector
         },
-        { field: 'remarks', label: 'සටහන Remarks' },
-        { field: 'owner', label: 'අයිතිකරු Owner' },
-        { field: 'no', label: 'අංකය No' },
-        { field: 'etype', label: 'උපකරණ වර්ගය Equipment Type' },
-        { field: 'esite', label: 'උපකරණ ස්ථානය Equipment Site' },
-        { field: 'place', label: 'ස්ථානය Place' },
-        { field: 'location', label: 'පිහිටුම Location' },
-        { field: 'type', label: 'වර්ගය Type' },
-        { field: 'cableDiameter', label: 'කේබල් විෂ්කම්භය Cable Diameter' },
-        { field: 'email', label: 'වගකීම භාරකරු Responsible person' },
+        { field: 'remarks', label: 'মন্তব্য' }, // Remarks
+        { field: 'owner', label: 'মালিক' }, // Owner
+        { field: 'no', label: 'নম্বর' }, // No
+        { field: 'etype', label: 'উপকরণের প্রকার' }, // Equipment Type
+        { field: 'esite', label: 'উপকরণের সাইট' }, // Equipment Site
+        { field: 'place', label: 'জায়গা' }, // Place
+        { field: 'location', label: 'অবস্থান' }, // Location
+        { field: 'type', label: 'প্রকার' }, // Type
+        { field: 'cableDiameter', label: 'কেবলের ব্যাস (মিমি)' }, // Cable Diameter (mm)
+        { field: 'email', label: 'দায়িত্বপ্রাপ্ত ব্যক্তি' }, // Responsible Person
       ];
       break;
 
@@ -134,17 +135,20 @@ export const loadHeader = async (bu: string | undefined | null) => {
     case 'th':
       headerFields = [
         { field: 'id', label: 'ID' },
-        { field: 'country', label: 'Country' },
-        { field: 'details', label: 'Details' },
-        { field: 'department', label: 'Department' },
-        { field: 'kind', label: 'Kind' },
-        { field: 'remark', label: 'Remark' },
-        { field: 'status', label: 'Status' },
-        { field: 'type', label: 'Type' },
-        { field: 'area', label: 'Area' },
-        { field: 'site', label: 'Site' },
-        { field: 'holder', label: 'Holder' },
         { field: 'bu', label: 'BU' },
+        { field: 'type', label: 'Type' },
+        { field: 'site', label: 'Site' },
+        { field: 'country', label: 'Country' },
+        { field: 'driverID', label: 'Driver ID' },
+        { field: 'capacity', label: 'Capacity' },
+        { field: 'companyID', label: 'Company ID' },
+        { field: 'owner', label: 'Owner' },
+        { field: 'registerDate', label: 'Register Date' },
+        { field: 'area', label: 'Area' },
+        { field: 'licenseID', label: 'License ID' },
+        { field: 'engineNo', label: 'Engine Number' },
+        { field: 'remark', label: 'Remark' },
+        { field: 'details', label: 'Details' },
       ];
       break;
 

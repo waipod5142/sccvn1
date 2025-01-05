@@ -7,6 +7,7 @@ interface ModalMapProps {
   id: string;
   inspector: string;
   date: string | number;
+  url: string | undefined;
   setFormVisibleMap: (visible: boolean) => void;
 }
 
@@ -16,6 +17,7 @@ const ModalMap: React.FC<ModalMapProps> = ({
   id,
   inspector,
   date,
+  url,
   setFormVisibleMap,
 }) => {
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -39,7 +41,14 @@ const ModalMap: React.FC<ModalMapProps> = ({
           transition: { type: 'spring', stiffness: 100, damping: 10 },
         }}
       >
-        <Map lat={lat} lng={lng} id={id} inspector={inspector} date={date} />
+        <Map
+          lat={lat}
+          lng={lng}
+          id={id}
+          inspector={inspector}
+          date={date}
+          url={url}
+        />
       </motion.div>
     </motion.div>
   );

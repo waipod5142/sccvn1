@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { http } from '@/lib/http';
-import { ChevronDown, ChevronUp } from 'lucide-react'; // For the toggle icons
+import { ChevronUp } from 'lucide-react'; // For the toggle icons
 import ModalForm from '@/uti/ModalForm';
 import ModalFormMan from '@/uti/ModalFormMan';
 import ModalMap from '@/uti/ModalMap';
@@ -14,11 +14,11 @@ import {
   MapItem,
   machineTitles,
 } from '@/lib/typeMachine';
-import Loading from '@/components/shared/Loader';
-import timeDifferenceInDays from '@/uti/dayDiff';
 import { useParams } from 'react-router-dom';
 import { QRCodeSVG } from 'qrcode.react';
 import { Link } from 'react-router-dom';
+import Modal from './Modal';
+import ModalContent from './ModalContent';
 
 const periodName: { [key: string]: string } = {
   daily: 'Daily Inspection',
@@ -243,6 +243,7 @@ const VehicleInspectionPage: React.FC = () => {
         id: tran.id,
         inspector: tran.inspector,
         date: tran.date,
+        url: tran.url,
       });
       setFormVisibleMap(true);
     } else {
@@ -620,7 +621,7 @@ const VehicleInspectionPage: React.FC = () => {
                           inspection.totalVehicles && 'opacity-40'
                       } ${
                         inspection.defectVehicles > 0 &&
-                        'border-4 border-rose-500 animate-smallBounce'
+                        'border-4 ring-4 ring-rose-500 animate-smallBounce'
                       }`}
                       style={{
                         backgroundColor: inspection
@@ -762,17 +763,12 @@ const VehicleInspectionPage: React.FC = () => {
           </div>
         </div>
       ))}
-
       {/* Modal for showing vehicle details */}
-      {modalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-          onClick={handleCloseModal}
-        >
-          <div
-            className="bg-white rounded-lg shadow-lg w-11/12 lg:w-1/2 p-4"
-            onClick={(e) => e.stopPropagation()}
-          >
+      <Modal
+        isOpen={modalOpen}
+        onClose={handleCloseModal}
+        content={
+          <>
             <h2 className="text-2xl font-semibold mb-4">
               Details for{' '}
               {(bu && machineTitles[bu + selectedType || '']) || selectedType}{' '}
@@ -798,7 +794,6 @@ const VehicleInspectionPage: React.FC = () => {
                   height={40}
                 />
               </button>
-
               {/* Graph Icon */}
               <button
                 onClick={(e) => {
@@ -815,11 +810,11 @@ const VehicleInspectionPage: React.FC = () => {
                 />
               </button>
             </div>
-            {/* Display Total and Inspected Vehicles for the selected site and type */}
+            {/* Head of Total and Inspected Vehicles for the selected site and type */}
             {selectedInspection && (
               <div className="pt-2">
                 <p className="text-lg">
-                  <span className="text-bold">
+                  <span className="text-green-500 text-xl">
                     Inspected:{' '}
                     {selectedInspection.inspectedVehicles !== undefined
                       ? selectedInspection.inspectedVehicles
@@ -827,269 +822,53 @@ const VehicleInspectionPage: React.FC = () => {
                   </span>{' '}
                   | Total: {selectedInspection.totalVehicles}
                 </p>
-                {period &&
-                  ['daily', 'monthly', 'quarterly', 'annually'].includes(
-                    period
-                  ) && (
-                    <p className="text-lg mb-4">
-                      <span
-                        className={`${
-                          selectedInspection.defectVehicles !== 0 &&
-                          'text-rose-500 text-xl'
-                        }`}
-                      >
-                        Defected:{' '}
-                        {selectedInspection.defectVehicles !== undefined
-                          ? selectedInspection.defectVehicles
-                          : 'N/A'}
-                      </span>{' '}
-                      | Total: {selectedInspection.totalVehicles}
-                    </p>
-                  )}
+                {
+                  <p className="text-lg mb-4">
+                    <span
+                      className={`${
+                        selectedInspection.defectVehicles !== 0 &&
+                        'text-rose-500 text-xl'
+                      }`}
+                    >
+                      Defected:{' '}
+                      {selectedInspection.defectVehicles !== undefined
+                        ? selectedInspection.defectVehicles
+                        : 'N/A'}
+                    </span>{' '}
+                    | Total: {selectedInspection.totalVehicles}
+                  </p>
+                }
                 <hr />
-                {period &&
-                  ['daily', 'monthly', 'quarterly', 'annually'].includes(
-                    period
-                  ) && (
-                    <p className="text-lg my-4">
-                      <span
-                        className={`${
-                          openDefected !== 0 && 'text-rose-500 text-xl'
-                        }`}
-                      >
-                        Open Defected:{' '}
-                        {openDefected !== undefined ? openDefected : 'N/A'}
-                      </span>{' '}
-                      | Total: {selectedInspection.totalVehicles}
-                    </p>
-                  )}
+                {
+                  <p className="text-lg my-4">
+                    <span
+                      className={`${
+                        openDefected !== 0 && 'text-rose-500 text-xl'
+                      }`}
+                    >
+                      Open Defected:{' '}
+                      {openDefected !== undefined ? openDefected : 'N/A'}
+                    </span>{' '}
+                    | Total: {selectedInspection.totalVehicles}
+                  </p>
+                }
               </div>
             )}
-
-            <div className="p-4 overflow-auto max-h-96">
-              {vehicleData.length > 0 ? (
-                vehicleData.map((vehicle, idx) => (
-                  <div key={idx} className="mb-4">
-                    <p className="text-xl">
-                      {idx + 1}.{' '}
-                      {['employee', 'contractor', 'vendor'].includes(
-                        vehicle.type
-                      ) ? (
-                        <span
-                          className="text-xl font-bold text-blue-500 cursor-pointer"
-                          onClick={() => openManModal(vehicle.id)}
-                        >
-                          {vehicle.id}
-                        </span>
-                      ) : (
-                        <span
-                          className="text-xl font-bold text-blue-500 cursor-pointer"
-                          onClick={() =>
-                            openMachineModal(vehicle.id, vehicle.type)
-                          }
-                        >
-                          {vehicle.id}
-                        </span>
-                      )}
-                    </p>
-                    {vehicle.name && (
-                      <p className="font-bold">Name: {vehicle.name}</p>
-                    )}
-                    {vehicle.owner && <p>Owner: {vehicle.owner}</p>}
-                    {vehicle.defect && (
-                      <p className="bg-rose-500 text-white rounded-sm p-1">
-                        Defect: {vehicle.defect}
-                      </p>
-                    )}
-                    <p>Type: {vehicle.type}</p>
-                    <p>Site: {vehicle.site.toUpperCase()}</p>
-                    {vehicle.email && (
-                      <p>Responsible person: {vehicle.email}</p>
-                    )}
-                    {vehicle.kind && <p>Kind of: {vehicle.kind}</p>}
-                    {/* Toggle button if there are more than one transaction */}
-                    {vehicle.trans.length > 1 && (
-                      <div
-                        className="flex items-center justify-end cursor-pointer text-blue-500 mt-2"
-                        onClick={() => toggleTransactions(vehicle.id)}
-                      >
-                        {showAllTransactions[vehicle.id] ? (
-                          <>
-                            <ChevronUp size={24} className="mr-2" />
-                            <span>Show Less</span>
-                          </>
-                        ) : (
-                          <>
-                            <ChevronDown size={24} className="mr-2" />
-                            <span>Show All</span>
-                          </>
-                        )}
-                      </div>
-                    )}
-                    {/* <h4 className="font-semibold">Recent Transactions:</h4> */}
-
-                    {/* Transaction list with toggle */}
-                    {vehicle.trans.length > 0 ? (
-                      <>
-                        {/* Show the first transaction by default or all if toggled */}
-                        {vehicle.trans
-                          .slice(
-                            0,
-                            showAllTransactions[vehicle.id]
-                              ? vehicle.trans.length
-                              : 1
-                          )
-                          .map((tran, index) => (
-                            <div
-                              key={index}
-                              className="p-2 border-b border-gray-300"
-                            >
-                              <p className="text-slate-400">
-                                Date:{' '}
-                                <strong
-                                  className={`text-slate-900 ${
-                                    new Date(tran.date).toDateString() ===
-                                      new Date().toDateString() &&
-                                    'bg-green-500 text-white rounded-sm p-1 w-fit'
-                                  } 
-                                    
-                                  ${
-                                    period === 'monthly' &&
-                                    timeDifferenceInDays(new Date(tran.date)) >
-                                      31 &&
-                                    'bg-rose-500 text-white p-1 rounded-sm'
-                                  }
-                                  ${
-                                    period === 'quarterly' &&
-                                    timeDifferenceInDays(new Date(tran.date)) >
-                                      90 &&
-                                    'bg-rose-500 text-white p-1 rounded-sm'
-                                  }
-                                    
-                                  `}
-                                >
-                                  {new Date(tran.date).toDateString() ===
-                                  new Date().toDateString()
-                                    ? ''
-                                    : `${Math.round(
-                                        timeDifferenceInDays(
-                                          new Date(tran.date)
-                                        )
-                                      )} days ago on `}
-                                  {new Date(tran.date).toLocaleString('en-GB', {
-                                    hour12: false,
-                                  })}
-                                </strong>
-                              </p>
-                              <p className="text-slate-400">
-                                Inspector:{' '}
-                                <strong className="text-slate-900">
-                                  {tran.inspector}
-                                </strong>
-                              </p>
-                              {tran.remark && (
-                                <p className="text-slate-400">
-                                  Remark:{' '}
-                                  <strong className="text-slate-900">
-                                    {tran.remark}
-                                  </strong>
-                                </p>
-                              )}
-                              {tran.lat && (
-                                <button
-                                  className="bg-grey-light hover:bg-grey text-grey-darkest font-bold p-2 rounded inline-flex items-center"
-                                  onClick={() => handleShowMap(tran)}
-                                >
-                                  <img
-                                    src={'/assets/icons/map.svg'}
-                                    alt="map"
-                                    width={40}
-                                    height={40}
-                                    className="pt-2"
-                                  />
-                                </button>
-                              )}
-                              {tran && (
-                                <div className="flex flex-wrap">
-                                  {Object.keys(tran)
-                                    .filter(
-                                      (key) =>
-                                        key.endsWith('P') ||
-                                        key.endsWith('F') ||
-                                        key === 'url'
-                                    )
-                                    .map((key) => {
-                                      const value =
-                                        tran[key as keyof typeof tran];
-                                      const imageUrl =
-                                        typeof value === 'string'
-                                          ? value
-                                          : undefined;
-                                      return imageUrl &&
-                                        isVideoUrl(imageUrl) ? (
-                                        <video
-                                          controls
-                                          className={`py-2 rounded-lg w-full md:w-1/2 md:h-1/2 lg:w-1/4 lg:h-1/4 cursor-pointer`}
-                                        >
-                                          <source
-                                            src={imageUrl}
-                                            type={
-                                              imageUrl.endsWith('.mov') ||
-                                              imageUrl.endsWith('.quicktime')
-                                                ? 'video/quicktime'
-                                                : 'video/mp4'
-                                            }
-                                          />
-                                          Your browser does not support the
-                                          video tag.
-                                        </video>
-                                      ) : (
-                                        <figure
-                                          key={key}
-                                          className={`w-full md:w-1/2 md:h-1/2 lg:w-1/4 lg:h-1/4 cursor-pointer mt-2 ml-2
-                                            ${
-                                              /P$/.test(key) &&
-                                              'border-4 border-rose-500'
-                                            } 
-                                            ${
-                                              /F$/.test(key) &&
-                                              'border-4 border-green-500'
-                                            }`}
-                                        >
-                                          <img
-                                            src={imageUrl}
-                                            alt="defect image"
-                                            // className="rounded-md"
-                                            onClick={() =>
-                                              handleShowImage(imageUrl)
-                                            }
-                                          />
-                                        </figure>
-                                      );
-                                    })}
-                                </div>
-                              )}
-                            </div>
-                          ))}
-                      </>
-                    ) : (
-                      <p className="text-rose-500">No transactions found.</p>
-                    )}
-                  </div>
-                ))
-              ) : (
-                <Loading />
-              )}
-            </div>
-            <button
-              className="mt-4 bg-rose-500 text-white py-2 px-4 rounded-full"
-              onClick={handleCloseModal}
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+            {/* Modal display Total and Inspected Vehicles for the selected site and type */}
+            <ModalContent
+              // selectedInspection={selectedInspection}
+              vehicleData={vehicleData}
+              toggleTransactions={toggleTransactions}
+              showAllTransactions={showAllTransactions}
+              openMachineModal={openMachineModal}
+              openManModal={openManModal}
+              handleShowMap={handleShowMap}
+              handleShowImage={handleShowImage}
+              isVideoUrl={isVideoUrl}
+            />
+          </>
+        }
+      />
       {/* Machine modal */}
       {formVisible && selectedVehicle && (
         <ModalForm
@@ -1118,6 +897,7 @@ const VehicleInspectionPage: React.FC = () => {
             id={selectedItem.id}
             inspector={selectedItem.inspector}
             date={selectedItem.date}
+            url={selectedItem.url}
             setFormVisibleMap={setFormVisibleMap}
           />
         )}

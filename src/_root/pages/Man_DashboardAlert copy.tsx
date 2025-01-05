@@ -98,80 +98,94 @@ const App: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {Object.entries(groupedData).map(([site, alertsByAlertNo]) => (
-              <React.Fragment key={site}>
-                {Object.entries(alertsByAlertNo).map(
-                  ([alertNo, alertsByType]) => (
-                    <tr key={alertNo}>
-                      <td
-                        className="py-2 px-4 border text-blue-600 hover:text-blue-800 cursor-pointer hover:bg-blue-100 transition duration-300 ease-in-out"
-                        onClick={() => {
-                          window.open(
-                            `https://ap-southeast-1.aws.data.mongodb-api.com/app/sccvn-zzlewmt/endpoint/sccvn/alertTr_one?bu=${bu}&site=${site}`,
-                            '_blank'
-                          );
-                        }}
-                      >
-                        {site.toLocaleUpperCase()}
-                      </td>
-                      <td className="py-2 px-4 border">{alertNo}</td>
-                      {uniqueTypes.map((type) => {
-                        const alerts = alertsByType[type] || [];
-                        const totalUniqueCount = alerts.reduce(
-                          (sum, alert) => sum + alert.uniqueCount,
-                          0
-                        );
-                        const totalUniqueMan = alerts.reduce(
-                          (sum, alert) => sum + alert.totalUniqueMan,
-                          0
-                        );
-                        const percentage =
-                          totalUniqueMan > 0
-                            ? (totalUniqueCount / totalUniqueMan) * 100
-                            : 0;
+            {Object.entries(groupedData).map(
+              ([site, alertsByAlertNo], groupIndex) => {
+                const siteRowSpan = Object.keys(alertsByAlertNo).length; // Calculate rowspan for the site column
 
-                        return (
-                          <td key={type} className="py-2 px-4 border">
-                            <div className="flex flex-col">
-                              <span>
-                                Acknowledged {totalUniqueCount} /{' '}
-                                {totalUniqueMan}
-                              </span>
-                              <div className="flex items-center">
-                                <div className="w-full bg-gray-300 rounded h-2 my-2">
-                                  <div
-                                    className="bg-green-500 h-2 rounded"
-                                    style={{
-                                      width: `${percentage.toFixed(0)}%`,
-                                    }}
-                                  />
+                // Conditional row background color: odd = light gray, even = white
+                const bgColor =
+                  groupIndex % 2 === 0 ? 'bg-rose-50' : 'bg-white';
+
+                return (
+                  <React.Fragment key={site}>
+                    {Object.entries(alertsByAlertNo).map(
+                      ([alertNo, alertsByType], index) => (
+                        <tr key={alertNo} className={bgColor}>
+                          {/* Render the site only for the first row of each group */}
+                          {index === 0 && (
+                            <td
+                              rowSpan={siteRowSpan}
+                              className="py-2 px-4 border text-blue-600 hover:text-blue-800 cursor-pointer hover:bg-blue-200 transition duration-300 ease-in-out"
+                              onClick={() => {
+                                window.open(
+                                  `https://ap-southeast-1.aws.data.mongodb-api.com/app/sccvn-zzlewmt/endpoint/sccvn/alertTr_one?bu=${bu}&site=${site}&type=alert`,
+                                  '_blank'
+                                );
+                              }}
+                            >
+                              {site.toLocaleUpperCase()}
+                            </td>
+                          )}
+                          <td className="py-2 px-4 border">{alertNo}</td>
+                          {uniqueTypes.map((type) => {
+                            const alerts = alertsByType[type] || [];
+                            const totalUniqueCount = alerts.reduce(
+                              (sum, alert) => sum + alert.uniqueCount,
+                              0
+                            );
+                            const totalUniqueMan = alerts.reduce(
+                              (sum, alert) => sum + alert.totalUniqueMan,
+                              0
+                            );
+                            const percentage =
+                              totalUniqueMan > 0
+                                ? (totalUniqueCount / totalUniqueMan) * 100
+                                : 0;
+
+                            return (
+                              <td key={type} className="py-2 px-4 border">
+                                <div className="flex flex-col">
+                                  <span>
+                                    Acknowledged {totalUniqueCount} /{' '}
+                                    {totalUniqueMan}
+                                  </span>
+                                  <div className="flex items-center">
+                                    <div className="w-full bg-gray-300 rounded h-2 my-2">
+                                      <div
+                                        className="bg-green-500 h-2 rounded"
+                                        style={{
+                                          width: `${percentage.toFixed(0)}%`,
+                                        }}
+                                      />
+                                    </div>
+                                    <span className="pl-2">
+                                      {percentage.toFixed(0)}%
+                                    </span>
+                                  </div>
+                                  <span>
+                                    {alerts[0]?.firstDate
+                                      ? `Since: ${Math.round(
+                                          timeDifferenceInDays(
+                                            new Date(alerts[0].firstDate)
+                                          )
+                                        )} days ago on ${new Date(
+                                          alerts[0].firstDate
+                                        ).toLocaleString('en-GB', {
+                                          hour12: false,
+                                        })}`
+                                      : 'Since: n/a'}
+                                  </span>
                                 </div>
-                                <span className="pl-2">
-                                  {percentage.toFixed(0)}%
-                                </span>
-                              </div>
-                              <span>
-                                {alerts[0]?.firstDate
-                                  ? `Since: ${Math.round(
-                                      timeDifferenceInDays(
-                                        new Date(alerts[0].firstDate)
-                                      )
-                                    )} days ago on ${new Date(
-                                      alerts[0].firstDate
-                                    ).toLocaleString('en-GB', {
-                                      hour12: false,
-                                    })}`
-                                  : 'Since: n/a'}
-                              </span>
-                            </div>
-                          </td>
-                        );
-                      })}
-                    </tr>
-                  )
-                )}
-              </React.Fragment>
-            ))}
+                              </td>
+                            );
+                          })}
+                        </tr>
+                      )
+                    )}
+                  </React.Fragment>
+                );
+              }
+            )}
           </tbody>
         </table>
       </div>

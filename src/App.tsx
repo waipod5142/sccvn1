@@ -9,10 +9,10 @@ import Machine_Dashboard_Subdivision from '@/_root/pages/Machine_Dashboard_Subdi
 import DashboardTotalAll from '@/_root/pages/Machine_DashboardTotalAll';
 import DashboardTotal from '@/_root/pages/Machine_DashboardTotal';
 import DashboardDefect from '@/_root/pages/Machine_DashboardDefect';
-import DashboardOverdue from '@/_root/pages/Machine_DashboardOverdue';
-import DashboardAlert from '@/_root/pages/Man_DashboardAlert';
-import DashboardBoot from '@/_root/pages/Man_DashboardBoot';
-import DashboardRa from '@/_root/pages/Man_DashboardRa';
+import DashboardTotalByOwner from '@/_root/pages/Machine_DashboardTotalByOwner';
+// import DashboardOverdue from '@/_root/pages/Machine_DashboardOverdue';
+// import DashboardAlert from '@/_root/pages/Man_DashboardAlert';
+import DashboardActivity from '@/_root/pages/Man_DashboardActivity';
 import MachineAuth from '@/_root/pages/Machine';
 import MachineNew from '@/_root/pages/MachineNew';
 import Visitor from '@/_auth/forms/Visitor';
@@ -23,8 +23,9 @@ import AlertForm from '@/components/shared/ManAlertForm';
 
 // change this for header
 import ManForm from '@/_auth/forms/ManForm';
-import RaForm from '@/components/shared/ManRaForm';
+// import RaForm from '@/components/shared/ManRaForm';
 import Test from '@/components/dashboard/TestCopy';
+import MachineOwner from '@/components/dashboard/MachineOwner';
 import './globals.css';
 
 const App = () => {
@@ -44,10 +45,16 @@ const App = () => {
           <Route path="/Man/:man/:id" element={<Man />} />
           {/* Make this inactive */}
           <Route path="/Man/:bu/:man/:id" element={<Man />} />
-          <Route path="/AlertForm/:alertNo" element={<AlertForm />} />
-          <Route path="Man/:bu/AlertForm/:alertNo" element={<AlertForm />} />
+          {/* <Route path="/AlertForm/:alertNo" element={<AlertForm />} /> */}
+          {/* <Route path="Man/:bu/AlertForm/:alertNo" element={<AlertForm />} /> */}
+          <Route
+            path="ManForm/:bu/AlertForm/:alertNo"
+            element={<AlertForm />}
+          />
           <Route path="/ManForm/:bu/:man/:id" element={<ManForm />} />
-          <Route path="/Man/:bu/RaForm/:area" element={<RaForm />} />
+          {/* <Route path="/Man/:bu/RaForm/:area" element={<RaForm />} /> */}
+          //By Owner
+          <Route path="/MachineOwner/:bu/:owner" element={<MachineOwner />} />
           //Main page
           <Route path="/Man" element={<ManMain />} />
           <Route path="/Test" element={<Test />} />
@@ -66,12 +73,18 @@ const App = () => {
             path="/Dashboard/:bu/:period"
             element={<Machine_Dashboard />}
           />
-          <Route path="/DashboardAlert/:bu" element={<DashboardAlert />} />
-          <Route path="/DashboardBoot/:bu" element={<DashboardBoot />} />
-          <Route path="/DashboardRa/:bu" element={<DashboardRa />} />
+          {/* <Route path="/DashboardAlert/:bu" element={<DashboardAlert />} /> */}
+          <Route
+            path="/DashboardActivity/:bu/:type"
+            element={<DashboardActivity />}
+          />
           <Route path="/DashboardTotal/:bu" element={<DashboardTotal />} />
           <Route path="/DashboardDefect/:bu" element={<DashboardDefect />} />
-          <Route path="/DashboardOverdue/:bu" element={<DashboardOverdue />} />
+          <Route
+            path="/DashboardTotalByOwner/:bu"
+            element={<DashboardTotalByOwner />}
+          />
+          {/* <Route path="/DashboardOverdue/:bu" element={<DashboardOverdue />} /> */}
           <Route path="/:machine/:id" element={<MachineAuth />} />
           <Route path="/Machine/:bu/:machine/:id" element={<MachineNew />} />
         </Route>

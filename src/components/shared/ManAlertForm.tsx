@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import useGeoLocation from '@/uti/useGeoLocation';
 import { submit } from '@/lib/translation';
+import { QRCodeSVG } from 'qrcode.react';
 
 interface FillingProps {
   bu?: string;
@@ -74,6 +75,45 @@ export default function Filling() {
     location.loaded &&
     !location.error && (
       <section id="questions" className="md:px-4 pb-4 pt-10 w-80 md:w-full">
+        {/* Header for Alert Form */}
+        <div className="px-4 sm:px-10 grid grid-cols-4">
+          <div className="col-span-3 my-4">
+            <h1
+              className="p-1 rounded-md text-2xl font-semibold text-white bg-slate-600 underline cursor-pointer w-fit"
+              onClick={() =>
+                (window.location.href = `/ManForm/${bu}/AlertForm/${alertNo}`)
+              }
+            >
+              {alertNo}
+            </h1>
+          </div>
+          <div className="col-span-1 my-4 flex flex-col items-center justify-center">
+            <img
+              src={`/assets/icons/alert.svg`}
+              className="animate-pulse"
+              alt={alertNo}
+              width={80}
+              height={80}
+            />
+            <br />
+            <QRCodeSVG
+              value={`https://www.saf37y.com/ManForm/${bu}/AlertForm/${alertNo}`}
+              size={75}
+              bgColor={'#ffffff'}
+              fgColor={'#000000'}
+              level={'L'}
+              includeMargin={false}
+              imageSettings={{
+                src: 'https://companieslogo.com/img/orig/SCCC.BK-b25d0caf.png',
+                x: undefined,
+                y: undefined,
+                height: 10,
+                width: 10,
+                excavate: true,
+              }}
+            />
+          </div>
+        </div>
         <div className="text-center relative">
           <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-slate-200 via-slate-500 to-slate-200 transform -translate-y-1/2 z-0"></div>
           <h1 className="text-lg bg-white text-slate-900 relative z-10 py-2 px-4 rounded-lg inline">

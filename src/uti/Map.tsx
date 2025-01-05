@@ -11,6 +11,7 @@ type MapProps = {
   id: string | undefined;
   inspector: string | undefined;
   date: string | number;
+  url: string | undefined;
 };
 
 // create custom icon
@@ -55,7 +56,24 @@ const ZoomButton: React.FC<ZoomButtonProps> = ({ lat, lng }) => {
 };
 
 // Main Map component
-const Map: React.FC<MapProps> = ({ lat, lng, id, inspector, date }) => {
+const Map: React.FC<MapProps> = ({ lat, lng, id, inspector, date, url }) => {
+  const [selectedImg, setSelectedImg] = useState<string | null | undefined>(
+    null
+  );
+
+  // Close modal when clicking outside the map area
+  const closeModal = () => {
+    setSelectedImg(null);
+  };
+
+  const handleOverlayClick = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    if ((e.target as HTMLDivElement).id === 'modal-overlay') {
+      closeModal();
+    }
+  };
+
   return (
     <>
       <MapContainer
@@ -99,11 +117,48 @@ const Map: React.FC<MapProps> = ({ lat, lng, id, inspector, date }) => {
               By {inspector}
               <br />
               {lat}, {lng}
+              <div className="w-full">
+                <figure className="w-full md:w-1/2 md:h-1/2 lg:w-1/4 lg:h-1/4">
+                  {url && (
+                    <img
+                      src={url}
+                      alt="image"
+                      width={50}
+                      height={50}
+                      onClick={() => setSelectedImg(url)}
+                      className="cursor-pointer"
+                    />
+                  )}
+                </figure>
+              </div>
             </Popup>
           </Marker>
         </MarkerClusterGroup>
         <ZoomButton lat={lat} lng={lng} />
       </MapContainer>
+      {/* Image Modal Logic */}
+      {selectedImg && (
+        <div
+          id="modal-overlay"
+          className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
+          style={{ zIndex: 1000 }} // Ensure this is higher than the map's z-index
+          onClick={handleOverlayClick}
+        >
+          <div className="relative bg-white p-4 rounded-lg shadow-lg">
+            <button
+              onClick={closeModal}
+              className="absolute top-2 right-2 bg-rose-500 text-white font-bold hover:bg-red-700 hover:scale-105 transition-all duration-300 ease-in-out p-3 rounded-full shadow-lg"
+            >
+              ✕
+            </button>
+            <img
+              src={selectedImg}
+              alt="Full preview"
+              className="max-w-xs max-h-xs md:max-w-screen-sm md:max-h-screen-sm"
+            />
+          </div>
+        </div>
+      )}
     </>
   );
 };

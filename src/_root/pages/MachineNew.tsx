@@ -6,6 +6,8 @@ import MachineHeader from '@/components/shared/MachineHeader';
 import MachineDetail from '@/components/shared/MachineDetail';
 import MachineForm from '@/components/shared/MachineForm';
 import { Machine } from '@/lib/typeMachine';
+import { saf37y } from '@/lib/translation';
+import timeDifferenceInDays from '@/uti/dayDiff';
 
 const getDetail = async (
   bu: string | undefined,
@@ -56,6 +58,7 @@ const Main = () => {
 
     fetchData();
   }, [bu, machine, id]);
+  const currentUrl = window.location.href;
 
   return (
     <div className="py-2 w-full md:w-3/4">
@@ -67,6 +70,17 @@ const Main = () => {
         </div>
       ) : (
         <>
+          {!currentUrl.includes('saf37y') && (
+            <h1 className="p-4 text-3xl text-rose-500 font-bold">
+              {bu &&
+                saf37y[
+                  ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu
+                ]}{' '}
+              <span className="text-black">
+                {timeDifferenceInDays(new Date('2025-03-12')) * -1} days
+              </span>
+            </h1>
+          )}
           {data && <MachineHeader bu={bu} data={data} machine={machine} />}
           <br />
           {data && (
