@@ -162,21 +162,6 @@ export type DetailType = {
 // Constances
 export const sites = ['All sites', 'HONC', 'THIV', 'CATL', 'HIEP', 'CANT'];
 
-// export const owners = [
-//   'All owners',
-//   'BMJC',
-//   'Contractor',
-//   'ECO',
-//   'Hoàng Thạnh',
-//   'INSEE',
-//   'Quoc Vinh',
-//   'Thai Duong',
-//   'Thanh Hà',
-//   'Thống Nhất',
-//   'Van An',
-//   'Viet Long',
-// ];
-
 export const machineTitles: { [key: string]: string } = {
   vnLifting: 'Kiểm định thiết bị nâng / Lifting Equipment',
   vnForklift: 'Kiểm định thiết bị nâng / Forklift',
@@ -256,13 +241,16 @@ export const machineTitles: { [key: string]: string } = {
   //LK
   lkheavy: 'Heavy Vehicle',
   lkforklift: 'Forklift',
+  lkForklift: 'Forklift Inspection Form',
   lkextinguisher: 'Fire Extinguisher',
   //TH
   thTruck: 'แบบตรวจเช็ครถบรรทุกก่อนใช้งานประจำวัน',
   thCar: 'แบบตรวจเช็ครถเล็กก่อนใช้งานประจำวัน',
   thMixer: 'แบบตรวจเช็ครถโม่ก่อนใช้งาน',
   thMotorbike: 'แบบตรวจเช็คมอเตอร์ไซด์ก่อนใช้งานประจำวัน',
+  thPlant: 'Daily (FM-SCCO-PROD-003 Production)',
   thtruck: 'Truck',
+  thtruckact: 'ACT Truck',
   thcar: 'Car',
   thmixer: 'Mixer',
   thmotorbike: 'Motor Bike',
@@ -270,6 +258,7 @@ export const machineTitles: { [key: string]: string } = {
   thforklift: 'Forklift',
   thfrontend: 'Frontend Loader',
   thextinguisher: 'Fire Extinguisher',
+  thplant: 'RMX Plant',
 };
 
 export const dailyEquipment = [

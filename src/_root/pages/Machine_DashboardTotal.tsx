@@ -277,7 +277,15 @@ const DataTable: React.FC = () => {
                   <td className="flex items-center justify-between border px-4 py-2 font-bold">
                     {machineTitles[
                       bu
-                        ? ['srb', 'lbm', 'rmx', 'iagg', 'ieco'].includes(bu)
+                        ? [
+                            'srb',
+                            'mkt',
+                            'office',
+                            'lbm',
+                            'rmx',
+                            'iagg',
+                            'ieco',
+                          ].includes(bu)
                           ? 'th' + type
                           : bu + type
                         : ''
@@ -467,7 +475,10 @@ const DataTable: React.FC = () => {
         <h1 className="text-3xl font-bold flex items-center justify-center">
           <img
             src={`/assets/icons/${
-              bu && ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu)
+              bu &&
+              ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
+                bu
+              )
                 ? 'th'
                 : bu
             }.svg`}
@@ -479,9 +490,7 @@ const DataTable: React.FC = () => {
       </header>
       {/* Add legend here */}
       <h2 className="text-xl font-bold mb-4">
-        <span className="ml-4 text-gray-500">
-          Inspected / Total Machines ( % )
-        </span>
+        <span className="text-gray-500">Inspected / Total Machines ( % )</span>
         <span
           className="ml-4 text-rose-500 font-bold text-xl p-1 rounded bg-rose-100"
           style={{

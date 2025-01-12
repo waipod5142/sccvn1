@@ -26,7 +26,7 @@ type QuestionType = {
   name: string;
   question: string;
   howto: string;
-  accept: string;
+  accept?: string;
 };
 
 interface AdditionalFields {
@@ -65,7 +65,10 @@ const Editing = ({ item, machine, bu }: Machine) => {
     const fetchQuestions = async () => {
       try {
         const { questions } = await loadQuestions(
-          bu && ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu,
+          bu &&
+            ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(bu)
+            ? 'th'
+            : bu,
           machine
         );
         setQuestions(questions);
@@ -146,7 +149,15 @@ const Editing = ({ item, machine, bu }: Machine) => {
           <h1 className="text-lg bg-white text-slate-900 relative z-10 py-2 px-4 rounded-lg inline">
             {(bu &&
               machineTitles[
-                (['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu)
+                ([
+                  'srb',
+                  'mkt',
+                  'office',
+                  'lbm',
+                  'rmx',
+                  'iagg',
+                  'ieco',
+                ].includes(bu)
                   ? 'th'
                   : bu) + machine
               ]) ||
@@ -162,7 +173,17 @@ const Editing = ({ item, machine, bu }: Machine) => {
             <div className="text-2xl text-slate-900 px-4">
               {(bu &&
                 responder[
-                  ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu
+                  [
+                    'srb',
+                    'mkt',
+                    'office',
+                    'lbm',
+                    'rmx',
+                    'iagg',
+                    'ieco',
+                  ].includes(bu)
+                    ? 'th'
+                    : bu
                 ]) ||
                 null}
               : Responder
@@ -192,7 +213,15 @@ const Editing = ({ item, machine, bu }: Machine) => {
                     <p className="text-sm text-left text-slate-400 dark:text-gray-300">
                       {(bu &&
                         howto[
-                          ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu)
+                          [
+                            'srb',
+                            'mkt',
+                            'office',
+                            'lbm',
+                            'rmx',
+                            'iagg',
+                            'ieco',
+                          ].includes(bu)
                             ? 'th'
                             : bu
                         ]) ||
@@ -202,7 +231,15 @@ const Editing = ({ item, machine, bu }: Machine) => {
                     <p className="text-sm text-left text-slate-400 dark:text-gray-300">
                       {(bu &&
                         accept[
-                          ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu)
+                          [
+                            'srb',
+                            'mkt',
+                            'office',
+                            'lbm',
+                            'rmx',
+                            'iagg',
+                            'ieco',
+                          ].includes(bu)
                             ? 'th'
                             : bu
                         ]) ||
@@ -222,7 +259,15 @@ const Editing = ({ item, machine, bu }: Machine) => {
                             ? lk[1].text
                             : bu === 'cmic'
                             ? cmic[1].text
-                            : ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu)
+                            : [
+                                'srb',
+                                'mkt',
+                                'office',
+                                'lbm',
+                                'rmx',
+                                'iagg',
+                                'ieco',
+                              ].includes(bu)
                             ? th[1].text
                             : ''
                           : ''}
@@ -235,7 +280,15 @@ const Editing = ({ item, machine, bu }: Machine) => {
                         placeholder={
                           (bu &&
                             remarka[
-                              ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu)
+                              [
+                                'srb',
+                                'mkt',
+                                'office',
+                                'lbm',
+                                'rmx',
+                                'iagg',
+                                'ieco',
+                              ].includes(bu)
                                 ? 'th'
                                 : bu
                             ]) ||
@@ -282,7 +335,11 @@ const Editing = ({ item, machine, bu }: Machine) => {
             {isSubmitting && <Loader />}
             {(bu &&
               submit[
-                ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu
+                ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
+                  bu
+                )
+                  ? 'th'
+                  : bu
               ]) ||
               undefined}{' '}
             / Submit

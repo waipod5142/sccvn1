@@ -26,6 +26,8 @@ const Header = ({ bu, data, machine }: HeaderComponentProps) => {
         // Check if `bu` is one of 'srb', 'lbm', or 'rmx' and set it to 'th'
         if (
           bu === 'srb' ||
+          bu === 'mkt' ||
+          bu === 'office' ||
           bu === 'lbm' ||
           bu === 'rmx' ||
           bu === 'iagg' ||

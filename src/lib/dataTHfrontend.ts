@@ -182,7 +182,6 @@ export const questions = [
     accept: 'ไม่เสื่อมสภาพ มีน้ำฉีดกระจก',
   },
 ];
-
 export const detailFields = [
   { field: 'id', label: 'ID' },
   { field: 'date', label: 'วันที่ - Date' },

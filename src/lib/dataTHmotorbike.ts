@@ -73,8 +73,10 @@ export const questions = [
 
 export const detailFields = [
   { field: 'id', label: 'ID' },
-  { field: 'date', label: 'วันที่ Date' },
-  { field: 'inspector', label: 'ผู้ตรวจ Inspector' },
+  { field: 'date', label: 'วันที่ - Date' },
+  { field: 'email', label: 'ผู้รับผิดชอบ - Responsible person' },
+  { field: 'inspector', label: 'ผู้ตรวจสอบ - Inspector' },
+  { field: 'responder', label: 'Responder' },
   { field: 'tyre', label: '1. ดอกยาง,ลมยาง' },
   { field: 'tyreR', label: '' },
   { field: 'tyreP', label: '' },

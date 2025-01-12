@@ -77,7 +77,15 @@ const ModalContent: React.FC<{
                   <td className="border px-4 py-2 font-bold flex items-center justify-between">
                     {machineTitles[
                       bu
-                        ? ['srb', 'lbm', 'rmx', 'iagg', 'ieco'].includes(bu)
+                        ? [
+                            'srb',
+                            'mkt',
+                            'office',
+                            'lbm',
+                            'rmx',
+                            'iagg',
+                            'ieco',
+                          ].includes(bu)
                           ? 'th' + type
                           : bu + type
                         : ''

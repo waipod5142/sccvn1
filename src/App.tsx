@@ -10,7 +10,6 @@ import DashboardTotalAll from '@/_root/pages/Machine_DashboardTotalAll';
 import DashboardTotal from '@/_root/pages/Machine_DashboardTotal';
 import DashboardDefect from '@/_root/pages/Machine_DashboardDefect';
 import DashboardTotalByOwner from '@/_root/pages/Machine_DashboardTotalByOwner';
-// import DashboardOverdue from '@/_root/pages/Machine_DashboardOverdue';
 // import DashboardAlert from '@/_root/pages/Man_DashboardAlert';
 import DashboardActivity from '@/_root/pages/Man_DashboardActivity';
 import MachineAuth from '@/_root/pages/Machine';
@@ -75,7 +74,7 @@ const App = () => {
           />
           {/* <Route path="/DashboardAlert/:bu" element={<DashboardAlert />} /> */}
           <Route
-            path="/DashboardActivity/:bu/:type"
+            path="/DashboardActivity/:bu"
             element={<DashboardActivity />}
           />
           <Route path="/DashboardTotal/:bu" element={<DashboardTotal />} />
@@ -84,7 +83,6 @@ const App = () => {
             path="/DashboardTotalByOwner/:bu"
             element={<DashboardTotalByOwner />}
           />
-          {/* <Route path="/DashboardOverdue/:bu" element={<DashboardOverdue />} /> */}
           <Route path="/:machine/:id" element={<MachineAuth />} />
           <Route path="/Machine/:bu/:machine/:id" element={<MachineNew />} />
         </Route>

@@ -366,7 +366,10 @@ const InspectionTable: React.FC = () => {
         <h1 className="text-3xl font-bold flex items-center justify-center">
           <img
             src={`/assets/icons/${
-              bu && ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu)
+              bu &&
+              ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
+                bu
+              )
                 ? 'th'
                 : bu
             }.svg`}

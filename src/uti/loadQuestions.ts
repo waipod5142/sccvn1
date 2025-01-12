@@ -89,12 +89,18 @@ export const loadQuestions = async (
       return import('@/lib/dataTHfrontend');
     case 'th_Car':
       return import('@/lib/dataTHcar');
+    case 'th_Driving':
+      return import('@/lib/dataTHdriving');
     case 'th_Truck':
       return import('@/lib/dataTHtruck');
     case 'th_Motorbike':
       return import('@/lib/dataTHmotorbike');
     case 'th_Mixer':
       return import('@/lib/dataTHmixer');
+    case 'th_Plant':
+      return import('@/lib/dataTHplant');
+    case 'th_Bulk':
+      return import('@/lib/dataTHbulk');
     //SRB
     case 'srb_Truck':
       return import('@/lib/dataSRBtruck');

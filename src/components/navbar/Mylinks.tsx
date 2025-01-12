@@ -9,9 +9,7 @@ export const links = [
           { name: 'Toolbox', link: '/Dashboard/vn/toolbox' },
           { name: 'PRA', link: '/Dashboard/vn/pra' },
           // { name: 'Safety Alert', link: '/Dashboard/vn/alert' },
-          { name: 'Safety Alert', link: '/DashboardActivity/vn/alert' },
-          { name: 'Boot on the ground', link: '/DashboardActivity/vn/boot' },
-          { name: 'Risk Assessment', link: '/DashboardActivity/vn/ra' },
+          { name: 'Alert, Boot, RA', link: '/DashboardActivity/vn' },
         ],
       },
       {
@@ -117,6 +115,50 @@ export const links = [
     ],
   },
   {
+    name: 'MKT',
+    submenu: true,
+    sublinks: [
+      {
+        Head: 'Man',
+        sublink: [
+          // { name: 'Toolbox', link: '/Dashboard/vn/toolbox' },
+          // { name: 'PRA', link: '/Dashboard/vn/pra' },
+          // { name: 'Safety Alert', link: '/DashboardAlert/vn' },
+        ],
+      },
+      {
+        Head: 'Machine',
+        sublink: [
+          { name: 'All Machine', link: '/DashboardTotal/mkt' },
+          { name: 'By Owner', link: '/DashboardTotalByOwner/mkt' },
+          // { name: 'Defect', link: '/DashboardDefect/srb' },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'OFFICE',
+    submenu: true,
+    sublinks: [
+      {
+        Head: 'Man',
+        sublink: [
+          // { name: 'Toolbox', link: '/Dashboard/vn/toolbox' },
+          // { name: 'PRA', link: '/Dashboard/vn/pra' },
+          // { name: 'Safety Alert', link: '/DashboardAlert/vn' },
+        ],
+      },
+      {
+        Head: 'Machine',
+        sublink: [
+          { name: 'All Machine', link: '/DashboardTotal/office' },
+          { name: 'By Owner', link: '/DashboardTotalByOwner/office' },
+          // { name: 'Defect', link: '/DashboardDefect/srb' },
+        ],
+      },
+    ],
+  },
+  {
     name: 'LBM',
     submenu: true,
     sublinks: [
@@ -199,13 +241,13 @@ export const links = [
         sublink: [
           { name: 'All Machine', link: '/DashboardTotal/ieco' },
           { name: 'By Owner', link: '/DashboardTotalByOwner/ieco' },
-          { name: 'Defect', link: '/DashboardDefect/ieco' },
+          // { name: 'Defect', link: '/DashboardDefect/ieco' },
         ],
       },
     ],
   },
   {
-    name: 'Safety Induction',
+    name: 'Induction',
     submenu: true,
     sublinks: [
       {
@@ -215,17 +257,8 @@ export const links = [
           { name: 'THIV', link: '/Induction/THIV' },
           { name: 'CATL', link: '/Induction/CATL' },
           { name: 'HO', link: '/Induction/vn/HO' },
+          { name: 'Machine', link: '/DashboardTotalAll' },
         ],
-      },
-    ],
-  },
-  {
-    name: 'Regional',
-    submenu: true,
-    sublinks: [
-      {
-        Head: 'All',
-        sublink: [{ name: 'Machine', link: '/DashboardTotalAll' }],
       },
     ],
   },

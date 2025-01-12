@@ -1,37 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { http } from '@/lib/http';
 import Loading from '@/components/shared/Loader';
 import { useParams } from 'react-router-dom';
-import timeDifferenceInDays from '@/uti/dayDiff';
 import { QRCodeSVG } from 'qrcode.react';
 import Modal from './Modal';
 import ModalContent from './ModalContentMan';
+// import ModalContentForm from '@/components/shared/ManBoot_RaForm';
+import ModalContentForm from '@/_auth/forms/ManFormModal';
+import ModalContentAlertForm from '@/_auth/forms/ManAlertFormModal';
 import ModalFormMan from '@/uti/ModalFormMan';
 import ModalImage from '@/uti/ModalImage';
 import { Man } from '@/lib/typeMan';
 
-interface InspectorDetails {
-  _id: string;
-  id: string;
-  department: string;
-  site?: string;
-  type: string;
-  status: string;
-  owner: string;
-  name: string;
-  position: string;
-  bu: string;
-  eSite: string;
+interface GroupByAlert {
+  alertNo: string;
 }
 
-interface AlertData {
-  _id: string;
-  site: string;
-  lastInspectionDate: string;
-  count: number;
-  inspectorDetails: InspectorDetails;
+interface GroupByArea {
+  area: string;
 }
+
+interface InspectionItem {
+  groupBy?: GroupByAlert | GroupByArea;
+  site: string;
+  type: string;
+  count: number;
+}
+
+type InspectionGroup = {
+  type: string;
+  data: InspectionItem[];
+};
 
 interface FormData {
   _id: string;
@@ -51,36 +51,34 @@ interface FormData {
   trans: Man[];
 }
 
-const App: React.FC = () => {
-  const [dataTr, setDataTr] = useState<AlertData[]>([]);
+const InspectionTables = () => {
+  const { bu } = useParams<{ bu: string }>();
+
+  const [dataTr, setDataTr] = useState<InspectionGroup[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [vehicleData, setVehicleData] = useState<FormData[]>([]);
   const [formVisibleMan, setFormVisibleMan] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState<{
     id: string;
-    type: string;
+    type: string | undefined;
   } | null>(null); // Store selected vehicle data
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpenForm, setModalOpenForm] = useState(false);
   const [showAllTransactions, setShowAllTransactions] = useState<{
     [key: string]: boolean;
   }>({});
   const [selectedImg, setSelectedImg] = useState<string | null | undefined>(
     null
   );
-  const { bu, type } = useParams<{ bu: string; type: string }>();
+  const [selectedType, setSelectedType] = useState<string | undefined>('');
 
+  // Fetch data from API
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get<AlertData[]>(
-          `${http}${type === 'alert' ? 'harnessTr_all' : 'harnessTr_one'}`,
-          {
-            params: {
-              bu,
-              type,
-            },
-          }
-        );
+        const res = await axios.get<InspectionGroup[]>(`${http}harnessTr_all`, {
+          params: { bu },
+        });
         setDataTr(res.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -90,8 +88,9 @@ const App: React.FC = () => {
     };
 
     fetchData();
-  }, [bu, type]);
+  }, [bu]);
 
+  // Display a loader while data is being fetched
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -100,37 +99,39 @@ const App: React.FC = () => {
     );
   }
 
-  const groupedData = dataTr.reduce<Record<string, AlertData[]>>(
-    (acc, inspection) => {
-      const site = inspection.site || 'Unknown';
-      if (!acc[site]) {
-        acc[site] = [];
-      }
-      acc[site].push(inspection);
-      return acc;
-    },
-    {}
-  );
-
-  const getProgressColor = (count: number) => {
-    if (count > 2) return 'bg-green-500';
-    if (count === 2) return 'bg-yellow-500';
-    return 'bg-red-500';
+  // Utility function to get unique sites and types from the data
+  const getUniqueValues = <T extends keyof InspectionItem>(
+    key: T
+  ): string[] => {
+    const values = new Set<string>();
+    dataTr.forEach((group) => {
+      group.data.forEach((item) => {
+        if (item[key]) {
+          values.add(item[key] as string);
+        }
+      });
+    });
+    return Array.from(values).filter((value) => value.trim() !== '');
   };
 
-  const handleCardClick = async (area: string) => {
+  // Get unique sites and types dynamically
+  const uniqueSites = getUniqueValues('site');
+  const uniqueTypes = getUniqueValues('type');
+
+  const handleCardClick = async (type: string, area: string) => {
     setModalOpen(true);
 
     try {
       const res = await axios.get(`${http}harnessTr_get`, {
         params: {
-          bu,
-          type,
-          area,
+          bu, //vn
+          type, //alert, boot, ra
+          area, //PI-Srilanka
         },
       });
 
       setVehicleData(res.data);
+      setSelectedType(type);
     } catch (error) {
       console.error('Error fetching vehicle details:', error);
     }
@@ -138,13 +139,14 @@ const App: React.FC = () => {
 
   // Function to open the man modal
   const openManModal = (vehicleId: string) => {
-    setSelectedVehicle({ id: vehicleId, type: 'alert' });
+    setSelectedVehicle({ id: vehicleId, type: selectedType });
     setFormVisibleMan(true); // Open the man modal
   };
 
   // Function to close modal
   const handleCloseModal = () => {
     setModalOpen(false);
+    setModalOpenForm(false);
     setVehicleData([]);
     setShowAllTransactions({}); // Reset all toggles
   };
@@ -164,25 +166,10 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center pt-4">
-      <QRCodeSVG
-        value={`https://www.saf37y.com/DashboardActivity/${bu}/${type}`}
-        size={75}
-        bgColor="#ffffff"
-        fgColor="#000000"
-        level="L"
-        includeMargin={false}
-        imageSettings={{
-          src: 'https://companieslogo.com/img/orig/SCCC.BK-b25d0caf.png',
-          x: undefined,
-          y: undefined,
-          height: 10,
-          width: 10,
-          excavate: true,
-        }}
-      />
+    <div className="p-6 bg-white">
+      {/* Header */}
       <header className="text-center m-4">
-        <h1 className="text-4xl font-bold flex">
+        <h1 className="text-4xl font-bold flex items-center justify-center">
           <img
             src={`/assets/icons/${
               bu && ['lbm', 'rmx', 'iagg', 'srb', 'ieco'].includes(bu)
@@ -192,136 +179,192 @@ const App: React.FC = () => {
             className="mr-2 md:w-10 md:h-10 w-16 h-16"
             alt="flag"
           />
-          {bu?.toUpperCase()}{' '}
-          {type === 'boot'
-            ? `Boot on the ground`
-            : type === 'ra'
-            ? `Risk Assessment`
-            : type === 'alert'
-            ? `Safety Alert`
-            : ''}{' '}
-          by Plant
-          <img
-            src={`/assets/icons/${type}.svg`}
-            className="pl-2 animate-pulse"
-            alt={type}
-            width={100}
-            height={100}
-          />
+          {bu?.toUpperCase()} by Safety Alert, Boot on the Ground and Area Risk
+          Assessment
         </h1>
       </header>
-      {/* Group by Site */}
 
-      {Object.entries(groupedData).map(([site, inspections]) => (
-        <div key={site} className="w-full mb-8">
-          <hr className="my-4 border-gray-300" />
-          <h2 className="text-2xl font-semibold mb-4 pl-4">
-            Site: {site.toUpperCase()}
-            {type === 'alert' && (
-              <span className="pl-2 text-sm font-semibold text-gray-500">
-                (lastest site that people make transaction)
-              </span>
-            )}
-          </h2>
+      {dataTr.map((group) => (
+        <div key={group.type} className="mb-8">
+          <div className="flex px-6 items-center justify-between">
+            <h3 className="text-xl font-semibold mb-4 capitalize">
+              {group.type === 'alert'
+                ? 'Safety Alerts'
+                : group.type === 'boot'
+                ? 'Boot on the Ground'
+                : 'Risk Assessment'}
+              <img
+                src={`/assets/icons/${group.type}.svg`}
+                className="pl-2 animate-pulse"
+                alt={group.type}
+                width={100}
+                height={100}
+              />
+            </h3>
+            <QRCodeSVG
+              value={`https://www.saf37y.com/DashboardActivity/${bu}`}
+              size={75}
+              bgColor="#ffffff"
+              fgColor="#000000"
+              level="L"
+              includeMargin={false}
+              imageSettings={{
+                src: 'https://companieslogo.com/img/orig/SCCC.BK-b25d0caf.png',
+                x: undefined,
+                y: undefined,
+                height: 10,
+                width: 10,
+                excavate: true,
+              }}
+            />
+          </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 px-4">
-            {inspections.map((inspection) => (
-              <>
-                <div
-                  className="flex flex-col justify-between h-full"
-                  key={inspection._id}
-                >
-                  <span
-                    className="text-sm pl-2 pb-2 text-blue-500 cursor-pointer"
-                    onClick={() =>
-                      (window.location.href = `/ManForm/${bu}/${
-                        type && type.charAt(0).toUpperCase() + type.slice(1)
-                      }Form/${inspection._id}`)
-                    }
-                  >
-                    {inspection._id}
-                  </span>
-
-                  <div
-                    key={inspection._id}
-                    className={`rounded-lg shadow-lg p-4 cursor-pointer flex flex-col justify-between h-full border border-gray-200}`}
-                    onClick={() => handleCardClick(inspection._id)}
-                  >
-                    <h3 className="text-lg font-bold">{inspection._id}</h3>
-                    <div className="mt-4">
-                      <h4 className="text-sm">
-                        {type === 'alert'
-                          ? 'Last Acknowledged By:'
-                          : 'Last Inspected By:'}
-                      </h4>
-                      <p className="text-slate-400">
-                        Name:{' '}
-                        <strong className="text-slate-900">
-                          {inspection.inspectorDetails.name}
-                        </strong>
-                      </p>
-                      <p className="text-sm">
-                        ID: {inspection.inspectorDetails.id}
-                      </p>
-                      <p className="text-sm">
-                        Position: {inspection.inspectorDetails.position}
-                      </p>
-                      <p className="text-sm">
-                        Department: {inspection.inspectorDetails.department}
-                      </p>
-                      <p className="text-sm">
-                        Site:{' '}
-                        {inspection.inspectorDetails.site?.toLocaleUpperCase()}
-                      </p>
-                      <p
-                        className={`text-slate-900 ${
-                          new Date(
-                            inspection.lastInspectionDate
-                          ).toDateString() === new Date().toDateString() &&
-                          'font-bold bg-green-500 text-white rounded-sm p-1 w-fit'
-                        }`}
+          {/* Table Container */}
+          <div className="overflow-x-auto border rounded-lg shadow max-h-[600px]">
+            <div className="inline-block min-w-full">
+              <table className="min-w-full border-collapse bg-white">
+                {/* Table Header */}
+                <thead className="bg-gray-200">
+                  <tr>
+                    <th
+                      rowSpan={2}
+                      className="border border-gray-300 p-3 text-left bg-gray-200"
+                    >
+                      {group.type === 'alert' ? 'Alert No' : 'Area'} (Total{' '}
+                      {group.data.length} List)
+                    </th>
+                    {uniqueSites.map((site) => (
+                      <th
+                        key={site}
+                        colSpan={uniqueTypes.length}
+                        className="border border-gray-300 p-3 text-center bg-gray-200"
                       >
-                        {inspection.lastInspectionDate &&
-                        new Date(
-                          inspection.lastInspectionDate
-                        ).toDateString() === new Date().toDateString()
-                          ? ''
-                          : `${
-                              inspection.lastInspectionDate &&
-                              Math.round(
-                                timeDifferenceInDays(
-                                  new Date(inspection.lastInspectionDate)
-                                )
-                              )
-                            } days ago on `}{' '}
-                        {inspection.lastInspectionDate &&
-                          new Date(
-                            inspection.lastInspectionDate
-                          ).toLocaleString('en-GB', {
-                            hour12: false,
-                          })}
-                      </p>
-                    </div>
-                    <div className="mt-4">
-                      <p className="text-sm mb-2">
-                        Count:{' '}
-                        <span className="font-bold">{inspection.count}</span>
-                      </p>
-                      <div className="w-full bg-gray-200 rounded-full h-4">
-                        <div
-                          className={`h-4 rounded-full ${getProgressColor(
-                            inspection.count
-                          )}`}
-                          style={{
-                            width: `${Math.min(inspection.count * 20, 100)}%`,
-                          }}
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </>
-            ))}
+                        {site.toUpperCase()}
+                      </th>
+                    ))}
+                    <th
+                      rowSpan={2}
+                      className="border border-gray-300 p-3 text-right bg-gray-200"
+                    >
+                      Row Total
+                    </th>
+                  </tr>
+                  <tr>
+                    {uniqueSites.flatMap((site) =>
+                      uniqueTypes.map((type) => (
+                        <th
+                          key={`${site}_${type}`}
+                          className="border border-gray-300 p-3 text-center bg-gray-200"
+                        >
+                          {type}
+                        </th>
+                      ))
+                    )}
+                  </tr>
+                </thead>
+
+                {/* Table Body */}
+                <tbody>
+                  {Object.values(
+                    group.data.reduce<{
+                      [key: string]: {
+                        rowTotal: number;
+                        alertOrArea: string;
+                        [key: string]: number | string;
+                      };
+                    }>((acc, item) => {
+                      if (!item.groupBy) return acc; // Skip items without groupBy
+
+                      const key =
+                        'alertNo' in item.groupBy
+                          ? item.groupBy.alertNo
+                          : item.groupBy.area;
+
+                      if (!acc[key]) {
+                        acc[key] = {
+                          alertOrArea: key,
+                          rowTotal: 0,
+                        };
+                      }
+
+                      acc[key][`${item.site}_${item.type}`] = item.count;
+                      acc[key].rowTotal += item.count;
+
+                      return acc;
+                    }, {})
+                  ).map(({ alertOrArea, rowTotal, ...cols }) => (
+                    <tr key={alertOrArea} className="hover:bg-gray-50">
+                      <td
+                        className="text-blue-500 cursor-pointer border border-gray-300 p-3 bg-white"
+                        onClick={
+                          () => {
+                            setSelectedType(group.type);
+                            setSelectedVehicle({
+                              id: alertOrArea,
+                              type: group.type,
+                            });
+                            setModalOpenForm(true);
+                          }
+                          // (window.location.href = `/ManForm/${bu}/${
+                          //   group.type &&
+                          //   group.type.charAt(0).toUpperCase() +
+                          //     group.type.slice(1)
+                          // }Form/${alertOrArea}`)
+                        }
+                      >
+                        {alertOrArea}
+                      </td>
+                      {uniqueSites.flatMap((site) =>
+                        uniqueTypes.map((type) => (
+                          <td
+                            key={`${site}_${type}`}
+                            className="text-blue-500 cursor-pointer border border-gray-300 p-3 text-right"
+                            onClick={
+                              () => handleCardClick(group.type, alertOrArea) //group.type=alert, alertOrArea=LTI-Srilanka
+                            }
+                          >
+                            {cols[`${site}_${type}`] || '-'}
+                          </td>
+                        ))
+                      )}
+                      <td className="border border-gray-300 p-3 text-right font-semibold">
+                        {rowTotal}
+                      </td>
+                    </tr>
+                  ))}
+
+                  {/* Column Totals */}
+                  <tr className="bg-gray-100 font-semibold">
+                    <td className="border border-gray-300 p-3 bg-gray-100">
+                      Grand Total
+                    </td>
+                    {uniqueSites.flatMap((site) =>
+                      uniqueTypes.map((type) => {
+                        const columnTotal = group.data
+                          .filter(
+                            (item) =>
+                              item.site === site &&
+                              item.type === type &&
+                              item.groupBy
+                          )
+                          .reduce((sum, item) => sum + item.count, 0);
+                        return (
+                          <td
+                            key={`${site}_${type}_total`}
+                            className="border border-gray-300 p-3 text-right"
+                          >
+                            {columnTotal}
+                          </td>
+                        );
+                      })
+                    )}
+                    <td className="border border-gray-300 p-3 text-right">
+                      {group.data.reduce((sum, item) => sum + item.count, 0)}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       ))}
@@ -355,10 +398,38 @@ const App: React.FC = () => {
           </>
         }
       />
+      {/* Modal for showing alert, boot, ra form */}
+      <Modal
+        isOpen={modalOpenForm}
+        onClose={handleCloseModal}
+        content={
+          <div className="mx-auto bg-white rounded-lg shadow-lg p-4 overflow-y-auto max-h-[80vh]">
+            {selectedType === 'alert' ? (
+              <ModalContentAlertForm
+                bu={bu}
+                man={selectedType}
+                id={selectedVehicle?.id}
+              />
+            ) : (
+              <ModalContentForm
+                bu={bu}
+                man={selectedType}
+                id={selectedVehicle?.id}
+              />
+            )}
+          </div>
+        }
+      />
+
       {formVisibleMan && selectedVehicle && (
         <ModalFormMan
           id={selectedVehicle.id}
-          machine={type && type.charAt(0).toUpperCase() + type.slice(1)}
+          machine={
+            selectedVehicle.type &&
+            selectedVehicle.type.charAt(0).toUpperCase() +
+              selectedVehicle.type.slice(1)
+          }
+          // machine="Alert"
           setFormVisibleMan={setFormVisibleMan}
         />
       )}
@@ -369,4 +440,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default InspectionTables;

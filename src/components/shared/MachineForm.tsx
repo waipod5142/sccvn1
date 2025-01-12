@@ -40,7 +40,7 @@ type QuestionType = {
   name: string;
   question: string;
   howto: string;
-  accept: string;
+  accept?: string;
 };
 
 interface AdditionalFields {
@@ -83,7 +83,9 @@ const Filling: React.FC<FillingProps> = ({
       try {
         // Load daily questions based on BU and machine
         const { questions } = await loadQuestions(
-          ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu,
+          ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(bu)
+            ? 'th'
+            : bu,
           machine
         );
         setQuestions(questions);
@@ -204,9 +206,17 @@ const Filling: React.FC<FillingProps> = ({
           <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-slate-200 via-slate-500 to-slate-200 transform -translate-y-1/2 z-0"></div>
           <h1 className="text-lg bg-white text-slate-900 relative z-10 py-2 px-4 rounded-lg inline">
             {machineTitles[
-              (['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu) +
-                machine
+              (['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
+                bu
+              )
+                ? 'th'
+                : bu) + machine
             ] || null}
+            {isWeekly && bu === 'rmx'
+              ? '...ประจำสัปดาห์'
+              : !isWeekly && bu === 'rmx'
+              ? '...ประจำวัน'
+              : ''}
           </h1>
         </div>
 
@@ -224,7 +234,7 @@ const Filling: React.FC<FillingProps> = ({
           </button>
         )}
 
-        {machine === 'Mixer' && (
+        {bu === 'rmx' && machine === 'Mixer' && (
           <div className="p-4 text-sm text-left text-slate-400">
             <p>เอกสารเลขที่ FM-SCCO-OHSE-036</p>
             <p>* หยุดรถทันที และดำเนินการแก้ไขตามสถานที่ที่ผู้ขนส่งกำหนด</p>
@@ -238,7 +248,11 @@ const Filling: React.FC<FillingProps> = ({
           <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
             <div className="text-2xl text-slate-900 px-4">
               {inspector[
-                ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu
+                ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
+                  bu
+                )
+                  ? 'th'
+                  : bu
               ] || null}
               : Inspector
             </div>
@@ -254,6 +268,27 @@ const Filling: React.FC<FillingProps> = ({
               <p className="text-red-500">{`${errors.inspector?.message}`}</p>
             )}
           </div>
+          {['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
+            bu
+          ) &&
+            machine === 'Car' && (
+              <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
+                <div className="text-2xl text-slate-900 px-4">
+                  เลขไมล์ Mileage
+                </div>
+                <input
+                  {...register('mileage', {
+                    required: 'mileage is required',
+                  })}
+                  type="text"
+                  placeholder="Mileage"
+                  className="mx-4 px-4 py-2 rounded"
+                />
+                {errors.mileage && (
+                  <p className="text-red-500">{`${errors.mileage?.message}`}</p>
+                )}
+              </div>
+            )}
           {quarterlyEquipment.some((item) => item.id === machine) && (
             <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
               <div className="text-2xl text-slate-900 px-4">Tag number</div>
@@ -310,7 +345,15 @@ const Filling: React.FC<FillingProps> = ({
                   )}
                   <p className="text-sm text-left text-slate-400 dark:text-gray-300">
                     {howto[
-                      ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu)
+                      [
+                        'srb',
+                        'mkt',
+                        'office',
+                        'lbm',
+                        'rmx',
+                        'iagg',
+                        'ieco',
+                      ].includes(bu)
                         ? 'th'
                         : bu
                     ] || null}
@@ -318,7 +361,15 @@ const Filling: React.FC<FillingProps> = ({
                   </p>
                   <p className="text-sm text-left text-slate-400 dark:text-gray-300">
                     {accept[
-                      ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu)
+                      [
+                        'srb',
+                        'mkt',
+                        'office',
+                        'lbm',
+                        'rmx',
+                        'iagg',
+                        'ieco',
+                      ].includes(bu)
                         ? 'th'
                         : bu
                     ] || null}
@@ -338,7 +389,15 @@ const Filling: React.FC<FillingProps> = ({
                           ? lk
                           : bu === 'cmic'
                           ? cmic
-                          : ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu)
+                          : [
+                              'srb',
+                              'mkt',
+                              'office',
+                              'lbm',
+                              'rmx',
+                              'iagg',
+                              'ieco',
+                            ].includes(bu)
                           ? th
                           : []
                       }
@@ -351,7 +410,15 @@ const Filling: React.FC<FillingProps> = ({
                         type="text"
                         placeholder={
                           remarkr[
-                            ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu)
+                            [
+                              'srb',
+                              'mkt',
+                              'office',
+                              'lbm',
+                              'rmx',
+                              'iagg',
+                              'ieco',
+                            ].includes(bu)
                               ? 'th'
                               : bu
                           ] || 'Please provide a remark'
@@ -372,7 +439,6 @@ const Filling: React.FC<FillingProps> = ({
                           type="file"
                           placeholder="url of image"
                           onChange={(e) => handleFileChange(e, question.name)}
-                          className="hidden" // Hide the actual input
                         />
                       </label>
                       {isUploading && Boolean(progress) && (
@@ -395,7 +461,11 @@ const Filling: React.FC<FillingProps> = ({
           <div className="py-2 rounded-lg bg-purple-100 w-full">
             <div className="text-2xl text-slate-900 px-4">
               {picture[
-                ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu
+                ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
+                  bu
+                )
+                  ? 'th'
+                  : bu
               ] || undefined}{' '}
               Attach Image (Optional)
             </div>
@@ -420,7 +490,11 @@ const Filling: React.FC<FillingProps> = ({
           <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
             <div className="text-2xl text-slate-900 px-4">
               {remark[
-                ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu
+                ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
+                  bu
+                )
+                  ? 'th'
+                  : bu
               ] || 'Remark'}{' '}
               Remark (Optional)
             </div>
@@ -442,7 +516,11 @@ const Filling: React.FC<FillingProps> = ({
           >
             {isSubmitting && <Loader />}
             {submit[
-              ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu
+              ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
+                bu
+              )
+                ? 'th'
+                : bu
             ] || 'Submit'}
           </button>
         </form>

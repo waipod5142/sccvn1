@@ -17,7 +17,7 @@ const Navbar = () => {
             onClick={() => (window.location.href = `/`)}
           />
           <span className="text-sm sm:text-xs md:text-base lg:text-base xl:text-base 2xl:text-base mx-2">
-            SAFETY App
+            SAFETY
           </span>
         </div>
         {/* Menu icon */}

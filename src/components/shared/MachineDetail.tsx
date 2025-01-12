@@ -53,7 +53,9 @@ const Detail = ({ bu, dataTr, machine }: Machine) => {
       try {
         const buValue = bu || ''; // Default to an empty string if bu is undefined
         const { detailFields } = await loadQuestions(
-          ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(buValue)
+          ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
+            buValue
+          )
             ? 'th'
             : buValue,
           machine
@@ -213,7 +215,7 @@ const Detail = ({ bu, dataTr, machine }: Machine) => {
                 className={`flex justify-end ${
                   timeDifferenceInMinutes(new Date(item.date)) > 5 ||
                   item.date === 'Invalid Date'
-                    ? 'null' //hidden
+                    ? 'hidden' //hidden
                     : null
                 }`}
               >

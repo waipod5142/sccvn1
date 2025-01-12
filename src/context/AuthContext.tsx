@@ -10,6 +10,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading] = useState(false);
 
   useEffect(() => {
+    // mark   xx to deactivate the log in
     if (!isAuthenticated && location.pathname.includes('/Dashboard')) {
       navigate('/sign-in', { state: { from: location.pathname } });
     }

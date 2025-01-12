@@ -26,13 +26,20 @@ const NavLinks: React.FC<NavLinksProps> = ({ open, setOpen }) => {
             >
               <img
                 src={`/assets/icons/${
-                  ['RMX', 'IAGG', 'IECO', 'SRB', 'LBM'].includes(link.name)
+                  [
+                    'SRB',
+                    'MKT',
+                    'OFFICE',
+                    'LBM',
+                    'RMX',
+                    'IAGG',
+                    'IECO',
+                  ].includes(link.name)
                     ? 'th'
                     : link.name.toLowerCase()
                 }.svg`}
                 className={`mr-1 md:w-6 md:h-6 w-8 h-8 ${
-                  ['Safety Induction', 'Regional'].includes(link.name) &&
-                  'hidden'
+                  ['Induction', 'Regional'].includes(link.name) && 'hidden'
                 }`}
                 alt="flag"
               />

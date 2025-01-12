@@ -1,6 +1,6 @@
-import React from 'react';
-// import { ChevronUp, ChevronDown } from 'lucide-react';
-// import { Machine as VehicleData, MachineItem } from '@/lib/typeMachine';
+import axios from 'axios';
+import { http } from '@/lib/http';
+import { getStorage, ref, deleteObject } from 'firebase/storage';
 import timeDifferenceInDays from '@/uti/dayDiff';
 import { Man } from '@/lib/typeMan';
 
@@ -25,17 +25,60 @@ interface FormData {
 interface VehicleDetailProps {
   vehicle: FormData;
   idx: number;
-  // toggleTransactions: (vehicleId: string) => void;
   showAllTransactions: Record<string, boolean>;
   openManModal: (vehicleId: string) => void;
   handleShowImage: (url: string | undefined) => void;
   isVideoUrl: (url: string) => boolean;
 }
 
+const handleDeleteClick = async (id: string, item: FormData) => {
+  const storage = getStorage();
+
+  try {
+    // Loop through the item and delete fields ending with 'P' and handle URLs
+    (Object.keys(item) as (keyof FormData)[]).forEach(async (key) => {
+      if (
+        (key.endsWith('P') || key.endsWith('F') || key.startsWith('url')) &&
+        typeof item[key] === 'string' &&
+        (item[key] as string).startsWith('http')
+      ) {
+        const url = item[key] as string;
+        const desertRef = ref(storage, url);
+
+        try {
+          await deleteObject(desertRef);
+          console.log('File deleted successfully');
+        } catch (error) {
+          console.log(error);
+        }
+
+        delete item[key];
+      }
+    });
+
+    const res = await axios.delete(
+      `${http}rescueTr_delete?id=${id}&type=alert&bu=vn`, //must change here
+      {
+        headers: {
+          'Content-type': 'application/json',
+        },
+      }
+    );
+    console.log(res);
+
+    if (res.status === 200) {
+      // window.location.reload();
+    } else {
+      throw new Error('Failed to delete');
+    }
+  } catch (error) {
+    console.error('Error deleting data:', error);
+  }
+};
+
 const VehicleDetail: React.FC<VehicleDetailProps> = ({
   vehicle,
   idx,
-  // toggleTransactions,
   showAllTransactions,
   openManModal,
   handleShowImage,
@@ -60,15 +103,6 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
               Name: <strong className="text-slate-900">{tran.name}</strong>
             </p>
             <p className="text-slate-400">
-              Site:{' '}
-              <strong className="text-slate-900">
-                {tran.site.toLocaleUpperCase()}
-              </strong>
-            </p>
-            <p className="text-slate-400">
-              Type: <strong className="text-slate-900">{tran.type}</strong>
-            </p>
-            <p className="text-slate-400">
               Position:{' '}
               <strong className="text-slate-900">{tran.position}</strong>
             </p>
@@ -81,14 +115,20 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
     ) : (
       <p className="text-rose-500">No transactions found.</p>
     )}
-    {/* {vehicle.lat && (
-      <button
-        className="bg-grey-light hover:bg-grey text-grey-darkest font-bold p-2 rounded inline-flex items-center"
-        onClick={() => handleShowMap(vehicle)}
+    {vehicle.trans.length === 0 && (
+      <p
+        className="text-red-500 cursor-pointer mt-2"
+        onClick={() => handleDeleteClick(vehicle._id, vehicle)}
       >
-        <img src="/assets/icons/map.svg" alt="map" width={40} height={40} />
-      </button>
-    )} */}
+        <img
+          src={'/assets/icons/delete.svg'}
+          alt="delete"
+          width={24}
+          height={24}
+        />
+        Delete: {vehicle._id}
+      </p>
+    )}
     {vehicle.date && (
       <p className="text-slate-400">
         Date:{' '}
@@ -104,9 +144,7 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
             : `${Math.round(
                 timeDifferenceInDays(new Date(vehicle.date))
               )} days ago on `}
-          {new Date(vehicle.date).toLocaleString('en-GB', {
-            hour12: false,
-          })}
+          {new Date(vehicle.date).toLocaleString('en-GB', { hour12: false })}
         </strong>
       </p>
     )}
@@ -127,29 +165,6 @@ const VehicleDetail: React.FC<VehicleDetailProps> = ({
         )}
       </figure>
     )}
-    {vehicle.remark && (
-      <p className="text-slate-400">
-        Remark: <span className="text-slate-900">{vehicle.remark}</span>
-      </p>
-    )}
-    {/* {vehicle.trans.length > 1 && (
-      <div
-        className="flex items-center justify-end cursor-pointer text-blue-500 mt-2"
-        onClick={() => toggleTransactions(vehicle.id)}
-      >
-        {showAllTransactions[vehicle.id] ? (
-          <>
-            <ChevronUp size={24} className="mr-2" />
-            <span>Show Less</span>
-          </>
-        ) : (
-          <>
-            <ChevronDown size={24} className="mr-2" />
-            <span>Show All</span>
-          </>
-        )}
-      </div>
-    )} */}
   </div>
 );
 

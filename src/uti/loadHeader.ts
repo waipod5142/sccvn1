@@ -142,6 +142,7 @@ export const loadHeader = async (bu: string | undefined | null) => {
         { field: 'driverID', label: 'Driver ID' },
         { field: 'capacity', label: 'Capacity' },
         { field: 'companyID', label: 'Company ID' },
+        { field: 'company', label: 'Company' },
         { field: 'owner', label: 'Owner' },
         { field: 'registerDate', label: 'Register Date' },
         { field: 'area', label: 'Area' },
@@ -149,6 +150,9 @@ export const loadHeader = async (bu: string | undefined | null) => {
         { field: 'engineNo', label: 'Engine Number' },
         { field: 'remark', label: 'Remark' },
         { field: 'details', label: 'Details' },
+        { field: 'holder', label: 'Holder' },
+        { field: 'email', label: 'E-mail' },
+        { field: 'status', label: 'Status' },
       ];
       break;
 

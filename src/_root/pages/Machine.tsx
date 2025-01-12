@@ -74,7 +74,17 @@ const Main = () => {
             <h1 className="p-4 text-3xl text-rose-500 font-bold">
               {bu &&
                 saf37y[
-                  ['srb', 'lbm', 'ieco', 'rmx', 'iagg'].includes(bu) ? 'th' : bu
+                  [
+                    'srb',
+                    'mkt',
+                    'office',
+                    'lbm',
+                    'rmx',
+                    'iagg',
+                    'ieco',
+                  ].includes(bu)
+                    ? 'th'
+                    : bu
                 ]}{' '}
               <span className="text-black">
                 {timeDifferenceInDays(new Date('2025-03-12')) * -1} days
