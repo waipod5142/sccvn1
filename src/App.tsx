@@ -12,6 +12,7 @@ import DashboardDefect from '@/_root/pages/Machine_DashboardDefect';
 import DashboardTotalByOwner from '@/_root/pages/Machine_DashboardTotalByOwner';
 // import DashboardAlert from '@/_root/pages/Man_DashboardAlert';
 import DashboardActivity from '@/_root/pages/Man_DashboardActivity';
+import DashboardActivityMan from '@/_root/pages/Man_DashboardActivityMan';
 import MachineAuth from '@/_root/pages/Machine';
 import MachineNew from '@/_root/pages/MachineNew';
 import Visitor from '@/_auth/forms/Visitor';
@@ -76,6 +77,10 @@ const App = () => {
           <Route
             path="/DashboardActivity/:bu"
             element={<DashboardActivity />}
+          />
+          <Route
+            path="/DashboardActivityMan/:bu"
+            element={<DashboardActivityMan />}
           />
           <Route path="/DashboardTotal/:bu" element={<DashboardTotal />} />
           <Route path="/DashboardDefect/:bu" element={<DashboardDefect />} />

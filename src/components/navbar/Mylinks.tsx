@@ -9,7 +9,8 @@ export const links = [
           { name: 'Toolbox', link: '/Dashboard/vn/toolbox' },
           { name: 'PRA', link: '/Dashboard/vn/pra' },
           // { name: 'Safety Alert', link: '/Dashboard/vn/alert' },
-          { name: 'Alert, Boot, RA', link: '/DashboardActivity/vn' },
+          { name: 'Boot, RA', link: '/DashboardActivity/vn' },
+          { name: 'Boot, RA by individual', link: '/DashboardActivityMan/vn' },
         ],
       },
       {

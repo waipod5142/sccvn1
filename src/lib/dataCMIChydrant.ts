@@ -51,8 +51,10 @@ export const questions = [
 ];
 
 export const detailFields = [
-  { field: 'inspector', label: 'នខ្ទរុទព៊្យោឌ - Inspector' },
-  { field: 'date', label: 'កេលបរីស្ថត្តាត - Date' },
+  { field: 'id', label: 'អត្តលេខ - ID' },
+  { field: 'date', label: 'កាលបរិច្ឆេទ - Date' },
+  { field: 'inspector', label: 'អ្នកត្រួតពិនិត្យ - Inspector' },
+  { field: 'responder', label: 'អ្នកឆ្លើយតប - Responder' },
   { field: 'fireHoseTube', label: '1. តួទុយោអគ្គិភ័យ - Pipe Condition' },
   { field: 'fireHoseTubeR', label: '' },
   { field: 'fireHoseTubeP', label: '' },

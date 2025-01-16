@@ -52,35 +52,37 @@ export const questions = [
 export const detailFields = [
   { field: 'date', label: 'วันที่ Date' },
   { field: 'inspector', label: 'ผู้ตรวจ Inspector' },
+  { field: 'observer', label: 'Observer' },
+  { field: 'observee', label: 'Observee' },
   {
     field: 'aim',
     label:
-      'มีการใช้สายตามองไกลไปข้างหน้าอย่างน้อย 15 วินาที (Aim high in steering)',
+      '1. มีการใช้สายตามองไกลไปข้างหน้าอย่างน้อย 15 วินาที (Aim high in steering)',
   },
   { field: 'aimR', label: '' },
-  { field: 'picture', label: 'มีการมองภาพโดยรอบ (Get the Big picture)' },
+  { field: 'picture', label: '2. มีการมองภาพโดยรอบ (Get the Big picture)' },
   { field: 'pictureR', label: '' },
   {
     field: 'moving',
-    label: 'มีการเคลื่อนไหวสายตาทุก 2-3 วินาที (Keep your eyes moving)',
+    label: '3. มีการเคลื่อนไหวสายตาทุก 2-3 วินาที (Keep your eyes moving)',
   },
   { field: 'movingR', label: '' },
   {
     field: 'anout',
-    label: 'มีการหาทางออกให้กับตัวเอง (Leave yourself an out)',
+    label: '4. มีการหาทางออกให้กับตัวเอง (Leave yourself an out)',
   },
   { field: 'anoutR', label: '' },
-  { field: 'see', label: 'แน่ใจว่าเขาเห็นเรา (Make sure They see you)' },
+  { field: 'see', label: '5. แน่ใจว่าเขาเห็นเรา (Make sure They see you)' },
   { field: 'seeR', label: '' },
   {
     field: 'fatigue',
     label:
-      'มีสภาพร่างกายพร้อมก่อนและขณะขับขี่ (Health & Readiness for Driving)',
+      '6. มีสภาพร่างกายพร้อมก่อนและขณะขับขี่ (Health & Readiness for Driving)',
   },
   { field: 'fatigueR', label: '' },
   {
     field: 'distraction',
-    label: 'ไม่ทำพฤติกรรมที่เสียสมาธิในการขับรถ (Distraction)',
+    label: '7. ไม่ทำพฤติกรรมที่เสียสมาธิในการขับรถ (Distraction)',
   },
   { field: 'distractionR', label: '' },
   { field: 'admireR', label: 'ข้อดีของพนักงานที่พบ' },

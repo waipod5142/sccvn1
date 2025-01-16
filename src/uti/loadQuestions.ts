@@ -9,6 +9,8 @@ export const loadQuestions = async (
       return import('@/lib/dataLifting');
     case 'vn_Extinguisher':
       return import('@/lib/dataExtinguisher');
+    case 'vn_Firstaid':
+      return import('@/lib/dataVNfirstaid');
     case 'vn_Hydrant':
       return import('@/lib/dataHydrant');
     case 'vn_Foam':
@@ -80,6 +82,10 @@ export const loadQuestions = async (
       return import('@/lib/dataCMICextinguisher');
     case 'cmic_Hydrant':
       return import('@/lib/dataCMIChydrant');
+    case 'cmic_Vehicle':
+      return import('@/lib/dataCMICvehicle');
+    case 'cmic_Dump':
+      return import('@/lib/dataCMICdump');
     //TH
     case 'th_Extinguisher':
       return import('@/lib/dataTHextinguisher');
@@ -101,6 +107,14 @@ export const loadQuestions = async (
       return import('@/lib/dataTHplant');
     case 'th_Bulk':
       return import('@/lib/dataTHbulk');
+    case 'th_Bag':
+      return import('@/lib/dataTHbag');
+    case 'th_Aed':
+      return import('@/lib/dataTHaed');
+    case 'th_Emergency':
+      return import('@/lib/dataTHemergency');
+    case 'th_Fireexit':
+      return import('@/lib/dataTHfireexit');
     //SRB
     case 'srb_Truck':
       return import('@/lib/dataSRBtruck');

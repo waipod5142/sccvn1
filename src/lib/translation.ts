@@ -113,3 +113,18 @@ export const bd: ChoiceType[] = [
   { value: 'NotPass', text: 'পাস নয়', colorClass: 'bg-rose-500' },
   { value: 'N/A', text: 'প্রযোজ্য নয়', colorClass: 'bg-yellow-500' },
 ];
+
+export const staffId: { [key: string]: string } = {
+  vn: 'Mã nhân viên',
+  th: 'รหัสพนักงาน',
+  cmic: 'អត្តសញ្ញាណបុគ្គលិក',
+  lk: 'කාර්ය මණ්ඩල හැඳුනුම්පත',
+  bd: 'কর্মচারী আইডি',
+};
+export const learn: { [key: string]: string } = {
+  vn: 'Bài học từ sự cố',
+  th: 'บทเรียนที่ได้รับ',
+  cmic: 'បង្រៀនពីឧប្បត្តិហេតុ',
+  lk: 'අටපස්සියෙන් පාඩම',
+  bd: 'ঘটনা থেকে শেখা পাঠ',
+};

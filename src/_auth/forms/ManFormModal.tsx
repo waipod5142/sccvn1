@@ -62,11 +62,7 @@ const Main = ({ bu, man, id }: Item) => {
     <div className="py-2 w-full md:w-3/4">
       {dataNotFound ? (
         <div className="p-4 text-rose-500 text-4xl font-bold">
-          No find{' '}
-          <span className="text-blue-500 text-4xl font-bold">
-            {id}
-            {man}
-          </span>{' '}
+          No find <span className="text-blue-500 text-4xl font-bold">{id}</span>{' '}
           in database <br />
           <br /> try again
         </div>

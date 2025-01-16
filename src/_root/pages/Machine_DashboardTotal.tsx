@@ -291,8 +291,13 @@ const DataTable: React.FC = () => {
                         : ''
                     ] || type}
                     <img
-                      src={`/assets/icons/${type}.svg`}
-                      alt="image"
+                      src={`/assets/icons/${
+                        bu === 'cmic' && type === 'vehicle'
+                          ? type + 'cmic'
+                          : type
+                      }.svg`}
+                      // src={`/assets/icons/${type}.svg`}
+                      alt={type}
                       width={40}
                       height={40}
                     />
@@ -544,9 +549,23 @@ const DataTable: React.FC = () => {
           <>
             <h2 className="text-2xl font-semibold mb-4">
               Details for{' '}
-              {machineTitles[(bu ?? '') + (selectedType ?? '')] ||
-                selectedType ||
-                'n/a'}{' '}
+              <span className="text-rose-500">
+                {machineTitles[
+                  [
+                    'srb',
+                    'mkt',
+                    'office',
+                    'lbm',
+                    'rmx',
+                    'iagg',
+                    'ieco',
+                  ].includes(bu ?? '')
+                    ? 'th' + (selectedType ?? '')
+                    : (bu ?? '') + (selectedType ?? '')
+                ] ||
+                  selectedType ||
+                  'n/a'}{' '}
+              </span>
               at {selectedSite?.toUpperCase()}
             </h2>
             {/* Icons for Map and Graph */}

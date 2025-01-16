@@ -114,23 +114,16 @@ const Header = ({ bu, data, machine }: HeaderComponentProps) => {
       </div>
       <div className="col-span-1 my-4 flex flex-col items-center justify-center">
         <img
-          src={`/assets/icons/${machine && machine.toLowerCase()}.svg`}
+          // src={`/assets/icons/${machine && machine.toLowerCase()}.svg`}
+          src={`/assets/icons/${
+            machine && bu === 'cmic' && machine.toLowerCase() === 'vehicle'
+              ? machine.toLowerCase() + 'cmic'
+              : machine && machine.toLowerCase()
+          }.svg`}
           className="animate-pulse"
           alt={machine}
-          width={
-            machine &&
-            (machine.toLowerCase() === 'mobile' ||
-            machine.toLowerCase() === 'vehicle'
-              ? 250
-              : 100)
-          }
-          height={
-            machine &&
-            (machine.toLowerCase() === 'mobile' ||
-            machine.toLowerCase() === 'vehicle'
-              ? 250
-              : 100)
-          }
+          width={100}
+          height={100}
         />
         <br />
         <QRCodeSVG

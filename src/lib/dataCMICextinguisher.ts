@@ -72,11 +72,10 @@ export const questions = [
 ];
 
 export const detailFields = [
-  { field: 'id', label: 'ID' },
-  { field: 'date', label: 'ថ្ងៃខែឆ្នាំ Date' },
-  { field: 'email', label: 'អ្នកទទួលខុសត្រូវ Responsible person' },
-  { field: 'inspector', label: 'អ្នកត្រួតពិនិត្យ / Inspector' },
-  { field: 'responder', label: 'អ្នកឆ្លើយតប Responder' },
+  { field: 'id', label: 'អត្តលេខ - ID' },
+  { field: 'date', label: 'កាលបរិច្ឆេទ - Date' },
+  { field: 'inspector', label: 'អ្នកត្រួតពិនិត្យ - Inspector' },
+  { field: 'responder', label: 'អ្នកឆ្លើយតប - Responder' },
   { field: 'gauge', label: '1. រង្វាស់ទ្រនិច *' },
   { field: 'gaugeR', label: '' },
   { field: 'gaugeP', label: '' },

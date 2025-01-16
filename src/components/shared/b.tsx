@@ -219,6 +219,14 @@ const Home: React.FC = () => {
               Total Machinery
             </td>
             <td className="border border-gray-300 p-2">
+              Activity (Boot, Ra, Alert)
+            </td>
+            <td className="border border-gray-300 p-2 text-blue-500">
+              harnessTr_all
+            </td>
+          </tr>
+          <tr className="border border-gray-300">
+            <td className="border border-gray-300 p-2">
               Activity (Boot, Ra, Alert) drill down
             </td>
             <td className="border border-gray-300 p-2 text-blue-500">
@@ -238,16 +246,10 @@ const Home: React.FC = () => {
             </td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">Activity (Boot, Ra)</td>
-            <td className="border border-gray-300 p-2 text-blue-500">
-              harnessTr_one
+            <td className="border border-gray-300 p-2">
+              Boot_Ra by individual
             </td>
-          </tr>
-          <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">Activity (Alert)</td>
-            <td className="border border-gray-300 p-2 text-blue-500">
-              harnessTr_all
-            </td>
+            <td className="border border-gray-300 p-2">harnessTr_one</td>
           </tr>
 
           <tr className="border border-gray-300">
