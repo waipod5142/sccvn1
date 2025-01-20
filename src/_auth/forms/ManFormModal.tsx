@@ -59,7 +59,7 @@ const Main = ({ bu, man, id }: Item) => {
   }, [bu, man, id]);
 
   return (
-    <div className="py-2 w-full md:w-3/4">
+    <div className="py-2 w-full">
       {dataNotFound ? (
         <div className="p-4 text-rose-500 text-4xl font-bold">
           No find <span className="text-blue-500 text-4xl font-bold">{id}</span>{' '}

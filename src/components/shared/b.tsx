@@ -68,10 +68,10 @@ const Home: React.FC = () => {
 
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2 text-rose-500">
-              by Plant
+              Dashboard Machinery Green, Yellow, Red***
             </td>
             <td className="border border-gray-300 p-2 text-rose-500">
-              foamTr_all
+              cctvTr_all
             </td>
           </tr>
           <tr className="border border-gray-300">
@@ -106,9 +106,7 @@ const Home: React.FC = () => {
             <td className="border border-gray-300 p-2" rowSpan={5}>
               daily-owner <br /> monthly-area <br /> quarterly-department
             </td>
-            <td className="border border-gray-300 p-2 text-rose-500">
-              by Subdivision
-            </td>
+            <td className="border border-gray-300 p-2">by Subdivision</td>
             <td className="border border-gray-300 p-2 text-rose-500">
               foamTr_get
             </td>
@@ -118,11 +116,9 @@ const Home: React.FC = () => {
             <td className="border border-gray-300 p-2">cableTr_one</td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">
-              Total Machinery Green, Yellow, Red
-            </td>
+            <td className="border border-gray-300 p-2">by Plant</td>
             <td className="border border-gray-300 p-2 text-rose-500">
-              cctvTr_all
+              foamTr_all
             </td>
           </tr>
           <tr className="border border-gray-300">
@@ -141,7 +137,7 @@ const Home: React.FC = () => {
               All transaction to view Map and Graph
             </td>
             <td className="border border-gray-300 p-2 text-blue-500">
-              daily/monthly/quaterly
+              Popup list of Machines ***
             </td>
             <td className="border border-gray-300 p-2 text-blue-500">
               vehicle_all
@@ -190,7 +186,7 @@ const Home: React.FC = () => {
             <td className="border border-gray-300 p-2"></td>
           </tr>
           <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">GET</td>
+            <td className="border border-gray-300 p-2 text-blue-500">GET***</td>
             <td className="border border-gray-300 p-2 text-blue-500">
               vehicleTr_one
             </td>

@@ -7,6 +7,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import ModalFormMan from '@/uti/ModalFormMan';
 import ModalImage from '@/uti/ModalImage';
 import timeDifferenceInDays from '@/uti/dayDiff';
+import { getStorage, ref, deleteObject } from 'firebase/storage';
 
 interface GroupBy {
   id: string;
@@ -71,6 +72,42 @@ const InspectionTables = () => {
     setFormVisibleMan(true);
   };
 
+  const storage = getStorage();
+
+  const handleDeleteClick = async (type: string, id: string) => {
+    try {
+      const desertRef = ref(storage, '');
+      {
+        true &&
+          deleteObject(desertRef)
+            .then(() => {
+              console.log('File deleted successfully');
+            })
+            .catch((error) => {
+              console.log(error.message);
+            });
+      }
+
+      const res = await axios.delete(
+        `${http}alertTr_delete?id=${id}&type=${type}&bu=${bu}`,
+        {
+          headers: {
+            'Content-type': 'application/json',
+          },
+        }
+      );
+      console.log(res);
+
+      if (res.status === 200) {
+        // window.location.reload();
+      } else {
+        throw new Error('Failed to delete');
+      }
+    } catch (error) {
+      console.error('Error deleting data:', error);
+    }
+  };
+
   return (
     <div className="p-6 bg-white">
       <header className="text-center m-4">
@@ -84,8 +121,7 @@ const InspectionTables = () => {
             className="mr-2 md:w-10 md:h-10 w-16 h-16"
             alt="flag"
           />
-          {bu?.toUpperCase()} by Safety Alert, Boot on the Ground and Area Risk
-          Assessment
+          Boot on the Ground, Area Risk Assessment and Safety Alert
         </h1>
       </header>
 
@@ -97,10 +133,14 @@ const InspectionTables = () => {
                 ? 'Safety Alerts'
                 : group.type === 'boot'
                 ? 'Boot on the Ground'
-                : 'Risk Assessment'}
+                : group.type === 'ra'
+                ? 'Risk Assessment'
+                : group.type === 'pto'
+                ? 'Planed Task Observation'
+                : 'N/A'}
               <img
                 src={`/assets/icons/${group.type}.svg`}
-                className="pl-2 animate-pulse"
+                className="pt-2 animate-pulse"
                 alt={group.type}
                 width={100}
                 height={100}
@@ -148,23 +188,28 @@ const InspectionTables = () => {
                 </thead>
                 <tbody>
                   {group.data.map((item) => (
-                    <tr
-                      key={item.groupBy.id}
-                      className="hover:bg-gray-50 text-blue-500 cursor-pointer"
-                      onClick={() =>
-                        handleCardClick(group.type, item.groupBy.id)
-                      }
-                    >
-                      <td className="border border-gray-300 p-3">
+                    <tr key={item.groupBy.id}>
+                      <td
+                        className="border border-gray-300 p-3 hover:bg-gray-50 text-blue-500 cursor-pointer"
+                        onClick={() =>
+                          handleCardClick(group.type, item.groupBy.id)
+                        }
+                      >
                         {item.groupBy.id} ({item.groupBy.name})
                       </td>
                       <td className="border border-gray-300 p-3">
-                        {item.groupBy.site}
+                        {item.groupBy.site?.toLocaleUpperCase() || 'N/A'}
                       </td>
                       <td className="border border-gray-300 p-3">
                         {item.groupBy.type}
                       </td>
-                      <td className="border border-gray-300 p-3 text-right">
+                      <td
+                        className="border border-gray-300 p-3 text-right"
+                        onClick={
+                          // () => handleDeleteClick(group.type, item.groupBy.id)
+                          () => handleDeleteClick('', item.groupBy.id)
+                        }
+                      >
                         {item.count}
                       </td>
                       <td
@@ -190,7 +235,6 @@ const InspectionTables = () => {
                             hour12: false,
                           })
                           .toString()}
-                        `
                       </td>
                     </tr>
                   ))}
@@ -212,7 +256,6 @@ const InspectionTables = () => {
           setFormVisibleMan={setFormVisibleMan}
         />
       )}
-
       {selectedImg && (
         <ModalImage selectedImg={selectedImg} setSelectedImg={setSelectedImg} />
       )}

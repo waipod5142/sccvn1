@@ -490,7 +490,12 @@ const DataTable: React.FC = () => {
             alt="Flag"
             className="mr-2 md:w-10 md:h-10 w-16 h-16"
           />
-          {bu?.toUpperCase()} - Combined daily, monthly, quarterly, annually
+          {bu &&
+            ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
+              bu
+            ) &&
+            bu?.toUpperCase()}{' '}
+          Combined daily, monthly, quarterly, annually
         </h1>
       </header>
       {/* Add legend here */}

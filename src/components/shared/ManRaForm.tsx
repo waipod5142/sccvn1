@@ -142,25 +142,13 @@ export default function Filling() {
               src={`/assets/icons/${man && man.toLowerCase()}.svg`}
               className="animate-pulse"
               alt={man}
-              width={
-                man &&
-                (man.toLowerCase() === 'toolbox' ||
-                man.toLowerCase() === 'vehicle'
-                  ? 100
-                  : 80)
-              }
-              height={
-                man &&
-                (man.toLowerCase() === 'toolbox' ||
-                man.toLowerCase() === 'vehicle'
-                  ? 100
-                  : 80)
-              }
+              width={100}
+              height={100}
               // className="pt-2"
             />
             <br />
             <QRCodeSVG
-              value={`https://www.saf37y.com/Man/${bu}/${man}Form/${area}`}
+              value={`https://www.saf37y.com/ManForm/${bu}/${man}Form/${area}`}
               size={75}
               bgColor={'#ffffff'}
               fgColor={'#000000'}

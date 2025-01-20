@@ -5,7 +5,7 @@ import { http } from '@/lib/http';
 import ManHeader from '@/components/shared/ManHeader';
 import ManDetail from '@/components/shared/ManDetail';
 import ManForm from '@/components/shared/ManForm';
-import ManPraForm from '@/components/shared/ManPraForm';
+import ManFormPra from '@/components/shared/ManFormPra';
 import { Man, manItemLabels } from '@/lib/typeMan';
 import ManPhotoManager from '@/components/shared/ManPhotoManager';
 
@@ -105,20 +105,35 @@ const Main = ({ bu, man, id }: Item) => {
               <option value="" className="text-gray-500">
                 -- Select an option --
               </option>
-              <option value={`/Man/${bu}/Toolbox/${id}`}>
+              <option
+                value={`/Man/${bu}/Toolbox/${id}`}
+                className="odd:bg-gray-100 even:bg-gray-200"
+              >
                 {manItemLabels.vnToolbox}
               </option>
-              <option value={`/Man/${bu}/Alert/${id}`}>
+              <option
+                value={`/Man/${bu}/Pra/${id}`}
+                className="odd:bg-gray-100 even:bg-gray-200"
+              >
+                {manItemLabels.vnPra}
+              </option>
+              <option
+                value={`/Man/${bu}/Alert/${id}`}
+                className="odd:bg-gray-100 even:bg-gray-200"
+              >
                 {manItemLabels.vnAlert}
               </option>
-              <option value={`/Man/${bu}/Boot/${id}`}>
+              <option
+                value={`/Man/${bu}/Boot/${id}`}
+                className="odd:bg-gray-100 even:bg-gray-200"
+              >
                 {manItemLabels.vnBoot}
               </option>
-              <option value={`/Man/${bu}/Ra/${id}`}>
+              <option
+                value={`/Man/${bu}/Ra/${id}`}
+                className="odd:bg-gray-100 even:bg-gray-200"
+              >
                 {manItemLabels.vnRa}
-              </option>
-              <option value={`/Man/${bu}/Pra/${id}`}>
-                {manItemLabels.vnPra}
               </option>
             </select>
           </div>
@@ -133,7 +148,7 @@ const Main = ({ bu, man, id }: Item) => {
           <br />
           {data && <ManDetail bu={bu} dataTr={data.trans || []} man={man} />}
           {man === 'Toolbox' && <ManForm bu={bu} id={id} man={man} />}
-          {man === 'Pra' && <ManPraForm bu={bu} id={id} man={man} />}
+          {man === 'Pra' && <ManFormPra bu={bu} id={id} man={man} />}
         </>
       )}
     </div>

@@ -350,15 +350,12 @@ const VehicleInspectionPage: React.FC = () => {
             className="mr-2 md:w-10 md:h-10 w-16 h-16"
             alt="flag"
           />
-          {bu?.toUpperCase()} {period ? periodName[period] || period : ''} by{' '}
-          {period === 'daily'
-            ? 'Owner'
-            : period === 'monthly'
-            ? 'Area'
-            : period === 'quarterly'
-            ? 'Department'
-            : ''}{' '}
-          by Plant
+          {bu &&
+            ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
+              bu
+            ) &&
+            bu?.toUpperCase()}{' '}
+          {period ? periodName[period] || period : ''} by Owner by Plant
         </h1>
         <p className="mt-2 text-xl">Showing inspected Vs. total machines.</p>
       </header>
@@ -493,15 +490,7 @@ const VehicleInspectionPage: React.FC = () => {
           <hr className="my-4 border-gray-300" />
           <h2 className="text-2xl font-semibold mb-4 pl-4">
             Site: {site.toUpperCase()} by{' '}
-            <span className="text-orange-500">
-              {period === 'daily'
-                ? 'Owner'
-                : period === 'monthly'
-                ? 'Area'
-                : period === 'quarterly'
-                ? 'Department'
-                : ''}
-            </span>
+            <span className="text-orange-500">Owner</span>
           </h2>
 
           <div className="grid md:grid-cols-6 gap-4 px-4">

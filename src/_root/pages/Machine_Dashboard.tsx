@@ -345,8 +345,12 @@ const VehicleInspectionPage: React.FC = () => {
             className="mr-2 md:w-10 md:h-10 w-16 h-16"
             alt="flag"
           />
-          {bu?.toUpperCase()} {period ? periodName[period] || period : ''} by
-          Plant
+          {bu &&
+            ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
+              bu
+            ) &&
+            bu?.toUpperCase()}{' '}
+          {period ? periodName[period] || period : ''} by Plant
         </h1>
 
         <p className="mt-2 text-xl">Showing inspected Vs. total machines.</p>
@@ -416,16 +420,7 @@ const VehicleInspectionPage: React.FC = () => {
               className="flex items-center"
             >
               <ChevronDown size={24} className="mr-2" />
-              <span>
-                Show by{' '}
-                {period === 'daily'
-                  ? 'Owner'
-                  : period === 'monthly'
-                  ? 'Area'
-                  : period === 'quarterly' || period === 'annually'
-                  ? 'Department'
-                  : ''}
-              </span>
+              <span>Show by Owner</span>
             </Link>
           </div>
         )}

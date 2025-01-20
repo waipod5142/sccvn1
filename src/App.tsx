@@ -20,6 +20,8 @@ import Visitor from '@/_auth/forms/Visitor';
 import Man from './_auth/forms/Man';
 import ManMain from '@/components/shared/ManMain';
 import AlertForm from '@/components/shared/ManAlertForm';
+import PraForm from '@/components/shared/ManPraForm';
+import ToolboxForm from '@/components/shared/ManToolboxForm';
 
 // change this for header
 import ManForm from '@/_auth/forms/ManForm';
@@ -45,14 +47,15 @@ const App = () => {
           <Route path="/Man/:man/:id" element={<Man />} />
           {/* Make this inactive */}
           <Route path="/Man/:bu/:man/:id" element={<Man />} />
-          {/* <Route path="/AlertForm/:alertNo" element={<AlertForm />} /> */}
-          {/* <Route path="Man/:bu/AlertForm/:alertNo" element={<AlertForm />} /> */}
+          {/* For alert */}
           <Route
             path="ManForm/:bu/AlertForm/:alertNo"
             element={<AlertForm />}
           />
+          <Route path="ManForm/:bu/ToolboxForm" element={<ToolboxForm />} />
+          <Route path="ManForm/:bu/PraForm" element={<PraForm />} />
+          {/* For Ra and Boot */}
           <Route path="/ManForm/:bu/:man/:id" element={<ManForm />} />
-          {/* <Route path="/Man/:bu/RaForm/:area" element={<RaForm />} /> */}
           //By Owner
           <Route path="/MachineOwner/:bu/:owner" element={<MachineOwner />} />
           //Main page

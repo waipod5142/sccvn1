@@ -24,6 +24,7 @@ export const manItemLabels: { [key: string]: string } = {
   vnBoot: 'Danh sách kiểm tra hạng mục An toàn / BOOT ON THE GROUND CHECK LIST',
   vnRa: 'Danh sách kiểm tra đánh giá / Risk Assessmen Checklist',
   vnToolbox: 'Thảo luận an toàn / Toolbox Talk',
+  vnPto: 'Quan sát công việc theo kế hoạch / Planned Task Observation',
 };
 
 export const manActivities = [

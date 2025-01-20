@@ -376,7 +376,12 @@ const InspectionTable: React.FC = () => {
             alt="Flag"
             className="mr-2 md:w-10 md:h-10 w-16 h-16"
           />
-          {bu?.toUpperCase()} - List of Owner of Machines
+          {bu &&
+            ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
+              bu
+            ) &&
+            bu?.toUpperCase()}{' '}
+          List of Owner of Machines
         </h1>
       </header>
 

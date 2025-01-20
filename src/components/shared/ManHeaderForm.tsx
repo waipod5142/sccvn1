@@ -55,30 +55,8 @@ const Header = ({ bu, data, man }: HeaderComponentProps) => {
     return <div />;
   }
 
-  const capitalizeFirstLetter = (string: string) => {
-    if (!string) return string; // Handle empty or undefined strings
-    let result = string.charAt(0).toUpperCase() + string.slice(1);
-
-    // Replace "form" at the end with "Form"
-    result = result.replace(/form$/i, 'Form');
-
-    return result;
-  };
-
   const renderFieldValue = (field: string) => {
     const value = data[field as keyof Machine];
-    if (field === 'id') {
-      const typeValue = data['type'] as string;
-      const capitalizedType = capitalizeFirstLetter(typeValue);
-      return (
-        <Link
-          to={`/ManForm/${bu}/${capitalizedType}/${data.id}`}
-          className="text-white underline"
-        >
-          {value as string}
-        </Link>
-      );
-    }
     if (
       (field === 'latestInspection' || field === 'manufacturingDate') &&
       typeof value === 'string'
@@ -115,6 +93,22 @@ const Header = ({ bu, data, man }: HeaderComponentProps) => {
               ) : null
             )}
         </ul>
+        {man === 'RaForm' && (
+          <Link
+            to={`/ManForm/${bu}/PtoForm/${data.id}`}
+            className="inline-block mt-4 px-6 py-2 shadow-xl bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+          >
+            View Planed Task Observation Form
+          </Link>
+        )}
+        {man === 'PtoForm' && (
+          <Link
+            to={`/ManForm/${bu}/RaForm/${data.id}`}
+            className="inline-block mt-4 px-6 py-2 shadow-xl bg-rose-500 text-white rounded-md hover:bg-rose-600 transition-colors"
+          >
+            View Area Risk Assessment Form
+          </Link>
+        )}
       </div>
       <div className="col-span-1 my-4 flex flex-col items-center justify-center">
         <img

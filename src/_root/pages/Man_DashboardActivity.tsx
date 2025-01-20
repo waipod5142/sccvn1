@@ -179,8 +179,7 @@ const InspectionTables = () => {
             className="mr-2 md:w-10 md:h-10 w-16 h-16"
             alt="flag"
           />
-          {bu?.toUpperCase()} by Safety Alert, Boot on the Ground and Area Risk
-          Assessment
+          Boot on the Ground, Area Risk Assessment and Safety Alert
         </h1>
       </header>
 
@@ -192,10 +191,14 @@ const InspectionTables = () => {
                 ? 'Safety Alerts'
                 : group.type === 'boot'
                 ? 'Boot on the Ground'
-                : 'Risk Assessment'}
+                : group.type === 'ra'
+                ? 'Risk Assessment'
+                : group.type === 'pto'
+                ? 'Planed Task Observation'
+                : 'N/A'}
               <img
                 src={`/assets/icons/${group.type}.svg`}
-                className="pl-2 animate-pulse"
+                className="pt-2 animate-pulse"
                 alt={group.type}
                 width={100}
                 height={100}

@@ -19,6 +19,8 @@ export const loadHeader = async (bu: string | undefined | null) => {
         { field: 'cableDiameter', label: 'Đường kính cáp Cable Diameter (mm)' },
         { field: 'area', label: 'Khu vực Area' },
         { field: 'department', label: 'Phòng ban Department' },
+        { field: 'place', label: 'Phòng ban Place' },
+        { field: 'name', label: 'Phòng ban Name' },
         { field: 'owner', label: 'Chủ sở hữu Owner' },
         { field: 'type', label: 'Loại Type' },
         { field: 'email', label: 'Responsible person' },

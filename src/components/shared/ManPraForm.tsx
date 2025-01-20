@@ -8,18 +8,16 @@ import {
   personalsQuestions,
   laststepsQuestions,
 } from '@/lib/dataPra';
+import { useParams } from 'react-router-dom';
+import { staffId, submit } from '@/lib/translation';
 
-interface FormProps {
-  bu?: string;
-  man?: string;
-  id?: string;
+interface FillingProps {
+  bu?: string | undefined;
 }
 
-export default function PersonalRiskAssessmentForm({
-  bu = '',
-  id = '',
-  man = '',
-}: FormProps) {
+export default function PersonalRiskAssessmentForm() {
+  const { bu }: FillingProps = useParams();
+
   const {
     register,
     handleSubmit,
@@ -34,8 +32,7 @@ export default function PersonalRiskAssessmentForm({
     const updatedData = {
       ...formData,
       bu,
-      id,
-      type: man.toLowerCase(),
+      type: 'pra',
       lat: location.coordinates.lat,
       lng: location.coordinates.lng,
     };
@@ -57,6 +54,22 @@ export default function PersonalRiskAssessmentForm({
     }
 
     reset();
+
+    // Redirect to the alert page
+    window.location.href = `/Man/${bu}/Pra/${formData.id
+      .replace(/[/\s]/g, '-')
+      .toUpperCase()}`;
+
+    // Store the inseeId in localStorage
+    localStorage.setItem(
+      'inseeId',
+      JSON.stringify([
+        {
+          id: formData.id.replace(/[/\s]/g, '-').toUpperCase(),
+          bu: formData.bu,
+        },
+      ])
+    );
   };
 
   return (
@@ -67,8 +80,27 @@ export default function PersonalRiskAssessmentForm({
           Đánh giá rủi ro cá nhân/ Personal Risk Assessment
         </h1>
       </div>
+
+      {/* Form Section */}
+
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        {/* Staff ID Section */}
+        <div className="py-4 rounded-lg bg-gray-200 inline-block w-full">
+          <div className="text-2xl text-slate-900 px-4">
+            {(bu && staffId[bu]) || null} Staff ID
+          </div>
+          <input
+            {...register('id', { required: 'Staff ID is required' })}
+            type="text"
+            placeholder="Staff ID"
+            className="mx-4 px-4 py-2 rounded"
+          />
+          {errors.id && (
+            <p className="text-red-500">{`${errors.id?.message}`}</p>
+          )}
+        </div>
         {/* Location and Date */}
+
         <div className="bg-gray-200 p-4 rounded">
           <div className="py-4 rounded-md bg-gray-200 w-full flex items-center">
             <div className="text-2xl text-slate-900 mr-4">
@@ -359,13 +391,14 @@ export default function PersonalRiskAssessmentForm({
           </div>
         </div>
 
+        {/* Submit Button */}
         <button
           disabled={isSubmitting}
           type="submit"
           className="bg-purple-500 text-white shadow-xl hover:shadow-2xl hover:bg-purple-700 rounded-full py-2 disabled:bg-gray-500 w-full"
         >
           {isSubmitting && <Loader />}
-          Gửi đi / Submit
+          {(bu && submit[bu]) || null} / Submit
         </button>
       </form>
     </div>

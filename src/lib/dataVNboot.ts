@@ -1,39 +1,41 @@
 export const questions = [
   {
     id: 1,
-    name: 'observeContact',
-    question: 'Quan sát; sau đó liên lạc / Observe; then contact',
+    name: 'contactPerson',
+    question:
+      'Tên người bạn đã thảo luận với / Name of contact person you have discussed with',
     howto:
-      'Quan sát kỹ lưỡng tình hình xung quanh trước khi thực hiện liên lạc. / Observe the surroundings carefully before making contact.',
+      'Ghi nhận tên người bạn đã thảo luận về an toàn. / Record the name of the person you discussed safety with.',
     accept:
-      'Đã hoàn thành việc quan sát và liên lạc đúng cách. / Observation and contact have been properly completed.',
+      'Tên người đã được thảo luận đã được ghi nhận. / The name of the contact person has been recorded.',
   },
   {
     id: 2,
     name: 'commentSafeBehavior',
     question: 'Bình luận về hành vi an toàn / Comment on safe behavior',
     howto:
-      'Xác định và khen ngợi hành vi an toàn trong công việc. / Identify and praise safe behaviors at work.',
+      'Ghi nhận và bình luận về hành vi an toàn được quan sát. / Record and comment on the safe behavior observed.',
     accept:
-      'Hành vi an toàn đã được bình luận và ghi nhận. / Safe behavior has been commented on and recorded.',
+      'Bình luận về hành vi an toàn đã được ghi nhận. / Comments on safe behavior have been recorded.',
   },
   {
     id: 3,
-    name: 'discussUnsafeBehavior',
-    question: 'Thảo luận về hành vi không an toàn / Discuss unsafe behavior',
+    name: 'commentUnsafeCondition',
+    question:
+      'Bình luận về điều kiện không an toàn / Comment on unsafe condition',
     howto:
-      'Bày tỏ mối quan tâm, yêu cầu giải thích, thảo luận về hậu quả và đề xuất cách làm an toàn hơn. / Express concern, ask for clarification, discuss consequences, and propose safer ways to perform the task.',
+      'Xác định và ghi nhận các điều kiện không an toàn. / Identify and record unsafe conditions.',
     accept:
-      'Đã thảo luận các hành vi không an toàn và đề xuất giải pháp an toàn hơn. / Unsafe behaviors have been discussed, and safer solutions have been proposed.',
+      'Bình luận về điều kiện không an toàn đã được ghi nhận. / Comments on unsafe conditions have been recorded.',
   },
   {
     id: 4,
-    name: 'otherSafetyIssues',
-    question: 'Thảo luận các vấn đề an toàn khác / Discuss other safety issues',
+    name: 'discussOtherIssues',
+    question: 'Thảo luận các vấn đề khác / Discuss other issues',
     howto:
-      'Xác định và thảo luận các vấn đề an toàn khác liên quan đến công việc hoặc khu vực làm việc. / Identify and discuss other safety issues related to the job or workplace.',
+      'Ghi nhận các vấn đề khác được thảo luận. / Record other issues discussed.',
     accept:
-      'Các vấn đề an toàn khác đã được thảo luận và ghi nhận. / Other safety issues have been discussed and recorded.',
+      'Các vấn đề khác đã được ghi nhận. / Other issues have been recorded.',
   },
   {
     id: 5,
@@ -41,9 +43,18 @@ export const questions = [
     question:
       'Nhận được sự đồng ý để làm việc an toàn / Get agreement to work safely',
     howto:
-      'Đảm bảo tất cả các bên đồng ý thực hiện công việc một cách an toàn. / Ensure all parties agree to perform the task safely.',
+      'Xác nhận sự đồng ý làm việc an toàn từ tất cả các bên liên quan. / Confirm the agreement to work safely from all parties involved.',
     accept:
-      'Sự đồng ý để làm việc an toàn đã được xác nhận. / Agreement to work safely has been confirmed.',
+      'Sự đồng ý làm việc an toàn đã được xác nhận. / The agreement to work safely has been confirmed.',
+  },
+  {
+    id: 6,
+    name: 'sendEmail',
+    question: 'Gửi mail cho trưởng bộ phận / Send email to head department',
+    howto:
+      'Gửi email thông báo các nội dung cần thiết cho trưởng bộ phận. / Send an email with the necessary information to the head department.',
+    accept:
+      'Email đã được gửi thành công. / The email has been successfully sent.',
   },
 ];
 
@@ -52,26 +63,29 @@ export const detailFields = [
   { field: 'date', label: 'Ngày Date' },
   { field: 'area', label: 'Area' },
   {
-    field: 'observeContact',
-    label: '1. Observe the surroundings carefully before making contact',
+    field: 'contactPerson',
+    label: '1. Record the name of the person you discussed safety with',
   },
   {
     field: 'commentSafeBehavior',
-    label: '2. Identify and praise safe behaviors at work',
+    label: '2. Record and comment on the safe behavior observed',
   },
   {
-    field: 'discussUnsafeBehavior',
-    label:
-      '3. Discuss unsafe acts by expressing concerns, asking for clarifications, discussing consequences, and proposing safer methods',
+    field: 'commentUnsafeCondition',
+    label: '3. Identify and record unsafe conditions',
   },
   {
-    field: 'otherSafetyIssues',
-    label:
-      '4. Identify and discuss other safety issues related to the workplace',
+    field: 'discussOtherIssues',
+    label: '4. Record other issues discussed',
   },
   {
     field: 'agreementWorkSafely',
-    label: '5. Confirm agreement from all parties to work safely',
+    label: '5. Confirm the agreement to work safely from all parties involved',
+  },
+  {
+    field: 'sendEmail',
+    label:
+      '6. Send an email with the necessary information to the head department',
   },
   { field: 'remark', label: 'Ghi chú Remark' },
   { field: 'url', label: '' },
