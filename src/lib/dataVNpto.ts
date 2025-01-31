@@ -1,15 +1,6 @@
 export const questions = [
   {
     id: 1,
-    name: 'observerID',
-    question: 'Mã nhân viên của Người quan sát / Observer ID',
-    howto:
-      'Ghi nhận mã nhân viên của người quan sát. / Record the employee ID of the observer.',
-    accept:
-      'Mã nhân viên đã được ghi nhận chính xác. / The observer ID has been accurately recorded.',
-  },
-  {
-    id: 2,
     name: 'observedName',
     question: 'Tên Người được quan sát / Name of observed people',
     howto:
@@ -18,7 +9,7 @@ export const questions = [
       'Tên của người được quan sát đã được ghi nhận chính xác. / The name of the observed person has been accurately recorded.',
   },
   {
-    id: 3,
+    id: 2,
     name: 'department',
     question: 'Bộ phận/Nhà thầu / Department/Contractor',
     howto:
@@ -27,7 +18,7 @@ export const questions = [
       'Thông tin bộ phận/nhà thầu đã được ghi nhận. / The department/contractor information has been recorded.',
   },
   {
-    id: 4,
+    id: 3,
     name: 'taskObserved',
     question: 'Công việc được quan sát / Task observed',
     howto:
@@ -36,7 +27,7 @@ export const questions = [
       'Công việc được quan sát đã được ghi nhận. / The observed task has been recorded.',
   },
   {
-    id: 5,
+    id: 4,
     name: 'procedureCode',
     question:
       'Mã số công việc, thủ tục đang thực hiện / Code of current WI procedure',
@@ -46,7 +37,7 @@ export const questions = [
       'Mã số công việc/thủ tục đã được ghi nhận. / The code of the work instruction/procedure has been recorded.',
   },
   {
-    id: 6,
+    id: 5,
     name: 'potentialDamageOrInjury',
     question:
       'Các công việc có thể dẫn đến gây thiệt hại về tài sản hoặc gây thương tích không? / Could any of the practices observed result in property damage or injury?',
@@ -56,7 +47,7 @@ export const questions = [
       'Khả năng gây thiệt hại/thương tích đã được ghi nhận. / The potential for damage or injury has been recorded.',
   },
   {
-    id: 7,
+    id: 6,
     name: 'complianceWI',
     question:
       'Công nhân có làm theo các bước và yêu cầu của hướng dẫn công việc (PPE; Giấy phép; Cách ly…)? Có Không (Nếu Không, mô tả sự sai lệch và lý do đằng sau sự sai lệch đó) / Did the worker(s) follow all WI steps and task requirements (PPE; Permits; Isolations etc.)? Yes No (If No, describe deviations and the reason behind them)',
@@ -66,7 +57,7 @@ export const questions = [
       'Tuân thủ hướng dẫn công việc đã được xác nhận. / Compliance with work instructions has been confirmed.',
   },
   {
-    id: 8,
+    id: 7,
     name: 'unsafeActs',
     question:
       'Liệt kê các hành động, thiết bị, điều kiện hoặc cách làm, sự thực hành không an toàn hoặc tiềm ẩn sự không an toàn mà có thể ảnh hưởng đến an toàn, chất lượng, năng suất / List any unsafe / potentially unsafe acts; equipment/conditions or practices that could affect safety, quality, or efficiency',
@@ -76,7 +67,7 @@ export const questions = [
       'Các hành động/điều kiện không an toàn đã được ghi nhận. / Unsafe acts/conditions have been recorded.',
   },
   {
-    id: 9,
+    id: 8,
     name: 'goodBehaviours',
     question:
       'Liệt kê các hành vi tốt mà bạn quan sát được / List any good behaviours observed',
@@ -86,7 +77,7 @@ export const questions = [
       'Các hành vi tốt đã được ghi nhận. / Good behaviours have been recorded.',
   },
   {
-    id: 10,
+    id: 9,
     name: 'discussion',
     question:
       'Thảo luận điều bạn quan sát được với công nhân. Ghi nhận lại các điểm chính vào các dòng phía dưới đây / Discuss your observations with the workers. Record any key points below',
@@ -96,7 +87,7 @@ export const questions = [
       'Các điểm chính từ cuộc thảo luận đã được ghi nhận. / Key points from the discussion have been recorded.',
   },
   {
-    id: 11,
+    id: 10,
     name: 'correctiveActions',
     question:
       'Hành động khắc phục được kiến nghị / Suggested Corrective Actions',
@@ -105,15 +96,6 @@ export const questions = [
     accept:
       'Các hành động khắc phục đã được ghi nhận. / Corrective actions have been recorded.',
   },
-  {
-    id: 12,
-    name: 'sendEmail',
-    question: 'Gửi mail cho trưởng bộ phận / Send email to head department',
-    howto:
-      'Xác nhận email đã được gửi đến trưởng bộ phận. / Confirm the email has been sent to the head department.',
-    accept:
-      'Email đã được gửi thành công. / The email has been successfully sent.',
-  },
 ];
 
 export const detailFields = [
@@ -121,56 +103,48 @@ export const detailFields = [
   { field: 'date', label: 'Ngày Date' },
   { field: 'area', label: 'Area' },
   {
-    field: 'observerID',
-    label: '1. Mã nhân viên của Người quan sát / Observer ID',
-  },
-  {
     field: 'observedName',
-    label: '2. Tên Người được quan sát / Name of observed people',
+    label: '1. Tên Người được quan sát / Name of observed people',
   },
-  { field: 'department', label: '3. Bộ phận/Nhà thầu / Department/Contractor' },
+  { field: 'department', label: '2. Bộ phận/Nhà thầu / Department/Contractor' },
   {
     field: 'taskObserved',
-    label: '4. Công việc được quan sát / Task observed',
+    label: '3. Công việc được quan sát / Task observed',
   },
   {
     field: 'procedureCode',
     label:
-      '5. Mã số công việc, thủ tục đang thực hiện / Code of current WI procedure',
+      '4. Mã số công việc, thủ tục đang thực hiện / Code of current WI procedure',
   },
   {
     field: 'potentialDamageOrInjury',
     label:
-      '6. Các công việc có thể dẫn đến gây thiệt hại về tài sản hoặc gây thương tích không? / Could any of the practices observed result in property damage or injury?',
+      '5. Các công việc có thể dẫn đến gây thiệt hại về tài sản hoặc gây thương tích không? / Could any of the practices observed result in property damage or injury?',
   },
   {
     field: 'complianceWI',
     label:
-      '7. Công nhân có làm theo các bước và yêu cầu của hướng dẫn công việc (PPE; Giấy phép; Cách ly…)? Có Không / Did the worker(s) follow all WI steps and task requirements (PPE; Permits; Isolations etc.)? Yes No',
+      '6. Công nhân có làm theo các bước và yêu cầu của hướng dẫn công việc (PPE; Giấy phép; Cách ly…)? Có Không / Did the worker(s) follow all WI steps and task requirements (PPE; Permits; Isolations etc.)? Yes No',
   },
   {
     field: 'unsafeActs',
     label:
-      '8. Liệt kê các hành động, thiết bị, điều kiện hoặc cách làm, sự thực hành không an toàn hoặc tiềm ẩn sự không an toàn mà có thể ảnh hưởng đến an toàn, chất lượng, năng suất / List any unsafe / potentially unsafe acts; equipment/conditions or practices that could affect safety, quality, or efficiency',
+      '7. Liệt kê các hành động, thiết bị, điều kiện hoặc cách làm, sự thực hành không an toàn hoặc tiềm ẩn sự không an toàn mà có thể ảnh hưởng đến an toàn, chất lượng, năng suất / List any unsafe / potentially unsafe acts; equipment/conditions or practices that could affect safety, quality, or efficiency',
   },
   {
     field: 'goodBehaviours',
     label:
-      '9. Liệt kê các hành vi tốt mà bạn quan sát được / List any good behaviours observed',
+      '8. Liệt kê các hành vi tốt mà bạn quan sát được / List any good behaviours observed',
   },
   {
     field: 'discussion',
     label:
-      '10. Thảo luận điều bạn quan sát được với công nhân. Ghi nhận lại các điểm chính vào các dòng phía dưới đây / Discuss your observations with the workers. Record any key points below',
+      '9. Thảo luận điều bạn quan sát được với công nhân. Ghi nhận lại các điểm chính vào các dòng phía dưới đây / Discuss your observations with the workers. Record any key points below',
   },
   {
     field: 'correctiveActions',
     label:
-      '11. Hành động khắc phục được kiến nghị / Suggested Corrective Actions',
-  },
-  {
-    field: 'sendEmail',
-    label: '12. Gửi mail cho trưởng bộ phận / Send email to head department',
+      '10. Hành động khắc phục được kiến nghị / Suggested Corrective Actions',
   },
   { field: 'remark', label: 'Ghi chú Remark' },
   { field: 'url', label: '' },

@@ -11,7 +11,9 @@ import DashboardTotal from '@/_root/pages/Machine_DashboardTotal';
 import DashboardDefect from '@/_root/pages/Machine_DashboardDefect';
 import DashboardTotalByOwner from '@/_root/pages/Machine_DashboardTotalByOwner';
 // import DashboardAlert from '@/_root/pages/Man_DashboardAlert';
+import Man_Dashboard from '@/_root/pages/Man_Dashboard';
 import DashboardActivity from '@/_root/pages/Man_DashboardActivity';
+import DashboardActivityEmail from '@/_root/pages/Man_DashboardActivityEmail';
 import DashboardActivityMan from '@/_root/pages/Man_DashboardActivityMan';
 import MachineAuth from '@/_root/pages/Machine';
 import MachineNew from '@/_root/pages/MachineNew';
@@ -76,10 +78,15 @@ const App = () => {
             path="/Dashboard/:bu/:period"
             element={<Machine_Dashboard />}
           />
+          <Route path="/DashboardMan/:bu" element={<Man_Dashboard />} />
           {/* <Route path="/DashboardAlert/:bu" element={<DashboardAlert />} /> */}
           <Route
             path="/DashboardActivity/:bu"
             element={<DashboardActivity />}
+          />
+          <Route
+            path="/DashboardActivityEmail/:bu"
+            element={<DashboardActivityEmail />}
           />
           <Route
             path="/DashboardActivityMan/:bu"

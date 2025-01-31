@@ -66,9 +66,15 @@ export const loadQuestions = async (
       return import('@/lib/dataLKforklift');
     case 'lk_Extinguisher':
       return import('@/lib/dataLKextinguisher');
+    case 'lk_Car':
+      return import('@/lib/dataLKcar');
     //BD
     case 'bd_Bulk':
       return import('@/lib/dataBDbulk');
+    case 'bd_Forklift':
+      return import('@/lib/dataBDforklift');
+    case 'bd_Loader':
+      return import('@/lib/dataBDloader');
     //CMIC
     case 'cmic_Bulk':
       return import('@/lib/dataCMICbulk');
@@ -99,10 +105,16 @@ export const loadQuestions = async (
       return import('@/lib/dataTHdriving');
     case 'th_Truck':
       return import('@/lib/dataTHtruck');
+    case 'th_Truckact':
+      return import('@/lib/dataTHtruckact');
+    case 'th_Truckall':
+      return import('@/lib/dataTHtruckall');
     case 'th_Motorbike':
       return import('@/lib/dataTHmotorbike');
     case 'th_Mixer':
       return import('@/lib/dataTHmixer');
+    case 'th_Mixerweek':
+      return import('@/lib/dataTHmixerweek');
     case 'th_Plant':
       return import('@/lib/dataTHplant');
     case 'th_Bulk':
@@ -115,6 +127,8 @@ export const loadQuestions = async (
       return import('@/lib/dataTHemergency');
     case 'th_Fireexit':
       return import('@/lib/dataTHfireexit');
+    case 'th_Waste':
+      return import('@/lib/dataTHwaste');
     //SRB
     case 'srb_Truck':
       return import('@/lib/dataSRBtruck');

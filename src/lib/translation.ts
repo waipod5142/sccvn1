@@ -78,6 +78,30 @@ export const submit: { [key: string]: string } = {
   bd: 'জমা দিন',
 };
 
+export const presenter: { [key: string]: string } = {
+  vn: 'Người thuyết trình',
+  th: 'ผู้นำเสนอ',
+  cmic: 'វាគ្មិន',
+  lk: 'විකාශකයා',
+  bd: 'উপস্থাপক',
+};
+
+export const subject: { [key: string]: string } = {
+  vn: 'Chủ đề của Buổi nói chuyện an toàn',
+  th: 'หัวข้อของการพูดคุยด้านความปลอดภัย',
+  cmic: 'ប្រធានបទនៃការសន្ទនាសុវត្ថិភាព',
+  lk: 'ආරක්ෂිත කතාබස් හි මාතෘකාව',
+  bd: 'টুলবক্স টকের বিষয়বস্তু',
+};
+
+export const lessonlearn: { [key: string]: string } = {
+  vn: 'Bài học rút ra từ Buổi nói chuyện an toàn',
+  th: 'บทเรียนที่ได้รับจากการพูดคุยด้านความปลอดภัย',
+  cmic: 'មេរៀនដែលបានសិក្សាពីការសន្ទនាសុវត្ថិភាព',
+  lk: 'ආරක්ෂිත කතාබස් වෙතින් ගත් පාඩම',
+  bd: 'টুলবক্স টক থেকে শেখা পাঠ',
+};
+
 export type ChoiceType = {
   value: string;
   text: string;

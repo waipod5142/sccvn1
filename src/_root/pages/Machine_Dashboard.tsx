@@ -113,26 +113,7 @@ const VehicleInspectionPage: React.FC = () => {
     fetchData();
   }, [period, bu]);
 
-  // const getBackgroundColor = (period: string | undefined) => {
-  //   switch (period) {
-  //     case 'daily':
-  //       return 'bg-blue-100';
-  //     case 'monthly':
-  //       return 'bg-green-100';
-  //     case 'quarterly':
-  //       return 'bg-yellow-100';
-  //     case 'annually':
-  //       return 'bg-rose-100';
-  //     case 'toolbox':
-  //       return 'bg-purple-100';
-  //     case 'pra':
-  //       return 'bg-orange-100';
-  //     case 'alert':
-  //       return 'bg-pink-100';
-  //     default:
-  //       return 'bg-white';
-  //   }
-  // };
+  console.log('period:', inspections);
 
   const getBackgroundColor = (percentage: number): string => {
     if (percentage >= 0 && percentage <= 33) return 'rgb(237, 0, 0)'; // Red

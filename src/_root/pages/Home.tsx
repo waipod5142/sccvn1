@@ -107,11 +107,10 @@ const RootLayout = () => {
               Select Business Unit
             </option>
             <option value="vn">Việt Nam (Vietnam - VN)</option>
+            <option value="th">ประเทศไทย (Thailand -TH)</option>
             <option value="lk">ශ්‍රී ලංකාව (Sri Lanka - LK)</option>
             <option value="bd">বাংলাদেশ (Bangladesh - BD)</option>
             <option value="cmic">កម្ពុជា (Cambodia - CMIC)</option>
-            <option value="srb">Saraburi (SRB)</option>
-            <option value="rmx">RMX</option>
           </select>
           {errors.bu && (
             <p className="text-rose-500">{`${errors.bu?.message}`}</p>

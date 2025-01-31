@@ -279,15 +279,17 @@ const DataTable: React.FC = () => {
                   <td className="flex items-center justify-between border px-4 py-2 font-bold">
                     {machineTitles[
                       bu
-                        ? [
-                            'srb',
-                            'mkt',
-                            'office',
-                            'lbm',
-                            'rmx',
-                            'iagg',
-                            'ieco',
-                          ].includes(bu)
+                        ? bu !== 'srb' && type === 'truck'
+                          ? 'thtruckall'
+                          : [
+                              'srb',
+                              'mkt',
+                              'office',
+                              'lbm',
+                              'rmx',
+                              'iagg',
+                              'ieco',
+                            ].includes(bu)
                           ? 'th' + type
                           : bu + type
                         : ''
@@ -482,7 +484,12 @@ const DataTable: React.FC = () => {
             alt="Flag"
             className="mr-2 md:w-10 md:h-10 w-16 h-16"
           />
-          {bu?.toUpperCase()} - Machinery Own by {owner}
+          {bu &&
+            ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
+              bu
+            ) &&
+            bu?.toUpperCase()}{' '}
+          Machinery Own by <span className="pl-2 text-rose-500"> {owner}</span>
         </h1>
       </header>
 

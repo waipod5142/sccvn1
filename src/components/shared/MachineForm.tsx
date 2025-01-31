@@ -86,7 +86,7 @@ const Filling: React.FC<FillingProps> = ({
           ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(bu)
             ? 'th'
             : bu,
-          machine
+          bu !== 'srb' && machine === 'Truck' ? 'Truckall' : machine
         );
         setQuestions(questions);
       } catch (error) {
@@ -210,7 +210,7 @@ const Filling: React.FC<FillingProps> = ({
                 bu
               )
                 ? 'th'
-                : bu) + machine
+                : bu) + (machine === 'Truck' ? 'Truckall' : machine)
             ] || null}
             {isWeekly && bu === 'rmx'
               ? '...ประจำสัปดาห์'

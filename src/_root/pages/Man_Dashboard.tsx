@@ -1,13 +1,15 @@
+//https://ap-southeast-1.aws.data.mongodb-api.com/app/sccvn-zzlewmt/endpoint/sccvn/liftingTr_get?bu=vn&type=alert
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { http } from '@/lib/http';
 import Loading from '@/components/shared/Loader';
 import {
   Machine as VehicleData,
   MachineItem,
   MapItem,
-  machineTitles,
+  manTitles,
 } from '@/lib/typeMachine';
 import Modal from './Modal';
 import ModalContent from './ModalContent';
@@ -18,7 +20,7 @@ import ModalMapAll from '@/uti/ModalMapAll';
 import ModalImage from '@/uti/ModalImage';
 import ModalGraph from '@/uti/ModalGraph';
 
-// Interfaces for data
+// Update interfaces to match the new data structure
 interface RowData {
   _id: {
     type: string;
@@ -26,15 +28,16 @@ interface RowData {
   };
   totalVehicles: number;
   inspectedVehicles: number;
-  defectVehicles: number;
-  lastInspectionDate: string;
+  lastInspectionDate: string | null;
 }
 
-interface PeriodData {
-  daily: RowData[];
-  monthly: RowData[];
-  quarterly: RowData[];
-  annually: RowData[];
+interface DataStructure {
+  toolbox: RowData[];
+  pra: RowData[];
+  alert: RowData[];
+  boot: RowData[];
+  ra: RowData[];
+  pto: RowData[];
 }
 
 interface Inspection {
@@ -44,12 +47,11 @@ interface Inspection {
   };
   totalVehicles: number;
   inspectedVehicles: number;
-  defectVehicles: number;
-  lastInspectionDate: string;
+  lastInspectionDate: string | null;
 }
 
 const DataTable: React.FC = () => {
-  const [data, setData] = useState<PeriodData | null>(null);
+  const [data, setData] = useState<DataStructure | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [sites, setSites] = useState<string[]>([]); // Dynamically fetched sites
   const [selectedType, setSelectedType] = useState<string | null>(null);
@@ -86,16 +88,24 @@ const DataTable: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${http}cctvTr_all`, {
-          params: { bu },
-        });
+        const response = await axios.get<DataStructure>(
+          `${http}equipmentTr_all`,
+          {
+            params: { bu },
+          }
+        );
         setData(response.data);
 
-        // Explicitly cast Object.values to an array of RowData[]
-        const allSites = (Object.values(response.data) as RowData[][]).flatMap(
-          (rows) => rows.map((row) => row._id.site)
-        );
-        setSites(Array.from(new Set(allSites)).sort()); // Remove duplicates and sort
+        // Get unique sites from all activities
+        if (response.data) {
+          const allSites = new Set<string>();
+          Object.values(response.data).forEach((activityData) => {
+            activityData.forEach((row: RowData) => {
+              allSites.add(row._id.site);
+            });
+          });
+          setSites(Array.from(allSites).sort());
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -105,67 +115,59 @@ const DataTable: React.FC = () => {
     fetchData();
   }, [bu]);
 
-  // Function to open modal and fetch detailed data
-  const handleCardClick = async (type: string, site: string) => {
+  const handleCardClick = async (
+    activity: string, //toolbox, pra, alert, boot, ra, pto
+    type: string,
+    site: string
+  ) => {
     setSelectedType(type);
     setSelectedSite(site);
 
     let inspectionData: Inspection | null = null;
-
-    // Iterate through all periods to find the relevant inspection
     if (data) {
-      for (const period of ['daily', 'monthly', 'quarterly', 'annually']) {
-        const periodData = data[period as keyof PeriodData];
-        const match = periodData.find(
+      for (const activity of [
+        'toolbox',
+        'pra',
+        'alert',
+        'boot',
+        'ra',
+        'pto',
+      ] as const) {
+        const match = data[activity].find(
           (inspection) =>
             inspection._id.site.toLowerCase() === site.toLowerCase() &&
             inspection._id.type.toLowerCase() === type.toLowerCase()
         );
         if (match) {
           inspectionData = match;
-          break; // Exit the loop once a match is found
+          break;
         }
       }
     }
-    setSelectedInspection(inspectionData || null); // Store the inspection data for modal display
+
+    setSelectedInspection(inspectionData);
     setModalOpen(true);
 
     try {
-      // Fetch additional details for the selected type and site
-      const res = await axios.get(`${http}vehicle_all`, {
-        params: {
-          bu,
-          type,
-          site,
-        },
-      });
-
-      setVehicleData(Array.isArray(res.data) ? res.data : []); // Store fetched vehicle data
+      const res = await axios.get(
+        `${http}${
+          activity === 'toolbox'
+            ? 'extinguisher_all'
+            : activity === 'pra'
+            ? 'equipment_all'
+            : activity === 'alert'
+            ? 'alertTr_get'
+            : 'vehicle_all'
+        }`,
+        {
+          params: { bu, type, site },
+        }
+      );
+      setVehicleData(Array.isArray(res.data) ? res.data : []);
     } catch (error) {
       console.error('Error fetching vehicle details:', error);
     }
   };
-
-  // OpenDefecte
-  const calculateOpenDefected = () => {
-    let totalVehicles = 0;
-    let openDefected = 0;
-
-    // Iterate over vehicleData and calculate totals
-    (vehicleData || []).forEach((vehicle) => {
-      if (vehicle.defect === 'NotPass') {
-        openDefected += 1; // Count only vehicles where defect is "NotPass"
-      }
-      totalVehicles += 1; // Increment totalVehicles for each vehicle
-    });
-
-    return {
-      totalVehicles, // Include totalVehicles in the returned object
-      openDefected,
-    };
-  };
-
-  const { totalVehicles, openDefected } = calculateOpenDefected();
 
   // Function to open the machine modal
   const openMachineModal = (vehicleId: string, vehicleType: string) => {
@@ -247,174 +249,196 @@ const DataTable: React.FC = () => {
     return ''; // Fallback (if needed)
   };
 
-  const renderTable = (period: string, rows: RowData[]) => {
-    if (!rows || rows.length === 0) return null;
+  const renderTable = (activity: string, rows: RowData[]) => {
+    const types = Array.from(new Set(rows.map((row) => row._id.type))).sort();
 
-    const types = [...new Set(rows.map((row) => row._id.type))];
-    const grandTotal = rows.reduce((sum, row) => sum + row.totalVehicles, 0);
+    // Calculate column totals
+    const columnTotals = sites.reduce((acc, site) => {
+      const siteRows = rows.filter((row) => row._id.site === site);
+      const totalVehicles = siteRows.reduce(
+        (sum, row) => sum + row.totalVehicles,
+        0
+      );
+      const inspectedVehicles = siteRows.reduce(
+        (sum, row) => sum + row.inspectedVehicles,
+        0
+      );
+      const percentage =
+        Math.round((inspectedVehicles / totalVehicles) * 100) || 0;
+
+      acc[site] = { totalVehicles, inspectedVehicles, percentage };
+      return acc;
+    }, {} as { [key: string]: { totalVehicles: number; inspectedVehicles: number; percentage: number } });
+
+    // Calculate grand total
+    const grandTotal = rows.reduce(
+      (acc, row) => {
+        acc.totalVehicles += row.totalVehicles;
+        acc.inspectedVehicles += row.inspectedVehicles;
+        return acc;
+      },
+      { totalVehicles: 0, inspectedVehicles: 0 }
+    );
+    const grandTotalPercentage =
+      Math.round(
+        (grandTotal.inspectedVehicles / grandTotal.totalVehicles) * 100
+      ) || 0;
 
     return (
-      <div key={period} className="mb-8 overflow-x-auto">
-        <h2 className="text-xl font-bold mb-4">{period.toUpperCase()}</h2>
-        <table className="min-w-full border-collapse border text-left">
-          <thead className="bg-gray-200">
-            <tr>
-              <th className="border px-4 py-2">Type</th>
-              {sites.map((site) => (
-                <th key={site} className="border px-4 py-2 text-center">
-                  {site.toUpperCase()}
+      <div className="mb-8">
+        <h2 className="flex items-center gap-4 text-xl font-bold mb-4">
+          <img
+            src={`/assets/icons/${
+              bu === 'cmic' && activity === 'vehicle'
+                ? activity + 'cmic'
+                : activity
+            }.svg`}
+            alt={activity}
+            width={40}
+            height={40}
+          />
+          {manTitles[activity] || activity}
+        </h2>
+        <div className="overflow-x-auto">
+          <table className="w-full border-collapse border">
+            <thead>
+              <tr className="bg-gray-200">
+                <th className="border px-4 py-2">Type</th>
+                {sites.map((site) => (
+                  <th key={site} className="border px-4 py-2 text-center">
+                    {site.toUpperCase()}
+                  </th>
+                ))}
+                <th className="border px-4 py-2 text-center bg-rose-200">
+                  Total
                 </th>
-              ))}
-              <th className="border px-4 py-2 text-center bg-rose-50">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {types.map((type) => {
-              const typeTotal = rows
-                .filter((row) => row._id.type === type)
-                .reduce((sum, row) => sum + row.totalVehicles, 0);
+              </tr>
+            </thead>
+            <tbody>
+              {types.map((type) => {
+                const typeRows = rows.filter((row) => row._id.type === type);
+                const typeTotal = typeRows.reduce(
+                  (sum, row) => sum + row.totalVehicles,
+                  0
+                );
+                const typeInspected = typeRows.reduce(
+                  (sum, row) => sum + row.inspectedVehicles,
+                  0
+                );
+                const typePercentage =
+                  Math.round((typeInspected / typeTotal) * 100) || 0;
 
-              return (
-                <tr key={type} className="even:bg-gray-100">
-                  <td className="flex items-center justify-between border px-4 py-2 font-bold">
-                    {machineTitles[
-                      bu
-                        ? bu !== 'srb' && type === 'truck'
-                          ? 'thtruckall'
-                          : [
-                              'srb',
-                              'mkt',
-                              'office',
-                              'lbm',
-                              'rmx',
-                              'iagg',
-                              'ieco',
-                            ].includes(bu)
-                          ? 'th' + type
-                          : bu + type
-                        : ''
-                    ] || type}
-
-                    <img
-                      src={`/assets/icons/${
-                        bu === 'cmic' && type === 'vehicle'
-                          ? type + 'cmic'
-                          : type
-                      }.svg`}
-                      alt={type}
-                      width={40}
-                      height={40}
-                    />
-                  </td>
-                  {sites.map((site) => {
-                    const siteData = rows.find(
-                      (row) => row._id.site === site && row._id.type === type
-                    );
-                    return (
-                      <td
-                        key={site}
-                        className={`border px-4 py-2 text-center font-bold cursor-pointer ${
-                          siteData &&
-                          siteData.inspectedVehicles ===
-                            siteData.totalVehicles &&
-                          'opacity-30'
-                        }`}
-                        style={{
-                          backgroundColor: siteData
-                            ? getBackgroundColor(
-                                siteData.totalVehicles > 0
-                                  ? (siteData.inspectedVehicles /
-                                      siteData.totalVehicles) *
-                                      100
-                                  : 0
-                              )
-                            : 'transparent',
-                          color: siteData ? 'white' : '#d3d3d3',
-                        }}
-                        onClick={() =>
-                          handleCardClick(
-                            type.toLowerCase(),
-                            site.toLowerCase()
-                          )
-                        }
-                      >
-                        {siteData && siteData.totalVehicles > 0 ? (
-                          <>
-                            {siteData.inspectedVehicles} /{' '}
-                            {siteData.totalVehicles} (
-                            {(
-                              (siteData.inspectedVehicles /
-                                siteData.totalVehicles) *
-                              100
-                            ).toFixed(0)}
-                            %)
-                          </>
-                        ) : (
-                          '0'
-                        )}
-                        {siteData && siteData.defectVehicles > 0 && (
-                          <span
-                            className="text-rose-500 font-bold text-xl p-1 rounded bg-rose-100 ml-2 animate-pulse"
-                            style={{
-                              border: '2px solid #FF0000',
-                              boxShadow: '0 0 10px rgba(255, 0, 0, 0.6)',
-                            }}
-                          >
-                            {siteData.defectVehicles}
-                          </span>
-                        )}
-                      </td>
-                    );
-                  })}
-                  <td className="border px-4 py-2 text-center bg-rose-50 font-bold">
-                    {typeTotal}
-                  </td>
-                </tr>
-              );
-            })}
-            <tr className="bg-rose-50 font-bold">
-              <td className="border px-4 py-2">Total</td>
-              {sites.map((site) => {
-                const siteTotal = rows
-                  .filter((row) => row._id.site === site)
-                  .reduce((sum, row) => sum + row.totalVehicles, 0);
                 return (
-                  <td key={site} className="border px-4 py-2 text-center">
-                    {siteTotal}
-                  </td>
+                  <tr key={type} className="even:bg-gray-100">
+                    <td className="border px-4 py-2 font-bold capitalize">
+                      {type}
+                    </td>
+                    {sites.map((site) => {
+                      const cell = rows.find(
+                        (row) => row._id.site === site && row._id.type === type
+                      );
+                      const percentage = cell
+                        ? Math.round(
+                            (cell.inspectedVehicles / cell.totalVehicles) * 100
+                          )
+                        : 0;
+
+                      return (
+                        <td
+                          key={site}
+                          className="border px-4 py-2 text-center text-white cursor-pointer hover:bg-gray-50"
+                          onClick={() => handleCardClick(activity, type, site)}
+                          style={{
+                            backgroundColor:
+                              cell && cell.totalVehicles > 0
+                                ? getBackgroundColor(percentage)
+                                : '',
+                            opacity:
+                              cell &&
+                              cell.inspectedVehicles === cell.totalVehicles
+                                ? 0.2
+                                : 1,
+                          }}
+                        >
+                          {cell ? (
+                            <>
+                              {cell.inspectedVehicles} / {cell.totalVehicles}
+                              <span className="ml-1">({percentage}%)</span>
+                            </>
+                          ) : (
+                            '0 / 0 (0%)'
+                          )}
+                        </td>
+                      );
+                    })}
+                    <td className="border px-4 py-2 text-center bg-rose-200">
+                      {typeInspected} / {typeTotal}
+                      <span className="ml-1">({typePercentage}%)</span>
+                    </td>
+                  </tr>
                 );
               })}
-              <td className="border px-4 py-2 text-center">{grandTotal}</td>
-            </tr>
-          </tbody>
-        </table>
+              {/* Total row */}
+              <tr className="bg-gray-100 font-bold">
+                <td className="border px-4 py-2">Total</td>
+                {sites.map((site) => {
+                  const total = columnTotals[site];
+                  return (
+                    <td
+                      key={site}
+                      className="border px-4 py-2 bg-rose-200 text-center"
+                    >
+                      {total.inspectedVehicles} / {total.totalVehicles}
+                      <span className="ml-1">({total.percentage}%)</span>
+                    </td>
+                  );
+                })}
+                <td className="border px-4 py-2 text-center bg-rose-200">
+                  {grandTotal.inspectedVehicles} / {grandTotal.totalVehicles}
+                  <span className="ml-1">({grandTotalPercentage}%)</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   };
 
   const renderSummary = () => {
-    const summary: { [site: string]: { [period: string]: number } } = {};
+    if (!data) return null;
+
+    const summary = {
+      toolbox: {} as { [site: string]: number },
+      pra: {} as { [site: string]: number },
+      alert: {} as { [site: string]: number },
+      boot: {} as { [site: string]: number },
+      ra: {} as { [site: string]: number },
+      pto: {} as { [site: string]: number },
+    };
+
     let grandTotal = 0;
 
-    // Iterate over all periods
-    Object.keys(data!).forEach((period) => {
-      data![period as keyof PeriodData].forEach((row) => {
+    // Add type annotations to fix the implicit 'any' error
+    Object.entries(data).forEach(([activity, rows]: [string, RowData[]]) => {
+      rows.forEach((row: RowData) => {
         const site = row._id.site;
-        if (!summary[site]) {
-          summary[site] = { daily: 0, monthly: 0, quarterly: 0, annually: 0 };
+        if (!summary[activity as keyof typeof summary][site]) {
+          summary[activity as keyof typeof summary][site] = 0;
         }
-        summary[site][period] += row.totalVehicles;
-        grandTotal += row.totalVehicles;
+        summary[activity as keyof typeof summary][site] +=
+          row.inspectedVehicles;
+        grandTotal += row.inspectedVehicles;
       });
     });
 
     return (
       <div className="mt-8">
-        <h2 className="text-xl font-bold mb-4">Summary</h2>
-        <table className="w-full border-collapse border text-left">
+        <h2 className="text-xl font-bold mb-4">Summary by Activity</h2>
+        <table className="w-full border-collapse border">
           <thead>
             <tr className="bg-gray-200">
-              <th className="border px-4 py-2">Period</th>
+              <th className="border px-4 py-2">Activity</th>
               {sites.map((site) => (
                 <th key={site} className="border px-4 py-2 text-center">
                   {site.toUpperCase()}
@@ -426,33 +450,33 @@ const DataTable: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {['daily', 'monthly', 'quarterly', 'annually'].map((period) => {
-              const periodTotal = Object.keys(summary).reduce(
-                (sum, site) => sum + (summary[site][period] || 0),
+            {Object.entries(summary).map(([activity, siteTotals]) => {
+              const activityTotal = Object.values(siteTotals).reduce(
+                (sum, value) => sum + value,
                 0
               );
+
+              // Skip rendering if activityTotal is 0
+              if (activityTotal === 0) return null;
+
               return (
-                <tr key={period} className="even:bg-gray-100">
-                  <td className="border px-4 py-2 font-bold">
-                    <Link
-                      to={`/Dashboard/${bu}/${period}`}
-                      className="flex items-center text-blue-500 font-bold"
-                    >
-                      {period.charAt(0).toUpperCase() + period.slice(1)}
-                    </Link>
+                <tr key={activity} className="even:bg-gray-100">
+                  <td className="border px-4 py-2 font-bold capitalize">
+                    {activity}
                   </td>
                   {sites.map((site) => (
                     <td
                       key={site}
-                      className={`border px-4 py-2 text-center font-bold ${
-                        summary[site]?.[period] || (0 === 0 && 'text-gray-300')
+                      className={`border px-4 py-2 text-center ${
+                        siteTotals[site] === 0 && 'opacity-20'
                       }`}
+                      onClick={() => handleCardClick(activity, activity, site)}
                     >
-                      {summary[site]?.[period] || 0}
+                      {siteTotals[site] || 0}
                     </td>
                   ))}
                   <td className="border px-4 py-2 text-center bg-rose-200 font-bold">
-                    {periodTotal}
+                    {activityTotal}
                   </td>
                 </tr>
               );
@@ -460,8 +484,8 @@ const DataTable: React.FC = () => {
             <tr className="bg-rose-200 font-bold">
               <td className="border px-4 py-2">Total</td>
               {sites.map((site) => {
-                const siteTotal = Object.values(summary[site] || {}).reduce(
-                  (sum, value) => sum + value,
+                const siteTotal = Object.values(summary).reduce(
+                  (sum, activity) => sum + (activity[site] || 0),
                   0
                 );
                 return (
@@ -499,20 +523,13 @@ const DataTable: React.FC = () => {
               bu
             ) &&
             bu?.toUpperCase()}{' '}
-          Combined daily, monthly, quarterly, annually
+          Activities today
         </h1>
       </header>
       {/* Add legend here */}
       <h2 className="text-xl font-bold mb-4">
-        <span className="text-gray-500">Inspected / Total Machines ( % )</span>
-        <span
-          className="ml-4 text-rose-500 font-bold text-xl p-1 rounded bg-rose-100"
-          style={{
-            border: '2px solid #FF0000', // Red border
-            boxShadow: '0 0 10px rgba(255, 0, 0, 0.6)', // Glowing effect
-          }}
-        >
-          Defect
+        <span className="text-gray-500">
+          Activities / Total Head Count ( % )
         </span>
       </h2>
       <div className="flex items-center mb-4">
@@ -545,8 +562,8 @@ const DataTable: React.FC = () => {
           <span>100%</span>
         </div>
       </div>
-      {['daily', 'monthly', 'quarterly', 'annually'].map((period) =>
-        renderTable(period, data[period as keyof PeriodData])
+      {Object.entries(data).map(([activity, rows]) =>
+        renderTable(activity, rows)
       )}
       {renderSummary()}
       {/* Modal for showing vehicle details */}
@@ -559,25 +576,7 @@ const DataTable: React.FC = () => {
             <h2 className="text-2xl font-semibold mb-4">
               Details for{' '}
               <span className="text-rose-500">
-                {machineTitles[
-                  bu
-                    ? bu !== 'srb' && selectedType === 'truck'
-                      ? 'thtruckall'
-                      : [
-                          'srb',
-                          'mkt',
-                          'office',
-                          'lbm',
-                          'rmx',
-                          'iagg',
-                          'ieco',
-                        ].includes(bu)
-                      ? 'th' + (selectedType ?? '')
-                      : bu + (selectedType ?? '')
-                    : ''
-                ] ||
-                  selectedType ||
-                  'n/a'}
+                {manTitles[selectedType ?? ''] || selectedType || 'n/a'}
               </span>{' '}
               at {selectedSite?.toUpperCase()}
             </h2>
@@ -624,29 +623,10 @@ const DataTable: React.FC = () => {
                   | Total: {selectedInspection.totalVehicles}
                 </p>
                 <p className="text-lg mb-4">
-                  <span
-                    className={`${
-                      selectedInspection.defectVehicles !== 0 &&
-                      'text-rose-500 text-xl'
-                    }`}
-                  >
-                    Defected: {selectedInspection.defectVehicles}
-                  </span>{' '}
                   | Total: {selectedInspection.totalVehicles}
                 </p>
                 <hr />
-                {
-                  <p className="text-lg my-4">
-                    <span
-                      className={`${
-                        openDefected !== 0 && 'text-rose-500 text-xl'
-                      }`}
-                    >
-                      Open Defected: {openDefected}
-                    </span>{' '}
-                    | Total: {totalVehicles}
-                  </p>
-                }
+                {<p className="text-lg my-4">| Total: {vehicleData.length}</p>}
               </div>
             ) : (
               <p className="text-rose-500">No inspection data available</p>

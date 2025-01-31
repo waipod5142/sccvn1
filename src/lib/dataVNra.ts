@@ -1,16 +1,6 @@
 export const questions = [
   {
     id: 1,
-    name: 'supervisorName',
-    question:
-      'Tên của người giám sát (Người phỏng vấn nắm giữ KPI RA)? / Name of the supervisor (Interviewer who hold the RA KPI)',
-    howto:
-      'Xác nhận tên của người giám sát đảm bảo họ nắm giữ KPI RA. / Confirm the name of the supervisor to ensure they hold the RA KPI.',
-    accept:
-      'Tên của người giám sát đã được ghi nhận chính xác. / The name of the supervisor has been accurately recorded.',
-  },
-  {
-    id: 2,
     name: 'intervieweeName',
     question:
       'Tên của người được phỏng vấn (Hình ảnh của Người lao động liên quan đến RA)? / Name of the interviewee (Picture of Workers related to RA)',
@@ -20,7 +10,7 @@ export const questions = [
       'Tên và hình ảnh của người được phỏng vấn đã được ghi nhận. / The name and picture of the interviewee have been recorded.',
   },
   {
-    id: 3,
+    id: 2,
     name: 'fpeApplication',
     question:
       'Những FPE nào sẽ được áp dụng cho nhiệm vụ? / Which FPEs shall be applied to the task?',
@@ -30,7 +20,7 @@ export const questions = [
       'Danh sách FPE được áp dụng đã được ghi nhận. / The list of applied FPEs has been recorded.',
   },
   {
-    id: 4,
+    id: 3,
     name: 'potentialRisks',
     question:
       'Những rủi ro tiềm ẩn tại nơi làm việc cụ thể này là gì? / What are the potential risks at this specific working place?',
@@ -40,7 +30,7 @@ export const questions = [
       'Danh sách rủi ro tiềm ẩn đã được ghi nhận. / The list of potential risks has been recorded.',
   },
   {
-    id: 5,
+    id: 4,
     name: 'riskControl',
     question:
       'Chúng ta kiểm soát những rủi ro tiềm ẩn này tại nơi làm việc cụ thể này như thế nào? / How do we control these potential risks at this specific working place?',
@@ -50,7 +40,7 @@ export const questions = [
       'Các biện pháp kiểm soát rủi ro đã được ghi nhận. / The risk control measures have been recorded.',
   },
   {
-    id: 6,
+    id: 5,
     name: 'raUnderstanding',
     question:
       'Họ có hiểu RA không (xác nhận của người giám sát)? / Do they understand the RA (confirm by supervisor)?',
@@ -66,31 +56,27 @@ export const detailFields = [
   { field: 'date', label: 'Ngày Date' },
   { field: 'area', label: 'Area' },
   {
-    field: 'supervisorName',
-    label: '1. Tên của người giám sát / Name of the supervisor',
-  },
-  {
     field: 'intervieweeName',
-    label: '2. Tên của người được phỏng vấn / Name of the interviewee',
+    label: '1. Tên của người được phỏng vấn / Name of the interviewee',
   },
   {
     field: 'fpeApplication',
     label:
-      '3. Những FPE nào sẽ được áp dụng cho nhiệm vụ? / Which FPEs shall be applied to the task?',
+      '2. Những FPE nào sẽ được áp dụng cho nhiệm vụ? / Which FPEs shall be applied to the task?',
   },
   {
     field: 'potentialRisks',
     label:
-      '4. Những rủi ro tiềm ẩn tại nơi làm việc cụ thể này là gì? / What are the potential risks at this specific working place?',
+      '3. Những rủi ro tiềm ẩn tại nơi làm việc cụ thể này là gì? / What are the potential risks at this specific working place?',
   },
   {
     field: 'riskControl',
     label:
-      '5. Chúng ta kiểm soát những rủi ro tiềm ẩn này tại nơi làm việc cụ thể này như thế nào? / How do we control these potential risks at this specific working place?',
+      '4. Chúng ta kiểm soát những rủi ro tiềm ẩn này tại nơi làm việc cụ thể này như thế nào? / How do we control these potential risks at this specific working place?',
   },
   {
     field: 'raUnderstanding',
-    label: '6. Họ có hiểu RA không? / Do they understand the RA?',
+    label: '5. Họ có hiểu RA không? / Do they understand the RA?',
   },
   { field: 'remark', label: 'Ghi chú Remark' },
   { field: 'url', label: '' },

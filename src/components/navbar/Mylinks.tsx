@@ -6,9 +6,11 @@ export const links = [
       {
         Head: 'Man',
         sublink: [
-          { name: 'Toolbox', link: '/Dashboard/vn/toolbox' },
-          { name: 'PRA', link: '/Dashboard/vn/pra' },
+          { name: 'Activities today', link: '/DashboardMan/vn' },
+          // { name: 'Toolbox', link: '/Dashboard/vn/toolbox' },
+          // { name: 'PRA', link: '/Dashboard/vn/pra' },
           // { name: 'Safety Alert', link: '/Dashboard/vn/alert' },
+          { name: 'Boot, RA for Email', link: '/DashboardActivityEmail/vn' },
           { name: 'Boot, RA', link: '/DashboardActivity/vn' },
           { name: 'Boot, RA by individual', link: '/DashboardActivityMan/vn' },
         ],
@@ -34,6 +36,7 @@ export const links = [
       {
         Head: 'Man',
         sublink: [
+          { name: 'Activities today', link: '/DashboardMan/lk' },
           // { name: 'Toolbox', link: '/Dashboard/vn/toolbox' },
           // { name: 'PRA', link: '/Dashboard/vn/pra' },
           // { name: 'Safety Alert', link: '/DashboardAlert/vn' },
@@ -56,6 +59,7 @@ export const links = [
       {
         Head: 'Man',
         sublink: [
+          { name: 'Activities today', link: '/DashboardMan/bd' },
           // { name: 'Toolbox', link: '/Dashboard/vn/toolbox' },
           // { name: 'PRA', link: '/Dashboard/vn/pra' },
           // { name: 'Safety Alert', link: '/DashboardAlert/vn' },
@@ -78,6 +82,7 @@ export const links = [
       {
         Head: 'Man',
         sublink: [
+          { name: 'Activities today', link: '/DashboardMan/cmic' },
           // { name: 'Toolbox', link: '/Dashboard/vn/toolbox' },
           // { name: 'PRA', link: '/Dashboard/vn/pra' },
           // { name: 'Safety Alert', link: '/DashboardAlert/vn' },
@@ -89,6 +94,24 @@ export const links = [
           { name: 'All Machine', link: '/DashboardTotal/cmic' },
           { name: 'By Owner', link: '/DashboardTotalByOwner/cmic' },
           // { name: 'Defect', link: '/DashboardDefect/cmic' },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'OFFICE',
+    submenu: true,
+    sublinks: [
+      {
+        Head: 'Man',
+        sublink: [{ name: 'TH Activities today', link: '/DashboardMan/th' }],
+      },
+      {
+        Head: 'Machine',
+        sublink: [
+          { name: 'All Machine', link: '/DashboardTotal/office' },
+          { name: 'By Owner', link: '/DashboardTotalByOwner/office' },
+          // { name: 'Defect', link: '/DashboardDefect/srb' },
         ],
       },
     ],
@@ -137,28 +160,7 @@ export const links = [
       },
     ],
   },
-  {
-    name: 'OFFICE',
-    submenu: true,
-    sublinks: [
-      {
-        Head: 'Man',
-        sublink: [
-          // { name: 'Toolbox', link: '/Dashboard/vn/toolbox' },
-          // { name: 'PRA', link: '/Dashboard/vn/pra' },
-          // { name: 'Safety Alert', link: '/DashboardAlert/vn' },
-        ],
-      },
-      {
-        Head: 'Machine',
-        sublink: [
-          { name: 'All Machine', link: '/DashboardTotal/office' },
-          { name: 'By Owner', link: '/DashboardTotalByOwner/office' },
-          // { name: 'Defect', link: '/DashboardDefect/srb' },
-        ],
-      },
-    ],
-  },
+
   {
     name: 'LBM',
     submenu: true,

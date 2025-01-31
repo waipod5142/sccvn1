@@ -25,6 +25,13 @@ export const manItemLabels: { [key: string]: string } = {
   vnRa: 'Danh sách kiểm tra đánh giá / Risk Assessmen Checklist',
   vnToolbox: 'Thảo luận an toàn / Toolbox Talk',
   vnPto: 'Quan sát công việc theo kế hoạch / Planned Task Observation',
+  thTraining: 'ประวัติการฝึกอบรม Training Course',
+  thPra: 'การประเมินความเสี่ยงส่วนบุคคล / Personal Risk Assessment',
+  thAlert: 'การแจ้งเตือนประกาศด้านความปลอดภัย / Safety Alert',
+  thBoot: 'BOOT ON THE GROUND CHECK LIST',
+  thRa: 'Risk Assessmen Checklist',
+  thToolbox: 'การพูดคุยด้านความปลอดภัย Safety / Toolbox Talk',
+  thPto: 'Planned Task Observation',
 };
 
 export const manActivities = [

@@ -171,7 +171,8 @@ const Detail = ({ bu, dataTr, man }: Man) => {
               <div
                 className={`flex justify-end ${
                   timeDifferenceInMinutes(new Date(item.date)) > 5 ||
-                  item.date === 'Invalid Date'
+                  item.date === 'Invalid Date' ||
+                  item.date === undefined
                     ? 'hidden' //hidden
                     : null
                 }`}

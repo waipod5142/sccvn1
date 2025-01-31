@@ -101,35 +101,55 @@ const Main = () => {
                 -- Select an option --
               </option>
               <option
+                value={`/Man/${bu}/Training/${id}`}
+                className="odd:bg-gray-100 even:bg-gray-200"
+              >
+                {manItemLabels[bu + 'Training'] || null}
+              </option>
+              <option
                 value={`/Man/${bu}/Toolbox/${id}`}
                 className="odd:bg-gray-100 even:bg-gray-200"
               >
-                {manItemLabels.vnToolbox}
+                {manItemLabels[bu + 'Toolbox'] || null}
               </option>
-              <option
-                value={`/Man/${bu}/Pra/${id}`}
-                className="odd:bg-gray-100 even:bg-gray-200"
-              >
-                {manItemLabels.vnPra}
-              </option>
+              {bu === 'vn' && (
+                <option
+                  value={`/Man/${bu}/Pra/${id}`}
+                  className="odd:bg-gray-100 even:bg-gray-200"
+                >
+                  {manItemLabels[bu + 'Pra'] || null}
+                </option>
+              )}
               <option
                 value={`/Man/${bu}/Alert/${id}`}
                 className="odd:bg-gray-100 even:bg-gray-200"
               >
-                {manItemLabels.vnAlert}
+                {manItemLabels[bu + 'Alert'] || null}
               </option>
-              <option
-                value={`/Man/${bu}/Boot/${id}`}
-                className="odd:bg-gray-100 even:bg-gray-200"
-              >
-                {manItemLabels.vnBoot}
-              </option>
-              <option
-                value={`/Man/${bu}/Ra/${id}`}
-                className="odd:bg-gray-100 even:bg-gray-200"
-              >
-                {manItemLabels.vnRa}
-              </option>
+              {bu === 'vn' && (
+                <option
+                  value={`/Man/${bu}/Boot/${id}`}
+                  className="odd:bg-gray-100 even:bg-gray-200"
+                >
+                  {manItemLabels[bu + 'Boot'] || null}
+                </option>
+              )}
+              {bu === 'vn' && (
+                <option
+                  value={`/Man/${bu}/Ra/${id}`}
+                  className="odd:bg-gray-100 even:bg-gray-200"
+                >
+                  {manItemLabels[bu + 'Ra'] || null}
+                </option>
+              )}
+              {bu === 'vn' && (
+                <option
+                  value={`/Man/${bu}/Pto/${id}`}
+                  className="odd:bg-gray-100 even:bg-gray-200"
+                >
+                  {manItemLabels[bu + 'Pto'] || null}
+                </option>
+              )}
             </select>
           </div>
           {/* PhotoManager to handle view, edit, and delete */}

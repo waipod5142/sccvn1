@@ -135,6 +135,12 @@ const Main = ({ bu, man, id }: Item) => {
               >
                 {manItemLabels.vnRa}
               </option>
+              <option
+                value={`/Man/${bu}/Pto/${id}`}
+                className="odd:bg-gray-100 even:bg-gray-200"
+              >
+                {manItemLabels.vnPto}
+              </option>
             </select>
           </div>
           {/* PhotoManager to handle view, edit, and delete */}

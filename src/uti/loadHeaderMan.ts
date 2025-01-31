@@ -15,6 +15,7 @@ export const loadHeader = async (bu: string | undefined | null) => {
         { field: 'status', label: 'Trạng thái / Status' },
         { field: 'company', label: 'සමාගම / Company' },
         { field: 'owner', label: 'Owner' },
+        { field: 'raName', label: 'Risk Area' },
       ];
       break;
 
@@ -153,6 +154,7 @@ export const loadHeader = async (bu: string | undefined | null) => {
     case 'th':
       headerFields = [
         { field: 'id', label: 'ID' },
+        { field: 'name', label: 'Name' },
         { field: 'type', label: 'Type' },
         { field: 'responsibility', label: 'Responsible By' },
         { field: 'registerDate', label: 'RegistrationDate' },
@@ -167,6 +169,9 @@ export const loadHeader = async (bu: string | undefined | null) => {
         { field: 'horsepower', label: 'Hose Power' },
         { field: 'expDate', label: 'Expire Date' },
         { field: 'sub_bu', label: 'Sub BU' },
+        { field: 'company', label: 'Company' },
+        { field: 'department', label: 'Department' },
+        { field: 'site', label: 'Site' },
       ];
       break;
 

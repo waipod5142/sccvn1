@@ -17,6 +17,12 @@ export const loadQuestions = async (
       return import('@/lib/dataVNra');
     case 'vn_Pto':
       return import('@/lib/dataVNpto');
+    case 'th_Alert':
+      return import('@/lib/dataTHalert');
+    case 'th_Training':
+      return import('@/lib/dataTHtraining');
+    case 'th_Toolbox':
+      return import('@/lib/dataTHtoolbox');
     default:
       throw new Error('Unknown man type');
   }

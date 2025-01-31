@@ -68,7 +68,7 @@ const Home: React.FC = () => {
 
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2 text-rose-500">
-              Dashboard Machinery Green, Yellow, Red***
+              Dashboard Machinery Green, Yellow, Red***(lightTr_all)
             </td>
             <td className="border border-gray-300 p-2 text-rose-500">
               cctvTr_all
@@ -137,7 +137,7 @@ const Home: React.FC = () => {
               All transaction to view Map and Graph
             </td>
             <td className="border border-gray-300 p-2 text-blue-500">
-              Popup list of Machines ***
+              Popup list of Machines (lightTr_one)
             </td>
             <td className="border border-gray-300 p-2 text-blue-500">
               vehicle_all
@@ -159,19 +159,15 @@ const Home: React.FC = () => {
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">backup</td>
-            <td className="border border-gray-300 p-2"></td>
+            <td className="border border-gray-300 p-2">lightTr_get</td>
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">alertTr to Excel</td>
-            <td className="border border-gray-300 p-2 text-blue-500">
-              alertTr_one
-            </td>
+            <td className="border border-gray-300 p-2">alertTr_one</td>
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">vn_boot to Excel</td>
-            <td className="border border-gray-300 p-2 text-blue-500">
-              alertTr_one
-            </td>
+            <td className="border border-gray-300 p-2">alertTr_one</td>
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">backup</td>
@@ -223,31 +219,31 @@ const Home: React.FC = () => {
           </tr>
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">
-              Activity (Boot, Ra, Alert) drill down
+              Activity (Boot, Ra, Alert) click to drill
             </td>
             <td className="border border-gray-300 p-2 text-blue-500">
               harnessTr_get
             </td>
           </tr>
-          <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">Defect summary</td>
-            <td className="border border-gray-300 p-2 text-rose-500">
-              foamTr_one
-            </td>
-          </tr>
-          <tr className="border border-gray-300">
-            <td className="border border-gray-300 p-2">Overdue summary</td>
-            <td className="border border-gray-300 p-2 text-rose-500">
-              foamTr_alert
-            </td>
-          </tr>
+
           <tr className="border border-gray-300">
             <td className="border border-gray-300 p-2">
               Boot_Ra by individual
             </td>
-            <td className="border border-gray-300 p-2">harnessTr_one</td>
+            <td className="border border-gray-300 p-2 text-blue-500">
+              harnessTr_one
+            </td>
           </tr>
-
+          <tr className="border border-gray-300">
+            <td className="border border-gray-300 p-2">Thao send e-mail</td>
+            <td className="border border-gray-300 p-2 text-blue-500">
+              foamTr_alert
+            </td>
+          </tr>
+          <tr className="border border-gray-300">
+            <td className="border border-gray-300 p-2">Defect summary</td>
+            <td className="border border-gray-300 p-2">foamTr_one</td>
+          </tr>
           <tr className="border border-gray-300">
             <td className="bg-rose-200 border border-gray-300 p-2" rowSpan={3}>
               vehicle

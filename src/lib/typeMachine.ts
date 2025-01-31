@@ -217,6 +217,11 @@ export const machineTitles: { [key: string]: string } = {
   vnslope: 'Road, Slope, Hopper',
   vnstock: 'Stockpiles',
   vnfirstaid: 'First Aid',
+  vntoolbox: 'Toolbox',
+  vnpra: 'Personal Risk Assessment',
+  vnboot: 'Boot on the ground',
+  vnra: 'Area Risk Assessment',
+  vnpto: 'Planed Task Observation',
 
   //CMIC
   cmicBulk: 'ការត្រួតពិនិត្យរថយន្តមុនពេលប្រើប្រាស់ប្រចាំថ្ងៃ',
@@ -241,60 +246,69 @@ export const machineTitles: { [key: string]: string } = {
   cmicvehicle: 'Light Vehicle',
   //BD
   bdBulk: 'Bulk Truck inspection form',
+  bdForklift: 'Forklift inspection form',
+  bdLoader: 'Loader inspection form',
   bdbulk: 'Bulk Truck',
+  bdforklift: 'Forklift',
+  bdloader: 'Loader',
+  bdharness: 'Safety Harness',
+  bdladder: 'Mobile Ladder',
 
   //LK
   lkheavy: 'Heavy Vehicle',
   lkforklift: 'Forklift',
   lkForklift: 'Forklift Inspection Form',
   lkextinguisher: 'Fire Extinguisher',
+  lkExtinguisher: 'Fire Extinguisher Inspection Form',
+  lkcar: 'Light Vehicle',
+  lkCar: 'Light Vehicle Inspection Form',
   //TH
-  thTruck: 'แบบตรวจเช็ครถบรรทุกก่อนใช้งานประจำวัน',
+  thTruck: 'แบบฟอร์มตรวจรถบรรทุกประจำวัน ของฝ่ายเหมือง 19 ข้อ (F-QD-…)',
+  thtruck: 'Truck of Quarry',
+  thTruckact:
+    'แบบฟอร์มตรวจรถบรรทุกประจำวันของรถกลุ่ม ACT Truck 23 ข้อ (F-ACT-010(01-01-2561)',
+  thtruckact: 'Truck of ACT',
+  thTruckall:
+    'แบบฟอร์ม F-TES-053 ตรวจสอบสภาพรถบรรทุกประจำวัน (All Truck 43 ข้อ)',
+  thtruckall: 'Truck',
   thCar: 'แบบตรวจเช็ครถเล็กก่อนใช้งานประจำวัน',
+  thcar: 'Car',
   thMixer: 'แบบตรวจเช็ครถโม่ก่อนใช้งาน',
+  thmixer: 'Mixer',
   thMotorbike: 'แบบตรวจเช็คมอเตอร์ไซด์ก่อนใช้งานประจำวัน',
+  thmotorbike: 'Motor Bike',
   thBulk: 'แบบตรวจเช็ครถซีเมนต์ผงก่อนใช้งานประจำวัน',
+  thbulk: 'Bulk Cement',
   thBag: 'แบบตรวจเช็ครถซีเมนต์ถุงก่อนใช้งานประจำวัน',
+  thbag: 'Bag Cement',
   thPlant: 'Daily (FM-SCCO-PROD-003 Production)',
+  thplant: 'RMX Plant',
   thAed: 'แบบตรวจเช็คเครื่อง AED ประจำเดือน',
-  thAlert: 'ยืนยันการเข้าใจ Safety Alert',
+  thaed: 'AED',
   thEmergency:
     'แบบตรวจสอบป้ายทางหนีไฟ แผนผังเส้นทางหนีไฟ และจุดรวมพล F-SFF-013 ( V. 3.0;  09-09-2564)',
+  themergency: 'Emergency Exit',
   thFireexit:
     'แบบตรวจสอบป้ายทางหนีไฟ แผนผังเส้นทางหนีไฟ และจุดรวมพล F-SFF-013 ( V. 3.0;  09-09-2564)',
-  thtruck: 'Truck',
-  thtruckact: 'ACT Truck',
-  thcar: 'Car',
-  thmixer: 'Mixer',
-  thmotorbike: 'Motor Bike',
-  thbulk: 'Bulk Cement',
-  thbag: 'Bag Cement',
-  thaed: 'AED',
-  themergency: 'Emergency Exit',
   thfireexit: 'Fire Exit',
+  thExtinguisher: 'แบบตรวจเช็คถัง Fire Extinguisher ประจำเดือน',
+  thextinguisher: 'Fire Extinguisher',
+  thWaste: 'แบบตรวจเช็ครถขนส่ง Waste ก่อนใช้งานประจำวัน',
+  thwaste: 'Waste Truck',
 
   thforklift: 'Forklift',
   thfrontend: 'Frontend Loader',
-  thextinguisher: 'Fire Extinguisher',
-  thplant: 'RMX Plant',
+  // thAlert: 'ยืนยันการเข้าใจ Safety Alert',
 };
 
-export const dailyEquipment = [
-  { id: 'Lifting' },
-  { id: 'Forklift' },
-  { id: 'Mobile' },
-  { id: 'Vehicle' },
-  //LK
-  { id: 'Heavy' },
-];
-
-export const monthlyEquipment = [
-  { id: 'Extinguisher' },
-  { id: 'Hydrant' },
-  { id: 'Foam' },
-  { id: 'Pump' },
-  { id: 'Valve' },
-];
+export const manTitles: { [key: string]: string } = {
+  toolbox: 'Toolbox',
+  pra: 'Personal Risk Assessment',
+  alert: 'Safety Alert Acknowledgement',
+  boot: 'Boot on the ground',
+  ra: 'Area Risk Assessment',
+  pto: 'Planed Task Observation',
+};
 
 export const quarterlyEquipment = [
   { id: 'Harness' },
@@ -312,51 +326,3 @@ export const quarterlyEquipment = [
   { id: 'Socket' },
   { id: 'Electric' },
 ];
-
-export const dailyMethod = [{ id: 'Permit' }];
-
-export const allEquipment = [
-  { id: 'Lifting' },
-  { id: 'Forklift' },
-  { id: 'Mobile' },
-  { id: 'Vehicle' },
-  { id: 'Extinguisher' },
-  { id: 'Hydrant' },
-  { id: 'Foam' },
-  { id: 'Pump' },
-  { id: 'Valve' },
-  { id: 'Harness' },
-  { id: 'Portable' },
-  { id: 'Lifeline' },
-  { id: 'Lifering' },
-  { id: 'Lifevest' },
-  { id: 'Welding' },
-  { id: 'Cable' },
-  { id: 'Fan' },
-  { id: 'Light' },
-  { id: 'Cctv' },
-  { id: 'Equipment' },
-  { id: 'Rescue' },
-  { id: 'Socket' },
-  { id: 'Electric' },
-  //
-  { id: 'Heavy' },
-];
-
-// export type ChoiceType = {
-//   value: string;
-//   text: string;
-//   colorClass: string;
-// };
-
-// export const choices: ChoiceType[] = [
-//   { value: 'Pass', text: 'Đã có', colorClass: 'bg-green-500' },
-//   { value: 'NotPass', text: 'Chưa có', colorClass: 'bg-rose-500' },
-//   { value: 'N/A', text: 'Không áp', colorClass: 'bg-yellow-500' },
-// ];
-
-// export const choicesLK: ChoiceType[] = [
-//   { value: 'Pass', text: 'ඇත', colorClass: 'bg-green-500' },
-//   { value: 'NotPass', text: 'නැත', colorClass: 'bg-rose-500' },
-//   { value: 'N/A', text: 'අදාල නැත', colorClass: 'bg-yellow-500' },
-// ];
