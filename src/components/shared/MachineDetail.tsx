@@ -70,6 +70,11 @@ const Detail = ({ bu, dataTr, machine }: Machine) => {
   }, [bu, machine]);
 
   const handleDeleteClick = async (id: string, item: MachineItem) => {
+    const isConfirmed = window.confirm(
+      'คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้? การดำเนินการนี้ไม่สามารถย้อนกลับได้'
+    );
+
+    if (!isConfirmed) return; // Exit if the user cancels the deletion
     try {
       // Loop through the item and delete fields ending with 'P' and handle URLs
       (Object.keys(item) as (keyof MachineItem)[]).forEach(async (key) => {
@@ -357,6 +362,19 @@ const Detail = ({ bu, dataTr, machine }: Machine) => {
                               className="pt-2"
                             />
                           </button>
+                        ) : field === 'type' ? (
+                          `${
+                            item[field as keyof MachineItem] === 'mixer'
+                              ? 'ตรวจรายวัน'
+                              : item[field as keyof MachineItem] === 'mixerweek'
+                              ? 'ตรวจรายอาทิตย์'
+                              : item[field as keyof MachineItem] ===
+                                'mixertrainer'
+                              ? 'ตรวจโดย Driver Trainer'
+                              : item[field as keyof MachineItem] === 'mixertsm'
+                              ? 'ตรวจโดย ผจส TSM '
+                              : item[field as keyof MachineItem]
+                          }`
                         ) : (
                           `${item[field as keyof MachineItem]}`
                         )}

@@ -110,6 +110,108 @@ const Main = () => {
               </span>
             </h1>
           )}
+          {bu === 'srb' &&
+            (machine === 'Truck' ||
+              machine === 'Truckall' ||
+              machine === 'Truckact') && (
+              <div className="px-4 py-4 bg-white rounded-md">
+                <label
+                  htmlFor="machine-select"
+                  className="block text-lg font-semibold text-gray-700 mb-2"
+                >
+                  เลือกแบบฟอร์มการตรวจ:
+                </label>
+                <select
+                  id="man-select"
+                  className="block w-full p-3 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  onChange={(e) => (window.location.href = e.target.value)}
+                >
+                  <option value="" className="text-gray-500">
+                    -- ตัวเลือกทั้งหมด --
+                  </option>
+                  <option
+                    value={`/Machine/${bu}/Truckall/${id}`}
+                    className="odd:bg-gray-100 even:bg-gray-200"
+                  >
+                    แบบฟอร์ม F-TES-053 ตรวจสอบสภาพรถบรรทุกประจำวัน (All Truck 43
+                    ข้อ)
+                  </option>
+                  <option
+                    value={`/Machine/${bu}/Truck/${id}`}
+                    className="odd:bg-gray-100 even:bg-gray-200"
+                  >
+                    แบบฟอร์มตรวจรถบรรทุกประจำวัน ของฝ่ายเหมือง (เท่านั้น)
+                    อ้างอิงจาก(F-QD-…) เปลี่ยนเป็น 29ข้อ
+                  </option>
+                  <option
+                    value={`/Machine/${bu}/Truckact/${id}`}
+                    className="odd:bg-gray-100 even:bg-gray-200"
+                  >
+                    แบบฟอร์มตรวจรถบรรทุกประจำวันของรถกลุ่ม ACT Truck 23 ข้อ
+                    (F-ACT-010(01-01-2561)
+                  </option>
+                </select>
+              </div>
+            )}
+          {bu === 'rmx' &&
+            (machine === 'Mixer' ||
+              machine === 'Mixerweek' ||
+              machine === 'Mixertrainer' ||
+              machine === 'Mixertsm') && (
+              <div className="px-4 py-4 bg-white rounded-md">
+                <label
+                  htmlFor="machine-select"
+                  className="block text-lg font-semibold text-gray-700 mb-2"
+                >
+                  เลือกแบบฟอร์มการตรวจ:
+                </label>
+                <select
+                  id="man-select"
+                  className="block w-full p-3 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  onChange={(e) => {
+                    const selectedValue = e.target.value;
+                    if (selectedValue.includes('Mixertrainer')) {
+                      const passcode = prompt('กรุณาใส่ Passcode:');
+                      if (passcode === '456789') {
+                        window.location.href = selectedValue;
+                      } else {
+                        alert('รหัสผิด กรุณาใส่ใหม่');
+                      }
+                    } else {
+                      window.location.href = selectedValue;
+                    }
+                  }}
+                >
+                  <option value="" className="text-gray-500">
+                    -- ตัวเลือกทั้งหมด --
+                  </option>
+                  <option
+                    value={`/Machine/${bu}/Mixer/${id}`}
+                    className="odd:bg-gray-100 even:bg-gray-200"
+                  >
+                    แบบตรวจเช็ครถโม่ก่อนใช้งานประจำวัน
+                  </option>
+                  <option
+                    value={`/Machine/${bu}/Mixerweek/${id}`}
+                    className="odd:bg-gray-100 even:bg-gray-200"
+                  >
+                    แบบตรวจเช็ครถโม่ก่อนใช้งานประจำสัปดาห์
+                  </option>
+                  <option
+                    value={`/Machine/${bu}/Mixertrainer/${id}`}
+                    className="odd:bg-gray-100 even:bg-gray-200"
+                  >
+                    แบบตรวจเช็ครถโม่สำหรับครูฝึกอบรม SCCO
+                  </option>
+                  <option
+                    value={`/Machine/${bu}/Mixertsm/${id}`}
+                    className="odd:bg-gray-100 even:bg-gray-200"
+                  >
+                    แบบตรวจเช็ครถโม่สำหรับ TSM ของ ผจส
+                  </option>
+                </select>
+              </div>
+            )}
           {data && <MachineHeader bu={bu} data={data} machine={machine} />}
           <br />
           {data && (

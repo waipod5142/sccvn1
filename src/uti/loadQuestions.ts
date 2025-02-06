@@ -92,6 +92,8 @@ export const loadQuestions = async (
       return import('@/lib/dataCMICvehicle');
     case 'cmic_Dump':
       return import('@/lib/dataCMICdump');
+    case 'cmic_Excavator':
+      return import('@/lib/dataCMICexcavator');
     //TH
     case 'th_Extinguisher':
       return import('@/lib/dataTHextinguisher');
@@ -115,6 +117,10 @@ export const loadQuestions = async (
       return import('@/lib/dataTHmixer');
     case 'th_Mixerweek':
       return import('@/lib/dataTHmixerweek');
+    case 'th_Mixertrainer':
+      return import('@/lib/dataTHmixertrainer');
+    case 'th_Mixertsm':
+      return import('@/lib/dataTHmixertsm');
     case 'th_Plant':
       return import('@/lib/dataTHplant');
     case 'th_Bulk':
@@ -129,9 +135,10 @@ export const loadQuestions = async (
       return import('@/lib/dataTHfireexit');
     case 'th_Waste':
       return import('@/lib/dataTHwaste');
-    //SRB
-    case 'srb_Truck':
-      return import('@/lib/dataSRBtruck');
+    case 'th_Crane':
+      return import('@/lib/dataTHcrane');
+    case 'th_Equipment':
+      return import('@/lib/dataTHequipment');
     default:
       throw new Error('Unknown machine type');
   }

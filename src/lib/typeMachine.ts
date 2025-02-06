@@ -263,7 +263,8 @@ export const machineTitles: { [key: string]: string } = {
   lkcar: 'Light Vehicle',
   lkCar: 'Light Vehicle Inspection Form',
   //TH
-  thTruck: 'แบบฟอร์มตรวจรถบรรทุกประจำวัน ของฝ่ายเหมือง 19 ข้อ (F-QD-…)',
+  thTruck:
+    'แบบฟอร์มตรวจรถบรรทุกประจำวัน ของฝ่ายเหมือง (เท่านั้น) อ้างอิงจาก(F-QD-…) เปลี่ยนเป็น 29ข้อ',
   thtruck: 'Truck of Quarry',
   thTruckact:
     'แบบฟอร์มตรวจรถบรรทุกประจำวันของรถกลุ่ม ACT Truck 23 ข้อ (F-ACT-010(01-01-2561)',
@@ -271,9 +272,17 @@ export const machineTitles: { [key: string]: string } = {
   thTruckall:
     'แบบฟอร์ม F-TES-053 ตรวจสอบสภาพรถบรรทุกประจำวัน (All Truck 43 ข้อ)',
   thtruckall: 'Truck',
+  thCrane: 'แบบตรวจสภาพความพร้อมรอก/เครนก่อนการใช้งานประจำวัน',
+  thcrane: 'Crane',
+  thEquipment:
+    'แบบตรวจสภาพความของเครืองมือ/อุปกรณ์ที่สามารถเคลื่อนย้ายได้  ก่อนการใช้งาน',
+  thequipment: 'Equipment',
   thCar: 'แบบตรวจเช็ครถเล็กก่อนใช้งานประจำวัน',
   thcar: 'Car',
-  thMixer: 'แบบตรวจเช็ครถโม่ก่อนใช้งาน',
+  thMixer: 'แบบตรวจเช็ครถโม่ก่อนใช้งานประจำวัน',
+  thMixerweek: 'แบบตรวจเช็ครถโม่ก่อนใช้งานประจำสัปดาห์',
+  thMixertrainer: 'แบบตรวจเช็ครถโม่สำหรับครูฝึกอบรม',
+  thMixertsm: 'แบบตรวจเช็ครถโม่สำหรับ TSM ของ ผจส',
   thmixer: 'Mixer',
   thMotorbike: 'แบบตรวจเช็คมอเตอร์ไซด์ก่อนใช้งานประจำวัน',
   thmotorbike: 'Motor Bike',
@@ -295,6 +304,8 @@ export const machineTitles: { [key: string]: string } = {
   thextinguisher: 'Fire Extinguisher',
   thWaste: 'แบบตรวจเช็ครถขนส่ง Waste ก่อนใช้งานประจำวัน',
   thwaste: 'Waste Truck',
+  thHarness: 'แบบตรวจสายรัดตัวก่อนใช้งานประจำเดือน',
+  thharness: 'Safety Harness',
 
   thforklift: 'Forklift',
   thfrontend: 'Frontend Loader',

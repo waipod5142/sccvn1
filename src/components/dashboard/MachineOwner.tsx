@@ -226,6 +226,14 @@ const DataTable: React.FC = () => {
     return videoExtensions.some((ext) => fileName.toLowerCase().endsWith(ext)); // Check the file extension
   };
 
+  // State for search term
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // Filter vehicleData by vehicle ID
+  const filteredVehicleData = vehicleData.filter((vehicle) =>
+    vehicle.id.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   // Loading state
   if (loading) {
     return (
@@ -656,9 +664,17 @@ const DataTable: React.FC = () => {
             ) : (
               <p className="text-rose-500">No inspection data available</p>
             )}
+            {/* Search Box to Filter Vehicles */}
+            <input
+              type="text"
+              placeholder="Search by Vehicle ID..."
+              className="w-full p-2 border border-gray-300 rounded mb-4"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
             {/* Modal display Total and Inspected Vehicles for the selected site and type */}
             <ModalContent
-              vehicleData={vehicleData}
+              vehicleData={filteredVehicleData}
               toggleTransactions={toggleTransactions}
               showAllTransactions={showAllTransactions}
               openMachineModal={openMachineModal}

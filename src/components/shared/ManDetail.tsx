@@ -46,6 +46,11 @@ const Detail = ({ bu, dataTr, man }: Man) => {
   }, [bu, man]);
 
   const handleDeleteClick = async (id: string, item: ManItem) => {
+    const isConfirmed = window.confirm(
+      'คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้? การดำเนินการนี้ไม่สามารถย้อนกลับได้'
+    );
+
+    if (!isConfirmed) return; // Exit if the user cancels the deletion
     try {
       // Loop through the item and delete fields ending with 'P' and handle URLs
       (Object.keys(item) as (keyof ManItem)[]).forEach(async (key) => {

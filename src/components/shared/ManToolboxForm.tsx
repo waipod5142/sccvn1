@@ -5,7 +5,6 @@ import Loader from './Loader';
 import axios from 'axios';
 import useStorage from '@/hooks/useStorage';
 import { useParams } from 'react-router-dom';
-import useGeoLocation from '@/uti/useGeoLocation';
 import { Camera } from 'lucide-react';
 import { staffId, remark, picture, submit } from '@/lib/translation';
 import { manItemLabels } from '@/lib/typeMan';
@@ -30,8 +29,6 @@ export default function Filling() {
   const [fileSelected, setFileSelected] = useState<boolean>(false);
   // const [questions, setQuestions] = useState<QuestionType[]>([]);
 
-  const location = useGeoLocation();
-
   useEffect(() => {
     if (url) {
       setUploadURL(url);
@@ -48,8 +45,6 @@ export default function Filling() {
       id: formData.id.replace(/[/\s]/g, '-'),
       type: 'toolbox',
       url: uploadURL,
-      lat: location.coordinates.lat,
-      lng: location.coordinates.lng,
     };
 
     try {
@@ -104,132 +99,127 @@ export default function Filling() {
   };
 
   return (
-    location.loaded &&
-    !location.error && (
-      <section className="md:px-4 p-4">
-        <div className="text-center relative">
-          <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-slate-200 via-slate-500 to-slate-200 transform -translate-y-1/2 z-0"></div>
-          <h1 className="text-lg bg-white text-slate-900 relative z-10 py-2 px-4 rounded-lg inline">
-            {manItemLabels[bu + 'Toolbox'] || null}
-          </h1>
-        </div>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-y-2 md:px-4"
-        >
-          {/* Staff ID Section */}
-          <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
-            <div className="text-2xl text-slate-900 px-4">
-              {(bu && staffId[bu]) || null} Staff ID
-            </div>
-            <input
-              {...register('id', { required: 'Staff ID is required' })}
-              type="text"
-              placeholder="Staff ID"
-              className="mx-4 px-4 py-2 rounded"
-            />
-            {errors.id && (
-              <p className="text-red-500">{`${errors.id?.message}`}</p>
-            )}
+    <section className="md:px-4 p-4">
+      <div className="text-center relative">
+        <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-slate-200 via-slate-500 to-slate-200 transform -translate-y-1/2 z-0"></div>
+        <h1 className="text-lg bg-white text-slate-900 relative z-10 py-2 px-4 rounded-lg inline">
+          {manItemLabels[bu + 'Toolbox'] || null}
+        </h1>
+      </div>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-y-2 md:px-4"
+      >
+        {/* Staff ID Section */}
+        <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
+          <div className="text-2xl text-slate-900 px-4">
+            {(bu && staffId[bu]) || null} Staff ID
           </div>
-          <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
-            <div className="text-2xl text-slate-900 px-4">
-              Người trình bày / Presenter
-            </div>
-            <input
-              {...register('presenter', {
-                required: 'Vui lòng nhập người trình bày',
-              })}
-              type="text"
-              placeholder="Người trình bày / Presenter"
-              className="mx-4 px-4 py-2 rounded"
-            />
-            {errors.presenter && (
-              <p className="text-red-500">{`${errors.presenter?.message}`}</p>
-            )}
-          </div>
-          <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
-            <div className="text-2xl text-slate-900 px-4">
-              Chủ đề thảo luận / Subject of Toolbox Talk
-            </div>
-            <input
-              {...register('subject', {
-                required: 'Vui lòng nhập chủ đề thảo luận',
-              })}
-              type="text"
-              placeholder="Chủ đề thảo luận / Subject of Toolbox Talk"
-              className="mx-4 px-4 py-2 rounded"
-            />
-            {errors.subject && (
-              <p className="text-red-500">{`${errors.subject?.message}`}</p>
-            )}
-          </div>
-          <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
-            <div className="text-2xl text-slate-900 px-4">
-              Bài học kinh nghiệm / Lesson learn
-            </div>
-            <input
-              {...register('learn', {
-                required: 'Vui lòng nhập bài học kinh nghiệm',
-              })}
-              type="text"
-              placeholder="Bài học kinh nghiệm / Lesson learn"
-              className="mx-4 px-4 py-2 rounded"
-            />
-            {errors.learn && (
-              <p className="text-red-500">{`${errors.learn?.message}`}</p>
-            )}
-          </div>
-
-          <div className="py-2 rounded-lg bg-purple-100 w-full">
-            <div className="text-2xl text-slate-900 px-4">
-              {(bu && picture[bu]) || null} Attach Image (Optional)
-            </div>
-            <label className="flex items-center bg-blue-500 text-white px-3 py-2 rounded-md shadow-xl cursor-pointer mt-4 ml-2 max-w-fit">
-              <Camera className="mr-2" size={24} />
-              <input
-                {...register('file')}
-                type="file"
-                placeholder="url of image"
-                // className="hidden"
-                onChange={handleFileChange}
-              />
-            </label>
-            {Boolean(progress) && !url && (
-              <progress value={progress} max="100" />
-            )}
-            {errors.file && (
-              <p className="text-rose-500">{`${errors.file?.message}`}</p>
-            )}
-          </div>
-          <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
-            <div className="text-2xl text-slate-900 px-4">
-              {(bu && remark[bu]) || null} Remark (Optional)
-            </div>
-            <input
-              {...register('remark')}
-              type="text"
-              placeholder="Ghi chú (Tùy chọn) Remark (Optional)"
-              className="mx-4 px-4 py-2 rounded"
-            />
-            {errors.remark && (
-              <p className="text-red-500">{`${errors.remark?.message}`}</p>
-            )}
-          </div>
-
-          <button
-            disabled={isSubmitting || (fileSelected && isUploading)}
-            type="submit"
-            className="bg-purple-500 text-white shadow-xl hover:shadow-2xl hover:bg-purple-700 rounded-full py-2 disabled:bg-gray-500 w-auto"
-          >
-            {isSubmitting && <Loader />}
-            {(bu && submit[bu]) || null} / Submit
-          </button>
-          {uploadURL && (
-            <p className="text-green-500 mt-2">Image uploaded successfully!</p>
+          <input
+            {...register('id', { required: 'Staff ID is required' })}
+            type="text"
+            placeholder="Staff ID"
+            className="mx-4 px-4 py-2 rounded"
+          />
+          {errors.id && (
+            <p className="text-red-500">{`${errors.id?.message}`}</p>
           )}
-        </form>
-      </section>
-    )
+        </div>
+        <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
+          <div className="text-2xl text-slate-900 px-4">
+            Người trình bày / Presenter
+          </div>
+          <input
+            {...register('presenter', {
+              required: 'Vui lòng nhập người trình bày',
+            })}
+            type="text"
+            placeholder="Người trình bày / Presenter"
+            className="mx-4 px-4 py-2 rounded"
+          />
+          {errors.presenter && (
+            <p className="text-red-500">{`${errors.presenter?.message}`}</p>
+          )}
+        </div>
+        <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
+          <div className="text-2xl text-slate-900 px-4">
+            Chủ đề thảo luận / Subject of Toolbox Talk
+          </div>
+          <input
+            {...register('subject', {
+              required: 'Vui lòng nhập chủ đề thảo luận',
+            })}
+            type="text"
+            placeholder="Chủ đề thảo luận / Subject of Toolbox Talk"
+            className="mx-4 px-4 py-2 rounded"
+          />
+          {errors.subject && (
+            <p className="text-red-500">{`${errors.subject?.message}`}</p>
+          )}
+        </div>
+        <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
+          <div className="text-2xl text-slate-900 px-4">
+            Bài học kinh nghiệm / Lesson learn
+          </div>
+          <input
+            {...register('learn', {
+              required: 'Vui lòng nhập bài học kinh nghiệm',
+            })}
+            type="text"
+            placeholder="Bài học kinh nghiệm / Lesson learn"
+            className="mx-4 px-4 py-2 rounded"
+          />
+          {errors.learn && (
+            <p className="text-red-500">{`${errors.learn?.message}`}</p>
+          )}
+        </div>
+
+        <div className="py-2 rounded-lg bg-purple-100 w-full">
+          <div className="text-2xl text-slate-900 px-4">
+            {(bu && picture[bu]) || null} Attach Image (Optional)
+          </div>
+          <label className="flex items-center bg-blue-500 text-white px-3 py-2 rounded-md shadow-xl cursor-pointer mt-4 ml-2 max-w-fit">
+            <Camera className="mr-2" size={24} />
+            <input
+              {...register('file')}
+              type="file"
+              placeholder="url of image"
+              // className="hidden"
+              onChange={handleFileChange}
+            />
+          </label>
+          {Boolean(progress) && !url && <progress value={progress} max="100" />}
+          {errors.file && (
+            <p className="text-rose-500">{`${errors.file?.message}`}</p>
+          )}
+        </div>
+        <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
+          <div className="text-2xl text-slate-900 px-4">
+            {(bu && remark[bu]) || null} Remark (Optional)
+          </div>
+          <input
+            {...register('remark')}
+            type="text"
+            placeholder="Ghi chú (Tùy chọn) Remark (Optional)"
+            className="mx-4 px-4 py-2 rounded"
+          />
+          {errors.remark && (
+            <p className="text-red-500">{`${errors.remark?.message}`}</p>
+          )}
+        </div>
+
+        <button
+          disabled={isSubmitting || (fileSelected && isUploading)}
+          type="submit"
+          className="bg-purple-500 text-white shadow-xl hover:shadow-2xl hover:bg-purple-700 rounded-full py-2 disabled:bg-gray-500 w-auto"
+        >
+          {isSubmitting && <Loader />}
+          {(bu && submit[bu]) || null} / Submit
+        </button>
+        {uploadURL && (
+          <p className="text-green-500 mt-2">Image uploaded successfully!</p>
+        )}
+      </form>
+    </section>
   );
 }

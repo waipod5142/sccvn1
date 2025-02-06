@@ -260,6 +260,7 @@ export const links = [
           { name: 'THIV', link: '/Induction/THIV' },
           { name: 'CATL', link: '/Induction/CATL' },
           { name: 'HO', link: '/Induction/vn/HO' },
+          { name: 'Hiep Phuoc', link: '/Induction/vn/HIEP' },
           { name: 'Machine', link: '/DashboardTotalAll' },
         ],
       },

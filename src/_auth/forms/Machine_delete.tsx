@@ -67,6 +67,41 @@ const Main = () => {
         </div>
       ) : (
         <>
+          <div className="px-4 py-4 bg-white rounded-md">
+            <label
+              htmlFor="machine-select"
+              className="block text-lg font-semibold text-gray-700 mb-2"
+            >
+              Select Form:
+            </label>
+            <select
+              id="man-select"
+              className="block w-full p-3 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              onChange={(e) => (window.location.href = e.target.value)}
+            >
+              <option value="" className="text-gray-500">
+                -- Select an option --
+              </option>
+              <option
+                value={`/Machine/${bu}/Mixer/${id}`}
+                className="odd:bg-gray-100 even:bg-gray-200"
+              >
+                แบบตรวจเช็ครถโม่ก่อนใช้งาน...ประจำวัน
+              </option>
+              <option
+                value={`/Machine/${bu}/Mixerweek/${id}`}
+                className="odd:bg-gray-100 even:bg-gray-200"
+              >
+                แบบตรวจเช็ครถโม่ก่อนใช้งาน...ประจำสัปดาห์
+              </option>
+              <option
+                value={`/Machine/${bu}/Mixertrainer/${id}`}
+                className="odd:bg-gray-100 even:bg-gray-200"
+              >
+                แบบตรวจเช็ครถโม่กสำหรับครูฝึกอบรม
+              </option>
+            </select>
+          </div>
           {data && <MachineHeader bu={bu} data={data} machine={machine} />}
           <br />
           {data && (

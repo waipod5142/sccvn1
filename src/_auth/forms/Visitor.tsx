@@ -91,6 +91,16 @@ const SafetyInductionPage: React.FC = () => {
             type: 'video', // Explicitly set the type to 'video'
           },
         ]
+      : site === 'HIEP'
+      ? [
+          {
+            id: 1,
+            title: 'Hiep Phuoc Safety Induction Video',
+            description: 'Click to view Video',
+            url: 'https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FHi%E1%BB%87p%20Ph%C6%B0%E1%BB%9Bc%201205%20-%20Voice%20Over_mp4.mp4?alt=media&token=6d6a55e6-de9b-4b79-8627-28fb4b8035f2',
+            type: 'video', // Explicitly set the type to 'video'
+          },
+        ]
       : [];
 
   // Function to handle card click

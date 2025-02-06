@@ -142,49 +142,6 @@ const Header = ({ bu, data, machine }: HeaderComponentProps) => {
             excavate: true,
           }}
         />
-        {bu === 'srb' &&
-          (machine === 'Truck' || machine === 'Truckact') &&
-          data.id.substring(0, 6) === 'QUARRY' && (
-            <Link
-              to={`/Machine/${bu}/Truckall/${data.id}`}
-              className="mt-4 px-4 py-2 shadow-xl bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all hover:-translate-y-1 hover:scale-105"
-            >
-              แบบฟอร์ม F-TES-053 ตรวจสอบสภาพรถบรรทุกประจำวัน (All Truck 43 ข้อ)
-            </Link>
-          )}
-        {bu === 'srb' &&
-          machine === 'Truckall' &&
-          data.id.substring(0, 9) !== 'QUARRY-MT' &&
-          data.id.substring(0, 8) !== 'QUARRY-T' &&
-          data.id.substring(0, 8) !== 'QUARRY-E' && (
-            <Link
-              to={`/Machine/${bu}/Truck/${data.id}`}
-              className="mt-4 px-4 py-2 shadow-xl bg-rose-600 text-white rounded-md hover:bg-rose-700 transition-all hover:-translate-y-1 hover:scale-105"
-            >
-              แบบฟอร์มตรวจรถบรรทุกประจำวัน ของฝ่ายเหมือง 19 ข้อ (F-QD-…)
-            </Link>
-          )}
-        {bu === 'srb' &&
-          machine === 'Truckall' &&
-          (data.id.substring(0, 9) === 'QUARRY-MT' ||
-            data.id.substring(0, 8) === 'QUARRY-T' ||
-            data.id.substring(0, 8) === 'QUARRY-E') && (
-            <Link
-              to={`/Machine/${bu}/Truckact/${data.id}`}
-              className="mt-4 px-4 py-2 shadow-xl bg-rose-600 text-white rounded-md hover:bg-rose-700 transition-all hover:-translate-y-1 hover:scale-105"
-            >
-              แบบฟอร์มตรวจรถบรรทุกประจำวันของรถกลุ่ม ACT Truck 23 ข้อ
-              (F-ACT-010(01-01-2561)
-            </Link>
-          )}
-        {bu === 'rmx' && machine === 'Mixer' && (
-          <Link
-            to={`/Machine/${bu}/Mixerweek/${data.id}`}
-            className="mt-4 px-4 py-2 shadow-xl bg-rose-600 text-white rounded-md hover:bg-rose-700 transition-all hover:-translate-y-1 hover:scale-105"
-          >
-            แบบตรวจเช็ครถก่อนใช้งานประจำสัปดาห์
-          </Link>
-        )}
       </div>
     </div>
   );

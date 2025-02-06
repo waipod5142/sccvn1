@@ -2,7 +2,6 @@ import { http } from '@/lib/http';
 import { useForm, type FieldValues } from 'react-hook-form';
 import Loader from './Loader';
 import axios from 'axios';
-import useGeoLocation from '@/uti/useGeoLocation';
 import {
   controlsQuestions,
   personalsQuestions,
@@ -27,8 +26,6 @@ export default function PersonalRiskAssessmentForm({
     reset,
   } = useForm();
 
-  const location = useGeoLocation();
-
   const onSubmit = async (formData: FieldValues) => {
     window.scrollTo(0, 0);
     const updatedData = {
@@ -36,8 +33,6 @@ export default function PersonalRiskAssessmentForm({
       bu,
       id,
       type: man.toLowerCase(),
-      lat: location.coordinates.lat,
-      lng: location.coordinates.lng,
     };
 
     try {

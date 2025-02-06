@@ -189,7 +189,8 @@ const Filling: React.FC<FillingProps> = ({
   };
 
   return (
-    (machine === 'Car' || (location.loaded && !location.error)) && (
+    location.loaded &&
+    !location.error && (
       <section className="md:px-4 pb-4">
         <div className="text-center relative">
           <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-slate-200 via-slate-500 to-slate-200 transform -translate-y-1/2 z-0"></div>
