@@ -71,7 +71,7 @@ const Detail = ({ bu, dataTr, machine }: Machine) => {
 
   const handleDeleteClick = async (id: string, item: MachineItem) => {
     const isConfirmed = window.confirm(
-      'คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้? การดำเนินการนี้ไม่สามารถย้อนกลับได้'
+      'Are you sure you want to delete this item? This action cannot be undone'
     );
 
     if (!isConfirmed) return; // Exit if the user cancels the deletion
@@ -309,7 +309,7 @@ const Detail = ({ bu, dataTr, machine }: Machine) => {
                             </video>
                           ) : (
                             <figure
-                              className={`w-full md:w-1/2 md:h-1/2 lg:w-1/4 lg:h-1/4 cursor-pointer mt-2 ml-2 ${
+                              className={`w-full md:w-1/2 md:h-1/2 lg:w-1/4 lg:h-1/4 cursor-pointer mb-2 ml-2 ${
                                 /P$/.test(field) && 'border-4 border-rose-500'
                               } ${
                                 /F$/.test(field) && 'border-4 border-green-500'
@@ -372,7 +372,10 @@ const Detail = ({ bu, dataTr, machine }: Machine) => {
                                 'mixertrainer'
                               ? 'ตรวจโดย Driver Trainer'
                               : item[field as keyof MachineItem] === 'mixertsm'
-                              ? 'ตรวจโดย ผจส TSM '
+                              ? 'ตรวจโดย ผจส TSM'
+                              : item[field as keyof MachineItem] ===
+                                'mixerphoto'
+                              ? 'รูปถ่ายรถโม่'
                               : item[field as keyof MachineItem]
                           }`
                         ) : (

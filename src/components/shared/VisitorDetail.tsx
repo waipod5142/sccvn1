@@ -44,6 +44,11 @@ const MachineDetail: React.FC<FillingProps> = ({ site }) => {
   }, [site]); // Add 'site' as a dependency to refetch data when 'site' changes
 
   const handleDeleteClick = async (id: string) => {
+    const isConfirmed = window.confirm(
+      'Are you sure you want to delete this item? This action cannot be undone'
+    );
+
+    if (!isConfirmed) return; // Exit if the user cancels the deletion
     try {
       const res = await axios.delete(`${http}visitorTr_delete?id=${id}`, {
         headers: {
@@ -62,7 +67,7 @@ const MachineDetail: React.FC<FillingProps> = ({ site }) => {
   };
 
   return (
-    <div className="my-4 w-full max-w-4xl bg-gray-100 p-4 rounded-lg shadow-md">
+    <div className="my-4 w-full bg-gray-100 p-4 rounded-lg shadow-md">
       <h2 className="text-xl font-semibold mb-2">Today Visitor Data:</h2>
       {dataTr.length > 0 ? (
         <DataTable columns={columns(handleDeleteClick)} data={dataTr} />

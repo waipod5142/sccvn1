@@ -283,6 +283,7 @@ export const machineTitles: { [key: string]: string } = {
   thMixerweek: 'แบบตรวจเช็ครถโม่ก่อนใช้งานประจำสัปดาห์',
   thMixertrainer: 'แบบตรวจเช็ครถโม่สำหรับครูฝึกอบรม',
   thMixertsm: 'แบบตรวจเช็ครถโม่สำหรับ TSM ของ ผจส',
+  thMixerphoto: 'แบบตรวจถ่ายรูปรถโม่',
   thmixer: 'Mixer',
   thMotorbike: 'แบบตรวจเช็คมอเตอร์ไซด์ก่อนใช้งานประจำวัน',
   thmotorbike: 'Motor Bike',

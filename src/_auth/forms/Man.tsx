@@ -4,11 +4,12 @@ import axios from 'axios';
 import { http } from '@/lib/http';
 import { useParams } from 'react-router-dom';
 import ManHeader from '@/components/shared/ManHeader';
+import ManToken from '@/components/shared/ManToken';
 import ManDetail from '@/components/shared/ManDetail';
 import ManForm from '@/components/shared/ManForm';
 import ManFormPra from '@/components/shared/ManFormPra';
 import { Man, manItemLabels } from '@/lib/typeMan';
-import ManPhotoManager from '@/components/shared/ManPhotoManager';
+// import ManPhotoManager from '@/components/shared/ManPhotoManager';
 
 const getDetail = async (
   bu: string | undefined,
@@ -37,6 +38,7 @@ const getDetail = async (
     return null;
   }
 };
+
 const Main = () => {
   const { man, id, bu } = useParams();
   const [data, setData] = useState<Man | null>(null);
@@ -100,6 +102,14 @@ const Main = () => {
               <option value="" className="text-gray-500">
                 -- Select an option --
               </option>
+              {bu === 'th' && (
+                <option
+                  value={`/Man/${bu}/Coupon/${id}`}
+                  className="odd:bg-gray-100 even:bg-gray-200"
+                >
+                  {manItemLabels[bu + 'Coupon'] || null}
+                </option>
+              )}
               <option
                 value={`/Man/${bu}/Training/${id}`}
                 className="odd:bg-gray-100 even:bg-gray-200"
@@ -153,13 +163,14 @@ const Main = () => {
             </select>
           </div>
           {/* PhotoManager to handle view, edit, and delete */}
+          {man === 'Coupon' && <ManToken bu={bu} data={data} man={man} />}
           {data && <ManHeader bu={bu} data={data} man={man} />}
-          <ManPhotoManager
+          {/* <ManPhotoManager
             id={id}
             fetchUrl={`${http}`}
             updateUrl={`${http}photoTr_post`}
             deleteUrl={`${http}photoTr_delete`}
-          />
+          /> */}
           <br />
           {data && <ManDetail bu={bu} dataTr={data.trans || []} man={man} />}
           {man === 'Toolbox' && <ManForm bu={bu} id={id} man={man} />}

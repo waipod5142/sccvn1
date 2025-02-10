@@ -121,6 +121,8 @@ export const loadQuestions = async (
       return import('@/lib/dataTHmixertrainer');
     case 'th_Mixertsm':
       return import('@/lib/dataTHmixertsm');
+    case 'th_Mixerphoto':
+      return import('@/lib/dataTHmixerphoto');
     case 'th_Plant':
       return import('@/lib/dataTHplant');
     case 'th_Bulk':

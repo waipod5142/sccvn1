@@ -74,7 +74,9 @@ const Filling: React.FC<FillingProps> = ({
   const [fileUrls, setFileUrls] = useState<{ [key: string]: string | null }>(
     {}
   );
-  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [isUploading, setIsUploading] = useState<{ [key: string]: boolean }>(
+    {}
+  );
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -173,17 +175,20 @@ const Filling: React.FC<FillingProps> = ({
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
       try {
-        setIsUploading(true);
+        setIsUploading((prev) => ({ ...prev, [questionName]: true }));
+
         const uploadUrl = await startUpload(selectedFile);
+
         setFileUrls((prev) => {
           const newKey =
             questionName === 'url' ? questionName : questionName + 'P';
           return { ...prev, [newKey]: uploadUrl };
         });
-        setIsUploading(false);
+
+        setIsUploading((prev) => ({ ...prev, [questionName]: false }));
       } catch (error) {
         console.error('Upload error:', error);
-        setIsUploading(false);
+        setIsUploading((prev) => ({ ...prev, [questionName]: false }));
       }
     }
   };
@@ -515,8 +520,20 @@ const Filling: React.FC<FillingProps> = ({
                           onChange={(e) => handleFileChange(e, question.name)}
                         />
                       </label>
-                      {isUploading && Boolean(progress) && (
-                        <progress value={progress} max="100" />
+                      {isUploading[question.name] && Boolean(progress) && (
+                        <div className="relative w-full max-w-xs mx-2 mt-2">
+                          <div className="h-4 bg-gray-200 rounded-full overflow-hidden">
+                            <div
+                              className="h-full bg-rose-500 transition-all duration-500 ease-in-out"
+                              style={{
+                                width: `${progress}%`,
+                              }}
+                            ></div>
+                          </div>
+                          <span className="absolute inset-0 flex justify-center items-center text-xs font-semibold text-gray-800">
+                            {progress.toFixed(0)}%
+                          </span>
+                        </div>
                       )}
                     </div>
                   )}
@@ -554,8 +571,21 @@ const Filling: React.FC<FillingProps> = ({
                 onChange={(e) => handleFileChange(e, 'url')}
               />
             </label>
-            {isUploading && Boolean(progress) && (
+            {/* {isUploading && Boolean(progress) && (
               <progress value={progress} max="100" />
+            )} */}
+            {isUploading['url'] && Boolean(progress) && (
+              <div className="relative w-full max-w-xs mx-2 mt-2">
+                <div className="h-4 bg-gray-200 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-blue-500 transition-all duration-500 ease-in-out"
+                    style={{ width: `${progress}%` }}
+                  ></div>
+                </div>
+                <span className="absolute inset-0 flex justify-center items-center text-xs font-semibold text-gray-800">
+                  {progress.toFixed(0)}%
+                </span>
+              </div>
             )}
             {errors.file && (
               <p className="text-rose-500">{`${errors.file?.message}`}</p>
@@ -584,7 +614,10 @@ const Filling: React.FC<FillingProps> = ({
           </div>
 
           <button
-            disabled={isSubmitting || isUploading}
+            disabled={
+              isSubmitting ||
+              Object.values(isUploading).some((uploading) => uploading)
+            }
             type="submit"
             className="bg-purple-500 text-white shadow-xl hover:shadow-2xl hover:bg-purple-700 rounded-full py-2 disabled:bg-gray-500 w-auto"
           >

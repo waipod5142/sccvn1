@@ -3,6 +3,7 @@ import { ArrowUpDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Trash2 } from 'lucide-react';
 import timeDifferenceInMinutes from '@/uti/timeDiff';
+import timeDifferenceInDays from '@/uti/dayDiff';
 
 interface VisitorData {
   _id: string;
@@ -81,6 +82,14 @@ export const columns = (
 
       return (
         <div className={isToday ? 'bg-green-100 p-2 rounded' : ''}>
+          {/* {new Date(value).toLocaleString('en-GB', {
+            hour12: false,
+          })} */}
+          {new Date(value).toDateString() === new Date().toDateString()
+            ? ''
+            : `${Math.round(
+                timeDifferenceInDays(new Date(value))
+              )} days ago on `}
           {new Date(value).toLocaleString('en-GB', {
             hour12: false,
           })}

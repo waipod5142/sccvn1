@@ -17,6 +17,7 @@ export interface Item {
   _id: string;
   id: string;
   date: string;
+  type?: string;
   alertNo?: string;
   area?: string;
   location: string;

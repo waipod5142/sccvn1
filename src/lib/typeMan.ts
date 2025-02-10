@@ -32,6 +32,8 @@ export const manItemLabels: { [key: string]: string } = {
   thRa: 'Risk Assessmen Checklist',
   thToolbox: 'การพูดคุยด้านความปลอดภัย Safety / Toolbox Talk',
   thPto: 'Planned Task Observation',
+  thToken: 'โทเคนหมายเลข / Token Number',
+  thCoupon: 'คูปองอาหาร / Food Coupon',
 };
 
 export const manActivities = [
@@ -41,19 +43,3 @@ export const manActivities = [
   { id: 'Toolbox' },
   { id: 'Pra' },
 ];
-
-// Constances
-// export const owners = [
-//   'All owners',
-//   'BMJC',
-//   'Contractor',
-//   'ECO',
-//   'Hoàng Thạnh',
-//   'INSEE',
-//   'Quoc Vinh',
-//   'Thai Duong',
-//   'Thanh Hà',
-//   'Thống Nhất',
-//   'Van An',
-//   'Viet Long',
-// ];

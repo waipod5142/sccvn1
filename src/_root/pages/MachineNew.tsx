@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import MachineHeader from '@/components/shared/MachineHeader';
 import MachineDetail from '@/components/shared/MachineDetail';
 import MachineForm from '@/components/shared/MachineForm';
+import MachineFormMixerPhoto from '@/components/shared/MachineFormMixerPhoto';
 import MachineDrivingForm from '@/components/shared/MachineDrivingForm';
 import { Machine } from '@/lib/typeMachine';
 import { saf37y } from '@/lib/translation';
@@ -157,7 +158,8 @@ const Main = () => {
             (machine === 'Mixer' ||
               machine === 'Mixerweek' ||
               machine === 'Mixertrainer' ||
-              machine === 'Mixertsm') && (
+              machine === 'Mixertsm' ||
+              machine === 'Mixerphoto') && (
               <div className="px-4 py-4 bg-white rounded-md">
                 <label
                   htmlFor="machine-select"
@@ -209,6 +211,12 @@ const Main = () => {
                   >
                     แบบตรวจเช็ครถโม่สำหรับ TSM ของ ผจส
                   </option>
+                  <option
+                    value={`/Machine/${bu}/Mixerphoto/${id}`}
+                    className="odd:bg-gray-100 even:bg-gray-200"
+                  >
+                    แบบถ่ายรูปรถโม่ 4 ด้าน
+                  </option>
                 </select>
               </div>
             )}
@@ -223,6 +231,8 @@ const Main = () => {
           )}
           {machine === 'Driving' ? (
             <MachineDrivingForm bu={bu} machine={machine} id={id} />
+          ) : machine === 'Mixerphoto' ? (
+            <MachineFormMixerPhoto bu={bu} machine={machine} id={id} />
           ) : (
             <MachineForm bu={bu} machine={machine} id={id} />
           )}

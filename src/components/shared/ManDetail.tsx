@@ -47,7 +47,7 @@ const Detail = ({ bu, dataTr, man }: Man) => {
 
   const handleDeleteClick = async (id: string, item: ManItem) => {
     const isConfirmed = window.confirm(
-      'คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้? การดำเนินการนี้ไม่สามารถย้อนกลับได้'
+      'Are you sure you want to delete this item? This action cannot be undone'
     );
 
     if (!isConfirmed) return; // Exit if the user cancels the deletion
@@ -173,27 +173,29 @@ const Detail = ({ bu, dataTr, man }: Man) => {
                   new Date().toLocaleDateString() && 'bg-yellow-50'
               }`}
             >
-              <div
-                className={`flex justify-end ${
-                  timeDifferenceInMinutes(new Date(item.date)) > 5 ||
-                  item.date === 'Invalid Date' ||
-                  item.date === undefined
-                    ? 'hidden' //hidden
-                    : null
-                }`}
-              >
-                <button
-                  className="m-2 p-2 bg-slate-300 text-white rounded-md shadow-md hover:shadow-lg"
-                  onClick={() => handleDeleteClick(item._id, item)}
+              {item.type !== 'coupon' && (
+                <div
+                  className={`flex justify-end ${
+                    timeDifferenceInMinutes(new Date(item.date)) > 5 ||
+                    item.date === 'Invalid Date' ||
+                    item.date === undefined
+                      ? 'hidden' //hidden
+                      : null
+                  }`}
                 >
-                  <img
-                    src={'/assets/icons/delete.svg'}
-                    alt="delete"
-                    width={24}
-                    height={24}
-                  />
-                </button>
-              </div>
+                  <button
+                    className="m-2 p-2 bg-slate-300 text-white rounded-md shadow-md hover:shadow-lg"
+                    onClick={() => handleDeleteClick(item._id, item)}
+                  >
+                    <img
+                      src={'/assets/icons/delete.svg'}
+                      alt="delete"
+                      width={24}
+                      height={24}
+                    />
+                  </button>
+                </div>
+              )}
 
               <ul>
                 {detailFields.map(({ field, label }) =>
