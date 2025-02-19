@@ -110,6 +110,14 @@ const Main = () => {
                   {manItemLabels[bu + 'Coupon'] || null}
                 </option>
               )}
+              {bu === 'th' && (
+                <option
+                  value={`/Man/${bu}/Meeting/${id}`}
+                  className="odd:bg-gray-100 even:bg-gray-200"
+                >
+                  {manItemLabels[bu + 'Meeting'] || null}
+                </option>
+              )}
               <option
                 value={`/Man/${bu}/Training/${id}`}
                 className="odd:bg-gray-100 even:bg-gray-200"

@@ -246,13 +246,17 @@ export const machineTitles: { [key: string]: string } = {
   cmicvehicle: 'Light Vehicle',
   //BD
   bdBulk: 'Bulk Truck inspection form',
-  bdForklift: 'Forklift inspection form',
-  bdLoader: 'Loader inspection form',
   bdbulk: 'Bulk Truck',
+  bdForklift: 'Forklift inspection form',
   bdforklift: 'Forklift',
+  bdLoader: 'Loader inspection form',
   bdloader: 'Loader',
+  bdHarness: 'Safety Harness inspection form',
   bdharness: 'Safety Harness',
+  bdLadder: 'Mobile Ladder inspection form',
   bdladder: 'Mobile Ladder',
+  bdExtinguisher: 'Fire Extinguisher inspection form',
+  bdextinguisher: 'Fire Extinguisher',
 
   //LK
   lkheavy: 'Heavy Vehicle',

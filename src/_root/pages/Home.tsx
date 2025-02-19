@@ -35,7 +35,9 @@ const RootLayout = () => {
   // Redirect if there is data in localStorageData
   useEffect(() => {
     if (localStorageData.length > 0) {
-      const redirectTo = `/Man/${localStorageData[0].bu}/Toolbox/${localStorageData[0].id}`;
+      const redirectTo = `/Man/${localStorageData[0].bu}/${
+        localStorageData[0].bu === 'th' ? 'Coupon' : 'Toolbox'
+      }/${localStorageData[0].id}`;
       window.location.href = redirectTo;
     }
   }, [localStorageData]);
@@ -54,9 +56,9 @@ const RootLayout = () => {
       console.log(error);
     }
     reset();
-    window.location.href = `/Man/${formData.bu}/Toolbox/${formData.id
-      .replace(/[/\s]/g, '-')
-      .toUpperCase()}`;
+    window.location.href = `/Man/${formData.bu}/${
+      formData.bu === 'th' ? 'Coupon' : 'Toolbox'
+    }/${formData.id.replace(/[/\s]/g, '-').toUpperCase()}`;
   };
 
   // Function to save a single object as the value for 'inseeId' in local storage
@@ -106,8 +108,8 @@ const RootLayout = () => {
             <option value="" disabled>
               Select Business Unit
             </option>
-            <option value="vn">Việt Nam (Vietnam - VN)</option>
             <option value="th">ประเทศไทย (Thailand -TH)</option>
+            <option value="vn">Việt Nam (Vietnam - VN)</option>
             <option value="lk">ශ්‍රී ලංකාව (Sri Lanka - LK)</option>
             <option value="bd">বাংলাদেশ (Bangladesh - BD)</option>
             <option value="cmic">កម្ពុជា (Cambodia - CMIC)</option>
@@ -151,7 +153,9 @@ const RootLayout = () => {
             onClick={() =>
               (window.location.href = `/Man/${localStorageData.map(
                 (data) => data.bu
-              )}/Toolbox/${localStorageData.map((data) => data.id)}`)
+              )}/${
+                data.bu === 'th' ? 'Coupon' : 'Toolbox'
+              }/${localStorageData.map((data) => data.id)}`)
             }
           >
             <pre className="border-green-500 border-2 rounded-md">

@@ -318,6 +318,14 @@ const VehicleInspectionPage: React.FC = () => {
     return videoExtensions.some((ext) => fileName.toLowerCase().endsWith(ext)); // Check the file extension
   };
 
+  // State for search term
+  const [searchTerm, setSearchTerm] = useState('');
+
+  // Filter vehicleData by vehicle ID
+  const filteredVehicleData = vehicleData.filter((vehicle) =>
+    vehicle.id.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="min-h-screen flex flex-col justify-center items-center pt-4">
       <QRCodeSVG
@@ -763,7 +771,25 @@ const VehicleInspectionPage: React.FC = () => {
           <>
             <h2 className="text-2xl font-semibold mb-4">
               Details for{' '}
-              {(bu && machineTitles[bu + selectedType || '']) || selectedType}{' '}
+              {machineTitles[
+                bu
+                  ? bu !== 'srb' && selectedType === 'truck'
+                    ? 'thtruckall'
+                    : [
+                        'srb',
+                        'mkt',
+                        'office',
+                        'lbm',
+                        'rmx',
+                        'iagg',
+                        'ieco',
+                      ].includes(bu)
+                    ? 'th' + (selectedType ?? '')
+                    : bu + (selectedType ?? '')
+                  : ''
+              ] ||
+                selectedType ||
+                'n/a'}{' '}
               for {selectedOwner?.toUpperCase()}
               {selectedArea?.toUpperCase()}
               {selectedDepartment?.toUpperCase()} at{' '}
@@ -846,10 +872,18 @@ const VehicleInspectionPage: React.FC = () => {
                 }
               </div>
             )}
+            {/* Search Box to Filter Vehicles */}
+            <input
+              type="text"
+              placeholder="Search by Vehicle ID..."
+              className="w-full p-2 border border-gray-300 rounded mb-4"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
             {/* Modal display Total and Inspected Vehicles for the selected site and type */}
             <ModalContent
               // selectedInspection={selectedInspection}
-              vehicleData={vehicleData}
+              vehicleData={filteredVehicleData}
               toggleTransactions={toggleTransactions}
               showAllTransactions={showAllTransactions}
               openMachineModal={openMachineModal}

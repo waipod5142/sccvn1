@@ -25,6 +25,8 @@ export const loadQuestions = async (
       return import('@/lib/dataTHtoolbox');
     case 'th_Coupon':
       return import('@/lib/dataTHcoupon');
+    case 'th_Meeting':
+      return import('@/lib/dataTHmeeting');
     default:
       throw new Error('Unknown man type');
   }

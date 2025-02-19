@@ -34,6 +34,7 @@ export const manItemLabels: { [key: string]: string } = {
   thPto: 'Planned Task Observation',
   thToken: 'โทเคนหมายเลข / Token Number',
   thCoupon: 'คูปองอาหาร / Food Coupon',
+  thMeeting: 'เซฟตี้มีตติ้ง / Safety Meeting',
 };
 
 export const manActivities = [

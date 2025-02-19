@@ -22,12 +22,14 @@ import Visitor from '@/_auth/forms/Visitor';
 import Man from './_auth/forms/Man';
 import ManMain from '@/components/shared/ManMain';
 import AlertForm from '@/components/shared/ManAlertForm';
+import MeetingForm from '@/components/shared/ManMeetingForm';
 import PraForm from '@/components/shared/ManPraForm';
 import ToolboxForm from '@/components/shared/ManToolboxForm';
 
 // change this for header
 import ManForm from '@/_auth/forms/ManForm';
 // import RaForm from '@/components/shared/ManRaForm';
+import ManRestaurant from '@/components/dashboard/ManRestaurant';
 import Test from '@/components/dashboard/TestCopy';
 import MachineOwner from '@/components/dashboard/MachineOwner';
 import './globals.css';
@@ -54,6 +56,10 @@ const App = () => {
             path="ManForm/:bu/AlertForm/:alertNo"
             element={<AlertForm />}
           />
+          <Route
+            path="ManForm/:bu/MeetingForm/:meetingNo"
+            element={<MeetingForm />}
+          />
           <Route path="ManForm/:bu/ToolboxForm" element={<ToolboxForm />} />
           <Route path="ManForm/:bu/PraForm" element={<PraForm />} />
           {/* For Ra and Boot */}
@@ -61,6 +67,10 @@ const App = () => {
           //By Owner
           <Route path="/MachineOwner/:bu/:owner" element={<MachineOwner />} />
           //Main page
+          <Route
+            path="/ManRestaurant/:restaurant"
+            element={<ManRestaurant />}
+          />
           <Route path="/Man" element={<ManMain />} />
           <Route path="/Test" element={<Test />} />
         </Route>

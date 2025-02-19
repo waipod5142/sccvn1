@@ -102,6 +102,14 @@ export const lessonlearn: { [key: string]: string } = {
   bd: 'টুলবক্স টক থেকে শেখা পাঠ',
 };
 
+export const feedback: { [key: string]: string } = {
+  vn: 'Những điều học được từ Buổi nói chuyện về An toàn',
+  th: 'การเรียนรู้ที่ได้รับ',
+  cmic: 'មេរៀនដែលបានរៀនពីការពិភាក្សាអំពីសុវត្ថិភាព',
+  lk: 'ආරක්ෂිත කතාබස් වෙතින් ලබාගත් පාඩම්',
+  bn: 'নিরাপত্তা আলোচনা থেকে শেখা পাঠ',
+};
+
 export type ChoiceType = {
   value: string;
   text: string;

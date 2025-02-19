@@ -75,6 +75,8 @@ export const loadQuestions = async (
       return import('@/lib/dataBDforklift');
     case 'bd_Loader':
       return import('@/lib/dataBDloader');
+    case 'bd_Extinguisher':
+      return import('@/lib/dataBDextinguisher');
     //CMIC
     case 'cmic_Bulk':
       return import('@/lib/dataCMICbulk');

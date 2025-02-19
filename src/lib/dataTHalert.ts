@@ -4,7 +4,7 @@ export const detailFields = [
   { field: 'alertNo', label: 'Alert No' },
   { field: 'typeAccident', label: 'Type of Accident' },
   { field: 'learn', label: 'Lesson Learn' },
-  { field: 'understand', label: 'Understand' },
+  { field: 'acknowledge', label: 'Acknowledge' },
   { field: 'remark', label: 'Remark' },
   { field: 'url', label: '' },
   { field: 'lat', label: '' },

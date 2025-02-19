@@ -113,6 +113,13 @@ const ModalRestaurant = ({ token, onClose }: ModalRestaurantProps) => {
         'ธัญชนก%252520กิจหิรัญ',
         'Kruabaanrao',
         'ครัวบ้านเรา',
+        //
+        'ณิชนิตา (2) สโมสร 1',
+        'รวงทอง สโมสร 2',
+        'ชนิดาภา สโมสร 3',
+        'NichnitaS1',
+        'RuangthongS2',
+        'ChanidapaS3',
       ];
 
       if (tokenLowerCase.startsWith('h')) {
@@ -193,9 +200,7 @@ const ModalRestaurant = ({ token, onClose }: ModalRestaurantProps) => {
           Select Restaurant
         </h2>
         <form className="space-y-4">
-          <h2 className="bg-yellow-300 p-2 rounded-md">
-            คูปองอาหารปกติ 40 บาท
-          </h2>
+          <h2 className="p-2 rounded-md">คูปองอาหาร 40 บาท</h2>
           <div className="flex items-center">
             <input
               type="radio"
@@ -205,8 +210,11 @@ const ModalRestaurant = ({ token, onClose }: ModalRestaurantProps) => {
               className={`h-6 w-6 rounded-full shrink-0`}
               onChange={(e) => setSelectedRestaurant(e.target.value)}
             />
-            <label htmlFor="restaurant1" className="ml-4">
-              โรงงาน1-ณิชนิตา นันทวณิชกุล
+            <label
+              htmlFor="restaurant1"
+              className="ml-4 text-white bg-rose-500 px-2 py-1 rounded-md"
+            >
+              สโมสร 1: ร้านณิชนิตา นันทวณิชกุล (ร้านอาหาร)
             </label>
           </div>
           <div className="flex items-center">
@@ -214,12 +222,15 @@ const ModalRestaurant = ({ token, onClose }: ModalRestaurantProps) => {
               type="radio"
               id="restaurant2"
               name="restaurant"
-              value="วาสนา ขาวจัตุรัส"
+              value="ณิชนิตา (2) สโมสร 1"
               className={`h-6 w-6 rounded-full shrink-0`}
               onChange={(e) => setSelectedRestaurant(e.target.value)}
             />
-            <label htmlFor="restaurant2" className="ml-4">
-              โรงงาน2-วาสนา ขาวจัตุรัส
+            <label
+              htmlFor="restaurant2"
+              className="ml-4 text-white bg-rose-500 px-2 py-1 rounded-md"
+            >
+              สโมสร 1: ร้านณิชนิตา นันทวณิชกุล_2 (ร้านเครื่องดื่มและขนม)
             </label>
           </div>
           <div className="flex items-center">
@@ -227,12 +238,15 @@ const ModalRestaurant = ({ token, onClose }: ModalRestaurantProps) => {
               type="radio"
               id="restaurant3"
               name="restaurant"
-              value="ธัญชนก กิจหิรัญ"
+              value="วาสนา ขาวจัตุรัส"
               className={`h-6 w-6 rounded-full shrink-0`}
               onChange={(e) => setSelectedRestaurant(e.target.value)}
             />
-            <label htmlFor="restaurant3" className="ml-4">
-              โรงงาน3-ธัญชนก กิจหิรัญ
+            <label
+              htmlFor="restaurant3"
+              className="ml-4 text-white bg-blue-500 px-2 py-1 rounded-md"
+            >
+              สโมสร 2: ร้านวาสนา ขาวจตุรัส (ร้านอาหาร)
             </label>
           </div>
           <div className="flex items-center">
@@ -240,42 +254,53 @@ const ModalRestaurant = ({ token, onClose }: ModalRestaurantProps) => {
               type="radio"
               id="restaurant4"
               name="restaurant"
-              value="ครัวบ้านเรา"
+              value="รวงทอง สโมสร 2"
               className={`h-6 w-6 rounded-full shrink-0`}
               onChange={(e) => setSelectedRestaurant(e.target.value)}
             />
-            <label htmlFor="restaurant4" className="ml-4">
-              ครัวบ้านเรา
+            <label
+              htmlFor="restaurant4"
+              className="ml-4 text-white bg-blue-500 px-2 py-1 rounded-md"
+            >
+              สโมสร 2: ร้านรวงทอง ด้วงประโคน (ร้านเครื่องดื่มและขนม)
             </label>
           </div>
-          <hr />
-          <h2 className="bg-green-500 text-white p-2 rounded-md">
-            คูปองอาหารสุขภาพ 80 บาท
-          </h2>
           <div className="flex items-center">
             <input
               type="radio"
               id="restaurant5"
               name="restaurant"
-              value="ณิชนิตา (2) สโมสร 1"
+              value="ธัญชนก กิจหิรัญ"
               className={`h-6 w-6 rounded-full shrink-0`}
               onChange={(e) => setSelectedRestaurant(e.target.value)}
             />
-            <label htmlFor="restaurant5" className="ml-4">
-              ณิชนิตา (2) สโมสร 1
+            <label
+              htmlFor="restaurant5"
+              className="ml-4 text-white bg-orange-500 px-2 py-1 rounded-md"
+            >
+              สโมสร 3: ร้านธัญชนก กิจหิรัญ (ร้านอาหาร)
             </label>
           </div>
+
+          {/* <hr />
+          <h2 className="bg-green-500 text-white p-2 rounded-md">
+            คูปองอาหารสุขภาพ 80 บาท
+          </h2> */}
+
           <div className="flex items-center">
             <input
               type="radio"
               id="restaurant6"
               name="restaurant"
-              value="รวงทอง สโมสร 2"
+              value="ชนิดาภา สโมสร 3"
               className={`h-6 w-6 rounded-full shrink-0`}
               onChange={(e) => setSelectedRestaurant(e.target.value)}
             />
-            <label htmlFor="restaurant6" className="ml-4">
-              รวงทอง สโมสร 2
+            <label
+              htmlFor="restaurant6"
+              className="ml-4 text-white bg-orange-500 px-2 py-1 rounded-md"
+            >
+              สโมสร 3: ร้านชนิดาภา สร้อยผา (ร้านเครื่องดื่มและขนม)
             </label>
           </div>
           <div className="flex items-center">
@@ -283,12 +308,15 @@ const ModalRestaurant = ({ token, onClose }: ModalRestaurantProps) => {
               type="radio"
               id="restaurant7"
               name="restaurant"
-              value="ชนิดาภา สโมสร 3"
+              value="ครัวบ้านเรา"
               className={`h-6 w-6 rounded-full shrink-0`}
               onChange={(e) => setSelectedRestaurant(e.target.value)}
             />
-            <label htmlFor="restaurant7" className="ml-4">
-              ชนิดาภา สโมสร 3
+            <label
+              htmlFor="restaurant7"
+              className="ml-4 text-white bg-gray-500 px-2 py-1 rounded-md"
+            >
+              ครัวบ้านเรา: ศศิธร อ่อนศรี
             </label>
           </div>
         </form>
