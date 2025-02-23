@@ -208,7 +208,7 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
           <input
             {...register('remark')}
             type="text"
-            placeholder="Ghi chú (Tùy chọn) Remark (Optional)"
+            placeholder="Remark (Optional)"
             className="mx-4 px-4 py-2 rounded"
           />
           {errors.remark && (

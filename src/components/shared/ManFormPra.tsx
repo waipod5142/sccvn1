@@ -340,12 +340,12 @@ export default function PersonalRiskAssessmentForm({
         <div className="bg-gray-200 p-4 rounded">
           <div className="py-4 rounded-md bg-gray-200 w-full flex items-center">
             <div className="text-2xl text-slate-900 mr-4">
-              Ghi chú (Tùy chọn) Remark (Optional)
+              Remark (Optional)
             </div>
             <input
               {...register('remark')}
               type="text"
-              placeholder="Ghi chú (Tùy chọn) Remark (Optional)"
+              placeholder="Remark (Optional)"
               className="p-2 rounded flex-grow"
             />
             {errors.remark && (

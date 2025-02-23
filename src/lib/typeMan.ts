@@ -28,13 +28,14 @@ export const manItemLabels: { [key: string]: string } = {
   thTraining: 'ประวัติการฝึกอบรม Training Course',
   thPra: 'การประเมินความเสี่ยงส่วนบุคคล / Personal Risk Assessment',
   thAlert: 'การแจ้งเตือนประกาศด้านความปลอดภัย / Safety Alert',
-  thBoot: 'BOOT ON THE GROUND CHECK LIST',
   thRa: 'Risk Assessmen Checklist',
   thToolbox: 'การพูดคุยด้านความปลอดภัย Safety / Toolbox Talk',
   thPto: 'Planned Task Observation',
   thToken: 'โทเคนหมายเลข / Token Number',
   thCoupon: 'คูปองอาหาร / Food Coupon',
   thMeeting: 'เซฟตี้มีตติ้ง / Safety Meeting',
+  thBoot: 'กิจกรรม SOT and VFL',
+  thTalk: 'การพูดคุยกับพนักงาน / Talk',
 };
 
 export const manActivities = [

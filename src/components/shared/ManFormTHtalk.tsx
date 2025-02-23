@@ -6,14 +6,8 @@ import axios from 'axios';
 import useStorage from '@/hooks/useStorage';
 import { manItemLabels } from '@/lib/typeMan';
 import { Camera } from 'lucide-react';
-import {
-  presenter,
-  subject,
-  lessonlearn,
-  remark,
-  picture,
-  submit,
-} from '@/lib/translation';
+import { remark, picture, submit } from '@/lib/translation';
+import { questionSets, choicesSets } from '@/lib/dataTHtalk';
 
 interface FillingProps {
   bu?: string;
@@ -22,6 +16,10 @@ interface FillingProps {
 }
 
 export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
+  // Select the corresponding questions and choices based on the 'bu' value
+  const questions = questionSets[bu];
+  const choices = choicesSets[bu];
+
   const {
     register,
     handleSubmit,
@@ -113,76 +111,115 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-y-2 md:px-4"
       >
+        {/* Questions Section */}
+        <div className="py-0 w-full">
+          {questions?.map((question, index) => (
+            <div key={index} className="bg-purple-100 py-2 my-2 rounded-md">
+              <div className="p-4">
+                <div className="text-2xl text-slate-900">
+                  {question.id}. {question.question}
+                </div>
+                <div className="py-2">
+                  {choices.map((choice, cIdx) => (
+                    <label
+                      key={cIdx}
+                      className="flex items-center text-2xl px-2"
+                    >
+                      <div className="px-4 py-2 text-2xl flex flex-auto gap-4 sm:text-4xl dark:text-gray-300">
+                        <input
+                          className="focus:ring-offset-orange-800 focus:ring-2 focus:h-10 focus:w-10 h-8 w-8 rounded-full shrink-0"
+                          {...register(question.name, {
+                            required:
+                              'Vui lòng trả lời câu hỏi này Please answer this question',
+                          })}
+                          type="radio"
+                          value={choice.value}
+                        />
+                        <span
+                          className={`px-4 gap-4 text-2xl font-semibold sm:text-3xl dark:text-gray-300 rounded-md text-white ${
+                            cIdx === 0
+                              ? 'bg-rose-600'
+                              : cIdx === 1
+                              ? 'bg-rose-500'
+                              : cIdx === 2
+                              ? 'bg-orange-500'
+                              : cIdx === 3
+                              ? 'bg-amber-400'
+                              : cIdx === 4
+                              ? 'bg-yellow-400'
+                              : cIdx === 5
+                              ? 'bg-lime-400'
+                              : cIdx === 6
+                              ? 'bg-green-500'
+                              : cIdx === 7
+                              ? 'bg-teal-500'
+                              : cIdx === 8
+                              ? 'bg-blue-500'
+                              : cIdx === 9
+                              ? 'bg-indigo-500'
+                              : 'bg-purple-500'
+                          }`}
+                        >
+                          {choice.text}
+                        </span>
+                      </div>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
         <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
           <div className="text-2xl text-slate-900 px-4">
-            {presenter[
-              ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
-                bu
-              )
-                ? 'th'
-                : bu
-            ] || null}
-            : Presenter
+            2. เนื้อหาที่พูดคุยโดยสังเขป/Briefly discussed topic
           </div>
           <input
-            {...register('presenter', {
-              required: 'Presenter is required',
+            {...register('talkDetail', {
+              required: 'เนื้อหาที่พูดคุยโดยสังเขป/Briefly discussed topic',
             })}
             type="text"
-            placeholder="Presenter"
+            placeholder="เนื้อหาที่พูดคุยโดยสังเขป/Briefly discussed topic"
             className="mx-4 px-4 py-2 rounded"
           />
-          {errors.presenter && (
-            <p className="text-red-500">{`${errors.presenter?.message}`}</p>
+          {errors.talkDetail && (
+            <p className="text-red-500">{`${errors.talkDetail?.message}`}</p>
           )}
         </div>
         <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
           <div className="text-2xl text-slate-900 px-4">
-            {subject[
-              ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
-                bu
-              )
-                ? 'th'
-                : bu
-            ] || null}
-            : Subject
+            3. สถานที่ หรือพื้นที่ที่ทำการบรรยาย /place or location to talks
           </div>
           <input
-            {...register('subject', {
-              required: 'Subject of Toolbox Talk',
+            {...register('place', {
+              required:
+                'สถานที่ หรือพื้นที่ที่ทำการบรรยาย /place or location to talks',
             })}
             type="text"
-            placeholder="Subject of Toolbox Talk"
+            placeholder="สถานที่ หรือพื้นที่ที่ทำการบรรยาย /place or location to talks"
             className="mx-4 px-4 py-2 rounded"
           />
-          {errors.subject && (
-            <p className="text-red-500">{`${errors.subject?.message}`}</p>
+          {errors.place && (
+            <p className="text-red-500">{`${errors.place?.message}`}</p>
           )}
         </div>
         <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
           <div className="text-2xl text-slate-900 px-4">
-            {lessonlearn[
-              ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
-                bu
-              )
-                ? 'th'
-                : bu
-            ] || null}
-            : Lesson Lern
+            4. จำนวนคนที่เข้าร่วมรับฟัง โดยสังเขป/Number of participants
           </div>
           <input
-            {...register('learn', {
-              required: 'Lesson learn',
+            {...register('participate', {
+              required:
+                'จำนวนคนที่เข้าร่วมรับฟัง โดยสังเขป/Number of participants',
             })}
             type="text"
-            placeholder="Lesson learn"
+            placeholder="จำนวนคนที่เข้าร่วมรับฟัง โดยสังเขป/Number of participants"
             className="mx-4 px-4 py-2 rounded"
           />
-          {errors.learn && (
-            <p className="text-red-500">{`${errors.learn?.message}`}</p>
+          {errors.participate && (
+            <p className="text-red-500">{`${errors.participate?.message}`}</p>
           )}
         </div>
-
         <div className="py-2 rounded-lg bg-purple-100 w-full">
           <div className="text-2xl text-slate-900 px-4">
             {picture[bu] || null} Attach Image (Optional)
@@ -216,7 +253,6 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
             <p className="text-red-500">{`${errors.remark?.message}`}</p>
           )}
         </div>
-
         <button
           disabled={isSubmitting || (fileSelected && isUploading)}
           type="submit"

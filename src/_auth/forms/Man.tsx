@@ -7,6 +7,8 @@ import ManHeader from '@/components/shared/ManHeader';
 import ManToken from '@/components/shared/ManToken';
 import ManDetail from '@/components/shared/ManDetail';
 import ManForm from '@/components/shared/ManForm';
+import ManFormTHtalk from '@/components/shared/ManFormTHtalk';
+import ManFormTHboot from '@/components/shared/ManFormTHboot';
 import ManFormPra from '@/components/shared/ManFormPra';
 import { Man, manItemLabels } from '@/lib/typeMan';
 // import ManPhotoManager from '@/components/shared/ManPhotoManager';
@@ -118,6 +120,22 @@ const Main = () => {
                   {manItemLabels[bu + 'Meeting'] || null}
                 </option>
               )}
+              {bu === 'th' && (
+                <option
+                  value={`/Man/${bu}/Boot/${id}`}
+                  className="odd:bg-gray-100 even:bg-gray-200"
+                >
+                  {manItemLabels[bu + 'Boot'] || null}
+                </option>
+              )}
+              {bu === 'th' && (
+                <option
+                  value={`/Man/${bu}/Talk/${id}`}
+                  className="odd:bg-gray-100 even:bg-gray-200"
+                >
+                  {manItemLabels[bu + 'Talk'] || null}
+                </option>
+              )}
               <option
                 value={`/Man/${bu}/Training/${id}`}
                 className="odd:bg-gray-100 even:bg-gray-200"
@@ -182,6 +200,8 @@ const Main = () => {
           <br />
           {data && <ManDetail bu={bu} dataTr={data.trans || []} man={man} />}
           {man === 'Toolbox' && <ManForm bu={bu} id={id} man={man} />}
+          {man === 'Talk' && <ManFormTHtalk bu={bu} id={id} man={man} />}
+          {man === 'Boot' && <ManFormTHboot bu={bu} id={id} man={man} />}
           {man === 'Pra' && <ManFormPra bu={bu} id={id} man={man} />}
         </>
       )}
