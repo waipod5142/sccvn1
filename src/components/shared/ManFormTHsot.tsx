@@ -7,7 +7,7 @@ import useStorage from '@/hooks/useStorage';
 import { manItemLabels } from '@/lib/typeMan';
 import { Camera } from 'lucide-react';
 import { remark, picture, submit } from '@/lib/translation';
-import { questionSets, choicesSets } from '@/lib/dataTHboot';
+import { questionSets, choicesSets } from '@/lib/dataTHsot';
 
 interface FillingProps {
   bu?: string;

@@ -34,7 +34,7 @@ export const manItemLabels: { [key: string]: string } = {
   thToken: 'โทเคนหมายเลข / Token Number',
   thCoupon: 'คูปองอาหาร / Food Coupon',
   thMeeting: 'เซฟตี้มีตติ้ง / Safety Meeting',
-  thBoot: 'กิจกรรม SOT and VFL',
+  thSot: 'กิจกรรม SOT and VFL',
   thTalk: 'การพูดคุยกับพนักงาน / Talk',
 };
 
