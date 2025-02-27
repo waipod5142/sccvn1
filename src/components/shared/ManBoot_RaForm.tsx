@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { http } from '@/lib/http';
-import { useForm, type FieldValues } from 'react-hook-form';
+import { useForm, type FieldValues, SubmitHandler } from 'react-hook-form';
 import Loader from './Loader';
 import axios from 'axios';
 import useStorage from '@/hooks/useStorage';
@@ -8,7 +8,7 @@ import { loadQuestions } from '@/uti/loadQuestionsMan';
 import { howto, accept, remark, picture, submit } from '@/lib/translation';
 import { Camera } from 'lucide-react';
 import { manItemLabels } from '@/lib/typeMan';
-
+import { ManItem } from '@/lib/typeMan';
 interface FillingProps {
   bu?: string;
   man?: string;
@@ -20,8 +20,17 @@ type QuestionType = {
   name: string;
   question: string;
   howto: string;
-  accept: string;
+  accept?: string;
 };
+
+interface AdditionalFields {
+  [key: string]: string | null;
+}
+
+interface FormData extends FieldValues {
+  items: ManItem[];
+  additionalFields?: AdditionalFields;
+}
 
 export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
   const {
@@ -29,20 +38,16 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-  } = useForm();
+  } = useForm<FormData>();
 
   const [questions, setQuestions] = useState<QuestionType[]>([]);
-  const { startUpload, progress, url } = useStorage();
-  const [isUploading, setIsUploading] = useState<boolean>(false);
-  const [uploadURL, setUploadURL] = useState<string | null>(null);
-  const [fileSelected, setFileSelected] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (url) {
-      setUploadURL(url);
-      setIsUploading(false);
-    }
-  }, [url]);
+  const { startUpload, progress } = useStorage();
+  const [fileUrls, setFileUrls] = useState<{ [key: string]: string | null }>(
+    {}
+  );
+  const [isUploading, setIsUploading] = useState<{ [key: string]: boolean }>(
+    {}
+  );
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -61,17 +66,21 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
     fetchQuestions();
   }, [bu, man]);
 
-  const onSubmit = async (formData: FieldValues) => {
-    // Merge the form data with the existing data
+  const onSubmit: SubmitHandler<FormData> = async (formData) => {
     window.scrollTo(0, 0);
-    const updatedData = {
+    const updatedData: FormData = {
       ...formData,
       bu,
       id: formData.id.replace(/[/\s]/g, '-'),
       type: man,
       area: id,
-      url: uploadURL,
     };
+
+    Object.keys(fileUrls).forEach((key) => {
+      if (fileUrls[key]) {
+        updatedData[key] = fileUrls[key];
+      }
+    });
 
     try {
       const res = await axios.post(`${http}rescueTr_post`, updatedData, {
@@ -106,17 +115,28 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
     );
   };
 
-  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    questionName: string
+  ) => {
     const selectedFile = e.target.files?.[0];
     if (selectedFile) {
-      setIsUploading(true);
-      setFileSelected(true);
-      startUpload(selectedFile).catch((error) => {
+      try {
+        setIsUploading((prev) => ({ ...prev, [questionName]: true }));
+
+        const uploadUrl = await startUpload(selectedFile);
+
+        setFileUrls((prev) => {
+          const newKey =
+            questionName === 'url' ? questionName : questionName + 'P';
+          return { ...prev, [newKey]: uploadUrl };
+        });
+
+        setIsUploading((prev) => ({ ...prev, [questionName]: false }));
+      } catch (error) {
         console.error('Upload error:', error);
-        setIsUploading(false);
-      });
-    } else {
-      setFileSelected(false);
+        setIsUploading((prev) => ({ ...prev, [questionName]: false }));
+      }
     }
   };
 
@@ -184,7 +204,7 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
         </div>
         <div className="py-2 rounded-lg bg-purple-100 w-full">
           <div className="text-2xl text-slate-900 px-4">
-            {(bu && picture[bu]) || null} Attach Image (Optional)
+            {(bu && picture[bu]) || null} Attach Image 1 (Optional)
           </div>
           <label className="flex items-center bg-blue-500 text-white px-3 py-2 rounded-md shadow-xl cursor-pointer mt-4 ml-2 max-w-fit">
             <Camera className="mr-2" size={24} />
@@ -193,10 +213,146 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
               type="file"
               placeholder="url of image"
               // className="hidden"
-              onChange={handleFileChange}
+              onChange={(e) => handleFileChange(e, 'url')}
             />
           </label>
-          {Boolean(progress) && !url && <progress value={progress} max="100" />}
+          {isUploading['url'] && Boolean(progress) && (
+            <div className="relative w-full max-w-xs mx-2 mt-2">
+              <div className="h-4 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-blue-500 transition-all duration-500 ease-in-out"
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+              <span className="absolute inset-0 flex justify-center items-center text-xs font-semibold text-gray-800">
+                {progress.toFixed(0)}%
+              </span>
+            </div>
+          )}
+          {errors.file && (
+            <p className="text-rose-500">{`${errors.file?.message}`}</p>
+          )}
+        </div>
+        <div className="py-2 rounded-lg bg-purple-100 w-full">
+          <div className="text-2xl text-slate-900 px-4">
+            {(bu && picture[bu]) || null} Attach Image 2 (Optional)
+          </div>
+          <label className="flex items-center bg-teal-500 text-white px-3 py-2 rounded-md shadow-xl cursor-pointer mt-4 ml-2 max-w-fit">
+            <Camera className="mr-2" size={24} />
+            <input
+              {...register('url2P')}
+              type="file"
+              placeholder="url of image"
+              // className="hidden"
+              onChange={(e) => handleFileChange(e, 'url2')}
+            />
+          </label>
+          {isUploading['url2'] && Boolean(progress) && (
+            <div className="relative w-full max-w-xs mx-2 mt-2">
+              <div className="h-4 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-teal-500 transition-all duration-500 ease-in-out"
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+              <span className="absolute inset-0 flex justify-center items-center text-xs font-semibold text-gray-800">
+                {progress.toFixed(0)}%
+              </span>
+            </div>
+          )}
+          {errors.file && (
+            <p className="text-rose-500">{`${errors.file?.message}`}</p>
+          )}
+        </div>
+        <div className="py-2 rounded-lg bg-purple-100 w-full">
+          <div className="text-2xl text-slate-900 px-4">
+            {(bu && picture[bu]) || null} Attach Image 3 (Optional)
+          </div>
+          <label className="flex items-center bg-green-500 text-white px-3 py-2 rounded-md shadow-xl cursor-pointer mt-4 ml-2 max-w-fit">
+            <Camera className="mr-2" size={24} />
+            <input
+              {...register('url3P')}
+              type="file"
+              placeholder="url of image"
+              // className="hidden"
+              onChange={(e) => handleFileChange(e, 'url3')}
+            />
+          </label>
+          {isUploading['url3'] && Boolean(progress) && (
+            <div className="relative w-full max-w-xs mx-2 mt-2">
+              <div className="h-4 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-green-500 transition-all duration-500 ease-in-out"
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+              <span className="absolute inset-0 flex justify-center items-center text-xs font-semibold text-gray-800">
+                {progress.toFixed(0)}%
+              </span>
+            </div>
+          )}
+          {errors.file && (
+            <p className="text-rose-500">{`${errors.file?.message}`}</p>
+          )}
+        </div>
+        <div className="py-2 rounded-lg bg-purple-100 w-full">
+          <div className="text-2xl text-slate-900 px-4">
+            {(bu && picture[bu]) || null} Attach Image 4 (Optional)
+          </div>
+          <label className="flex items-center bg-lime-500 text-white px-3 py-2 rounded-md shadow-xl cursor-pointer mt-4 ml-2 max-w-fit">
+            <Camera className="mr-2" size={24} />
+            <input
+              {...register('url4P')}
+              type="file"
+              placeholder="url of image"
+              // className="hidden"
+              onChange={(e) => handleFileChange(e, 'url4')}
+            />
+          </label>
+          {isUploading['url4'] && Boolean(progress) && (
+            <div className="relative w-full max-w-xs mx-2 mt-2">
+              <div className="h-4 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-lime-500 transition-all duration-500 ease-in-out"
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+              <span className="absolute inset-0 flex justify-center items-center text-xs font-semibold text-gray-800">
+                {progress.toFixed(0)}%
+              </span>
+            </div>
+          )}
+          {errors.file && (
+            <p className="text-rose-500">{`${errors.file?.message}`}</p>
+          )}
+        </div>
+        <div className="py-2 rounded-lg bg-purple-100 w-full">
+          <div className="text-2xl text-slate-900 px-4">
+            {(bu && picture[bu]) || null} Attach Image 5 (Optional)
+          </div>
+          <label className="flex items-center bg-yellow-500 text-white px-3 py-2 rounded-md shadow-xl cursor-pointer mt-4 ml-2 max-w-fit">
+            <Camera className="mr-2" size={24} />
+            <input
+              {...register('url5P')}
+              type="file"
+              placeholder="url of image"
+              // className="hidden"
+              onChange={(e) => handleFileChange(e, 'url5')}
+            />
+          </label>
+          {isUploading['url5'] && Boolean(progress) && (
+            <div className="relative w-full max-w-xs mx-2 mt-2">
+              <div className="h-4 bg-gray-200 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-yellow-500 transition-all duration-500 ease-in-out"
+                  style={{ width: `${progress}%` }}
+                ></div>
+              </div>
+              <span className="absolute inset-0 flex justify-center items-center text-xs font-semibold text-gray-800">
+                {progress.toFixed(0)}%
+              </span>
+            </div>
+          )}
           {errors.file && (
             <p className="text-rose-500">{`${errors.file?.message}`}</p>
           )}
@@ -216,16 +372,16 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
           )}
         </div>
         <button
-          disabled={isSubmitting || (fileSelected && isUploading)}
+          disabled={
+            isSubmitting ||
+            Object.values(isUploading).some((uploading) => uploading)
+          }
           type="submit"
           className="bg-purple-500 text-white shadow-xl hover:shadow-2xl hover:bg-purple-700 rounded-full py-2 disabled:bg-gray-500 w-auto"
         >
           {isSubmitting && <Loader />}
           {(bu && submit[bu]) || null} / Submit
         </button>
-        {uploadURL && (
-          <p className="text-green-500 mt-2">Image uploaded successfully!</p>
-        )}
       </form>
     </section>
   );

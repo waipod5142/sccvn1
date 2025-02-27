@@ -170,7 +170,7 @@ const Detail = ({ bu, dataTr, man }: Man) => {
               key={item._id}
               className={`mb-4 shadow-md rounded-md text-slate-400 ${
                 new Date(item.date).toLocaleDateString() ===
-                  new Date().toLocaleDateString() && 'bg-yellow-100'
+                  new Date().toLocaleDateString() && 'bg-yellow-200'
               }`}
             >
               {item.type !== 'coupon' && (

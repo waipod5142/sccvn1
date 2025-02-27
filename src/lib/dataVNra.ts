@@ -80,5 +80,9 @@ export const detailFields = [
   },
   { field: 'remark', label: 'Ghi chú Remark' },
   { field: 'url', label: '' },
+  { field: 'url2P', label: '' },
+  { field: 'url3P', label: '' },
+  { field: 'url4P', label: '' },
+  { field: 'url5P', label: '' },
   { field: 'lat', label: '' },
 ];

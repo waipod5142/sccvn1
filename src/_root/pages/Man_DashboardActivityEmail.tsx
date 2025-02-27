@@ -205,7 +205,18 @@ const InspectionTables = () => {
                         })
                         .toString()}
                     </td>
-                    <td className="px-4 py-2 border">{item.area || '-'}</td>
+                    <td
+                      className="px-4 py-2 border text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
+                      onClick={() =>
+                        (window.location.href = `/ManForm/${bu}/${
+                          type.charAt(0).toUpperCase() +
+                          type.slice(1).replace('form', '') +
+                          'Form'
+                        }/${item.area}`)
+                      }
+                    >
+                      {item.area || '-'}
+                    </td>
                     <td className="px-4 py-2 border">
                       <button
                         onClick={() =>
