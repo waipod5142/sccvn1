@@ -658,6 +658,7 @@ const DataTable: React.FC = () => {
       )}
       {formVisibleMan && selectedVehicle && (
         <ModalFormMan
+          bu={bu}
           id={selectedVehicle.id}
           machine={'Toolbox'}
           setFormVisibleMan={setFormVisibleMan}

@@ -12,6 +12,8 @@ export const detailFields = [
   { field: 'date', label: 'Date' },
   { field: 'courseId', label: 'Course Id' },
   { field: 'trainingCourse', label: 'Training Course' },
-  { field: 'traningDate', label: 'Training Date' },
+  { field: 'trainingDate', label: 'Training Date' },
   { field: 'expirationDate', label: 'Expiration Date' },
+  { field: 'courseId', label: 'Course Id' },
+  { field: 'type', label: 'Type' },
 ];

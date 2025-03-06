@@ -22,6 +22,7 @@ import Visitor from '@/_auth/forms/Visitor';
 import Man from './_auth/forms/Man';
 import ManMain from '@/components/shared/ManMain';
 import AlertForm from '@/components/shared/ManAlertForm';
+import TrainingForm from '@/components/shared/MantrainingTHform';
 import MeetingForm from '@/components/shared/ManMeetingForm';
 import PraForm from '@/components/shared/ManPraForm';
 import ToolboxForm from '@/components/shared/ManToolboxForm';
@@ -55,6 +56,10 @@ const App = () => {
           <Route
             path="ManForm/:bu/AlertForm/:alertNo"
             element={<AlertForm />}
+          />
+          <Route
+            path="ManForm/:bu/TrainingForm/:trainingCourse/:trainingDate/:expirationDate/:courseId"
+            element={<TrainingForm />}
           />
           <Route
             path="ManForm/:bu/MeetingForm/:meetingNo"

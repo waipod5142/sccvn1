@@ -2,41 +2,55 @@
 
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Item } from '@/lib/typeLTest';
+// import { Item } from '@/lib/typeLTest';
 import { http } from '@/lib/http';
 import { columns } from './testcolumns';
 import { DataTable } from '@/components/ui/data-table';
 import { getStorage, ref, deleteObject } from 'firebase/storage';
+import { MachineItem } from '@/lib/typeMachine';
 
 const Detail = () => {
-  const [dataTr, setDataTr] = useState<Item[]>([]);
+  const [dataTr, setDataTr] = useState<MachineItem[]>([]);
   // const [selectedItem, setSelectedItem] = useState<Trans | null>(null);
   const storage = getStorage();
 
-  const handleDeleteClick = async (_id: string, url?: string) => {
+  // Utility function to delete a key from an object
+  const deleteKey = <T, K extends keyof T>(obj: T, key: K): void => {
+    delete obj[key];
+  };
+  const handleDeleteClick = async (id: string, item: MachineItem) => {
     try {
-      const desertRef = ref(storage, url);
-      {
-        url &&
-          deleteObject(desertRef)
-            .then(() => {
-              console.log('File delted successfully');
-            })
-            .catch((error) => {
-              console.log(error.message);
-            });
-      }
-      // Change http here
-      const res = await axios.delete(`${http}liftingTr_delete?id=${_id}`, {
+      // Loop through the item and delete fields ending with 'P' and handle URLs
+      (Object.keys(item) as (keyof MachineItem)[]).forEach(async (key) => {
+        if (
+          (key.endsWith('P') || key.endsWith('F') || key.startsWith('url')) &&
+          typeof item[key] === 'string' &&
+          (item[key] as string).startsWith('http')
+        ) {
+          const url = item[key] as string;
+          const desertRef = ref(storage, url);
+
+          try {
+            await deleteObject(desertRef);
+            console.log('File deleted successfully');
+          } catch (error) {
+            console.log(error);
+          }
+
+          deleteKey(item, key); // Delete the field from the item
+        }
+      });
+
+      const res = await axios.delete(`${http}rescueTr_delete`, {
+        params: { id, bu: 'vn', type: 'ra' },
         headers: {
           'Content-type': 'application/json',
         },
       });
-
       console.log(res);
 
       if (res.status === 200) {
-        window.location.reload();
+        // window.location.reload();
       } else {
         throw new Error('Failed to delete');
       }
@@ -48,7 +62,8 @@ const Detail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`${http}liftingTr_all`, {
+        const res = await axios.get(`${http}permitTr_get`, {
+          params: { bu: 'vn', type: 'ra' },
           headers: {
             'Content-Type': 'application/json',
           },
@@ -67,7 +82,9 @@ const Detail = () => {
   return (
     <section className="py-12">
       <div className="container">
-        <h1 className="mb-6 text-3xl font-bold">Alert Record</h1>
+        <h1 className="mb-6 text-3xl font-bold">
+          Alert Record {dataTr.length}
+        </h1>
         <DataTable
           columns={columns(handleDeleteClick)}
           data={dataTr.sort(

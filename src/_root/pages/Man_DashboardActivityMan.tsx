@@ -247,6 +247,7 @@ const InspectionTables = () => {
 
       {formVisibleMan && selectedVehicle && (
         <ModalFormMan
+          bu={bu}
           id={selectedVehicle.id}
           machine={
             selectedVehicle.type &&

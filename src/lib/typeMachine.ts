@@ -189,6 +189,9 @@ export const machineTitles: { [key: string]: string } = {
   vnSlope: 'Hướng dẫn kiểm tra đường, dốc, thùng / Road, Slope, Hopper',
   vnStock: 'Hướng dẫn kiểm tra bãi tập kết / Stockpiles',
   vnFirstaid: 'Hướng dẫn kiểm tra tủ thuốc / First Aid',
+  vnFirstaidbox: 'TỦ SCC / FIRST AID BOX',
+  vnToolbox:
+    'Hướng dẫn kiểm tra công việcINSPECTION CHECKLIST FOR FIRST AID BOX',
   vnAlert: 'Cảnh Báo An Toàn',
 
   vnlifting: 'Lifting Equipment',
@@ -217,6 +220,7 @@ export const machineTitles: { [key: string]: string } = {
   vnslope: 'Road, Slope, Hopper',
   vnstock: 'Stockpiles',
   vnfirstaid: 'First Aid',
+  vnfirstaidbox: 'First Aid Box',
   vntoolbox: 'Toolbox',
   vnpra: 'Personal Risk Assessment',
   vnboot: 'Boot on the ground',
@@ -307,6 +311,8 @@ export const machineTitles: { [key: string]: string } = {
   thfireexit: 'Fire Exit',
   thExtinguisher: 'แบบตรวจเช็คถัง Fire Extinguisher ประจำเดือน',
   thextinguisher: 'Fire Extinguisher',
+  thHydrant: 'แบบตรวจหัวฉีดน้ำดับเพลิง Fire Hydrant ประจำเดือน',
+  thhydrant: 'Fire Hydrant',
   thWaste: 'แบบตรวจเช็ครถขนส่ง Waste ก่อนใช้งานประจำวัน',
   thwaste: 'Waste Truck',
   thHarness: 'แบบตรวจสายรัดตัวก่อนใช้งานประจำเดือน',
@@ -314,7 +320,9 @@ export const machineTitles: { [key: string]: string } = {
 
   thforklift: 'Forklift',
   thfrontend: 'Frontend Loader',
-  // thAlert: 'ยืนยันการเข้าใจ Safety Alert',
+  thAlert: 'ยืนยันการเข้าใจ Safety Alert',
+  thTraining: 'กรอกข้อมูลสำหรับการฝึกอบรม Safety Training',
+  thToolbox: 'Toolbox',
 };
 
 export const manTitles: { [key: string]: string } = {

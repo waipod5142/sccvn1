@@ -70,7 +70,7 @@ const Detail = () => {
 
     fetchData();
   }, [restaurant]);
-  console.log(dataTr);
+
   // Loading state
   if (loading) {
     return (
@@ -86,7 +86,7 @@ const Detail = () => {
   return (
     <section className="py-12">
       <div className="container">
-        <h1 className="mb-6 text-3xl font-bold">Coupon</h1>
+        <h1 className="mb-6 text-4xl font-bold">{restaurant}</h1>
         <DataTable
           columns={columns(handleDeleteClick)}
           data={dataTr.sort(

@@ -13,7 +13,7 @@ export const detailFields = [
   { field: 'presenter', label: 'Presenter' },
   { field: 'subject', label: 'Subject' },
   { field: 'learn', label: 'Lesson Learn' },
-  { field: 'remark', label: 'Ghi chú Remark' },
+  { field: 'remark', label: 'หมายเหตุ Remark' },
   { field: 'url', label: '' },
   { field: 'lat', label: '' },
 ];

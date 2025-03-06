@@ -295,6 +295,7 @@ const InspectionTables = () => {
         selectedVehicle.id &&
         selectedVehicle.type && (
           <ModalFormMan
+            bu={bu}
             id={selectedVehicle.id}
             machine={
               selectedVehicle.type.charAt(0).toUpperCase() +

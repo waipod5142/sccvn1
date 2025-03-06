@@ -271,6 +271,26 @@ const Detail = ({ bu, dataTr, man }: Man) => {
                               hour12: false,
                             })
                             .toString()}`
+                        ) : field === 'expirationDate' ? (
+                          `${
+                            new Date(
+                              new Date(item[field as keyof ManItem] as string)
+                            ).toDateString() ===
+                            new Date(new Date()).toDateString()
+                              ? ''
+                              : `Expired in ${Math.round(
+                                  timeDifferenceInDays(
+                                    new Date(
+                                      item[field as keyof ManItem] as string
+                                    )
+                                  ) * -1
+                                )} days `
+                          }
+                          ${new Date(item[field as keyof ManItem] as string)
+                            .toLocaleDateString('en-GB', {
+                              hour12: false,
+                            })
+                            .toString()}`
                         ) : field === 'lat' ? (
                           <button
                             className="bg-grey-light hover:bg-grey text-grey-darkest font-bold p-2 rounded inline-flex items-center"

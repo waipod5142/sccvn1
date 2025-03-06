@@ -7,7 +7,14 @@ import useStorage from '@/hooks/useStorage';
 import { manItemLabels } from '@/lib/typeMan';
 import { Camera } from 'lucide-react';
 import { remark, picture, submit } from '@/lib/translation';
-import { questionSets, choicesSets } from '@/lib/dataTHsot';
+import {
+  questionSets,
+  choicesSets,
+  question4Sets,
+  choices4Sets,
+  question7Sets,
+  choices7Sets,
+} from '@/lib/dataTHsot';
 
 interface FillingProps {
   bu?: string;
@@ -18,7 +25,11 @@ interface FillingProps {
 export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
   // Select the corresponding questions and choices based on the 'bu' value
   const questions = questionSets[bu];
+  const questions4 = question4Sets[bu];
+  const questions7 = question7Sets[bu];
   const choices = choicesSets[bu];
+  const choices4 = choices4Sets[bu];
+  const choices7 = choices7Sets[bu];
 
   const {
     register,
@@ -203,9 +214,67 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
             <p className="text-red-500">{`${errors.talkwith?.message}`}</p>
           )}
         </div>
+        <div className="py-0 w-full">
+          {questions4?.map((question, index) => (
+            <div key={index} className="bg-purple-100 py-2 my-2 rounded-md">
+              <div className="p-4">
+                <div className="text-2xl text-slate-900">
+                  {question.id}. {question.question}
+                </div>
+                <div className="py-2">
+                  {choices4.map((choice, cIdx) => (
+                    <label
+                      key={cIdx}
+                      className="flex items-center text-2xl px-2"
+                    >
+                      <div className="px-4 py-2 text-2xl flex flex-auto gap-4 sm:text-4xl dark:text-gray-300">
+                        <input
+                          className="focus:ring-offset-orange-800 focus:ring-2 focus:h-10 focus:w-10 h-8 w-8 rounded-full shrink-0"
+                          {...register(question.name, {
+                            required:
+                              'Vui lòng trả lời câu hỏi này Please answer this question',
+                          })}
+                          type="radio"
+                          value={choice.value}
+                        />
+                        <span
+                          className={`px-4 gap-4 text-2xl font-semibold sm:text-3xl dark:text-gray-300 rounded-md text-white ${
+                            cIdx === 0
+                              ? 'bg-rose-600'
+                              : cIdx === 1
+                              ? 'bg-rose-500'
+                              : cIdx === 2
+                              ? 'bg-orange-500'
+                              : cIdx === 3
+                              ? 'bg-amber-400'
+                              : cIdx === 4
+                              ? 'bg-yellow-400'
+                              : cIdx === 5
+                              ? 'bg-lime-400'
+                              : cIdx === 6
+                              ? 'bg-green-500'
+                              : cIdx === 7
+                              ? 'bg-teal-500'
+                              : cIdx === 8
+                              ? 'bg-blue-500'
+                              : cIdx === 9
+                              ? 'bg-indigo-500'
+                              : 'bg-purple-500'
+                          }`}
+                        >
+                          {choice.text}
+                        </span>
+                      </div>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
         <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
           <div className="text-2xl text-slate-900 px-4">
-            4. การชมเชย: การกระทำ/สิ่งที่ปลอดภัย (Positive reinforcement: Safe
+            5. การชมเชย: การกระทำ/สิ่งที่ปลอดภัย (Positive reinforcement: Safe
             Action or Safe Condition)
           </div>
           <input
@@ -223,7 +292,7 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
         </div>
         <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
           <div className="text-2xl text-slate-900 px-4">
-            5. ความห่วงใย: การกระทำ/สิ่งที่ไม่ปลอดภัย (Safety care : Unsafe
+            6. ความห่วงใย: การกระทำ/สิ่งที่ไม่ปลอดภัย (Safety care : Unsafe
             Action or Unsafe Condition) และข้อตกลงความร่วมมือ (Agreement)
             ร่วมกัน
           </div>
@@ -238,6 +307,83 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
           />
           {errors.care && (
             <p className="text-red-500">{`${errors.care?.message}`}</p>
+          )}
+        </div>
+        <div className="py-0 w-full">
+          {questions7?.map((question, index) => (
+            <div key={index} className="bg-purple-100 py-2 my-2 rounded-md">
+              <div className="p-4">
+                <div className="text-2xl text-slate-900">
+                  {question.id}. {question.question}
+                </div>
+                <div className="py-2">
+                  {choices7.map((choice, cIdx) => (
+                    <label
+                      key={cIdx}
+                      className="flex items-center text-2xl px-2"
+                    >
+                      <div className="px-4 py-2 text-2xl flex flex-auto gap-4 sm:text-4xl dark:text-gray-300">
+                        <input
+                          className="focus:ring-offset-orange-800 focus:ring-2 focus:h-10 focus:w-10 h-8 w-8 rounded-full shrink-0"
+                          {...register(question.name, {
+                            required:
+                              'Vui lòng trả lời câu hỏi này Please answer this question',
+                          })}
+                          type="radio"
+                          value={choice.value}
+                        />
+                        <span
+                          className={`px-4 gap-4 text-2xl font-semibold sm:text-3xl dark:text-gray-300 rounded-md text-white ${
+                            cIdx === 0
+                              ? 'bg-rose-600'
+                              : cIdx === 1
+                              ? 'bg-rose-500'
+                              : cIdx === 2
+                              ? 'bg-orange-500'
+                              : cIdx === 3
+                              ? 'bg-amber-400'
+                              : cIdx === 4
+                              ? 'bg-yellow-400'
+                              : cIdx === 5
+                              ? 'bg-lime-400'
+                              : cIdx === 6
+                              ? 'bg-green-500'
+                              : cIdx === 7
+                              ? 'bg-teal-500'
+                              : cIdx === 8
+                              ? 'bg-blue-500'
+                              : cIdx === 9
+                              ? 'bg-indigo-500'
+                              : 'bg-purple-500'
+                          }`}
+                        >
+                          {choice.text}
+                        </span>
+                      </div>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
+          <div className="text-2xl text-slate-900 px-4">
+            8. มาตรการแก้ไขและป้องกัน
+            หรือความคิดเห็นอื่นที่มีต่อการดำเนินการครั้งนี้ / Process of action
+            or General Comments.
+          </div>
+          <input
+            {...register('actionComment', {
+              required:
+                'มาตรการแก้ไขและป้องกัน หรือความคิดเห็นอื่นที่มีต่อการดำเนินการครั้งนี้ / Process of action or General Comments.',
+            })}
+            type="text"
+            placeholder="มาตรการแก้ไขและป้องกัน หรือความคิดเห็นอื่นที่มีต่อการดำเนินการครั้งนี้ / Process of action or General Comments."
+            className="mx-4 px-4 py-2 rounded"
+          />
+          {errors.actionComment && (
+            <p className="text-red-500">{`${errors.actionComment?.message}`}</p>
           )}
         </div>
 

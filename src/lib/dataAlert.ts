@@ -66,16 +66,23 @@ export const choicesSets: { [key: string]: { value: string; text: string }[] } =
       },
     ],
     th: [
-      { value: 'fatality', text: 'อุบัติเหตุเสียชีวิต Fatality Incident' },
-      { value: 'disability', text: 'ความพิการถาวร Permanent Disability' },
+      { value: 'fatality', text: 'อุบัติเหตุขั้นเสียชีวิต Fatality Incident' },
+      {
+        value: 'disability',
+        text: 'อุบัติเหตุขั้นทุพลภาพ/พิการถาวร Permanent Disability',
+      },
       {
         value: 'lostTime',
-        text: 'อุบัติเหตุที่ทำให้เสียเวลาทำงาน Lost Time Injury Incident',
+        text: 'อุบัติเหตุบาดเจ็บถึงขั้นหยุดงาน Lost Time Injury Incident',
       },
-      { value: 'critical', text: 'อุบัติเหตุร้ายแรง Critical Incident' },
+      { value: 'critical', text: 'อุบัติเหตุขั้นวิกฤต Critical Incident' },
       {
         value: 'medical',
-        text: 'อุบัติเหตุที่ต้องได้รับการรักษาทางการแพทย์ Medical Treatment Incident',
+        text: 'อุบัติเหตุถึงขั้นรักษาพยาบาล Medical Treatment Incident',
+      },
+      {
+        value: 'other',
+        text: 'อื่นๆ________(โปรดระบุ) Other________(Please specify)',
       },
     ],
     cmic: [

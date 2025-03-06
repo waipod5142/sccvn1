@@ -2,12 +2,13 @@ import { motion } from 'framer-motion';
 import ManModal from '@/_auth/forms/ManModal';
 
 interface FormProps {
+  bu: string | undefined;
   id: string;
   machine: string | undefined;
   setFormVisibleMan: (visible: boolean) => void;
 }
 
-const Modal: React.FC<FormProps> = ({ id, machine, setFormVisibleMan }) => {
+const Modal: React.FC<FormProps> = ({ bu, id, machine, setFormVisibleMan }) => {
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.currentTarget === e.target) {
       setFormVisibleMan(false);
@@ -29,7 +30,7 @@ const Modal: React.FC<FormProps> = ({ id, machine, setFormVisibleMan }) => {
           transition: { type: 'spring', stiffness: 100, damping: 10 },
         }}
       >
-        <ManModal bu={'vn'} man={machine} id={id} />
+        <ManModal bu={bu} man={machine} id={id} />
       </motion.div>
     </motion.div>
   );

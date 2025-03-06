@@ -11,6 +11,8 @@ export const loadQuestions = async (
       return import('@/lib/dataExtinguisher');
     case 'vn_Firstaid':
       return import('@/lib/dataVNfirstaid');
+    case 'vn_Firstaidbox':
+      return import('@/lib/dataVNfirstaidbox');
     case 'vn_Hydrant':
       return import('@/lib/dataHydrant');
     case 'vn_Foam':
@@ -99,6 +101,8 @@ export const loadQuestions = async (
     //TH
     case 'th_Extinguisher':
       return import('@/lib/dataTHextinguisher');
+    case 'th_Hydrant':
+      return import('@/lib/dataTHhydrant');
     case 'th_Forklift':
       return import('@/lib/dataTHforklift');
     case 'th_Frontend':
