@@ -6,7 +6,15 @@ import axios from 'axios';
 import useStorage from '@/hooks/useStorage';
 import { useParams } from 'react-router-dom';
 import { Camera } from 'lucide-react';
-import { staffId, remark, picture, submit } from '@/lib/translation';
+import {
+  staffId,
+  presenter,
+  subject,
+  learn,
+  remark,
+  picture,
+  submit,
+} from '@/lib/translation';
 import { manItemLabels } from '@/lib/typeMan';
 
 interface FillingProps {
@@ -122,55 +130,53 @@ export default function Filling() {
             className="mx-4 px-4 py-2 rounded"
           />
           {errors.id && (
-            <p className="text-red-500">{`${errors.id?.message}`}</p>
+            <p className="text-rose-500">{`${errors.id?.message}`}</p>
           )}
         </div>
         <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
           <div className="text-2xl text-slate-900 px-4">
-            Người trình bày / Presenter
+            {(bu && presenter[bu]) || null} Presenter
           </div>
           <input
-            {...register('presenter', {
-              required: 'Vui lòng nhập người trình bày',
-            })}
+            {...register('presenter', { required: 'Presenter is required' })}
             type="text"
-            placeholder="Người trình bày / Presenter"
+            placeholder="Presenter"
             className="mx-4 px-4 py-2 rounded"
           />
           {errors.presenter && (
-            <p className="text-red-500">{`${errors.presenter?.message}`}</p>
+            <p className="text-rose-500">{`${errors.presenter?.message}`}</p>
           )}
         </div>
         <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
           <div className="text-2xl text-slate-900 px-4">
-            Chủ đề thảo luận / Subject of Toolbox Talk
+            {(bu && subject[bu]) || null} Presenter
           </div>
           <input
             {...register('subject', {
-              required: 'Vui lòng nhập chủ đề thảo luận',
+              required: 'Subject of Toolbox Talk is required',
             })}
             type="text"
-            placeholder="Chủ đề thảo luận / Subject of Toolbox Talk"
+            placeholder="Subject of Toolbox Talk"
             className="mx-4 px-4 py-2 rounded"
           />
           {errors.subject && (
-            <p className="text-red-500">{`${errors.subject?.message}`}</p>
+            <p className="text-rose-500">{`${errors.subject?.message}`}</p>
           )}
         </div>
         <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
           <div className="text-2xl text-slate-900 px-4">
-            Bài học kinh nghiệm / Lesson learn
+            {(bu && learn[bu]) || null} Lesson learn
           </div>
           <input
             {...register('learn', {
-              required: 'Vui lòng nhập bài học kinh nghiệm',
+              required: 'Lesson learn is required',
             })}
             type="text"
-            placeholder="Bài học kinh nghiệm / Lesson learn"
+            placeholder="Lesson learn"
             className="mx-4 px-4 py-2 rounded"
           />
           {errors.learn && (
-            <p className="text-red-500">{`${errors.learn?.message}`}</p>
+            <p className="text-rose-500">{`${errors.learn?.message}`}</p>
           )}
         </div>
 
@@ -204,7 +210,7 @@ export default function Filling() {
             className="mx-4 px-4 py-2 rounded"
           />
           {errors.remark && (
-            <p className="text-red-500">{`${errors.remark?.message}`}</p>
+            <p className="text-rose-500">{`${errors.remark?.message}`}</p>
           )}
         </div>
 

@@ -19,7 +19,7 @@ const useStorage = () => {
       const formatFile = file.type.split('/')[1];
       console.log(fileId);
 
-      const storageRef = ref(storage, `SCCVN20240116/${fileId}.${formatFile}`);
+      const storageRef = ref(storage, `SCCVN20250315/${fileId}.${formatFile}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on(

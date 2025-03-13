@@ -7,6 +7,8 @@ export const loadQuestions = async (
   switch (key) {
     case 'vn_Lifting':
       return import('@/lib/dataLifting');
+    case 'jkcement_Forklift':
+      return import('@/lib/dataJKforklift');
     case 'vn_Extinguisher':
       return import('@/lib/dataExtinguisher');
     case 'vn_Firstaid':
@@ -147,6 +149,14 @@ export const loadQuestions = async (
       return import('@/lib/dataTHcrane');
     case 'th_Equipment':
       return import('@/lib/dataTHequipment');
+    case 'th_Welding':
+      return import('@/lib/dataTHwelding');
+    case 'th_Shower':
+      return import('@/lib/dataTHshower');
+    case 'th_Waterjet':
+      return import('@/lib/dataTHwaterjet');
+    case 'th_Compressor':
+      return import('@/lib/dataTHcompressor');
     default:
       throw new Error('Unknown machine type');
   }

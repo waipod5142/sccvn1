@@ -64,7 +64,7 @@ const Main = () => {
 
   return (
     <div className="py-2 w-full md:w-3/4">
-      {bu === 'mkt' && machine === 'Car' && (
+      {/* {bu === 'mkt' && machine === 'Car' && (
         <button
           className="mt-4 ml-4 p-2 md:ml-10 w-60 bg-pink-500 text-white shadow-xl hover:shadow-2xl rounded-md disabled:bg-gray-500"
           onClick={() =>
@@ -81,7 +81,7 @@ const Main = () => {
         >
           แบบตรวจเช็ครถก่อนใช้งานประจำวัน Passenger Car Inspection
         </button>
-      )}
+      )} */}
       {dataNotFound ? (
         <div className="p-4 text-rose-500 text-4xl font-bold">
           No find <span className="text-blue-500 text-4xl font-bold">{id}</span>{' '}
@@ -107,7 +107,7 @@ const Main = () => {
                     : bu
                 ]}{' '}
               <span className="text-black">
-                {timeDifferenceInDays(new Date('2025-03-12')) * -1} days
+                {timeDifferenceInDays(new Date('2025-09-30')) * -1} days
               </span>
             </h1>
           )}
@@ -220,6 +220,39 @@ const Main = () => {
                 </select>
               </div>
             )}
+          {/* For Passengers car */}
+          {(machine === 'Car' || machine === 'Driving') && (
+            <div className="px-4 py-4 bg-white rounded-md">
+              <label
+                htmlFor="machine-select"
+                className="block text-lg font-semibold text-gray-700 mb-2"
+              >
+                เลือกแบบฟอร์มการประเมิน:
+              </label>
+              <select
+                id="man-select"
+                className="block w-full p-3 border border-gray-300 rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                onChange={(e) => (window.location.href = e.target.value)}
+              >
+                <option value="" className="text-gray-500">
+                  -- ตัวเลือกทั้งหมด --
+                </option>
+                <option
+                  value={`/Machine/${bu}/Driving/${id}`}
+                  className="odd:bg-gray-100 even:bg-gray-200"
+                >
+                  แบบประเมินความพร้อมและทักษะในการขับขี่ Defensive Driving
+                  Assessment
+                </option>
+                <option
+                  value={`/Machine/${bu}/Car/${id}`}
+                  className="odd:bg-gray-100 even:bg-gray-200"
+                >
+                  แบบตรวจเช็ครถก่อนใช้งานประจำวัน Passenger Car Inspection
+                </option>
+              </select>
+            </div>
+          )}
           {data && <MachineHeader bu={bu} data={data} machine={machine} />}
           <br />
           {data && (

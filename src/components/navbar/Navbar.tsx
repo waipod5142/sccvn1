@@ -4,18 +4,28 @@ import NavLinks from './NavLinks';
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const currentUrl = window.location.href;
+
   return (
     <div className="shadow-md w-full fixed top-0 left-0 z-20">
       <div className="md:flex items-center justify-between bg-white py-3 md:py-0 px-3 md:px-8">
         {/* logo section */}
         <div className="flex items-center gap-1 sm:px-4">
-          <img
-            src="/assets/images/logo.svg"
-            alt="logo"
-            // className="cursor-pointer h-4 sm:h-4 md:h-6 lg:h-6 xl:h-6 2xl:h-6 w-auto"
-            className="cursor-pointer h-4 w-auto"
-            onClick={() => (window.location.href = `/`)}
-          />
+          {!currentUrl.includes('jkcement') ? (
+            <img
+              src="/assets/images/logo.svg"
+              alt="logo"
+              className="cursor-pointer h-4 w-auto"
+              onClick={() => (window.location.href = `/`)}
+            />
+          ) : (
+            <img
+              src="/assets/images/JKCEMENT.NS_BIG.svg"
+              alt="logo"
+              className="cursor-pointer h-6 w-auto"
+              onClick={() => (window.location.href = `/`)}
+            />
+          )}
           <span className="text-sm sm:text-xs md:text-base lg:text-base xl:text-base 2xl:text-base mx-2">
             SAFETY
           </span>

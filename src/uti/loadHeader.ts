@@ -3,6 +3,27 @@ export const loadHeader = async (bu: string | undefined | null) => {
   let headerFields;
 
   switch (key) {
+    case 'jkcement':
+      headerFields = [
+        { field: 'id', label: 'Equipment ID' },
+        { field: 'type', label: 'Type' },
+        { field: 'swl', label: 'Safe Working Load (SWL) (Ton)' },
+        { field: 'latestInspection', label: 'Latest Inspection (3rd Party)' },
+        { field: 'kind', label: 'Kind of Lifting Equipment' },
+        { field: 'esite', label: 'Equipment Site' },
+        { field: 'site', label: 'Site' },
+        { field: 'bu', label: 'Business Unit (BU)' },
+        { field: 'cableDiameter', label: 'Cable Diameter (mm)' },
+        { field: 'area', label: 'Area' },
+        { field: 'department', label: 'Department' },
+        { field: 'place', label: 'Place' },
+        { field: 'name', label: 'Name' },
+        { field: 'owner', label: 'Owner' },
+        { field: 'type', label: 'Type' }, // This field is duplicated, consider removing one
+        { field: 'email', label: 'Responsible Person' },
+      ];
+
+      break;
     case 'vn':
       headerFields = [
         { field: 'id', label: 'Mã số thiết bị' },

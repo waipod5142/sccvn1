@@ -1,9 +1,9 @@
 export const saf37y: { [key: string]: string } = {
-  vn: 'URL hoặc mã QR này sẽ hết hạn vào ngày 12 tháng 3 năm 2025. Vui lòng liên hệ quản trị viên để cấp mã QR mới. Thời gian còn lại',
-  th: 'URL หรือ QR code นี้จะหมดอายุในวันที่ 12 มีนาคม 2025 กรุณาติดต่อผู้ดูแลระบบเพื่อออก QR code ใหม่ เหลือเวลาอีก',
-  cmic: 'URL ឬ QR code នេះនឹងផុតកំណត់នៅថ្ងៃទី 12 ខែមីនា ឆ្នាំ 2025 សូមទាក់ទងអ្នកគ្រប់គ្រងប្រព័ន្ធដើម្បីបញ្ចេញ QR code ថ្មី។ មានរយៈពេលនៅសល់',
-  lk: 'මෙම URL හෝ QR කේතය 2025 මාර්තු 12 වන දිනට පෙර කල් ඉකුත් වේ. නව QR කේතයක් නිකුත් කිරීමට පරිපාලකවරයෙකු අමතන්න. ඉතිරි කාලය',
-  bd: 'এই URL বা QR কোডটি ১২ মার্চ ২০২৫ তারিখে মেয়াদোত্তীর্ণ হবে। নতুন QR কোড ইস্যু করার জন্য প্রশাসকের সাথে যোগাযোগ করুন। অবশিষ্ট সময়',
+  vn: 'URL hoặc mã QR này sẽ hết hạn vào ngày 30 tháng 9 năm 2025. Vui lòng liên hệ quản trị viên để cấp mã QR mới. Thời gian còn lại',
+  th: 'URL หรือ QR code นี้จะหมดอายุในวันที่ 30 กันยายน 2025 กรุณาติดต่อผู้ดูแลระบบเพื่อออก QR code ใหม่ เหลือเวลาอีก',
+  cmic: 'URL ឬ QR code នេះនឹងផុតកំណត់នៅថ្ងៃទី 30 ខែកញ្ញា ឆ្នាំ 2025 សូមទាក់ទងអ្នកគ្រប់គ្រងប្រព័ន្ធដើម្បីបញ្ចេញ QR code ថ្មី។ មានរយៈពេលនៅសល់',
+  lk: 'මෙම URL හෝ QR කේතය 2025 සැප්තැම්බර් 30 වන දිනට පෙර කල් ඉකුත් වේ. නව QR කේතයක් නිකුත් කිරීමට පරිපාලකවරයෙකු අමතන්න. ඉතිරි කාලය',
+  bd: 'এই URL বা QR কোডটি ৩০ সেপ্টেম্বর ২০২৫ তারিখে মেয়াদোত্তীর্ণ হবে। নতুন QR কোড ইস্যু করার জন্য প্রশাসকের সাথে যোগাযোগ করুন। অবশিষ্ট সময়',
 };
 
 export const inspector: { [key: string]: string } = {
@@ -28,6 +28,7 @@ export const howto: { [key: string]: string } = {
   cmic: 'វិធីសាស្រ្តពិនិត្យ',
   lk: 'පරික්ෂා කිරීමේ ක්‍රමය',
   bd: 'পরীক্ষার পদ্ধতি',
+  jkcement: 'How to inspect',
 };
 
 export const accept: { [key: string]: string } = {
@@ -36,6 +37,7 @@ export const accept: { [key: string]: string } = {
   cmic: 'លក្ខណៈសម្បត្តិនៃការទទួលយក',
   lk: 'පිළිගැනීම් ප්‍රමිතිය',
   bd: 'গৃহীত মানদণ্ড',
+  jkcement: 'Acceptance Criteria',
 };
 
 export const remarkr: { [key: string]: string } = {
@@ -144,6 +146,11 @@ export const bd: ChoiceType[] = [
   { value: 'Pass', text: 'পাস', colorClass: 'bg-green-500' },
   { value: 'NotPass', text: 'পাস নয়', colorClass: 'bg-rose-500' },
   { value: 'N/A', text: 'প্রযোজ্য নয়', colorClass: 'bg-yellow-500' },
+];
+export const jkcement: ChoiceType[] = [
+  { value: 'Pass', text: 'Pass', colorClass: 'bg-green-500' },
+  { value: 'NotPass', text: 'Not Pass', colorClass: 'bg-rose-500' },
+  { value: 'N/A', text: 'N/A', colorClass: 'bg-yellow-500' },
 ];
 
 export const staffId: { [key: string]: string } = {

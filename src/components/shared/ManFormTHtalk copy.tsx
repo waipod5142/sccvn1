@@ -100,7 +100,7 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
   };
 
   return (
-    <section className="px-2 md:px-4 pb-4">
+    <section className="md:px-4 pb-4">
       <div className="text-center relative">
         <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-slate-200 via-slate-500 to-slate-200 transform -translate-y-1/2 z-0"></div>
         <h1 className="text-lg bg-white text-slate-900 relative z-10 py-2 px-4 rounded-lg inline">
@@ -109,25 +109,25 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-y-2 px-1 md:px-4 max-w-full"
+        className="flex flex-col gap-y-2 md:px-4"
       >
         {/* Questions Section */}
         <div className="py-0 w-full">
           {questions?.map((question, index) => (
             <div key={index} className="bg-purple-100 py-2 my-2 rounded-md">
-              <div className="p-2 sm:p-4">
-                <div className="text-xl sm:text-2xl text-slate-900">
+              <div className="p-4">
+                <div className="text-2xl text-slate-900">
                   {question.id}. {question.question}
                 </div>
                 <div className="py-2">
                   {choices.map((choice, cIdx) => (
                     <label
                       key={cIdx}
-                      className="flex items-center text-lg sm:text-2xl px-1 sm:px-2"
+                      className="flex items-center text-2xl px-2"
                     >
-                      <div className="px-2 sm:px-4 py-2 text-lg flex flex-auto gap-2 sm:gap-4 sm:text-4xl dark:text-gray-300">
+                      <div className="px-4 py-2 text-2xl flex flex-auto gap-4 sm:text-4xl dark:text-gray-300">
                         <input
-                          className="focus:ring-offset-orange-800 focus:ring-2 focus:h-8 focus:w-8 h-6 w-6 sm:h-8 sm:w-8 rounded-full shrink-0"
+                          className="focus:ring-offset-orange-800 focus:ring-2 focus:h-10 focus:w-10 h-8 w-8 rounded-full shrink-0"
                           {...register(question.name, {
                             required:
                               'Vui lòng trả lời câu hỏi này Please answer this question',
@@ -136,7 +136,7 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
                           value={choice.value}
                         />
                         <span
-                          className={`px-2 sm:px-4 gap-2 sm:gap-4 text-lg font-semibold sm:text-3xl dark:text-gray-300 rounded-md text-white ${
+                          className={`px-4 gap-4 text-2xl font-semibold sm:text-3xl dark:text-gray-300 rounded-md text-white ${
                             cIdx === 0
                               ? 'bg-rose-600'
                               : cIdx === 1
@@ -171,7 +171,7 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
           ))}
         </div>
         <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
-          <div className="text-xl sm:text-2xl text-slate-900 px-2 sm:px-4">
+          <div className="text-2xl text-slate-900 px-4">
             2. เนื้อหาที่พูดคุยโดยสังเขป/Briefly discussed topic
           </div>
           <input
@@ -180,14 +180,14 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
             })}
             type="text"
             placeholder="เนื้อหาที่พูดคุยโดยสังเขป/Briefly discussed topic"
-            className="mx-2 sm:mx-4 px-2 sm:px-4 py-2 rounded w-[90%] sm:w-auto"
+            className="mx-4 px-4 py-2 rounded"
           />
           {errors.talkDetail && (
-            <p className="text-red-500 px-2 sm:px-4">{`${errors.talkDetail?.message}`}</p>
+            <p className="text-red-500">{`${errors.talkDetail?.message}`}</p>
           )}
         </div>
         <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
-          <div className="text-xl sm:text-2xl text-slate-900 px-2 sm:px-4">
+          <div className="text-2xl text-slate-900 px-4">
             3. สถานที่ หรือพื้นที่ที่ทำการบรรยาย /place or location to talks
           </div>
           <input
@@ -197,14 +197,14 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
             })}
             type="text"
             placeholder="สถานที่ หรือพื้นที่ที่ทำการบรรยาย /place or location to talks"
-            className="mx-2 sm:mx-4 px-2 sm:px-4 py-2 rounded w-[90%] sm:w-auto"
+            className="mx-4 px-4 py-2 rounded"
           />
           {errors.place && (
-            <p className="text-red-500 px-2 sm:px-4">{`${errors.place?.message}`}</p>
+            <p className="text-red-500">{`${errors.place?.message}`}</p>
           )}
         </div>
         <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
-          <div className="text-xl sm:text-2xl text-slate-900 px-2 sm:px-4">
+          <div className="text-2xl text-slate-900 px-4">
             4. จำนวนคนที่เข้าร่วมรับฟัง โดยสังเขป/Number of participants
           </div>
           <input
@@ -214,14 +214,14 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
             })}
             type="text"
             placeholder="จำนวนคนที่เข้าร่วมรับฟัง โดยสังเขป/Number of participants"
-            className="mx-2 sm:mx-4 px-2 sm:px-4 py-2 rounded w-[90%] sm:w-auto"
+            className="mx-4 px-4 py-2 rounded"
           />
           {errors.participate && (
-            <p className="text-red-500 px-2 sm:px-4">{`${errors.participate?.message}`}</p>
+            <p className="text-red-500">{`${errors.participate?.message}`}</p>
           )}
         </div>
         <div className="py-2 rounded-lg bg-purple-100 w-full">
-          <div className="text-xl sm:text-2xl text-slate-900 px-2 sm:px-4">
+          <div className="text-2xl text-slate-900 px-4">
             {picture[bu] || null} Attach Image (Optional)
           </div>
           <label className="flex items-center bg-blue-500 text-white px-3 py-2 rounded-md shadow-xl cursor-pointer mt-4 ml-2 max-w-fit">
@@ -230,44 +230,39 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
               {...register('file')}
               type="file"
               placeholder="url of image"
-              className="w-[1px] h-[1px] opacity-0 absolute"
+              // className="hidden"
               onChange={handleFileChange}
             />
-            <span>Upload Image</span>
           </label>
-          {Boolean(progress) && !url && (
-            <progress value={progress} max="100" className="ml-2 mt-2" />
-          )}
+          {Boolean(progress) && !url && <progress value={progress} max="100" />}
           {errors.file && (
-            <p className="text-rose-500 px-2 sm:px-4">{`${errors.file?.message}`}</p>
+            <p className="text-rose-500">{`${errors.file?.message}`}</p>
           )}
         </div>
         <div className="py-4 rounded-lg bg-purple-100 inline-block w-full">
-          <div className="text-xl sm:text-2xl text-slate-900 px-2 sm:px-4">
+          <div className="text-2xl text-slate-900 px-4">
             {remark[bu] || null} Remark (Optional)
           </div>
           <input
             {...register('remark')}
             type="text"
             placeholder="Remark (Optional)"
-            className="mx-2 sm:mx-4 px-2 sm:px-4 py-2 rounded w-[90%] sm:w-auto"
+            className="mx-4 px-4 py-2 rounded"
           />
           {errors.remark && (
-            <p className="text-red-500 px-2 sm:px-4">{`${errors.remark?.message}`}</p>
+            <p className="text-red-500">{`${errors.remark?.message}`}</p>
           )}
         </div>
         <button
           disabled={isSubmitting || (fileSelected && isUploading)}
           type="submit"
-          className="bg-purple-500 text-white shadow-xl hover:shadow-2xl hover:bg-purple-700 rounded-full py-2 disabled:bg-gray-500 w-auto mx-2"
+          className="bg-purple-500 text-white shadow-xl hover:shadow-2xl hover:bg-purple-700 rounded-full py-2 disabled:bg-gray-500 w-auto"
         >
           {isSubmitting && <Loader />}
           {submit[bu] || null} / Submit
         </button>
         {uploadURL && (
-          <p className="text-green-500 mt-2 px-2">
-            Image uploaded successfully!
-          </p>
+          <p className="text-green-500 mt-2">Image uploaded successfully!</p>
         )}
       </form>
     </section>

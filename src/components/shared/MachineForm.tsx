@@ -16,6 +16,7 @@ import {
   lk,
   bd,
   cmic,
+  jkcement,
   th,
   inspector,
   howto,
@@ -468,6 +469,8 @@ const Filling: React.FC<FillingProps> = ({
                           ? lk
                           : bu === 'cmic'
                           ? cmic
+                          : bu === 'jkcement'
+                          ? jkcement
                           : [
                               'srb',
                               'mkt',

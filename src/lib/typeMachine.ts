@@ -163,6 +163,7 @@ export type DetailType = {
 export const sites = ['All sites', 'HONC', 'THIV', 'CATL', 'HIEP', 'CANT'];
 
 export const machineTitles: { [key: string]: string } = {
+  jkcementForklift: 'Forklift Inspection',
   vnLifting: 'Kiểm định thiết bị nâng / Lifting Equipment',
   vnForklift: 'Kiểm định thiết bị nâng / Forklift',
   vnMobile: 'Kiểm tra thiết bị di động / Mobile Equipment',
@@ -323,6 +324,14 @@ export const machineTitles: { [key: string]: string } = {
   thAlert: 'ยืนยันการเข้าใจ Safety Alert',
   thTraining: 'กรอกข้อมูลสำหรับการฝึกอบรม Safety Training',
   thToolbox: 'Toolbox',
+  thWelding: 'แบบตรวจเช็ค Welding Machine',
+  thShower: 'แบบตรวจเช็คEmergency Shower and Eye Wash Station',
+  thWaterjet: 'แบบตรวจเช็ค High Pressure Water Jet',
+  thCompressor: 'แบบตรวจเช็ค Air Compressor',
+  thwelding: 'Welding Machine',
+  thshower: 'Emergency Shower and Eye Wash Station',
+  thwaterjet: 'High Pressure Water Jet',
+  thcompressor: 'Air Compressor',
 };
 
 export const manTitles: { [key: string]: string } = {

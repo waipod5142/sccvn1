@@ -272,71 +272,25 @@ const Detail = ({ bu, dataTr, man }: Man) => {
                             })
                             .toString()}`
                         ) : field === 'expirationDate' ? (
-                          (() => {
-                            const expirationDate = new Date(
-                              item[field as keyof ManItem] as string
-                            );
-
-                            // Check if the date is valid
-                            if (isNaN(expirationDate.getTime())) {
-                              return `${item[field as keyof ManItem]}`;
-                            }
-
-                            const diffDays = Math.round(
-                              timeDifferenceInDays(expirationDate)
-                            );
-
-                            // Format the display text
-                            let expirationText = '';
-                            if (diffDays > 0) {
-                              expirationText = `Expires in ${diffDays} days - `;
-                            } else if (diffDays < 0) {
-                              expirationText = `Expired ${Math.abs(
-                                diffDays
-                              )} days ago - `;
-                            } else {
-                              expirationText = 'Expires today - ';
-                            }
-
-                            // Add the formatted date
-                            expirationText +=
-                              expirationDate.toLocaleDateString('en-GB');
-
-                            return expirationText;
-                          })()
-                        ) : field === 'trainingDate' ? (
-                          (() => {
-                            const expirationDate = new Date(
-                              item[field as keyof ManItem] as string
-                            );
-
-                            // Check if the date is valid
-                            if (isNaN(expirationDate.getTime())) {
-                              return `${item[field as keyof ManItem]}`;
-                            }
-
-                            const diffDays = Math.round(
-                              timeDifferenceInDays(expirationDate)
-                            );
-
-                            // Format the display text
-                            let expirationText = '';
-                            if (diffDays > 0) {
-                              expirationText = `Expires in ${diffDays} days - `;
-                            } else if (diffDays < 0) {
-                              expirationText = `${Math.abs(
-                                diffDays
-                              )} days ago - `;
-                            } else {
-                              expirationText = 'Expires today - ';
-                            }
-
-                            // Add the formatted date
-                            expirationText +=
-                              expirationDate.toLocaleDateString('en-GB');
-
-                            return expirationText;
-                          })()
+                          `${
+                            new Date(
+                              new Date(item[field as keyof ManItem] as string)
+                            ).toDateString() ===
+                            new Date(new Date()).toDateString()
+                              ? ''
+                              : `Expired in ${Math.round(
+                                  timeDifferenceInDays(
+                                    new Date(
+                                      item[field as keyof ManItem] as string
+                                    )
+                                  ) * -1
+                                )} days `
+                          }
+                          ${new Date(item[field as keyof ManItem] as string)
+                            .toLocaleDateString('en-GB', {
+                              hour12: false,
+                            })
+                            .toString()}`
                         ) : field === 'lat' ? (
                           <button
                             className="bg-grey-light hover:bg-grey text-grey-darkest font-bold p-2 rounded inline-flex items-center"
