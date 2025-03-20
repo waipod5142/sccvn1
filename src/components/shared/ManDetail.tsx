@@ -271,6 +271,65 @@ const Detail = ({ bu, dataTr, man }: Man) => {
                               hour12: false,
                             })
                             .toString()}`
+                        ) : field === 'formStartTime' ? (
+                          <>
+                            {`${
+                              new Date(
+                                new Date(item[field as keyof ManItem] as string)
+                              ).toDateString() ===
+                              new Date(new Date()).toDateString()
+                                ? 'Today at '
+                                : `${Math.round(
+                                    timeDifferenceInDays(
+                                      new Date(
+                                        item[field as keyof ManItem] as string
+                                      )
+                                    )
+                                  )} days ago on `
+                            }
+                            ${new Date(item[field as keyof ManItem] as string)
+                              .toLocaleString('en-GB', {
+                                hour12: false,
+                              })
+                              .toString()}`}
+
+                            {item['date'] && (
+                              <span className="block mt-1 text-blue-600">
+                                {(() => {
+                                  const startTime = new Date(
+                                    item[field as keyof ManItem] as string
+                                  ).getTime();
+                                  const endTime = new Date(
+                                    item['date'] as string
+                                  ).getTime();
+                                  const durationMs = endTime - startTime;
+
+                                  // Handle invalid or negative durations
+                                  if (isNaN(durationMs) || durationMs < 0) {
+                                    return 'Duration: Invalid timing';
+                                  }
+
+                                  // Convert to minutes and seconds
+                                  const durationMinutes = Math.floor(
+                                    durationMs / (1000 * 60)
+                                  );
+                                  const durationSeconds = Math.floor(
+                                    (durationMs % (1000 * 60)) / 1000
+                                  );
+
+                                  if (durationMinutes > 60) {
+                                    const hours = Math.floor(
+                                      durationMinutes / 60
+                                    );
+                                    const minutes = durationMinutes % 60;
+                                    return `Duration: ${hours}h ${minutes}m ${durationSeconds}s`;
+                                  }
+
+                                  return `Duration: ${durationMinutes}m ${durationSeconds}s`;
+                                })()}
+                              </span>
+                            )}
+                          </>
                         ) : field === 'expirationDate' ? (
                           (() => {
                             const expirationDate = new Date(

@@ -58,7 +58,7 @@ const Detail = ({ bu, dataTr, machine }: Machine) => {
           )
             ? 'th'
             : buValue,
-          machine
+          buValue !== 'srb' && machine === 'Truck' ? 'Truckall' : machine
         );
         setDetailFields(detailFields);
       } catch (error) {
@@ -280,6 +280,13 @@ const Detail = ({ bu, dataTr, machine }: Machine) => {
                             : item[field as keyof MachineItem] === 'N/A'
                             ? 'bg-yellow-500 text-white rounded-sm px-2'
                             : 'text-slate-900'
+                        } ${
+                          field === 'date' &&
+                          new Date(
+                            item[field as keyof MachineItem] as string
+                          ).toLocaleDateString() ===
+                            new Date().toLocaleDateString() &&
+                          'bg-green-400 text-white rounded-sm p-1'
                         }`}
                       >
                         {field === 'url' ||

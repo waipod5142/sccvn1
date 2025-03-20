@@ -48,7 +48,6 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
   const [isUploading, setIsUploading] = useState<{ [key: string]: boolean }>(
     {}
   );
-  const [formStartTime, setFormStartTime] = useState<string>('');
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -65,11 +64,6 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
     };
 
     fetchQuestions();
-
-    // Store current timestamp in localStorage when form loads
-    const currentTime = new Date().toISOString();
-    localStorage.setItem('formStartTime', currentTime);
-    setFormStartTime(currentTime);
   }, [bu, man]);
 
   const onSubmit: SubmitHandler<FormData> = async (formData) => {
@@ -80,7 +74,6 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
       id: formData.id.replace(/[/\s]/g, '-'),
       type: man,
       area: id,
-      formStartTime: formStartTime, // Add the form start time to the submission data
     };
 
     Object.keys(fileUrls).forEach((key) => {

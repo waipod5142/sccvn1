@@ -60,7 +60,8 @@ export const questions = [
 
 export const detailFields = [
   { field: 'id', label: 'ID' },
-  { field: 'date', label: 'Ngày Date' },
+  { field: 'formStartTime', label: 'Start Time' },
+  { field: 'date', label: 'Date' },
   { field: 'area', label: 'Area' },
   {
     field: 'contactPerson',
