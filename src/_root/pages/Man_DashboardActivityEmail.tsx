@@ -22,6 +22,7 @@ interface InspectorDetails {
 
 interface BaseInspectionItem {
   _id: string;
+  formStartTime: string;
   date: string;
   area: string;
   observeContact?: string;
@@ -163,6 +164,7 @@ const InspectionTables = () => {
               <thead className="bg-gray-100 sticky top-0">
                 <tr>
                   <th className="px-4 py-2 border">ID</th>
+                  <th className="px-4 py-2 border">Duration</th>
                   <th className="px-4 py-2 border">Date</th>
                   <th className="px-4 py-2 border">Area</th>
                   <th className="px-4 py-2 border">Email</th>
@@ -184,6 +186,43 @@ const InspectionTables = () => {
                       onClick={() => handleCardClick(type, item.id)}
                     >
                       {item.id || '-'}
+                    </td>
+
+                    <td className="px-4 py-2 border">
+                      {item.formStartTime && (
+                        <span className="block mt-1">
+                          {(() => {
+                            const startTime = new Date(
+                              item.formStartTime
+                            ).getTime();
+                            const endTime = new Date(
+                              item['date'] as string
+                            ).getTime();
+                            const durationMs = endTime - startTime;
+
+                            // Handle invalid or negative durations
+                            if (isNaN(durationMs) || durationMs < 0) {
+                              return 'Duration: Invalid timing';
+                            }
+
+                            // Convert to minutes and seconds
+                            const durationMinutes = Math.floor(
+                              durationMs / (1000 * 60)
+                            );
+                            const durationSeconds = Math.floor(
+                              (durationMs % (1000 * 60)) / 1000
+                            );
+
+                            if (durationMinutes > 60) {
+                              const hours = Math.floor(durationMinutes / 60);
+                              const minutes = durationMinutes % 60;
+                              return `Duration: ${hours}h ${minutes}m ${durationSeconds}s`;
+                            }
+
+                            return `${durationMinutes}m ${durationSeconds}s`;
+                          })()}
+                        </span>
+                      )}
                     </td>
 
                     <td

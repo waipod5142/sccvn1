@@ -157,6 +157,19 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
           ] || null}
         </h1>
       </div>
+      {/* Add the form start time display here */}
+      <div className="m-2 pl-2 animate-pulse">
+        <p className="text-xl text-blue-600">
+          Activity start time :{' '}
+          {formStartTime
+            ? new Date(formStartTime)
+                .toLocaleString('en-GB', {
+                  hour12: false,
+                })
+                .toString()
+            : ''}
+        </p>
+      </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-y-2 md:px-4"
@@ -168,13 +181,42 @@ export default function Filling({ bu = '', id = '', man = '' }: FillingProps) {
           <input
             {...register('id', {
               required: 'Mã nhân viên Staff ID ?',
+              pattern: {
+                value: /^[0-9]+$/,
+                message: 'Vui lòng chỉ nhập số',
+              },
             })}
             type="text"
+            inputMode="numeric"
             placeholder="Mã nhân viên Staff ID ?"
             className="mx-4 px-4 py-2 rounded w-72 md:w-80"
+            onKeyPress={(e) => {
+              if (!/[0-9]/.test(e.key)) {
+                e.preventDefault();
+                // Show warning message
+                const warningElement =
+                  document.getElementById('alphabet-warning');
+                if (warningElement) {
+                  warningElement.style.display = 'block';
+                  // Hide the warning after 3 seconds
+                  setTimeout(() => {
+                    warningElement.style.display = 'none';
+                  }, 3000);
+                }
+              }
+            }}
           />
+          {/* Immediate warning for alphabet input */}
+          <p
+            id="alphabet-warning"
+            className="text-rose-500 px-4 mt-1"
+            style={{ display: 'none' }}
+          >
+            Chỉ được nhập số! (Numbers only!)
+          </p>
+          {/* Form validation error */}
           {errors.id && (
-            <p className="text-red-500">{`${errors.id?.message}`}</p>
+            <p className="text-rose-500 px-4 mt-1">{`${errors.id?.message}`}</p>
           )}
         </div>
 
