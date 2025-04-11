@@ -42,7 +42,7 @@ const Detail = () => {
       });
 
       const res = await axios.delete(`${http}rescueTr_delete`, {
-        params: { id, bu: 'vn', type: 'ra' },
+        params: { id, bu: 'vn', type: 'boot' },
         headers: {
           'Content-type': 'application/json',
         },
@@ -63,7 +63,7 @@ const Detail = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(`${http}permitTr_get`, {
-          params: { bu: 'vn', type: 'ra' },
+          params: { bu: 'vn', type: 'boot' },
           headers: {
             'Content-Type': 'application/json',
           },

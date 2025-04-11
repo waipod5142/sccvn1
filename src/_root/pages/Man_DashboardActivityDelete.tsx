@@ -5,6 +5,7 @@ import Loading from '@/components/shared/Loader';
 import { useParams } from 'react-router-dom';
 import timeDifferenceInDays from '@/uti/dayDiff';
 import ModalFormMan from '@/uti/ModalFormMan';
+import { getStorage, ref, deleteObject } from 'firebase/storage';
 
 interface GroupByAlert {
   alertNo: string;
@@ -168,6 +169,60 @@ const InspectionTables = () => {
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
     );
 
+    const storage = getStorage();
+
+    // Utility function to delete a key from an object
+    const deleteKey = <T, K extends keyof T>(obj: T, key: K): void => {
+      delete obj[key];
+    };
+
+    const handleDeleteClick = async (id: string, item: InspectionItem, type:string) => {
+      const isConfirmed = window.confirm(
+        'Are you sure you want to delete this item? This action cannot be undone'
+      );
+  
+      if (!isConfirmed) return; // Exit if the user cancels the deletion
+      try {
+        // Loop through the item and delete fields ending with 'P' and handle URLs
+        (Object.keys(item) as (keyof InspectionItem)[]).forEach(async (key) => {
+          if (
+            (key.endsWith('P') || key.endsWith('F') || key.startsWith('url')) &&
+            typeof item[key] === 'string' &&
+            (item[key] as string).startsWith('http')
+          ) {
+            const url = item[key] as string;
+            const desertRef = ref(storage, url);
+  
+            try {
+              await deleteObject(desertRef);
+              console.log('File deleted successfully');
+            } catch (error) {
+              console.log(error);
+            }
+  
+            deleteKey(item, key); // Delete the field from the item
+          }
+        });
+  
+        const res = await axios.delete(
+          `${http}rescueTr_delete?id=${id}&type=${type?.toLocaleLowerCase()}&bu=${bu}`,
+          {
+            headers: {
+              'Content-type': 'application/json',
+            },
+          }
+        );
+        console.log(res);
+  
+        if (res.status === 200) {
+          window.location.reload();
+        } else {
+          throw new Error('Failed to delete');
+        }
+      } catch (error) {
+        console.error('Error deleting data:', error);
+      }
+    };
     return (
       <div className="mb-8">
         <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
@@ -193,6 +248,7 @@ const InspectionTables = () => {
             <table className="min-w-full bg-white">
               <thead className="bg-gray-100 sticky top-0">
                 <tr>
+                  <th className="px-4 py-2 border">Delete</th>
                   <th className="px-4 py-2 border">ID</th>
                   <th className="px-4 py-2 border">Duration</th>
                   <th className="px-4 py-2 border">Date</th>
@@ -211,6 +267,17 @@ const InspectionTables = () => {
               <tbody>
                 {sortedData.map((item) => (
                   <tr key={item._id} className="hover:bg-gray-50">
+                  <button
+                    className="m-2 p-2 bg-slate-300 text-white rounded-md shadow-md hover:shadow-lg"
+                    onClick={() => handleDeleteClick(item._id, item, type)}
+                  >
+                    <img
+                      src={'/assets/icons/delete.svg'}
+                      alt="delete"
+                      width={24}
+                      height={24}
+                    />
+                  </button>
                     <td
                       className="px-4 py-2 border text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
                       onClick={() => handleCardClick(type, item.id)}

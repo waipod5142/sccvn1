@@ -51,7 +51,7 @@ const Editing = ({ item, machine, bu }: Machine) => {
     formState: { errors, isSubmitting },
     reset,
   } = useForm<FormData>();
-  console.log('item', machine);
+
   const [questions, setQuestions] = useState<QuestionType[]>([]);
   const { startUpload, progress } = useStorage();
   const location = useGeoLocation();
@@ -73,7 +73,20 @@ const Editing = ({ item, machine, bu }: Machine) => {
             : bu,
           machine
         );
-        setQuestions(questions);
+
+        let tsmQuestions: QuestionType[] = [];
+        if (machine?.startsWith('Mixer')) {
+          const { questions } = await loadQuestions('th', 'Mixertsm');
+          tsmQuestions = questions;
+        }
+
+        let weekQuestions: QuestionType[] = [];
+        if (machine?.startsWith('Mixer')) {
+          const { questions } = await loadQuestions('th', 'Mixerweek');
+          weekQuestions = questions;
+        }
+
+        setQuestions([...questions, ...tsmQuestions, ...weekQuestions]);
       } catch (error) {
         console.error('Error loading questions:', error);
       }

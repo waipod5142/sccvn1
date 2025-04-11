@@ -165,6 +165,7 @@ export const sites = ['All sites', 'HONC', 'THIV', 'CATL', 'HIEP', 'CANT'];
 export const machineTitles: { [key: string]: string } = {
   jkcementForklift: 'Forklift Inspection',
   vnLifting: 'Kiểm định thiết bị nâng / Lifting Equipment',
+  vnLiftinggear: 'Kiểm định dụng cụ nâng hạ / Lifting Gear',
   vnForklift: 'Kiểm định thiết bị nâng / Forklift',
   vnMobile: 'Kiểm tra thiết bị di động / Mobile Equipment',
   vnVehicle: 'Kiểm tra xe cơ giới / Vehicle',
@@ -196,6 +197,7 @@ export const machineTitles: { [key: string]: string } = {
   vnAlert: 'Cảnh Báo An Toàn',
 
   vnlifting: 'Lifting Equipment',
+  vnliftinggear: 'Lifting Gear',
   vnforklift: 'Forklift',
   vnmobile: 'Mobile Equipment',
   vnvehicle: 'Vehicle',

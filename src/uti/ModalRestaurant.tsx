@@ -102,10 +102,10 @@ const ModalRestaurant = ({ token, onClose }: ModalRestaurantProps) => {
         'ณิชนิตานันทวณิชกุล',
         'ณิชนิตา%20นันทวณิชกุล',
         'ณิชนิตา',
-        'วาสนา ขาวจัตุรัส',
-        'วาสนาขาวจัตุรัส',
-        'วาสนา%20ขาวจัตุรัส',
-        'วาสนา',
+        'นิภาภัทร์ สุดขำ',
+        'นิภาภัทร์สุดขำ',
+        'นิภาภัทร์%20สุดขำ',
+        'นิภาภัทร์',
         'ธัญชนก กิจหิรัญ',
         'ธัญชนกกิจหิรัญ',
         'ธัญชนก%20กิจหิรัญ',
@@ -145,7 +145,7 @@ const ModalRestaurant = ({ token, onClose }: ModalRestaurantProps) => {
         // Ensure non-'h' tokens are used at valid restaurants
         if (!specificRestaurantsForNonH.includes(selectedRestaurant)) {
           alert(
-            'คูปองที่ไม่ขึ้นต้นด้วย "h" ใช้ได้เฉพาะที่ โรงาน 1 - ณิชนิตา นันทวณิชกุล, โรงงาน 2 - วาสนา ขาวจัตุรัส, โรงงาน 3 - ธัญชนก กิจหิรัญ.'
+            'คูปองที่ไม่ขึ้นต้นด้วย "h" ใช้ได้เฉพาะที่ โรงาน 1 - ณิชนิตา นันทวณิชกุล, โรงงาน 2 - นิภาภัทร์ สุดขำ, โรงงาน 3 - ธัญชนก กิจหิรัญ.'
           );
           return;
         }
@@ -238,7 +238,7 @@ const ModalRestaurant = ({ token, onClose }: ModalRestaurantProps) => {
               type="radio"
               id="restaurant3"
               name="restaurant"
-              value="วาสนา ขาวจัตุรัส"
+              value="นิภาภัทร์ สุดขำ"
               className={`h-6 w-6 rounded-full shrink-0`}
               onChange={(e) => setSelectedRestaurant(e.target.value)}
             />
@@ -246,7 +246,7 @@ const ModalRestaurant = ({ token, onClose }: ModalRestaurantProps) => {
               htmlFor="restaurant3"
               className="ml-4 text-white bg-blue-500 px-2 py-1 rounded-md"
             >
-              สโมสร 2: ร้านวาสนา ขาวจตุรัส (ร้านอาหาร)
+              สโมสร 2: ร้านนิภาภัทร์ สุดขำ (ร้านอาหาร)
             </label>
           </div>
           <div className="flex items-center">

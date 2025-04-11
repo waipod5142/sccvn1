@@ -47,15 +47,6 @@ export const questions = [
     accept:
       'Sự đồng ý làm việc an toàn đã được xác nhận. / The agreement to work safely has been confirmed.',
   },
-  {
-    id: 6,
-    name: 'sendEmail',
-    question: 'Gửi mail cho trưởng bộ phận / Send email to head department',
-    howto:
-      'Gửi email thông báo các nội dung cần thiết cho trưởng bộ phận. / Send an email with the necessary information to the head department.',
-    accept:
-      'Email đã được gửi thành công. / The email has been successfully sent.',
-  },
 ];
 
 export const detailFields = [

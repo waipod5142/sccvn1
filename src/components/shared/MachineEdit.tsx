@@ -73,7 +73,30 @@ const Editing = ({ item, machine, bu }: Machine) => {
             : bu,
           machine
         );
-        setQuestions(questions);
+
+        let tsmQuestions: QuestionType[] = [];
+        if (machine?.startsWith('Mixer')) {
+          const { questions } = await loadQuestions('th', 'Mixertsm');
+          tsmQuestions = questions;
+        }
+
+        let weekQuestions: QuestionType[] = [];
+        if (machine?.startsWith('Mixer')) {
+          const { questions } = await loadQuestions('th', 'Mixerweek');
+          weekQuestions = questions;
+        }
+
+        // Combine and remove duplicates based on 'name' property
+        const uniqueQuestions = Array.from(
+          new Map(
+            [...questions, ...tsmQuestions, ...weekQuestions].map((q) => [
+              q.name,
+              q,
+            ])
+          ).values()
+        );
+
+        setQuestions(uniqueQuestions);
       } catch (error) {
         console.error('Error loading questions:', error);
       }
