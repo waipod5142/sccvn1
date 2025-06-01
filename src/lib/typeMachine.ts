@@ -334,6 +334,18 @@ export const machineTitles: { [key: string]: string } = {
   thshower: 'Emergency Shower and Eye Wash Station',
   thwaterjet: 'High Pressure Water Jet',
   thcompressor: 'Air Compressor',
+  thfallarrest: 'Fall Arrester',
+  thFallarrest: 'แบบตรวจสายดึงตัวก่อนใช้งานประจำเดือน',
+  thfirealarm: 'Fire Alarm',
+  thFirealarm: 'แบบตรวจเช็ค Fire Alarm',
+  thfirepump: 'Fire Pump',
+  thFirepump: 'แบบตรวจเช็ค Fire Pump',
+  thfullbodyharness: 'Full Body Harness',
+  thFullbodyharness: 'แบบตรวจเช็ค Full Body Harness',
+  thhoist: 'Hoist',
+  thHoist: 'แบบตรวจเช็ค Hoist',
+  thoverheadcrane: 'Overhead Crane',
+  thOverheadcrane: 'แบบตรวจเช็ค Overhead Crane',
 };
 
 export const manTitles: { [key: string]: string } = {

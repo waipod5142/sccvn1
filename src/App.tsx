@@ -15,6 +15,7 @@ import Man_Dashboard from '@/_root/pages/Man_Dashboard';
 import DashboardActivity from '@/_root/pages/Man_DashboardActivity';
 import DashboardActivityEmail from '@/_root/pages/Man_DashboardActivityEmail';
 import DashboardActivityDelete from '@/_root/pages/Man_DashboardActivityDelete';
+import DashboardBoot from '@/_root/pages/Man_DashboardBoot';
 import DashboardActivityMan from '@/_root/pages/Man_DashboardActivityMan';
 import MachineAuth from '@/_root/pages/Machine';
 import MachineNew from '@/_root/pages/MachineNew';
@@ -103,6 +104,10 @@ const App = () => {
           <Route
             path="/DashboardActivityEmail/:bu"
             element={<DashboardActivityEmail />}
+          />
+          <Route
+            path="/DashboardBoot/:bu"
+            element={<DashboardBoot />}
           />
           <Route
             path="/DashboardActivityDelete/:bu"

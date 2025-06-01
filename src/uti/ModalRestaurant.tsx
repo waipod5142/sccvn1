@@ -85,6 +85,15 @@ const ModalRestaurant = ({ token, onClose }: ModalRestaurantProps) => {
         );
       });
 
+      const monthlyCouponsB = couponRes.data.trans.filter((coupon: Item) => {
+        const couponDate = new Date(coupon.date);
+        return (
+          coupon.token.startsWith('b') &&
+          couponDate.getMonth() === currentMonth &&
+          couponDate.getFullYear() === currentYear
+        );
+      });
+
       console.log(couponRes);
       // Specific restaurants where tokens starting with 'h' are valid
       const specificRestaurantsForH = [
@@ -138,6 +147,15 @@ const ModalRestaurant = ({ token, onClose }: ModalRestaurantProps) => {
         if (hCouponsCount >= 1) {
           alert(
             'คุณใช้คูปองที่ขึ้นต้นด้วย "h" มากกว่า 1 ครั้งต่อเดือน You have used the coupon starting with "h" more than once this month.'
+          );
+          return;
+        }
+      } else if (tokenLowerCase.startsWith('b')) {
+        // Ensure 'b' tokens can be used at any restaurant
+        // Check if user has already used a 'b' token this month
+        if (monthlyCouponsB.length >= 1) {
+          alert(
+            'คูปองที่ขึ้นต้นด้วย "b" ใช้ได้เพียง 1 ครั้งต่อเดือนเท่านั้น Coupons starting with "b" can only be used once per month.'
           );
           return;
         }

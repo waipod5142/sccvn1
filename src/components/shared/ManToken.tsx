@@ -98,7 +98,7 @@ const ManToken = ({ bu, data, man }: HeaderComponentProps) => {
                       ? 'text-gray-800'
                       : 'text-gray-800 blur-md'
                   } ${
-                    token.startsWith('h') ? 'bg-green-300' : 'bg-yellow-300'
+                    token.startsWith('b') ? 'bg-rose-300' : 'bg-yellow-300'
                   } rounded-md text-center font-bold text-xl animate-bounce`}
                   onClick={() => {
                     if (!visibleTokens.includes(token)) {

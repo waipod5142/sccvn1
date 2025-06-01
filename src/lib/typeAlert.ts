@@ -27,5 +27,5 @@ export interface Item {
   lat: number;
   lng: number;
   url?: string;
-  are?: string;
+  token?: string | undefined;
 }

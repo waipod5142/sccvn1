@@ -1,0 +1,117 @@
+export const questions = [
+  {
+    id: 1,
+    name: 'controlPanelStatus',
+    question: 'แผงควบคุม (Control Panel) แสดงสถานะปกติ',
+    howto: 'ตรวจสอบไฟแสดงสถานะและข้อความที่หน้าจอแผงควบคุม',
+    accept: 'ไฟสถานะสีเขียวหรือแสดงว่า “ปกติ” ไม่มีข้อความเตือน',
+  },
+  {
+    id: 2,
+    name: 'alarmLightCheck',
+    question: 'ไม่มีไฟแสดงสัญญาณเตือนหรือขัดข้อง (Alarm / Fault light)',
+    howto: 'สังเกตไฟแสดงผลบนแผงควบคุม',
+    accept: 'ไม่มีไฟสีแดงหรือสีเหลืองติดอยู่ แสดงว่าสถานะปกติ',
+  },
+  {
+    id: 3,
+    name: 'batteryBackupCheck',
+    question: 'ระบบสำรองไฟ (แบตเตอรี่) อยู่ในสภาพดี',
+    howto: 'ตรวจสอบแรงดันแบตเตอรี่และอายุการใช้งาน',
+    accept: 'แรงดันอยู่ในช่วงที่กำหนด และไม่มีรอยบวม/รั่ว',
+  },
+  {
+    id: 4,
+    name: 'sounderCleanliness',
+    question: 'ตรวจสอบสัญญาณเตือน (Sounder / Buzzer) ไม่มีฝุ่น, สิ่งกีดขวาง',
+    howto: 'ใช้สายตาและผ้าแห้งทำความสะอาดบริเวณอุปกรณ์',
+    accept: 'ไม่มีฝุ่นหรือคราบที่อาจรบกวนการทำงานของสัญญาณ',
+  },
+  {
+    id: 5,
+    name: 'manualCallPointCheck',
+    question: 'ตรวจสอบแจ้งเหตุเพลิงไหม้ (Manual Call Point)ไม่มีฝุ่น, ติดตั้งในตำแหน่งที่มองเห็นและเข้าถึงง่าย',
+    howto: 'ใช้สายตาตรวจสอบตำแหน่งและสภาพภายนอกของอุปกรณ์',
+    accept: 'อุปกรณ์อยู่ในตำแหน่งที่เหมาะสม ไม่มีฝุ่นหรือสิ่งปิดบัง',
+  },
+  {
+    id: 6,
+    name: 'detectorCleanlinessCheck',
+    question: 'ตรวจสอบหัวตรวจจับควัน/ความร้อน (Smoke/Heat Detectors) ไม่มีฝุ่น, สิ่งกีดขวาง, ไม่มีไฟโชว์ค้างที่อุปกรณ์',
+    howto: 'ใช้สายตาและผ้าแห้งทำความสะอาด ตรวจดูไฟแสดงสถานะ',
+    accept: 'อุปกรณ์สะอาด ไม่มีไฟโชว์ค้าง สถานะพร้อมทำงาน',
+  },
+  {
+    id: 7,
+    name: 'detectorAreaClear',
+    question: 'ตรวจสอบว่าพื้นที่รอบหัวจับไม่มีสิ่งกีดขวาง',
+    howto: 'ตรวจสอบโดยรอบพื้นที่ติดตั้งหัวจับด้วยสายตา',
+    accept: 'ไม่มีสิ่งของปิดบังหรือกีดขวางการตรวจจับ',
+  },
+  {
+    id: 8,
+    name: 'equipmentSignageCheck',
+    question: 'ตรวจสอบป้ายแสดงตำแหน่งอุปกรณ์ว่าชัดเจน และอยู่ในสภาพดี',
+    howto: 'ดูป้ายตำแหน่งของอุปกรณ์แต่ละจุด',
+    accept: 'ป้ายอ่านง่าย ไม่จาง ไม่หลุดลอก และตรงกับตำแหน่งจริง',
+  }
+]
+
+export const detailFields = [
+  { field: 'id', label: 'ID' },
+  { field: 'date', label: 'วันที่ - Date' },
+  { field: 'email', label: 'ผู้รับผิดชอบ - Responsible person' },
+  { field: 'inspector', label: 'ผู้ตรวจสอบ - Inspector' },
+  { field: 'responder', label: 'Responder' },
+  { field: 'controlPanelStatus', label: '1. แผงควบคุม (Control Panel) แสดงสถานะปกติ' },
+  { field: 'controlPanelStatusR', label: 'ตรวจสอบไฟแสดงสถานะและข้อความที่หน้าจอแผงควบคุม' },
+  { field: 'controlPanelStatusP', label: '' },
+  { field: 'controlPanelStatusA', label: 'Respond to defect' },
+  { field: 'controlPanelStatusF', label: 'ไฟสถานะสีเขียวหรือแสดงว่า “ปกติ” ไม่มีข้อความเตือน' },
+
+  { field: 'alarmLightCheck', label: '2. ไม่มีไฟแสดงสัญญาณเตือนหรือขัดข้อง (Alarm / Fault light)' },
+  { field: 'alarmLightCheckR', label: 'สังเกตไฟแสดงผลบนแผงควบคุม' },
+  { field: 'alarmLightCheckP', label: '' },
+  { field: 'alarmLightCheckA', label: 'Respond to defect' },
+  { field: 'alarmLightCheckF', label: 'ไม่มีไฟสีแดงหรือสีเหลืองติดอยู่ แสดงว่าสถานะปกติ' },
+
+  { field: 'batteryBackupCheck', label: '3. ระบบสำรองไฟ (แบตเตอรี่) อยู่ในสภาพดี' },
+  { field: 'batteryBackupCheckR', label: 'ตรวจสอบแรงดันแบตเตอรี่และอายุการใช้งาน' },
+  { field: 'batteryBackupCheckP', label: '' },
+  { field: 'batteryBackupCheckA', label: 'Respond to defect' },
+  { field: 'batteryBackupCheckF', label: 'แรงดันอยู่ในช่วงที่กำหนด และไม่มีรอยบวม/รั่ว' },
+
+  { field: 'sounderCleanliness', label: '4. ตรวจสอบสัญญาณเตือน (Sounder / Buzzer) ไม่มีฝุ่น, สิ่งกีดขวาง' },
+  { field: 'sounderCleanlinessR', label: 'ใช้สายตาและผ้าแห้งทำความสะอาดบริเวณอุปกรณ์' },
+  { field: 'sounderCleanlinessP', label: '' },
+  { field: 'sounderCleanlinessA', label: 'Respond to defect' },
+  { field: 'sounderCleanlinessF', label: 'ไม่มีฝุ่นหรือคราบที่อาจรบกวนการทำงานของสัญญาณ' },
+
+  { field: 'manualCallPointCheck', label: '5. ตรวจสอบแจ้งเหตุเพลิงไหม้ (Manual Call Point)ไม่มีฝุ่น, ติดตั้งในตำแหน่งที่มองเห็นและเข้าถึงง่าย' },
+  { field: 'manualCallPointCheckR', label: 'ใช้สายตาตรวจสอบตำแหน่งและสภาพภายนอกของอุปกรณ์' },
+  { field: 'manualCallPointCheckP', label: '' },
+  { field: 'manualCallPointCheckA', label: 'Respond to defect' },
+  { field: 'manualCallPointCheckF', label: 'อุปกรณ์อยู่ในตำแหน่งที่เหมาะสม ไม่มีฝุ่นหรือสิ่งปิดบัง' },
+
+  { field: 'detectorCleanlinessCheck', label: '6. ตรวจสอบหัวตรวจจับควัน/ความร้อน (Smoke/Heat Detectors) ไม่มีฝุ่น, สิ่งกีดขวาง, ไม่มีไฟโชว์ค้างที่อุปกรณ์' },
+  { field: 'detectorCleanlinessCheckR', label: 'ใช้สายตาและผ้าแห้งทำความสะอาด ตรวจดูไฟแสดงสถานะ' },
+  { field: 'detectorCleanlinessCheckP', label: '' },
+  { field: 'detectorCleanlinessCheckA', label: 'Respond to defect' },
+  { field: 'detectorCleanlinessCheckF', label: 'อุปกรณ์สะอาด ไม่มีไฟโชว์ค้าง สถานะพร้อมทำงาน' },
+
+  { field: 'detectorAreaClear', label: '7. ตรวจสอบว่าพื้นที่รอบหัวจับไม่มีสิ่งกีดขวาง' },
+  { field: 'detectorAreaClearR', label: 'ตรวจสอบโดยรอบพื้นที่ติดตั้งหัวจับด้วยสายตา' },
+  { field: 'detectorAreaClearP', label: '' },
+  { field: 'detectorAreaClearA', label: 'Respond to defect' },
+  { field: 'detectorAreaClearF', label: 'ไม่มีสิ่งของปิดบังหรือกีดขวางการตรวจจับ' },
+
+  { field: 'equipmentSignageCheck', label: '8. ตรวจสอบป้ายแสดงตำแหน่งอุปกรณ์ว่าชัดเจน และอยู่ในสภาพดี' },
+  { field: 'equipmentSignageCheckR', label: 'ดูป้ายตำแหน่งของอุปกรณ์แต่ละจุด' },
+  { field: 'equipmentSignageCheckP', label: '' },
+  { field: 'equipmentSignageCheckA', label: 'Respond to defect' },
+  { field: 'equipmentSignageCheckF', label: 'ป้ายอ่านง่าย ไม่จาง ไม่หลุดลอก และตรงกับตำแหน่งจริง' },
+  { field: 'remark', label: 'หมายเหตุ Remark' },
+  { field: 'lat', label: '' },
+  { field: 'url', label: '' },
+];
+

@@ -159,6 +159,18 @@ export const loadQuestions = async (
       return import('@/lib/dataTHwaterjet');
     case 'th_Compressor':
       return import('@/lib/dataTHcompressor');
+    case 'th_Fallarrest':
+      return import('@/lib/dataTHfallarrest');
+    case 'th_Firealarm':
+      return import('@/lib/dataTHfirealarm');
+    case 'th_Firepump':
+      return import('@/lib/dataTHfirepump');
+    case 'th_Fullbodyharness':
+      return import('@/lib/dataTHfullbodyharness');
+    case 'th_Hoist':
+      return import('@/lib/dataTHhoist');
+    case 'th_Overheadcrane':
+      return import('@/lib/dataTHoverheadcrane');
     default:
       throw new Error('Unknown machine type');
   }

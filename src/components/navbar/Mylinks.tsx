@@ -6,6 +6,7 @@ export const links = [
       {
         Head: 'Man',
         sublink: [
+          { name: 'Boot and RA graph', link: '/DashboardBoot/vn' },
           { name: 'Activities today', link: '/DashboardMan/vn' },
           // { name: 'Toolbox', link: '/Dashboard/vn/toolbox' },
           // { name: 'PRA', link: '/Dashboard/vn/pra' },
