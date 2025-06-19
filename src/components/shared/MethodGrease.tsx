@@ -4,7 +4,7 @@ import { useForm, type FieldValues, SubmitHandler } from "react-hook-form";
 import Loader from "./Loader";
 import axios from "axios";
 import useStorage from "@/hooks/useStorage";
-import { loadQuestions } from "@/uti/loadQuestionsMan";
+import { loadQuestions } from "@/uti/loadQuestionsMethod";
 import { howto, accept, remark, picture, submit } from "@/lib/translation";
 import { Camera } from "lucide-react";
 import { manItemLabels } from "@/lib/typeMan";
@@ -77,9 +77,9 @@ export default function Filling({ bu = "", id = "", man = "" }: FillingProps) {
     const updatedData: FormData = {
       ...formData,
       bu,
-      id: formData.id.replace(/[/\s]/g, "-"),
+      id,
       type: man,
-      area: id,
+      operator: formData.id.replace(/[/\s]/g, "-"),
       formStartTime: formStartTime, // Add the form start time to the submission data
     };
 
@@ -106,20 +106,6 @@ export default function Filling({ bu = "", id = "", man = "" }: FillingProps) {
     }
 
     reset();
-
-    window.location.href = `/Man/${bu}/${
-      man.charAt(0).toLocaleUpperCase() + man.slice(1)
-    }/${formData.id.replace(/[/\s]/g, "-").toUpperCase()}`;
-
-    localStorage.setItem(
-      "inseeId",
-      JSON.stringify([
-        {
-          id: formData.id.replace(/[/\s]/g, "-").toUpperCase(),
-          bu: formData.bu,
-        },
-      ])
-    );
   };
 
   const handleFileChange = async (

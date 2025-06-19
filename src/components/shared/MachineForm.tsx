@@ -487,6 +487,7 @@ const Filling: React.FC<FillingProps> = ({
                   </div>
                   {/* {(selectedValues[question.name] === "NotPass" ||
                     (question.name &&
+                      selectedValues[question.name] !== "N/A" &&
                       question.name.includes("LogoAndColor"))) && ( */}
                   {selectedValues[question.name] === "NotPass" && (
                     <div>

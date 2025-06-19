@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { QRCodeSVG } from 'qrcode.react';
-import VisitorCard from './VisitorCard'; // Import the new component
-import VisitorForm from '@/components/shared/VisitorForm';
-import { Pencil } from 'lucide-react'; // For the icon
-import VisitorDetail from '@/components/shared/VisitorDetail';
-import { useParams } from 'react-router-dom';
+import { useState } from "react";
+import { QRCodeSVG } from "qrcode.react";
+import VisitorCard from "./VisitorCard"; // Import the new component
+import VisitorForm from "@/components/shared/VisitorForm";
+import { Pencil } from "lucide-react"; // For the icon
+import VisitorDetail from "@/components/shared/VisitorDetail";
+import { useParams } from "react-router-dom";
 
 // Define the type for the card structure
 interface Card {
@@ -12,7 +12,7 @@ interface Card {
   title: string;
   description: string;
   url: string;
-  type: 'pdf' | 'video'; // Define the specific types for type property
+  type: "pdf" | "video"; // Define the specific types for type property
 }
 
 const SafetyInductionPage: React.FC = () => {
@@ -23,82 +23,89 @@ const SafetyInductionPage: React.FC = () => {
 
   // Array of card data based on the site
   const cards: Card[] =
-    site === 'HONC'
+    site === "HONC"
       ? [
           {
             id: 1,
-            title: 'Hướng dẫn An toàn cho Khách tham quan HONC 2024_VN_V2',
-            description: 'Click to view PDF',
-            url: 'https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FHONC%20Safety%20Induction%20for%20Visitor%202024_VN_V2.pdf?alt=media&token=04d21e71-6545-46e9-9cba-ca1c633c8fb6',
-            type: 'pdf', // Explicitly set the type to 'pdf'
+            title: "Hướng dẫn An toàn cho Khách tham quan HONC 2024_VN_V2",
+            description: "Click to view PDF",
+            url: "https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FHONC%20Safety%20Induction%20for%20Visitor%202024_VN_V2.pdf?alt=media&token=04d21e71-6545-46e9-9cba-ca1c633c8fb6",
+            type: "pdf", // Explicitly set the type to 'pdf'
           },
           {
             id: 2,
-            title: 'HONC Safety Induction for Visitor 2024_EN_V2',
-            description: 'Click to view PDF',
-            url: 'https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FHONC%20Safety%20Induction%20for%20Visitor%202024_EN_V2.pdf?alt=media&token=a58d6148-f2ed-4952-9ad3-e0e6b0449b25',
-            type: 'pdf', // Explicitly set the type to 'pdf'
+            title: "HONC Safety Induction for Visitor 2024_EN_V2",
+            description: "Click to view PDF",
+            url: "https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FHONC%20Safety%20Induction%20for%20Visitor%202024_EN_V2.pdf?alt=media&token=a58d6148-f2ed-4952-9ad3-e0e6b0449b25",
+            type: "pdf", // Explicitly set the type to 'pdf'
           },
           {
             id: 3,
-            title: 'HONC Safety Induction Video_31_5_2023',
-            description: 'Click to view Video',
-            url: 'https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FHONC%20Safety%20Induction%20video_31_5_2023.mp4?alt=media&token=f8208f15-37d7-4924-978f-dd588bf26182',
-            type: 'video', // Explicitly set the type to 'video'
+            title: "HONC Safety Induction Video_31_5_2023",
+            description: "Click to view Video",
+            url: "https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FHONC%20Safety%20Induction%20video_31_5_2023.mp4?alt=media&token=f8208f15-37d7-4924-978f-dd588bf26182",
+            type: "video", // Explicitly set the type to 'video'
           },
         ]
-      : site === 'THIV'
+      : site === "THIV"
       ? [
           {
             id: 1,
-            title: 'Hướng dẫn An toàn cho Khách tham quan THIV 2024_VN_V2',
-            description: 'Click to view PDF',
-            url: 'https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FH%C6%B0%E1%BB%9Bng%20d%E1%BA%ABn%20An%20to%C3%A0n%20cho%20Kh%C3%A1ch%20tham%20quan%20Thi%20Vai%20%202024_VN_V2.pdf?alt=media&token=2a785c52-74fd-4009-b01d-38658336797c',
-            type: 'pdf', // Explicitly set the type to 'pdf'
+            title: "Hướng dẫn An toàn cho Khách tham quan THIV 2024_VN_V2",
+            description: "Click to view PDF",
+            url: "https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FH%C6%B0%E1%BB%9Bng%20d%E1%BA%ABn%20An%20to%C3%A0n%20cho%20Kh%C3%A1ch%20tham%20quan%20Thi%20Vai%20%202024_VN_V2.pdf?alt=media&token=2a785c52-74fd-4009-b01d-38658336797c",
+            type: "pdf", // Explicitly set the type to 'pdf'
           },
           {
             id: 2,
-            title: 'THIV Safety Induction for Visitor 2024_EN_V2',
-            description: 'Click to view PDF',
-            url: 'https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FTHIV%20Safety%20Induction%20for%20Visitor%202024_EN_V2.pdf?alt=media&token=78610c72-9c8c-4162-b450-a2cc8210df20',
-            type: 'pdf', // Explicitly set the type to 'pdf'
+            title: "THIV Safety Induction for Visitor 2024_EN_V2",
+            description: "Click to view PDF",
+            url: "https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FTHIV%20Safety%20Induction%20for%20Visitor%202024_EN_V2.pdf?alt=media&token=78610c72-9c8c-4162-b450-a2cc8210df20",
+            type: "pdf", // Explicitly set the type to 'pdf'
           },
           {
             id: 3,
-            title: 'THIV Safety Induction Video_31_5_2023',
-            description: 'Click to view Video',
-            url: 'https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FTHI%20VAI%20Safety%20Induction%20Video_31_05_2023.MP4?alt=media&token=8584ad96-ab7f-45bf-90c3-4721fc0469cd',
-            type: 'video', // Explicitly set the type to 'video'
+            title: "THIV Safety Induction Video_31_5_2023",
+            description: "Click to view Video",
+            url: "https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FTHI%20VAI%20Safety%20Induction%20Video_31_05_2023.MP4?alt=media&token=8584ad96-ab7f-45bf-90c3-4721fc0469cd",
+            type: "video", // Explicitly set the type to 'video'
           },
         ]
-      : site === 'CATL'
+      : site === "CATL"
       ? [
           {
             id: 1,
-            title: 'CATL Safety Induction Video',
-            description: 'Click to view Video',
-            url: 'https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FCa%CC%81t%20La%CC%81i%2030%2005%20-%20Voice%20Over.mp4?alt=media&token=da24124a-3db1-489f-961a-135d0dab4b82',
-            type: 'video', // Explicitly set the type to 'video'
+            title: "CATL Safety Induction Video",
+            description: "Click to view Video",
+            url: "https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FCa%CC%81t%20La%CC%81i%2030%2005%20-%20Voice%20Over.mp4?alt=media&token=da24124a-3db1-489f-961a-135d0dab4b82",
+            type: "video", // Explicitly set the type to 'video'
+          },
+          {
+            id: 2,
+            title: "CATL Safety Induction for Visitor 2024",
+            description: "Click to view PDF",
+            url: "https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FCATL%20Safety%20Induction%202024.pdf?alt=media&token=adab6eff-1ecb-471b-989a-79447d8c4d83",
+            type: "pdf", // Explicitly set the type to 'pdf'
           },
         ]
-      : site === 'HO'
+      : site === "HO"
       ? [
           {
             id: 1,
-            title: 'Head Office Safety Induction Video',
-            description: 'Click to view Video',
-            url: 'https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FHO%2019_5_2023%20-%20voice%20over_mp4.mp4?alt=media&token=edce6721-5e14-4bdf-bcf5-8f9e8fda1cf0',
-            type: 'video', // Explicitly set the type to 'video'
+            title: "Head Office Safety Induction Video",
+            description: "Click to view Video",
+            url: "https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FHO%2019_5_2023%20-%20voice%20over_mp4.mp4?alt=media&token=edce6721-5e14-4bdf-bcf5-8f9e8fda1cf0",
+            type: "video", // Explicitly set the type to 'video'
           },
         ]
-      : site === 'HIEP'
+      : site === "HIEP"
       ? [
           {
             id: 1,
-            title: 'Hiep Phuoc Safety Induction Video',
-            description: 'Click to view Video',
-            url: 'https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FHi%E1%BB%87p%20Ph%C6%B0%E1%BB%9Bc%201205%20-%20Voice%20Over_mp4.mp4?alt=media&token=6d6a55e6-de9b-4b79-8627-28fb4b8035f2',
-            type: 'video', // Explicitly set the type to 'video'
+            title: "Hiep Phuoc Safety Induction Video",
+            description: "Click to view Video",
+            url: "https://firebasestorage.googleapis.com/v0/b/scco-4302c.appspot.com/o/SCCVN_INDUCTION%2FHi%E1%BB%87p%20Ph%C6%B0%E1%BB%9Bc%201205%20-%20Voice%20Over_mp4.mp4?alt=media&token=6d6a55e6-de9b-4b79-8627-28fb4b8035f2",
+            type: "video", // Explicitly set the type to 'video'
           },
         ]
       : [];
@@ -130,12 +137,12 @@ const SafetyInductionPage: React.FC = () => {
       <QRCodeSVG
         value={`https://www.saf37y.com/Induction/${site}`}
         size={75}
-        bgColor={'#ffffff'}
-        fgColor={'#000000'}
-        level={'L'}
+        bgColor={"#ffffff"}
+        fgColor={"#000000"}
+        level={"L"}
         includeMargin={false}
         imageSettings={{
-          src: 'https://companieslogo.com/img/orig/SCCC.BK-b25d0caf.png',
+          src: "https://companieslogo.com/img/orig/SCCC.BK-b25d0caf.png",
           x: undefined,
           y: undefined,
           height: 10,
@@ -189,7 +196,7 @@ const SafetyInductionPage: React.FC = () => {
               <h2 className="text-xl font-semibold">{selectedCard.title}</h2>
             </div>
             <div className="p-4 w-full h-96 overflow-y-auto">
-              {selectedCard.type === 'pdf' ? (
+              {selectedCard.type === "pdf" ? (
                 <object
                   data={selectedCard.url}
                   type="application/pdf"
@@ -197,7 +204,7 @@ const SafetyInductionPage: React.FC = () => {
                   height="100%"
                 >
                   <p>
-                    Your browser does not support PDFs.{' '}
+                    Your browser does not support PDFs.{" "}
                     <a
                       href={selectedCard.url}
                       target="_blank"
@@ -231,7 +238,7 @@ const SafetyInductionPage: React.FC = () => {
               <h2 className="text-xl font-semibold">Visitor Form</h2>
             </div>
             <div className="p-4 w-full">
-              <VisitorForm site={site} />{' '}
+              <VisitorForm site={site} />{" "}
               {/* Render the VisitorForm component */}
             </div>
           </div>
