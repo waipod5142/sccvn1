@@ -73,7 +73,7 @@ const App = () => {
           {/* For Ra and Boot */}
           <Route path="/ManForm/:bu/:man/:id" element={<ManForm />} />
           //Method
-          <Route path="/MethodForm/:bu/:method/:id" element={<MethodForm />} />
+          <Route path="/Method/:bu/:method/:id" element={<MethodForm />} />
           //By Owner
           <Route path="/MachineOwner/:bu/:owner" element={<MachineOwner />} />
           //Main page
