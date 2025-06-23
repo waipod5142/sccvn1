@@ -12,6 +12,7 @@ import DashboardDefect from "@/_root/pages/Machine_DashboardDefect";
 import DashboardTotalByOwner from "@/_root/pages/Machine_DashboardTotalByOwner";
 // import DashboardAlert from '@/_root/pages/Man_DashboardAlert';
 import Man_Dashboard from "@/_root/pages/Man_Dashboard";
+import Method_Dashboard from "@/_root/pages/Method_DashboardActivity";
 import DashboardActivity from "@/_root/pages/Man_DashboardActivity";
 import DashboardActivityEmail from "@/_root/pages/Man_DashboardActivityEmail";
 import DashboardActivityDelete from "@/_root/pages/Man_DashboardActivityDelete";
@@ -107,6 +108,10 @@ const App = () => {
           <Route
             path="/DashboardActivityEmail/:bu"
             element={<DashboardActivityEmail />}
+          />
+                    <Route
+            path="/DashboardMethodActivity/:bu"
+            element={<Method_Dashboard />}
           />
           <Route path="/DashboardBoot/:bu" element={<DashboardBoot />} />
           <Route

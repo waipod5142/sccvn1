@@ -28,6 +28,18 @@ export const links = [
           // { name: 'Annually', link: '/Dashboard_Subdivision/vn/annually' },
         ],
       },
+      {
+        Head: 'Method',
+        sublink: [
+          { name: 'Grease_Lub', link: '/DashboardMethodActivity/vn' },
+          // { name: 'By Owner', link: '/DashboardTotalByOwner/vn' },
+          // { name: 'Defect', link: '/DashboardDefect/vn' },
+          // { name: 'Daily', link: '/Dashboard_Subdivision/vn/daily' },
+          // { name: 'Monthly', link: '/Dashboard_Subdivision/vn/monthly' },
+          // { name: 'Quarterly', link: '/Dashboard_Subdivision/vn/quarterly' },
+          // { name: 'Annually', link: '/Dashboard_Subdivision/vn/annually' },
+        ],
+      },
     ],
   },
   {

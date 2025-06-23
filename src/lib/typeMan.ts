@@ -26,6 +26,7 @@ export const manItemLabels: { [key: string]: string } = {
   vnToolbox: "Thảo luận an toàn / Toolbox Talk",
   vnPto: "Quan sát công việc theo kế hoạch / Planned Task Observation",
   vnGrease: "Phương pháp bơm mỡ / Greasing Method",
+  vnLubrication: "Phương pháp bôi trơn / Lubrication Method",
   thTraining: "ประวัติการฝึกอบรม Training Course",
   thPra: "การประเมินความเสี่ยงส่วนบุคคล / Personal Risk Assessment",
   thAlert: "การแจ้งเตือนประกาศด้านความปลอดภัย / Safety Alert",
