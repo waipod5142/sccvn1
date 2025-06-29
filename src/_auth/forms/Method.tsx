@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { http } from "@/lib/http";
 import { useParams } from "react-router-dom";
-import ManHeaderForm from "@/components/shared/ManHeaderForm";
-import MachineDetail from "@/components/shared/MethodDetail";
-import ManForm from "@/components/shared/MethodGrease";
+import MethodHeader from "@/components/shared/MethodHeader";
+import MethodDetail from "@/components/shared/MethodDetail";
+import MethodForm from "@/components/shared/MethodForm";
 import { Machine } from "@/lib/typeMachine";
 
 const getDetail = async (
@@ -67,12 +67,12 @@ const Main = () => {
         </div>
       ) : (
         <>
-          {data && <ManHeaderForm bu={bu} data={data} man={method} />}
+          {data && <MethodHeader bu={bu} data={data} man={method} />}
           <br />
           {data && (
-            <MachineDetail bu={bu} dataTr={data.trans || []} machine={method} />
+            <MethodDetail bu={bu} dataTr={data.trans || []} machine={method} />
           )}
-          <ManForm bu={bu} man={method?.toLowerCase()} id={id} />
+          <MethodForm bu={bu} man={method?.toLowerCase()} id={id} />
         </>
       )}
     </div>

@@ -79,7 +79,6 @@ export default function Filling({ bu = "", id = "", man = "" }: FillingProps) {
       bu,
       id,
       type: man,
-      operator: formData.id.replace(/[/\s]/g, "-"),
       formStartTime: formStartTime, // Add the form start time to the submission data
     };
 
@@ -165,32 +164,13 @@ export default function Filling({ bu = "", id = "", man = "" }: FillingProps) {
             Mã nhân viên Staff ID ?
           </div>
           <input
-            {...register("id", {
+            {...register("operator", {
               required: "Mã nhân viên Staff ID ?",
-              pattern: {
-                value: /^[0-9]+$/,
-                message: "Vui lòng chỉ nhập số",
-              },
             })}
             type="text"
             inputMode="numeric"
             placeholder="Mã nhân viên Staff ID ?"
             className="mx-4 px-4 py-2 rounded w-72 md:w-80"
-            onKeyPress={(e) => {
-              if (!/[0-9]/.test(e.key)) {
-                e.preventDefault();
-                // Show warning message
-                const warningElement =
-                  document.getElementById("alphabet-warning");
-                if (warningElement) {
-                  warningElement.style.display = "block";
-                  // Hide the warning after 3 seconds
-                  setTimeout(() => {
-                    warningElement.style.display = "none";
-                  }, 3000);
-                }
-              }
-            }}
           />
           {/* Immediate warning for alphabet input */}
           <p

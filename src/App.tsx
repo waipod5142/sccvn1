@@ -31,7 +31,7 @@ import PraForm from "@/components/shared/ManPraForm";
 import ToolboxForm from "@/components/shared/ManToolboxForm";
 
 // change this for header
-import MethodForm from "@/_auth/forms/MethodForm";
+import Method from "@/_auth/forms/Method";
 import ManForm from "@/_auth/forms/ManForm";
 // import RaForm from '@/components/shared/ManRaForm';
 import ManRestaurant from "@/components/dashboard/ManRestaurant";
@@ -74,7 +74,7 @@ const App = () => {
           {/* For Ra and Boot */}
           <Route path="/ManForm/:bu/:man/:id" element={<ManForm />} />
           //Method
-          <Route path="/Method/:bu/:method/:id" element={<MethodForm />} />
+          <Route path="/Method/:bu/:method/:id" element={<Method />} />
           //By Owner
           <Route path="/MachineOwner/:bu/:owner" element={<MachineOwner />} />
           //Main page

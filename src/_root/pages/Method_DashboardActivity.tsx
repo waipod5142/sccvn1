@@ -22,6 +22,7 @@ interface InspectorDetails {
 interface BaseInspectionItem {
   _id: string;
   formStartTime: string;
+  operator: string;
   date: string;
   area: string;
   observeContact?: string;
@@ -74,7 +75,7 @@ const InspectionTables = () => {
 
     fetchData();
   }, [bu]);
-
+console.log(dataTr)
   // Display a loader while data is being fetched
   if (loading) {
     return (
@@ -181,6 +182,7 @@ const InspectionTables = () => {
                 <tr>
                   <th className="px-4 py-2 border">ID</th>
                   <th className="px-4 py-2 border">Duration</th>
+                  <th className="px-4 py-2 border">Operator</th>
                   <th className="px-4 py-2 border">Date</th>
                   <th className="px-4 py-2 border">Email</th>
                   <th className="px-4 py-2 border">Lubrication Type</th>
@@ -243,7 +245,9 @@ const InspectionTables = () => {
                         </span>
                       )}
                     </td>
-
+                    <td className="px-4 py-2 border">
+                      {item.operator || '-'}
+                    </td>
                     <td
                       className={`px-4 py-2 border ${
                         new Date(item.date).toLocaleDateString() ===
