@@ -65,6 +65,8 @@ export const loadQuestions = async (
       return import("@/lib/dataVNstock");
     case "vn_Liftinggear":
       return import("@/lib/dataVNliftinggear");
+    case "vn_Thermal":
+      return import("@/lib/dataVNthermal");
     case "vn_Grease":
       return import("@/lib/dataVNgrease");
     case "vn_Lubrication":
