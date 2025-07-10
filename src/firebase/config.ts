@@ -1,14 +1,23 @@
-import { initializeApp } from 'firebase/app';
-import { getStorage } from 'firebase/storage';
+import { initializeApp } from "firebase/app";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
+  //INSEESAFETYAPP
+  apiKey: "AIzaSyCbLOLR4KqlWaGOfvZesdVVgFzlyDluPkI",
+  authDomain: "sccc-inseesafety-prod.firebaseapp.com",
+  projectId: "sccc-inseesafety-prod",
+  storageBucket: "sccc-inseesafety-prod.firebasestorage.app",
+  messagingSenderId: "874085997493",
+  appId: "1:874085997493:web:5156272fd22b224b5097fc",
+  measurementId: "G-KZT8MZC6MB",
+
   //scco5142@gmail.com
-  apiKey: 'AIzaSyByR6vpXZs1A01EW2L1y03xJtFtRtCH5mc',
-  authDomain: 'scco-4302c.firebaseapp.com',
-  projectId: 'scco-4302c',
-  storageBucket: 'scco-4302c.appspot.com',
-  messagingSenderId: '207080654790',
-  appId: '1:207080654790:web:fa49504530cd97f98654c7',
+  // apiKey: 'AIzaSyByR6vpXZs1A01EW2L1y03xJtFtRtCH5mc',
+  // authDomain: 'scco-4302c.firebaseapp.com',
+  // projectId: 'scco-4302c',
+  // storageBucket: 'scco-4302c.appspot.com',
+  // messagingSenderId: '207080654790',
+  // appId: '1:207080654790:web:fa49504530cd97f98654c7',
 
   //scco5143@gmail.com
   // apiKey: "AIzaSyDu8ujGTbuQvEgEmPxQMlKNBP9SgGGkzu0",

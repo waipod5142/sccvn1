@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useParams, Link } from 'react-router-dom';
-import { http } from '@/lib/http';
-import Loading from '@/components/shared/Loader';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useParams, Link } from "react-router-dom";
+import { http } from "@/lib/http";
+import Loading from "@/components/shared/Loader";
 import {
   Machine as VehicleData,
   MachineItem,
   MapItem,
   machineTitles,
-} from '@/lib/typeMachine';
-import Modal from './Modal';
-import ModalContent from './ModalContent';
-import ModalForm from '@/uti/ModalForm';
-import ModalFormMan from '@/uti/ModalFormMan';
-import ModalMap from '@/uti/ModalMap';
-import ModalMapAll from '@/uti/ModalMapAll';
-import ModalImage from '@/uti/ModalImage';
-import ModalGraph from '@/uti/ModalGraph';
+} from "@/lib/typeMachine";
+import Modal from "./Modal";
+import ModalContent from "./ModalContent";
+import ModalForm from "@/uti/ModalForm";
+import ModalFormMan from "@/uti/ModalFormMan";
+import ModalMap from "@/uti/ModalMap";
+import ModalMapAll from "@/uti/ModalMapAll";
+import ModalImage from "@/uti/ModalImage";
+import ModalGraph from "@/uti/ModalGraph";
 
 // Interfaces for data
 interface RowData {
@@ -69,9 +69,9 @@ const DataTable: React.FC = () => {
   const [selectedItem, setSelectedItem] = useState<MapItem>({
     lat: undefined,
     lng: undefined,
-    id: '',
-    inspector: '',
-    date: '',
+    id: "",
+    inspector: "",
+    date: "",
   });
   // const [machineModalOpen, setMachineModalOpen] = useState(false); // New state for the machine modal
   const [selectedVehicle, setSelectedVehicle] = useState<{
@@ -97,7 +97,7 @@ const DataTable: React.FC = () => {
         );
         setSites(Array.from(new Set(allSites)).sort()); // Remove duplicates and sort
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
@@ -114,7 +114,7 @@ const DataTable: React.FC = () => {
 
     // Iterate through all periods to find the relevant inspection
     if (data) {
-      for (const period of ['daily', 'monthly', 'quarterly', 'annually']) {
+      for (const period of ["daily", "monthly", "quarterly", "annually"]) {
         const periodData = data[period as keyof PeriodData];
         const match = periodData.find(
           (inspection) =>
@@ -142,7 +142,7 @@ const DataTable: React.FC = () => {
 
       setVehicleData(Array.isArray(res.data) ? res.data : []); // Store fetched vehicle data
     } catch (error) {
-      console.error('Error fetching vehicle details:', error);
+      console.error("Error fetching vehicle details:", error);
     }
   };
 
@@ -153,7 +153,7 @@ const DataTable: React.FC = () => {
 
     // Iterate over vehicleData and calculate totals
     (vehicleData || []).forEach((vehicle) => {
-      if (vehicle.defect === 'NotPass') {
+      if (vehicle.defect === "NotPass") {
         openDefected += 1; // Count only vehicles where defect is "NotPass"
       }
       totalVehicles += 1; // Increment totalVehicles for each vehicle
@@ -174,7 +174,7 @@ const DataTable: React.FC = () => {
   };
   // Function to open the man modal
   const openManModal = (vehicleId: string) => {
-    setSelectedVehicle({ id: vehicleId, type: 'Toolbox' });
+    setSelectedVehicle({ id: vehicleId, type: "Toolbox" });
     setFormVisibleMan(true); // Open the man modal
   };
 
@@ -218,16 +218,16 @@ const DataTable: React.FC = () => {
 
   const isVideoUrl = (url: string) => {
     // Extract the filename from the URL
-    const fileName = url.split('?')[0].split('/').pop();
+    const fileName = url.split("?")[0].split("/").pop();
 
     if (!fileName) return false; // Return false if filename is not found
 
-    const videoExtensions = ['.mp4', '.webm', '.ogg', '.mov', '.quicktime']; // Video extensions
+    const videoExtensions = [".mp4", ".webm", ".ogg", ".mov", ".quicktime"]; // Video extensions
     return videoExtensions.some((ext) => fileName.toLowerCase().endsWith(ext)); // Check the file extension
   };
 
   // State for search term
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Filter vehicleData by vehicle ID
   const filteredVehicleData = vehicleData.filter((vehicle) =>
@@ -248,11 +248,11 @@ const DataTable: React.FC = () => {
   }
 
   const getBackgroundColor = (percentage: number): string => {
-    if (percentage >= 0 && percentage <= 33) return 'rgb(237, 0, 0)'; // Red
-    if (percentage > 33 && percentage <= 66) return 'rgb(255, 200, 0)'; // Yellow
-    if (percentage > 66 && percentage <= 100) return 'rgb(0, 150, 0)'; // Green
+    if (percentage >= 0 && percentage <= 33) return "rgb(237, 0, 0)"; // Red
+    if (percentage > 33 && percentage <= 66) return "rgb(255, 200, 0)"; // Yellow
+    if (percentage > 66 && percentage <= 100) return "rgb(0, 150, 0)"; // Green
 
-    return ''; // Fallback (if needed)
+    return ""; // Fallback (if needed)
   };
 
   const renderTable = (period: string, rows: RowData[]) => {
@@ -287,26 +287,26 @@ const DataTable: React.FC = () => {
                   <td className="flex items-center justify-between border px-4 py-2 font-bold">
                     {machineTitles[
                       bu
-                        ? bu !== 'srb' && type === 'truck'
-                          ? 'thtruckall'
+                        ? bu !== "srb" && type === "truck"
+                          ? "thtruckall"
                           : [
-                              'srb',
-                              'mkt',
-                              'office',
-                              'lbm',
-                              'rmx',
-                              'iagg',
-                              'ieco',
+                              "srb",
+                              "mkt",
+                              "office",
+                              "lbm",
+                              "rmx",
+                              "iagg",
+                              "ieco",
                             ].includes(bu)
-                          ? 'th' + type
+                          ? "th" + type
                           : bu + type
-                        : ''
+                        : ""
                     ] || type}
 
                     <img
                       src={`/assets/icons/${
-                        bu === 'cmic' && type === 'vehicle'
-                          ? type + 'cmic'
+                        bu === "cmic" && type === "vehicle"
+                          ? type + "cmic"
                           : type
                       }.svg`}
                       alt={type}
@@ -325,7 +325,7 @@ const DataTable: React.FC = () => {
                           siteData &&
                           siteData.inspectedVehicles ===
                             siteData.totalVehicles &&
-                          'opacity-30'
+                          "opacity-30"
                         }`}
                         style={{
                           backgroundColor: siteData
@@ -336,8 +336,8 @@ const DataTable: React.FC = () => {
                                       100
                                   : 0
                               )
-                            : 'transparent',
-                          color: siteData ? 'white' : '#d3d3d3',
+                            : "transparent",
+                          color: siteData ? "white" : "#d3d3d3",
                         }}
                         onClick={() =>
                           handleCardClick(
@@ -348,7 +348,7 @@ const DataTable: React.FC = () => {
                       >
                         {siteData && siteData.totalVehicles > 0 ? (
                           <>
-                            {siteData.inspectedVehicles} /{' '}
+                            {siteData.inspectedVehicles} /{" "}
                             {siteData.totalVehicles} (
                             {(
                               (siteData.inspectedVehicles /
@@ -358,14 +358,14 @@ const DataTable: React.FC = () => {
                             %)
                           </>
                         ) : (
-                          '0'
+                          "0"
                         )}
                         {siteData && siteData.defectVehicles > 0 && (
                           <span
                             className="text-rose-500 font-bold text-xl p-1 rounded bg-rose-100 ml-2 animate-pulse"
                             style={{
-                              border: '2px solid #FF0000',
-                              boxShadow: '0 0 10px rgba(255, 0, 0, 0.6)',
+                              border: "2px solid #FF0000",
+                              boxShadow: "0 0 10px rgba(255, 0, 0, 0.6)",
                             }}
                           >
                             {siteData.defectVehicles}
@@ -434,7 +434,7 @@ const DataTable: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {['daily', 'monthly', 'quarterly', 'annually'].map((period) => {
+            {["daily", "monthly", "quarterly", "annually"].map((period) => {
               const periodTotal = Object.keys(summary).reduce(
                 (sum, site) => sum + (summary[site][period] || 0),
                 0
@@ -453,7 +453,7 @@ const DataTable: React.FC = () => {
                     <td
                       key={site}
                       className={`border px-4 py-2 text-center font-bold ${
-                        summary[site]?.[period] || (0 === 0 && 'text-gray-300')
+                        summary[site]?.[period] || (0 === 0 && "text-gray-300")
                       }`}
                     >
                       {summary[site]?.[period] || 0}
@@ -493,20 +493,20 @@ const DataTable: React.FC = () => {
           <img
             src={`/assets/icons/${
               bu &&
-              ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
+              ["srb", "mkt", "office", "lbm", "rmx", "iagg", "ieco"].includes(
                 bu
               )
-                ? 'th'
+                ? "th"
                 : bu
             }.svg`}
             alt="Flag"
             className="mr-2 md:w-10 md:h-10 w-16 h-16"
           />
           {bu &&
-            ['srb', 'mkt', 'office', 'lbm', 'rmx', 'iagg', 'ieco'].includes(
+            ["srb", "mkt", "office", "lbm", "rmx", "iagg", "ieco"].includes(
               bu
             ) &&
-            bu?.toUpperCase()}{' '}
+            bu?.toUpperCase()}{" "}
           Combined daily, monthly, quarterly, annually
         </h1>
       </header>
@@ -516,8 +516,8 @@ const DataTable: React.FC = () => {
         <span
           className="ml-4 text-rose-500 font-bold text-xl p-1 rounded bg-rose-100"
           style={{
-            border: '2px solid #FF0000', // Red border
-            boxShadow: '0 0 10px rgba(255, 0, 0, 0.6)', // Glowing effect
+            border: "2px solid #FF0000", // Red border
+            boxShadow: "0 0 10px rgba(255, 0, 0, 0.6)", // Glowing effect
           }}
         >
           Defect
@@ -527,33 +527,33 @@ const DataTable: React.FC = () => {
         <div className="flex items-center mr-4">
           <span
             className="w-4 h-4 inline-block mr-2 rounded"
-            style={{ backgroundColor: 'rgb(237, 0, 0)' }}
+            style={{ backgroundColor: "rgb(237, 0, 0)" }}
           ></span>
           <span>0–33%</span>
         </div>
         <div className="flex items-center mr-4">
           <span
             className="w-4 h-4 inline-block mr-2 rounded"
-            style={{ backgroundColor: 'rgb(255, 200, 0)' }}
+            style={{ backgroundColor: "rgb(255, 200, 0)" }}
           ></span>
           <span>34–66%</span>
         </div>
         <div className="flex items-center mr-4">
           <span
             className="w-4 h-4 inline-block mr-2 rounded"
-            style={{ backgroundColor: 'rgb(0, 150, 0)' }}
+            style={{ backgroundColor: "rgb(0, 150, 0)" }}
           ></span>
           <span>67–99%</span>
         </div>
         <div className="flex items-center">
           <span
             className="w-4 h-4 inline-block mr-2 rounded opacity-20"
-            style={{ backgroundColor: 'rgb(0, 150, 0)' }}
+            style={{ backgroundColor: "rgb(0, 150, 0)" }}
           ></span>
           <span>100%</span>
         </div>
       </div>
-      {['daily', 'monthly', 'quarterly', 'annually'].map((period) =>
+      {["daily", "monthly", "quarterly", "annually"].map((period) =>
         renderTable(period, data[period as keyof PeriodData])
       )}
       {renderSummary()}
@@ -565,28 +565,28 @@ const DataTable: React.FC = () => {
         content={
           <>
             <h2 className="text-2xl font-semibold mb-4">
-              Details for{' '}
+              Details for{" "}
               <span className="text-rose-500">
                 {machineTitles[
                   bu
-                    ? bu !== 'srb' && selectedType === 'truck'
-                      ? 'thtruckall'
+                    ? bu !== "srb" && selectedType === "truck"
+                      ? "thtruckall"
                       : [
-                          'srb',
-                          'mkt',
-                          'office',
-                          'lbm',
-                          'rmx',
-                          'iagg',
-                          'ieco',
+                          "srb",
+                          "mkt",
+                          "office",
+                          "lbm",
+                          "rmx",
+                          "iagg",
+                          "ieco",
                         ].includes(bu)
-                      ? 'th' + (selectedType ?? '')
-                      : bu + (selectedType ?? '')
-                    : ''
+                      ? "th" + (selectedType ?? "")
+                      : bu + (selectedType ?? "")
+                    : ""
                 ] ||
                   selectedType ||
-                  'n/a'}
-              </span>{' '}
+                  "n/a"}
+              </span>{" "}
               at {selectedSite?.toUpperCase()}
             </h2>
             {/* Icons for Map and Graph */}
@@ -628,18 +628,18 @@ const DataTable: React.FC = () => {
                 <p className="text-lg">
                   <span className="text-green-500 text-xl">
                     Inspected: {selectedInspection.inspectedVehicles}
-                  </span>{' '}
+                  </span>{" "}
                   | Total: {selectedInspection.totalVehicles}
                 </p>
                 <p className="text-lg mb-4">
                   <span
                     className={`${
                       selectedInspection.defectVehicles !== 0 &&
-                      'text-rose-500 text-xl'
+                      "text-rose-500 text-xl"
                     }`}
                   >
                     Defected: {selectedInspection.defectVehicles}
-                  </span>{' '}
+                  </span>{" "}
                   | Total: {selectedInspection.totalVehicles}
                 </p>
                 <hr />
@@ -647,11 +647,11 @@ const DataTable: React.FC = () => {
                   <p className="text-lg my-4">
                     <span
                       className={`${
-                        openDefected !== 0 && 'text-rose-500 text-xl'
+                        openDefected !== 0 && "text-rose-500 text-xl"
                       }`}
                     >
                       Open Defected: {openDefected}
-                    </span>{' '}
+                    </span>{" "}
                     | Total: {totalVehicles}
                   </p>
                 }
@@ -667,6 +667,7 @@ const DataTable: React.FC = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
+
             {/* Modal display Total and Inspected Vehicles for the selected site and type */}
             <ModalContent
               vehicleData={filteredVehicleData}
@@ -696,7 +697,7 @@ const DataTable: React.FC = () => {
         <ModalFormMan
           bu={bu}
           id={selectedVehicle.id}
-          machine={'Toolbox'}
+          machine={"Toolbox"}
           setFormVisibleMan={setFormVisibleMan}
         />
       )}

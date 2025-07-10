@@ -1,7 +1,7 @@
-import { storage } from '@/firebase/config';
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { storage } from "@/firebase/config";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const useStorage = () => {
   const [progress, setProgress] = useState<number>(0);
@@ -11,19 +11,19 @@ const useStorage = () => {
   const startUpload = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
       if (!file) {
-        reject(new Error('No file provided'));
+        reject(new Error("No file provided"));
         return;
       }
 
       const fileId = uuidv4();
-      const formatFile = file.type.split('/')[1];
+      const formatFile = file.type.split("/")[1];
       console.log(fileId);
 
-      const storageRef = ref(storage, `SCCVN20250315/${fileId}.${formatFile}`);
+      const storageRef = ref(storage, `Photo20250710/${fileId}.${formatFile}`);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
       uploadTask.on(
-        'state_changed',
+        "state_changed",
         (snapshot) => {
           // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
           const progress =

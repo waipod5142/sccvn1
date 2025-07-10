@@ -39,7 +39,6 @@ const Main = () => {
   const { bu, method, id } = useParams();
   const [data, setData] = useState<Machine | null>(null);
   const [dataNotFound, setDataNotFound] = useState(false);
-
   useEffect(() => {
     const fetchData = async () => {
       if (id) {
