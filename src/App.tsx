@@ -8,6 +8,7 @@ import Machine_Dashboard from "@/_root/pages/Machine_Dashboard";
 import Machine_Dashboard_Subdivision from "@/_root/pages/Machine_Dashboard_Subdivision";
 import DashboardTotalAll from "@/_root/pages/Machine_DashboardTotalAll";
 import DashboardTotal from "@/_root/pages/Machine_DashboardTotal";
+import DashboardMethodTotal from "@/_root/pages/Method_DashboardTotal";
 import DashboardDefect from "@/_root/pages/Machine_DashboardDefect";
 import DashboardTotalByOwner from "@/_root/pages/Machine_DashboardTotalByOwner";
 // import DashboardAlert from '@/_root/pages/Man_DashboardAlert';
@@ -123,6 +124,7 @@ const App = () => {
             element={<DashboardActivityMan />}
           />
           <Route path="/DashboardTotal/:bu" element={<DashboardTotal />} />
+          <Route path="/DashboardMethodTotal/:bu" element={<DashboardMethodTotal />} />
           <Route path="/DashboardDefect/:bu" element={<DashboardDefect />} />
           <Route
             path="/DashboardTotalByOwner/:bu"

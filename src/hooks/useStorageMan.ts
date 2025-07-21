@@ -6,6 +6,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid"; // To generate unique IDs for files
+import { resizeImage, ImageResizeOptions } from "@/utils/imageUtils";
 
 const useStorage = () => {
   const [progress, setProgress] = useState<number>(0);
@@ -14,19 +15,22 @@ const useStorage = () => {
   const [filePath, setFilePath] = useState<string | null>(null); // Store the file path
 
   const startUpload = (
-    file: File
+    file: File,
+    resizeOptions?: ImageResizeOptions
   ): Promise<{ url: string; filePath: string }> => {
     return new Promise((resolve, reject) => {
-      const storage = getStorage(); // Initialize Firebase storage
-      const fileId = uuidv4(); // Generate a unique ID for the file
-      const fileExtension = file.type.split("/")[1]; // Extract the file extension (e.g., jpg, png)
+      resizeImage(file, resizeOptions)
+        .then((processedFile) => {
+          const storage = getStorage(); // Initialize Firebase storage
+          const fileId = uuidv4(); // Generate a unique ID for the file
+          const fileExtension = processedFile.type.split("/")[1]; // Extract the file extension (e.g., jpg, png)
 
-      // Customize the storage path
-      const storagePath = `ManImage20250710//${fileId}.${fileExtension}`; // Store file under specific folder structure
-      const storageRef = ref(storage, storagePath); // Create a reference to the storage location
+          // Customize the storage path
+          const storagePath = `ManImage20250710//${fileId}.${fileExtension}`; // Store file under specific folder structure
+          const storageRef = ref(storage, storagePath); // Create a reference to the storage location
 
-      // Start the upload process
-      const uploadTask = uploadBytesResumable(storageRef, file);
+          // Start the upload process
+          const uploadTask = uploadBytesResumable(storageRef, processedFile);
 
       uploadTask.on(
         "state_changed",
@@ -54,6 +58,11 @@ const useStorage = () => {
           }
         }
       );
+        })
+        .catch((error) => {
+          setError((error as Error).message);
+          reject(error);
+        });
     });
   };
 

@@ -1,11 +1,10 @@
 export const questions = [
   {
     id: 1,
-    name: 'ppe',
+    name: 'PPE',
     question: 'หมวกนิรภัย/รองเท้านิรภัย/เสื้อสะท้อนแสง',
     howto: 'สายตา / ประเมิน',
-    accept:
-      'หมวกนิรภัยมีสายรัดคาง/รองเท้าไม่ขาดชำรุด/เสื้อต้องมีแถบสะถ้อนแสง20%ของเสื้อทั้งด้านหน้าและหลังมองเห็นได้ชันเจน',
+    accept: 'หมวกนิรภัยมีสายรัดคาง/รองเท้าไม่ขาดชำรุด/เสื้อต้องมีแถบสะท้อนแสง 20% ของเสื้อทั้งด้านหน้าและหลัง มองเห็นได้ชัดเจน',
   },
   {
     id: 2,
@@ -26,8 +25,7 @@ export const questions = [
     name: 'brake',
     question: 'เบรคเท้า/เบรคมือ',
     howto: 'เหยียบเบรกเท้า / ดึงเบรกมือ',
-    accept:
-      'เบรกเหยียบแล้วไม่ค้างไม่จม ยกเบรกแล้วแป้นเบรกคืนกลับมาตามปกติ/เบรกมือมีเสียงเมื่อทำงาน',
+    accept: 'เบรกเหยียบแล้วไม่ค้างไม่จม ยกเบรกแล้วแป้นเบรกคืนกลับมาตามปกติ / เบรกมือมีเสียงเมื่อทำงาน',
   },
   {
     id: 5,
@@ -48,31 +46,28 @@ export const questions = [
     name: 'horn',
     question: 'สัญญาณแตร',
     howto: 'ฟังเสียง',
-    accept: 'แตรมีเสียงเมื่อกด/ไม่ใช้แตรลม',
+    accept: 'แตรมีเสียงเมื่อกด / ไม่ใช้แตรลม',
   },
   {
     id: 8,
     name: 'sideMirror',
     question: 'กระจกรอบรถ/มองข้าง',
     howto: 'สายตา',
-    accept:
-      'มองกระจกโดยรอบ/กระจกใสไม่มีคราบสกปรก/ม่านบังแดดหรือสติ๊กเตอร์ไม่บดบังทรรศนวิสัย',
+    accept: 'มองกระจกโดยรอบ / กระจกใสไม่มีคราบสกปรก / ม่านบังแดดหรือสติ๊กเกอร์ไม่บดบังทัศนวิสัย',
   },
   {
     id: 9,
     name: 'oil',
     question: 'ระดับเชื้อเพลิง',
     howto: 'สายตา / ประเมิน',
-    accept:
-      'ตรวจสอบไฟเตือนน้ำมัน และแก๊ส เกจน้ำมัน/แก๊สใช้งานได้ และระดับที่เพียงพอ',
+    accept: 'ตรวจสอบไฟเตือนน้ำมัน และแก๊ส เกจน้ำมัน / แก๊สใช้งานได้ และมีระดับที่เพียงพอ',
   },
   {
     id: 10,
     name: 'firstAid',
     question: 'ชุดปฐมพยาบาล',
     howto: 'สายตา / ประเมิน',
-    accept:
-      'ตรวจสอบจำนวนและวันหมดอายุ/ยาและอุปกรณ์ปฐมพยาบาลไม่หมดอายุมีครบเพียงพอต่อการปฐมพยาบาล',
+    accept: 'ตรวจสอบจำนวนและวันหมดอายุ / ยาและอุปกรณ์ปฐมพยาบาลไม่หมดอายุ มีครบเพียงพอต่อการใช้งาน',
   },
   {
     id: 11,
@@ -86,39 +81,35 @@ export const questions = [
     name: 'backSilent',
     question: 'เสียงถอยหลัง / ไฟถอย',
     howto: 'สายตา / ฟังเสียง',
-    accept: 'ไฟถอยติดสว่างชัดเจน/มีเสียงสัญญานเตือนถอยหลังดังขณะใส่เกียร์ถอย',
+    accept: 'ไฟถอยติดสว่างชัดเจน / มีเสียงสัญญาณเตือนถอยหลังดังขณะเข้าเกียร์ถอย',
   },
   {
     id: 13,
     name: 'wheel',
     question: 'ล้อและยาง',
     howto: 'สายตา / ประเมิน',
-    accept:
-      'ดอกยางไม่บวมไม่มีรอยปริแตกที่แก้มยาง ร่องยางลึกไม่น้อยกว่า2มม./มีน๊อตล้อครบ',
+    accept: 'ดอกยางไม่บวม ไม่มีรอยปริแตกที่แก้มยาง ร่องยางลึกไม่น้อยกว่า 2 มม. / มีน็อตล้อครบ',
   },
   {
     id: 14,
     name: 'spareTire',
     question: 'ยางอะไหล่/ขอนรองล้อ',
     howto: 'สายตา / ประเมิน',
-    accept:
-      'มียางอะไหล่/มีขอนรองล้อมีขนาดอย่างน้อย6นิ้วสภาพสมบูรณ์อย่างน้อย2อัน รถพ่วง4อัน',
+    accept: 'มียางอะไหล่ / มีขอนรองล้อขนาดอย่างน้อย 6 นิ้ว สภาพสมบูรณ์ อย่างน้อย 2 อัน รถพ่วง 4 อัน',
   },
   {
     id: 15,
-    name: 'fireExtinguisher ',
-    question: 'ถังดับเพลิง(15ปอนด์)',
+    name: 'fireExtinguisher',
+    question: 'ถังดับเพลิง (15 ปอนด์)',
     howto: 'สายตา / ประเมิน',
-    accept:
-      'เกจวัดแรงดันอยู่ในช่องสีเขียวสภาพถังพร้อมใช้งานขนาดไม่ต่ำกว่า15ปอนด์',
+    accept: 'เกจวัดแรงดันอยู่ในช่องสีเขียว สภาพถังพร้อมใช้งาน ขนาดไม่ต่ำกว่า 15 ปอนด์',
   },
   {
     id: 16,
     name: 'trafficCone',
     question: 'กรวยจราจรหรือป้ายสามเหลี่ยม',
     howto: 'สายตา / ประเมิน',
-    accept:
-      'กรวยจราจรมีความสูงไม่ต่ำกว่า50ซม.ไม่สกปรกแถบสะท้อนแสงสามารถมองเห็นได้',
+    accept: 'กรวยจราจรมีความสูงไม่ต่ำกว่า 50 ซม. ไม่สกปรก แถบสะท้อนแสงสามารถมองเห็นได้',
   },
   {
     id: 17,
@@ -132,155 +123,193 @@ export const questions = [
     name: 'clean',
     question: 'ความสะอาดของกระบะรถ',
     howto: 'สายตา / ประเมิน',
-    accept:
-      'สะอาดไม่มีสิ่งปนเปื้อน กระบะรถไม่ผุกร่อนไม่เปียกไม่มีสิ่งที่อาจทาให้ถุงปูนแตกได้',
+    accept: 'สะอาดไม่มีสิ่งปนเปื้อน กระบะรถไม่ผุกร่อน ไม่เปียก ไม่มีสิ่งที่อาจทำให้ถุงปูนแตกได้',
   },
   {
     id: 19,
     name: 'strap',
     question: 'ผ้าใบสายรัด',
     howto: 'สายตา / สัมผัส / ประเมิน',
-    accept:
-      'ผ้าใบสะอาดไม่เปียกขาดที่ส่งผลต่อสินค้าได้/สายรัดผ้าใบมีความแข็งแรงไม่ขาดหลุดรุ่ยที่อาจทาให้เกิดอุบัติเหตุขณะดึงสายรัด',
+    accept: 'ผ้าใบสะอาดไม่เปียกขาดที่ส่งผลต่อสินค้า / สายรัดผ้าใบแข็งแรง ไม่ขาดหลุดรุ่ยที่อาจทำให้เกิดอุบัติเหตุขณะใช้งาน',
   },
   {
     id: 20,
     name: 'bolt',
-    question: 'หน้าวัวหรือก้ามปู Pinที่ยึด(เทรเลอร์)',
+    question: 'หน้าวัวหรือก้ามปู Pin ที่ยึด (เทรเลอร์)',
     howto: 'สายตา / ประเมิน',
-    accept: 'Pinยึดไม่สึกไม่หลวมคลอน ยึดได้สนิท',
+    accept: 'Pin ยึดไม่สึก ไม่หลวมคลอน ยึดได้สนิท',
   },
   {
     id: 21,
     name: 'pin',
-    question: 'สลักยึด และข้อต่อแม่-ลูก (รถพ่วง)',
+    question: 'สลักยึด และข้อต่อแม่-ลูก (รถพ่วง)',
     howto: 'สายตา / ประเมิน',
-    accept: 'ไม่สึกไม่หลวมคลอน',
+    accept: 'ไม่สึก ไม่หลวมคลอน',
   },
   {
     id: 22,
     name: 'tailgate',
     question: 'ตัวล็อคฝาท้ายปากนกแก้ว',
     howto: 'สายตา / ประเมิน',
-    accept: 'ทำงานได้ปกติล็อดฝาท้ายได้แน่นหนา',
+    accept: 'ทำงานได้ปกติ ล็อคฝาท้ายได้แน่นหนา',
+  },
+  {
+    id: 23,
+    name: 'truckCamera',
+    question: 'กล้องหน้ารถ',
+    howto: 'เปิดดูไฟล์วีดีโอย้อนหลังจากเครื่องบันทึก',
+    accept: 'มีไฟล์วีดีโอบันทึกไว้ตลอดเวลา',
   },
 ];
 
+// Convert questions array to detailFields format
 export const detailFields = [
+  // Header fields
   { field: 'id', label: 'ID' },
   { field: 'date', label: 'วันที่ - Date' },
   { field: 'inspector', label: 'ผู้ตรวจสอบ - Inspector' },
   { field: 'responder', label: 'Responder' },
+  
+  // Generated from questions array
   { field: 'ppe', label: '1 หมวกนิรภัย/รองเท้านิรภัย/เสื้อสะท้อนแสง' },
   { field: 'ppeR', label: '' },
   { field: 'ppeP', label: '' },
   { field: 'ppeA', label: 'Respond to defect' },
   { field: 'ppeF', label: '' },
+  
   { field: 'engine', label: '2 เครื่องยนต์' },
   { field: 'engineR', label: '' },
   { field: 'engineP', label: '' },
   { field: 'engineA', label: 'Respond to defect' },
   { field: 'engineF', label: '' },
+  
   { field: 'meter', label: '3 มาตรวัด / ไฟเตือนหน้าปัด' },
   { field: 'meterR', label: '' },
   { field: 'meterP', label: '' },
   { field: 'meterA', label: 'Respond to defect' },
   { field: 'meterF', label: '' },
+  
   { field: 'brake', label: '4 เบรคเท้า/เบรคมือ' },
   { field: 'brakeR', label: '' },
   { field: 'brakeP', label: '' },
   { field: 'brakeA', label: 'Respond to defect' },
   { field: 'brakeF', label: '' },
+  
   { field: 'safetyBelt', label: '5 เข็มขัดนิรภัย' },
   { field: 'safetyBeltR', label: '' },
   { field: 'safetyBeltP', label: '' },
   { field: 'safetyBeltA', label: 'Respond to defect' },
   { field: 'safetyBeltF', label: '' },
+  
   { field: 'wiper', label: '6 ที่ปัดน้ำฝน/น้ำฉีดกระจก' },
   { field: 'wiperR', label: '' },
   { field: 'wiperP', label: '' },
   { field: 'wiperA', label: 'Respond to defect' },
   { field: 'wiperF', label: '' },
+  
   { field: 'horn', label: '7 สัญญาณแตร' },
   { field: 'hornR', label: '' },
   { field: 'hornP', label: '' },
   { field: 'hornA', label: 'Respond to defect' },
   { field: 'hornF', label: '' },
+  
   { field: 'sideMirror', label: '8 กระจกรอบรถ/มองข้าง' },
   { field: 'sideMirrorR', label: '' },
   { field: 'sideMirrorP', label: '' },
   { field: 'sideMirrorA', label: 'Respond to defect' },
   { field: 'sideMirrorF', label: '' },
+  
   { field: 'oil', label: '9 ระดับเชื้อเพลิง' },
   { field: 'oilR', label: '' },
   { field: 'oilP', label: '' },
   { field: 'oilA', label: 'Respond to defect' },
   { field: 'oilF', label: '' },
+  
   { field: 'firstAid', label: '10 ชุดปฐมพยาบาล' },
   { field: 'firstAidR', label: '' },
   { field: 'firstAidP', label: '' },
   { field: 'firstAidA', label: 'Respond to defect' },
   { field: 'firstAidF', label: '' },
+  
   { field: 'light', label: '11 ไฟส่องสว่างทั้งหมด' },
   { field: 'lightR', label: '' },
   { field: 'lightP', label: '' },
   { field: 'lightA', label: 'Respond to defect' },
   { field: 'lightF', label: '' },
+  
   { field: 'backSilent', label: '12 เสียงถอยหลัง / ไฟถอย' },
   { field: 'backSilentR', label: '' },
   { field: 'backSilentP', label: '' },
   { field: 'backSilentA', label: 'Respond to defect' },
   { field: 'backSilentF', label: '' },
+  
   { field: 'wheel', label: '13 ล้อและยาง' },
   { field: 'wheelR', label: '' },
   { field: 'wheelP', label: '' },
   { field: 'wheelA', label: 'Respond to defect' },
   { field: 'wheelF', label: '' },
+  
   { field: 'spareTire', label: '14 ยางอะไหล่/ขอนรองล้อ' },
   { field: 'spareTireR', label: '' },
   { field: 'spareTireP', label: '' },
   { field: 'spareTireA', label: 'Respond to defect' },
   { field: 'spareTireF', label: '' },
+  
   { field: 'fireExtinguisher', label: '15 ถังดับเพลิง(15ปอนด์)' },
   { field: 'fireExtinguisherR', label: '' },
   { field: 'fireExtinguisherP', label: '' },
   { field: 'fireExtinguisherA', label: 'Respond to defect' },
   { field: 'fireExtinguisherF', label: '' },
+  
   { field: 'trafficCone', label: '16 กรวยจราจรหรือป้ายสามเหลี่ยม' },
   { field: 'trafficConeR', label: '' },
   { field: 'trafficConeP', label: '' },
   { field: 'trafficConeA', label: 'Respond to defect' },
   { field: 'trafficConeF', label: '' },
+  
   { field: 'airBrake', label: '17 หม้อลมเบรค' },
   { field: 'airBrakeR', label: '' },
   { field: 'airBrakeP', label: '' },
   { field: 'airBrakeA', label: 'Respond to defect' },
   { field: 'airBrakeF', label: '' },
+  
   { field: 'clean', label: '18 ความสะอาดของกระบะรถ' },
   { field: 'cleanR', label: '' },
   { field: 'cleanP', label: '' },
   { field: 'cleanA', label: 'Respond to defect' },
   { field: 'cleanF', label: '' },
+  
   { field: 'strap', label: '19 ผ้าใบสายรัด' },
   { field: 'strapR', label: '' },
   { field: 'strapP', label: '' },
   { field: 'strapA', label: 'Respond to defect' },
   { field: 'strapF', label: '' },
+  
   { field: 'bolt', label: '20 หน้าวัวหรือก้ามปู Pinที่ยึด(เทรเลอร์)' },
   { field: 'boltR', label: '' },
   { field: 'boltP', label: '' },
   { field: 'boltA', label: 'Respond to defect' },
   { field: 'boltF', label: '' },
+  
   { field: 'pin', label: '21 สลักยึด และข้อต่อแม่-ลูก (รถพ่วง)' },
   { field: 'pinR', label: '' },
   { field: 'pinP', label: '' },
   { field: 'pinA', label: 'Respond to defect' },
   { field: 'pinF', label: '' },
+  
   { field: 'tailgate', label: '22 ตัวล็อคฝาท้ายปากนกแก้ว' },
   { field: 'tailgateR', label: '' },
   { field: 'tailgateP', label: '' },
   { field: 'tailgateA', label: 'Respond to defect' },
   { field: 'tailgateF', label: '' },
+  
+  { field: 'truckCamera', label: '23 กล้องหน้ารถ' },
+  { field: 'truckCameraR', label: '' },
+  { field: 'truckCameraP', label: '' },
+  { field: 'truckCameraA', label: 'Respond to defect' },
+  { field: 'truckCameraF', label: '' },
+  
+  // Footer fields
   { field: 'remark', label: 'หมายเหตุ Remark' },
   { field: 'lat', label: '' },
   { field: 'url', label: '' },

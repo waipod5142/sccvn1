@@ -14,6 +14,7 @@ export const links = [
           { name: 'Boot, RA for Email', link: '/DashboardActivityEmail/vn' },
           { name: 'Boot, RA', link: '/DashboardActivity/vn' },
           { name: 'Boot, RA by individual', link: '/DashboardActivityMan/vn' },
+          { name: 'Dashboard', link: '/DashboardMethodTotal/vn' },
         ],
       },
       {

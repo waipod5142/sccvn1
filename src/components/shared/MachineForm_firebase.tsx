@@ -28,6 +28,9 @@ import {
 } from "@/lib/translation";
 import RadioButtonGroup from "@/uti/RadioButtonGroup";
 import { Camera } from "lucide-react";
+import { db, auth } from "@/firebase/config";
+import { collection, addDoc } from "firebase/firestore";
+import { signInAnonymously } from "firebase/auth";
 
 interface FillingProps {
   bu?: string;
@@ -50,6 +53,43 @@ interface AdditionalFields {
 interface FormData extends FieldValues {
   items: MachineItem[];
   additionalFields?: AdditionalFields;
+}
+
+async function addDataToFireStore(object: FormData) {
+  try {
+    // Authenticate anonymously if not already authenticated
+    if (!auth.currentUser) {
+      await signInAnonymously(auth);
+    }
+
+    // Apply the same BU transformation logic used throughout the component
+    const originalBu = object.bu || "unknown";
+    const bu = ["srb", "mkt", "office", "lbm", "rmx", "iagg", "ieco"].includes(
+      originalBu
+    )
+      ? "th"
+      : originalBu;
+    const type = object.type || "general";
+
+    // Sanitize for Firestore naming rules (remove spaces, special chars, keep alphanumeric and hyphens)
+    const sanitizedBu = bu
+      .toString()
+      .replace(/[^a-zA-Z0-9-_]/g, "")
+      .toLowerCase();
+    const sanitizedType = type
+      .toString()
+      .replace(/[^a-zA-Z0-9-_]/g, "")
+      .toLowerCase();
+
+    const collectionName = `${sanitizedBu}_${sanitizedType}`;
+
+    const docRef = await addDoc(collection(db, collectionName), object);
+    console.log("Document written with ID: ", docRef.id);
+    return true;
+  } catch (error) {
+    console.error("Error adding document ", error);
+    return false;
+  }
 }
 
 const Filling: React.FC<FillingProps> = ({
@@ -136,7 +176,7 @@ const Filling: React.FC<FillingProps> = ({
       ...formData,
       ...selectedValues,
       bu,
-      type: machine.toLocaleLowerCase(),
+      type: machine.toLowerCase(),
       id,
       lat: location.coordinates.lat,
       lng: location.coordinates.lng,
@@ -153,7 +193,12 @@ const Filling: React.FC<FillingProps> = ({
       const res = await axios.post(endpoint, updatedData, {
         headers: { "Content-type": "application/json" },
       });
+
+      // Remove file field before sending to Firestore as it contains FileList object
+      const { file, ...dataForFirestore } = updatedData;
+      const added = await addDataToFireStore(dataForFirestore);
       if (res.status === 200) {
+        console.log(added);
         window.location.reload();
       } else {
         throw new Error("Failed to create a topic");

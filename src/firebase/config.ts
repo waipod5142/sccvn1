@@ -1,5 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
+import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   //INSEESAFETYAPP
@@ -77,5 +79,7 @@ const app = initializeApp(firebaseConfig);
 
 // Initialize Cloud Storage and get a reference to the service
 const storage = getStorage(app);
+const db = getFirestore(app);
+const auth = getAuth(app);
 
-export { storage };
+export { storage, db, auth };
