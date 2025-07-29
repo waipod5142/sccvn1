@@ -28,9 +28,6 @@ import {
 } from "@/lib/translation";
 import RadioButtonGroup from "@/uti/RadioButtonGroup";
 import { Camera } from "lucide-react";
-import { db, auth } from "@/firebase/config";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { signInAnonymously } from "firebase/auth";
 
 interface FillingProps {
   bu?: string;
@@ -53,24 +50,6 @@ interface AdditionalFields {
 interface FormData extends FieldValues {
   items: MachineItem[];
   additionalFields?: AdditionalFields;
-}
-
-async function addDataToFireStore(object: FormData) {
-  try {
-    // Authenticate anonymously if not already authenticated
-    if (!auth.currentUser) {
-      await signInAnonymously(auth);
-    }
-
-    const collectionName = "machinetr";
-
-    const docRef = await addDoc(collection(db, collectionName), object);
-    console.log("Document written with ID: ", docRef.id);
-    return true;
-  } catch (error) {
-    console.error("Error adding document ", error);
-    return false;
-  }
 }
 
 const Filling: React.FC<FillingProps> = ({
@@ -157,7 +136,7 @@ const Filling: React.FC<FillingProps> = ({
       ...formData,
       ...selectedValues,
       bu,
-      type: machine.toLowerCase(),
+      type: machine.toLocaleLowerCase(),
       id,
       lat: location.coordinates.lat,
       lng: location.coordinates.lng,
@@ -174,53 +153,7 @@ const Filling: React.FC<FillingProps> = ({
       const res = await axios.post(endpoint, updatedData, {
         headers: { "Content-type": "application/json" },
       });
-
-      // Remove file field before sending to Firestore as it contains FileList object
-      const { lat, lng, ...dataWithoutLatLng } = updatedData as any;
-      
-      // Transform values: Pass -> pass, NotPass -> fail, N/A -> na
-      // Transform url to images array, P-suffix and F-suffix keys to arrays
-      const transformValues = (obj: any): any => {
-        const transformed = { ...obj };
-        Object.keys(transformed).forEach(key => {
-          // Transform Pass/NotPass/N/A values
-          if (transformed[key] === "Pass") {
-            transformed[key] = "pass";
-          } else if (transformed[key] === "NotPass") {
-            transformed[key] = "fail";
-          } else if (transformed[key] === "N/A") {
-            transformed[key] = "na";
-          }
-          
-          // Transform string values to arrays for specific keys
-          if (typeof transformed[key] === "string") {
-            // Transform url key to images array
-            if (key === "url") {
-              transformed["images"] = [transformed[key]];
-              delete transformed[key];
-            }
-            // Transform keys ending with P or F to arrays
-            else if (key.endsWith("P") || key.endsWith("F")) {
-              transformed[key] = [transformed[key]];
-            }
-          }
-        });
-        return transformed;
-      };
-
-      const updatedDataWithConvertedBu = transformValues({
-        ...dataWithoutLatLng,
-        bu: ["srb", "mkt", "office", "lbm", "rmx", "iagg", "ieco"].includes(updatedData.bu) ? "th" : updatedData.bu,
-        latitude: lat,
-        longitude: lng,
-        timestamp: serverTimestamp(),
-        createdAt: serverTimestamp()
-      });
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
-      const { file, ...dataForFirestore } = updatedDataWithConvertedBu as any;
-      const added = await addDataToFireStore(dataForFirestore);
       if (res.status === 200) {
-        console.log(added);
         window.location.reload();
       } else {
         throw new Error("Failed to create a topic");

@@ -1,5 +1,4 @@
 export const questions = [
-  // Full body harness, Safety belt / Dây an toàn toàn thân, Đai an toàn
   {
     id: 1,
     name: 'harnessHardwareInspection',
@@ -79,8 +78,6 @@ export const questions = [
     howto: 'Kiểm tra tất cả các nhãn nhận dạng và cảnh báo trên thiết bị.',
     accept: 'Tất cả nhãn nhận dạng và cảnh báo có đầy đủ.'
   },
-
-  // Fall restraint/Fall arrester, Lifeline / Dây hãm rơi/Hộp bắt rơi, Dây cứu sinh
   {
     id: 12,
     name: 'lifelineHardware',

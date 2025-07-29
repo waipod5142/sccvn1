@@ -5,13 +5,22 @@ import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   //INSEESAFETYAPP
-  apiKey: "AIzaSyCbLOLR4KqlWaGOfvZesdVVgFzlyDluPkI",
+  // apiKey: "AIzaSyCbLOLR4KqlWaGOfvZesdVVgFzlyDluPkI",
+  // authDomain: "sccc-inseesafety-prod.firebaseapp.com",
+  // projectId: "sccc-inseesafety-prod",
+  // storageBucket: "sccc-inseesafety-prod.firebasestorage.app",
+  // messagingSenderId: "874085997493",
+  // appId: "1:874085997493:web:5156272fd22b224b5097fc",
+  // measurementId: "G-KZT8MZC6MB",
+
+  apiKey: "AIzaSyDOi9vLxu7CeOtoT1Q-Z5Hq3m4ajmfXYL0",
   authDomain: "sccc-inseesafety-prod.firebaseapp.com",
   projectId: "sccc-inseesafety-prod",
   storageBucket: "sccc-inseesafety-prod.firebasestorage.app",
   messagingSenderId: "874085997493",
-  appId: "1:874085997493:web:5156272fd22b224b5097fc",
-  measurementId: "G-KZT8MZC6MB",
+  appId: "1:874085997493:web:280caa4e438035005097fc",
+  measurementId: "G-52XL7ZNC27",
+
 
   //scco5142@gmail.com
   // apiKey: 'AIzaSyByR6vpXZs1A01EW2L1y03xJtFtRtCH5mc',

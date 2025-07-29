@@ -29,7 +29,7 @@ import {
 import RadioButtonGroup from "@/uti/RadioButtonGroup";
 import { Camera } from "lucide-react";
 import { db, auth } from "@/firebase/config";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { signInAnonymously } from "firebase/auth";
 
 interface FillingProps {
@@ -62,26 +62,7 @@ async function addDataToFireStore(object: FormData) {
       await signInAnonymously(auth);
     }
 
-    // Apply the same BU transformation logic used throughout the component
-    const originalBu = object.bu || "unknown";
-    const bu = ["srb", "mkt", "office", "lbm", "rmx", "iagg", "ieco"].includes(
-      originalBu
-    )
-      ? "th"
-      : originalBu;
-    const type = object.type || "general";
-
-    // Sanitize for Firestore naming rules (remove spaces, special chars, keep alphanumeric and hyphens)
-    const sanitizedBu = bu
-      .toString()
-      .replace(/[^a-zA-Z0-9-_]/g, "")
-      .toLowerCase();
-    const sanitizedType = type
-      .toString()
-      .replace(/[^a-zA-Z0-9-_]/g, "")
-      .toLowerCase();
-
-    const collectionName = `${sanitizedBu}_${sanitizedType}`;
+    const collectionName = "machinetr";
 
     const docRef = await addDoc(collection(db, collectionName), object);
     console.log("Document written with ID: ", docRef.id);
@@ -195,7 +176,48 @@ const Filling: React.FC<FillingProps> = ({
       });
 
       // Remove file field before sending to Firestore as it contains FileList object
-      const { file, ...dataForFirestore } = updatedData;
+      const { lat, lng, ...dataWithoutLatLng } = updatedData as any;
+      
+      // Transform values: Pass -> pass, NotPass -> fail, N/A -> na
+      // Transform url to images array, P-suffix and F-suffix keys to arrays
+      const transformValues = (obj: any): any => {
+        const transformed = { ...obj };
+        Object.keys(transformed).forEach(key => {
+          // Transform Pass/NotPass/N/A values
+          if (transformed[key] === "Pass") {
+            transformed[key] = "pass";
+          } else if (transformed[key] === "NotPass") {
+            transformed[key] = "fail";
+          } else if (transformed[key] === "N/A") {
+            transformed[key] = "na";
+          }
+          
+          // Transform string values to arrays for specific keys
+          if (typeof transformed[key] === "string") {
+            // Transform url key to images array
+            if (key === "url") {
+              transformed["images"] = [transformed[key]];
+              delete transformed[key];
+            }
+            // Transform keys ending with P or F to arrays
+            else if (key.endsWith("P") || key.endsWith("F")) {
+              transformed[key] = [transformed[key]];
+            }
+          }
+        });
+        return transformed;
+      };
+
+      const updatedDataWithConvertedBu = transformValues({
+        ...dataWithoutLatLng,
+        bu: ["srb", "mkt", "office", "lbm", "rmx", "iagg", "ieco"].includes(updatedData.bu) ? "th" : updatedData.bu,
+        latitude: lat,
+        longitude: lng,
+        timestamp: serverTimestamp(),
+        createdAt: serverTimestamp()
+      });
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+      const { file, ...dataForFirestore } = updatedDataWithConvertedBu as any;
       const added = await addDataToFireStore(dataForFirestore);
       if (res.status === 200) {
         console.log(added);
